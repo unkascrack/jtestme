@@ -17,7 +17,7 @@ public class JTestMeResult implements Serializable {
     private Map<String, String> parameters = new HashMap<String, String>();
     private boolean suscess = false;
     private String message;
-    private Date time;
+    private Date time = new Date();
 
     public String getType() {
         return type;
@@ -28,7 +28,7 @@ public class JTestMeResult implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return name != null ? name : "";
     }
 
     public void setName(final String name) {
@@ -36,7 +36,7 @@ public class JTestMeResult implements Serializable {
     }
 
     public String getDescription() {
-        return description;
+        return description != null ? description : "";
     }
 
     public void setDescription(final String description) {
@@ -44,7 +44,7 @@ public class JTestMeResult implements Serializable {
     }
 
     public String getResolution() {
-        return resolution;
+        return resolution != null ? resolution : "";
     }
 
     public void setResolution(final String resolution) {
@@ -53,6 +53,10 @@ public class JTestMeResult implements Serializable {
 
     public boolean isOptional() {
         return optional;
+    }
+
+    public String getOptionalString() {
+        return Boolean.toString(optional);
     }
 
     public void setOptional(final boolean optional) {
@@ -84,7 +88,7 @@ public class JTestMeResult implements Serializable {
     }
 
     public String getMessage() {
-        return message;
+        return message != null ? message : "";
     }
 
     public void setMessage(final String message) {
@@ -102,15 +106,13 @@ public class JTestMeResult implements Serializable {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("type: ").append(type).append(", ");
-        sb.append("name: ").append(name).append(", ");
-        sb.append("description: ").append(description).append(", ");
-        sb.append("optional: ").append(optional).append(", ");
-        sb.append("suscess: ").append(suscess).append(", ");
-        sb.append("message: ").append(message).append(", ");
-        if (!isSuscess()) {
-            sb.append("resolution: ").append(resolution).append(", ");
-        }
+        sb.append("type: ").append(getType()).append(", ");
+        sb.append("name: ").append(getName()).append(", ");
+        sb.append("description: ").append(getDescription()).append(", ");
+        sb.append("optional: ").append(getOptionalString()).append(", ");
+        sb.append("suscess: ").append(isSuscess()).append(", ");
+        sb.append("message: ").append(getMessage()).append(", ");
+        sb.append("resolution: ").append(resolution).append(", ");
         sb.append("time: ").append(time).append(", ");
         sb.append("parameters: ").append(parameters);
         return sb.toString();
