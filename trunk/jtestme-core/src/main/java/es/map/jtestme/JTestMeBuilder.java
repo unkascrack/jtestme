@@ -4,16 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.logging.Logger;
 
 import es.map.jtestme.config.JTestMeConfiguration;
 import es.map.jtestme.domain.JTestMeResult;
 import es.map.jtestme.executors.JTestMeExecutor;
 import es.map.jtestme.executors.JTestMeExecutorFactory;
+import es.map.jtestme.logger.JTestMeLogger;
 
 public class JTestMeBuilder {
-
-    private static final Logger logger = Logger.getAnonymousLogger();
 
     private static final JTestMeBuilder INSTANCE = new JTestMeBuilder();
     private static final List<JTestMeExecutor> executors = new ArrayList<JTestMeExecutor>();
@@ -71,7 +69,7 @@ public class JTestMeBuilder {
             try {
                 results.add(executor.executeTestMe());
             } catch (final Throwable e) {
-                logger.severe("JTestMeBuilder loading executor '" + executor.getName() + "': " + e.getMessage());
+                JTestMeLogger.warn("JTestMeBuilder loading executor '" + executor.getName() + "': " + e.getMessage());
             }
         }
         return results;
