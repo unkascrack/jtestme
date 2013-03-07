@@ -35,20 +35,14 @@ public class JTestMeBuilder {
      * @return
      */
     public void loadExecutors(final String configLocation) {
-        if (executors.isEmpty()) {
-            synchronized (executors) {
-                if (executors.isEmpty()) {
-                    final JTestMeConfiguration configuration = JTestMeConfiguration.getInstance();
-                    final Map<String, Map<String, String>> params = configuration.loadConfiguration(configLocation);
-                    if (!params.isEmpty()) {
-                        final JTestMeExecutorFactory executorFactory = JTestMeExecutorFactory.getInstance();
-                        for (final Entry<String, Map<String, String>> entry : params.entrySet()) {
-                            final String name = entry.getKey();
-                            final Map<String, String> properties = entry.getValue();
-                            executors.add(executorFactory.loadExecutor(name, properties));
-                        }
-                    }
-                }
+        final JTestMeConfiguration configuration = JTestMeConfiguration.getInstance();
+        final Map<String, Map<String, String>> params = configuration.loadConfiguration(configLocation);
+        if (params != null && !params.isEmpty()) {
+            final JTestMeExecutorFactory executorFactory = JTestMeExecutorFactory.getInstance();
+            for (final Entry<String, Map<String, String>> entry : params.entrySet()) {
+                final String name = entry.getKey();
+                final Map<String, String> properties = entry.getValue();
+                executors.add(executorFactory.loadExecutor(name, properties));
             }
         }
     }
