@@ -7,16 +7,14 @@ import static es.map.jtestme.viewer.JTestMeViewerType.XML;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
+import es.map.jtestme.logger.JTestMeLogger;
 import es.map.jtestme.viewer.impl.HTMLViewer;
 import es.map.jtestme.viewer.impl.JSONViewer;
 import es.map.jtestme.viewer.impl.PlainTextViewer;
 import es.map.jtestme.viewer.impl.XMLViewer;
 
 public class JTestMeViewerFactory {
-
-    private static final Logger logger = Logger.getAnonymousLogger();
 
     private static final Map<JTestMeViewerType, JTestMeViewer> VIEWERS = new HashMap<JTestMeViewerType, JTestMeViewer>();
     static {
@@ -31,7 +29,7 @@ public class JTestMeViewerFactory {
      * @return
      */
     public static JTestMeViewer loadViewer(final String type) {
-        logger.info("JTestMe loading viewer of type: " + type);
+        JTestMeLogger.info("JTestMe loading viewer of type: " + type);
         final JTestMeViewerType viewerType = JTestMeViewerType.toType(type, HTML);
         return VIEWERS.get(viewerType);
     }

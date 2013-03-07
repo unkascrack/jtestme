@@ -10,13 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.logging.Logger;
+
+import es.map.jtestme.logger.JTestMeLogger;
 
 public class JTestMeConfiguration {
 
     private static final String DEFAULT_CONFIG_LOCATION = "classpath:jtestme.properties";
-
-    private static final Logger logger = Logger.getAnonymousLogger();
 
     private static final JTestMeConfiguration INSTANCE = new JTestMeConfiguration();
 
@@ -42,7 +41,7 @@ public class JTestMeConfiguration {
      * @return
      */
     final Properties loadProperties(final String configLocation) {
-        logger.info("JavaTestMe loading configuration: " + configLocation);
+        JTestMeLogger.info("JavaTestMe loading configuration: " + configLocation);
 
         Properties properties = null;
         InputStream inputStream = null;
@@ -55,11 +54,11 @@ public class JTestMeConfiguration {
                 properties.load(inputStream);
             }
         } catch (final FileNotFoundException e) {
-            logger.warning("JTestMe could not load configuration from: " + configLocation);
+            JTestMeLogger.warn("JTestMe could not load configuration from: " + configLocation);
         } catch (final IOException e) {
-            logger.warning("JavaTestMe configuration " + e.toString());
+            JTestMeLogger.warn("JavaTestMe configuration " + e.toString());
         } catch (final Exception e) {
-            logger.warning("JavaTestMe configuration " + e.toString());
+            JTestMeLogger.warn("JavaTestMe configuration " + e.toString());
         } finally {
             if (inputStream != null) {
                 try {
@@ -74,7 +73,7 @@ public class JTestMeConfiguration {
     final Map<String, Map<String, String>> readProperties(final Properties properties) {
         final Map<String, Map<String, String>> params = new HashMap<String, Map<String, String>>();
         for (final Entry<Object, Object> entry : properties.entrySet()) {
-            logger.fine("JTestMe configuration property: " + entry.getKey() + "=" + entry.getValue());
+            JTestMeLogger.debug("JTestMe configuration property: " + entry.getKey() + "=" + entry.getValue());
             if (entry.getKey() != null) {
                 final String key = entry.getKey().toString();
                 final String name = getNameKeyProperty(key);

@@ -3,7 +3,6 @@ package es.map.jtestme;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,12 +12,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import es.map.jtestme.domain.JTestMeResult;
+import es.map.jtestme.logger.JTestMeLogger;
 import es.map.jtestme.viewer.JTestMeViewer;
 import es.map.jtestme.viewer.JTestMeViewerFactory;
 
 public class JTestMeFilter implements Filter {
-
-    private static Logger logger = Logger.getAnonymousLogger();
 
     private static final JTestMeBuilder BUILDER = JTestMeBuilder.getInstance();
 
@@ -38,7 +36,7 @@ public class JTestMeFilter implements Filter {
         encoding = config.getInitParameter(PARAM_CONFIG_ENCODING);
         BUILDER.loadExecutors(configLocation);
         final long duration = System.currentTimeMillis() - start;
-        logger.fine("JTestMe filter init done in " + duration + " ms");
+        JTestMeLogger.info("JTestMe filter init done in " + duration + " ms");
     }
 
     /*
@@ -49,7 +47,7 @@ public class JTestMeFilter implements Filter {
         final long start = System.currentTimeMillis();
         BUILDER.destroy();
         final long duration = System.currentTimeMillis() - start;
-        logger.fine("JTestMe filter destroy done in " + duration + " ms");
+        JTestMeLogger.info("JTestMe filter destroy done in " + duration + " ms");
     }
 
     /*
@@ -62,7 +60,7 @@ public class JTestMeFilter implements Filter {
         final long start = System.currentTimeMillis();
         doMonitoring(request, response);
         final long duration = System.currentTimeMillis() - start;
-        logger.fine("JTestMe filter doFilter done in " + duration + " ms");
+        JTestMeLogger.info("JTestMe filter doFilter done in " + duration + " ms");
     }
 
     /**
@@ -83,8 +81,8 @@ public class JTestMeFilter implements Filter {
             // response.setHeader("Content-Disposition", "inline; filename=\"verificarSistema.xml\"");
 
             out.flush();
-        } catch (final IOException e) {
-            logger.severe("JTestMeFilter fail doMonitoring: " + e.getMessage());
+        } catch (final Throwable e) {
+            JTestMeLogger.warn("JTestMeFilter fail doMonitoring: " + e.getMessage());
         } finally {
             if (out != null) {
                 out.close();
