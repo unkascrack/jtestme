@@ -15,7 +15,7 @@ public class CustomExecutor extends JTestMeDefaultExecutor {
     }
 
     @SuppressWarnings("rawtypes")
-    public JTestMeResult executor() {
+    public JTestMeResult executeTestMe() {
         final JTestMeResult result = super.getResult();
 
         final String className = params.get(PARAM_CLASS);
@@ -39,18 +39,18 @@ public class CustomExecutor extends JTestMeDefaultExecutor {
                 }
             }
             if (executor != null) {
-                final JTestMeResult resultExecutor = executor.executor();
+                final JTestMeResult resultExecutor = executor.executeTestMe();
                 result.setSuscess(resultExecutor.isSuscess());
                 result.setMessage(resultExecutor.getMessage());
             } else {
                 result.setMessage("No se ha podido cargar el custom executor: " + className);
             }
         } catch (final ClassNotFoundException e) {
-            result.setMessage(e.getMessage());
+            result.setMessage(e.toString());
         } catch (final InstantiationException e) {
-            result.setMessage(e.getMessage());
+            result.setMessage(e.toString());
         } catch (final Throwable e) {
-            result.setMessage(e.getMessage());
+            result.setMessage(e.toString());
         }
         return result;
     }

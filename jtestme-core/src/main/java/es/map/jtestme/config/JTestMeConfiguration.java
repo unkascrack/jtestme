@@ -49,13 +49,17 @@ public class JTestMeConfiguration {
         try {
             inputStream = new FileInputStream(configLocation);
             properties = new Properties();
-            properties.load(inputStream);
+            if (configLocation.toLowerCase().endsWith(".xml")) {
+                properties.loadFromXML(inputStream);
+            } else {
+                properties.load(inputStream);
+            }
         } catch (final FileNotFoundException e) {
             logger.warning("JTestMe could not load configuration from: " + configLocation);
         } catch (final IOException e) {
-            logger.warning("JavaTestMe configuration ioexception: " + e.getMessage());
+            logger.warning("JavaTestMe configuration " + e.toString());
         } catch (final Exception e) {
-            logger.warning("JavaTestMe configuration exception: " + e.getMessage());
+            logger.warning("JavaTestMe configuration " + e.toString());
         } finally {
             if (inputStream != null) {
                 try {

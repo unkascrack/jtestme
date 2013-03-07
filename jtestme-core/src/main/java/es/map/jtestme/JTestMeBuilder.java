@@ -4,23 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Logger;
 
 import es.map.jtestme.config.JTestMeConfiguration;
+import es.map.jtestme.domain.JTestMeResult;
 import es.map.jtestme.executors.JTestMeExecutor;
 import es.map.jtestme.executors.JTestMeExecutorFactory;
 
-public class JTestMeFactory {
+public class JTestMeBuilder {
 
+    private static final Logger logger = Logger.getAnonymousLogger();
+
+    private static final JTestMeBuilder INSTANCE = new JTestMeBuilder();
     private static final List<JTestMeExecutor> executors = new ArrayList<JTestMeExecutor>();
 
-    private JTestMeFactory() {
+    private JTestMeBuilder() {
+    }
+
+    public static final JTestMeBuilder getInstance() {
+        return INSTANCE;
+    }
+
+    /**
+     * 
+     */
+    public void destroy() {
+        executors.clear();
     }
 
     /**
      * @param configLocation
      * @return
      */
-    public static void loadExecutors(final String configLocation) {
+    public void loadExecutors(final String configLocation) {
         if (executors.isEmpty()) {
             synchronized (executors) {
                 if (executors.isEmpty()) {
@@ -42,8 +58,22 @@ public class JTestMeFactory {
     /**
      * @return
      */
-    public static List<JTestMeExecutor> getExecutors() {
-        return executors;
+    public void addExecutor(final JTestMeExecutor executor) {
+        executors.add(executor);
     }
 
+    /**
+     * @return
+     */
+    public List<JTestMeResult> runExecutors() {
+        final List<JTestMeResult> results = new ArrayList<JTestMeResult>();
+        for (final JTestMeExecutor executor : executors) {
+            try {
+                results.add(executor.executeTestMe());
+            } catch (final Throwable e) {
+                logger.severe("JTestMeBuilder loading executor '" + executor.getName() + "': " + e.getMessage());
+            }
+        }
+        return results;
+    }
 }

@@ -21,7 +21,7 @@ public class JNDIExecutor extends JTestMeDefaultExecutor {
         super(params);
     }
 
-    public JTestMeResult executor() {
+    public JTestMeResult executeTestMe() {
         final JTestMeResult result = super.getResult();
 
         final String datasourceName = params.get(PARAM_DATASOURCE);
@@ -39,11 +39,11 @@ public class JNDIExecutor extends JTestMeDefaultExecutor {
             }
             result.setSuscess(true);
         } catch (final NamingException e) {
-            result.setMessage(e.getMessage());
+            result.setMessage(e.toString());
         } catch (final SQLException e) {
-            result.setMessage(e.getMessage());
+            result.setMessage(e.toString());
         } catch (final Throwable e) {
-            result.setMessage(e.getMessage());
+            result.setMessage(e.toString());
         } finally {
             if (statement != null) {
                 try {
