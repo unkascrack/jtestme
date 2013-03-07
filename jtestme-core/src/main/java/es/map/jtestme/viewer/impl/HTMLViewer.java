@@ -32,15 +32,13 @@ public class HTMLViewer extends JTestMeDefaultViewer {
                 if (result.isSuscess()) {
                     builder.append("<img src='?resource=success.png' alt='Suscess'/>");
                 } else {
-                    builder.append("<img src='?resource=error.png' alt='Error'/>");
+                    builder.append("<img src='error.png' alt='Error'/>");
                 }
                 builder.append("<b>").append(result.getSuscessString()).append("</b>").append(NEW_LINE);
                 builder.append("</td>").append(NEW_LINE);
                 builder.append("<td align='left'>").append(NEW_LINE);
-                if (result.getMessage() != null) {
-                    builder.append("<b>").append(result.getMessage()).append("</b>").append(NEW_LINE);
-                }
                 if (!result.isSuscess()) {
+                    builder.append("<b>").append(result.getMessage()).append("</b>").append(NEW_LINE);
                     builder.append("<br/><em>").append(result.getResolution()).append("</em>").append(NEW_LINE);
                 }
                 builder.append("</td>").append(NEW_LINE);
