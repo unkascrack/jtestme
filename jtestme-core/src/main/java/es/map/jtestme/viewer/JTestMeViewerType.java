@@ -20,4 +20,8 @@ public enum JTestMeViewerType {
         }
         return type;
     }
+    
+    public static boolean isHTML(JTestMeViewerType viewerType) {
+    	return HTML == viewerType;
+    }
 }
