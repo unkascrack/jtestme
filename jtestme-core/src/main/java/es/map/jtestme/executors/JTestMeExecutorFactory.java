@@ -29,26 +29,34 @@ public class JTestMeExecutorFactory {
      * @return
      */
     public JTestMeExecutor loadExecutor(final String name, final Map<String, String> params) {
-        final String type = params.get(JTestMeDefaultExecutor.PARAM_TYPE);
-        JTestMeLogger.info("JTestMe loading executor '" + name + "' of type: " + type);
-        final JTestMeExecutor executor;
-        switch (JTestMeExecutorType.toType(type)) {
-            case JDBC:
-                executor = new JDBCExecutor(params);
-            break;
-            case JNDI:
-                executor = new JNDIExecutor(params);
-            break;
-            case CONNECTION:
-                executor = new ConnectionExecutor(params);
-            break;
-            case CUSTOM:
-                executor = new CustomExecutor(params);
-            break;
-            default:
+        JTestMeExecutor executor = null;
+        if (params == null || !params.containsKey(JTestMeDefaultExecutor.PARAM_TYPE)) {
+            JTestMeLogger.warn("JTestMe could not load executor '" + name + "' no typedef.");
+        } else {
+            final String type = params.get(JTestMeDefaultExecutor.PARAM_TYPE);
+            final JTestMeExecutorType executorType = JTestMeExecutorType.toType(type);
+            if (executorType == null) {
                 JTestMeLogger.warn("JTestMe could not load executor '" + name + "' of type: " + type);
-                executor = null;
-            break;
+            } else {
+                JTestMeLogger.info("JTestMe loading executor '" + name + "' of type: " + executorType);
+                switch (executorType) {
+                    case JDBC:
+                        executor = new JDBCExecutor(params);
+                    break;
+                    case JNDI:
+                        executor = new JNDIExecutor(params);
+                    break;
+                    case CONNECTION:
+                        executor = new ConnectionExecutor(params);
+                    break;
+                    case CUSTOM:
+                        executor = new CustomExecutor(params);
+                    break;
+                    default:
+                        JTestMeLogger.warn("JTestMe could not load executor '" + name + "' of type: " + executorType);
+                    break;
+                }
+            }
         }
         return executor;
     }
