@@ -32,7 +32,7 @@ public class HTMLViewer extends JTestMeDefaultViewer {
                 if (result.isSuscess()) {
                     builder.append("<img src='?resource=success.png' alt='Suscess'/>");
                 } else {
-                    builder.append("<img src='error.png' alt='Error'/>");
+                    builder.append("<img src='?resource=error.png' alt='Error'/>");
                 }
                 builder.append("<b>").append(result.getSuscessString()).append("</b>").append(NEW_LINE);
                 builder.append("</td>").append(NEW_LINE);
