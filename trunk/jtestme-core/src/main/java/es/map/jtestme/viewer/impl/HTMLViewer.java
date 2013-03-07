@@ -22,17 +22,24 @@ public class HTMLViewer extends JTestMeDefaultViewer {
             builder.append("ICON ERROR");
             builder.append("No se han definidio ningún test!!! README");
         } else {
-            builder.append("<table>").append(NEW_LINE);
+            builder.append("<table border='1' cellspacing='0' cellpading='0'>").append(NEW_LINE);
             for (final JTestMeResult result : results) {
                 builder.append("<tr>").append(NEW_LINE);
                 builder.append("<td align='right'>").append(NEW_LINE);
                 builder.append("<b>").append(result.getName()).append("</b>").append(NEW_LINE);
                 builder.append("</td>").append(NEW_LINE);
                 builder.append("<td align='center'>").append(NEW_LINE);
+                if (result.isSuscess()) {
+                    builder.append("<img src='?resource=success.png' alt='Suscess'/>");
+                } else {
+                    builder.append("<img src='?resource=error.png' alt='Error'/>");
+                }
                 builder.append("<b>").append(result.getSuscessString()).append("</b>").append(NEW_LINE);
                 builder.append("</td>").append(NEW_LINE);
                 builder.append("<td align='left'>").append(NEW_LINE);
-                builder.append("<b>").append(result.getMessage()).append("</b>").append(NEW_LINE);
+                if (result.getMessage() != null) {
+                    builder.append("<b>").append(result.getMessage()).append("</b>").append(NEW_LINE);
+                }
                 if (!result.isSuscess()) {
                     builder.append("<br/><em>").append(result.getResolution()).append("</em>").append(NEW_LINE);
                 }
@@ -60,6 +67,7 @@ public class HTMLViewer extends JTestMeDefaultViewer {
         builder.append("<body>").append(NEW_LINE);
         builder.append("<h1>").append("JTestMe Monitoring:").append("</h1>").append(NEW_LINE);
         builder.append("<hr/>");
+        builder.append("<a href='?' title='Refresh'><img src='?resource=refresh.png' alt='Refresh'/></a>");
         builder.append("Monitoring taken at ").append(currentDateAndTime).append(" on ").append(hostName).append(".")
                 .append(NEW_LINE);
         return builder.toString();
