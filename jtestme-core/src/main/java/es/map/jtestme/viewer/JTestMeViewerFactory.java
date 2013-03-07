@@ -25,12 +25,23 @@ public class JTestMeViewerFactory {
     }
 
     /**
-     * @param type
-     * @return
+     * @param viewerType
+     * @param viewer
      */
-    public static JTestMeViewer loadViewer(final String type) {
-        JTestMeLogger.info("JTestMe loading viewer of type: " + type);
-        final JTestMeViewerType viewerType = JTestMeViewerType.toType(type, HTML);
+    public static void registerViewer(final JTestMeViewerType viewerType, final JTestMeViewer viewer) {
+        VIEWERS.put(viewerType, viewer);
+    }
+
+    /**
+     * @param viewerType
+     * @return
+     * @throws IllegalArgumentException
+     */
+    public static JTestMeViewer loadViewer(final JTestMeViewerType viewerType) throws IllegalArgumentException {
+        JTestMeLogger.info("JTestMe loading viewer of type: " + viewerType);
+        if (!VIEWERS.containsKey(viewerType)) {
+            throw new IllegalArgumentException("JTestMeViewerType not supported: " + viewerType);
+        }
         return VIEWERS.get(viewerType);
     }
 
