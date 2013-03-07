@@ -10,7 +10,7 @@
 	<description>jTestMe</description>
 	<url>http://jtestme.googlecode.com/</url>
 	<inceptionYear>2013</inceptionYear>
-	
+
 	<modules>
 		<module>jtestme-core</module>
 		<module>jtestme-collector-server</module>
@@ -46,13 +46,13 @@
 			</roles>
 		</developer>
 	</developers>
-	
+
 	<properties>
 		<java.version>1.5</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -79,7 +79,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -87,7 +87,7 @@
 				<artifactId>jtestme-core</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>servlet-api</artifactId>
@@ -100,15 +100,10 @@
 				<version>2.1</version>
 				<scope>provided</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
-				<version>1.7.2</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>jul-to-slf4j</artifactId>
 				<version>1.7.2</version>
 			</dependency>
 			<dependency>
@@ -146,7 +141,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -209,15 +204,14 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		
+		<extensions>
+			<extension>
+				<groupId>org.jvnet.wagon-svn</groupId>
+				<artifactId>wagon-svn</artifactId>
+				<version>1.9</version>
+			</extension>
+		</extensions>
 		<plugins>
-			<extensions>
-				<extension>
-					<groupId>org.jvnet.wagon-svn</groupId>
-					<artifactId>wagon-svn</artifactId>
-					<version>1.9</version>
-				</extension>
-			</extensions>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
@@ -265,7 +259,7 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
-			
+
 			<!-- plugin para generar javadocs -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -284,7 +278,7 @@
 							<artifactId>maven-javadoc-plugin</artifactId>
 							<version>2.9</version>
 						</plugin>
-						
+
 						<!-- referencias cruzadas -->
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
@@ -293,21 +287,12 @@
 								<linkJavadoc>false</linkJavadoc>
 							</configuration>
 						</plugin>
-						
+
 						<!-- checkstyle -->
-						<!--
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-checkstyle-plugin</artifactId>
-							<version>2.9.1</version>
-							<configuration>
-								<enableRSS>false</enableRSS>
-								<configLocation>${basedir}/.checkstyle.xml</configLocation>
-								<linkXRef>true</linkXRef>
-							</configuration>
-						</plugin>
-						-->
-						
+						<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-checkstyle-plugin</artifactId> 
+							<version>2.9.1</version> <configuration> <enableRSS>false</enableRSS> <configLocation>${basedir}/.checkstyle.xml</configLocation> 
+							<linkXRef>true</linkXRef> </configuration> </plugin> -->
+
 						<!-- findbugs -->
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
@@ -318,41 +303,28 @@
 								<omitVisitors>DefaultEncodingDetector</omitVisitors>
 							</configuration>
 						</plugin>
-						
+
 						<!-- pmd -->
-						<!-- 
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-pmd-plugin</artifactId>
-							<version>2.7.1</version>
-							<configuration>
-								<enableRulesSummary>false</enableRulesSummary>
-								<source>1.5</source>
-								<targetJdk>1.5</targetJdk>
-								<linkXref>true</linkXref>
-								<minimumPriority>4</minimumPriority>
-								<minimumTokens>75</minimumTokens>
-								<rulesets>
-									<ruleset>${basedir}/.pmd</ruleset>
-								</rulesets>
-							</configuration>
-						</plugin>
-						 -->
-						
+						<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-pmd-plugin</artifactId> 
+							<version>2.7.1</version> <configuration> <enableRulesSummary>false</enableRulesSummary> 
+							<source>1.5</source> <targetJdk>1.5</targetJdk> <linkXref>true</linkXref> 
+							<minimumPriority>4</minimumPriority> <minimumTokens>75</minimumTokens> <rulesets> 
+							<ruleset>${basedir}/.pmd</ruleset> </rulesets> </configuration> </plugin> -->
+
 						<!-- métricas -->
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
 							<artifactId>javancss-maven-plugin</artifactId>
 							<version>2.0</version>
 						</plugin>
-						
+
 						<!-- jdepend -->
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
 							<artifactId>jdepend-maven-plugin</artifactId>
 							<version>2.0-beta-2</version>
 						</plugin>
-						
+
 						<!-- report test unitarios -->
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
@@ -366,7 +338,7 @@
 								</reportSet>
 							</reportSets>
 						</plugin>
-						
+
 						<!-- cobertura test -->
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
@@ -379,7 +351,7 @@
 								</formats>
 							</configuration>
 						</plugin>
-						
+
 						<!-- Agrégation des rapport -->
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
@@ -390,7 +362,7 @@
 								<outputEncoding>UTF-8</outputEncoding>
 							</configuration>
 						</plugin>
-						
+
 						<!-- información proyecto -->
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
@@ -416,7 +388,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<reporting>
 		<plugins>
 			<plugin>
