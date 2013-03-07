@@ -12,6 +12,7 @@ public class JTestMeResult implements Serializable {
     private String type;
     private String name;
     private String description;
+    private String resolution;
     private boolean optional = false;
     private Map<String, String> parameters = new HashMap<String, String>();
     private boolean suscess = false;
@@ -42,6 +43,14 @@ public class JTestMeResult implements Serializable {
         this.description = description;
     }
 
+    public String getResolution() {
+        return resolution;
+    }
+
+    public void setResolution(final String resolution) {
+        this.resolution = resolution;
+    }
+
     public boolean isOptional() {
         return optional;
     }
@@ -64,6 +73,10 @@ public class JTestMeResult implements Serializable {
 
     public boolean isSuscess() {
         return suscess;
+    }
+
+    public String getSuscessString() {
+        return suscess ? "OK" : "KO";
     }
 
     public void setSuscess(final boolean suscess) {
@@ -95,19 +108,11 @@ public class JTestMeResult implements Serializable {
         sb.append("optional: ").append(optional).append(", ");
         sb.append("suscess: ").append(suscess).append(", ");
         sb.append("message: ").append(message).append(", ");
+        if (!isSuscess()) {
+            sb.append("resolution: ").append(resolution).append(", ");
+        }
         sb.append("time: ").append(time).append(", ");
         sb.append("parameters: ").append(parameters);
         return sb.toString();
     }
-
-    public String toXML() {
-        final StringBuilder builder = new StringBuilder();
-        return builder.toString();
-    }
-
-    public String toHTML() {
-        final StringBuilder builder = new StringBuilder();
-        return builder.toString();
-    }
-
 }
