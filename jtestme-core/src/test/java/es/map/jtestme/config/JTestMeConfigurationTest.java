@@ -4,11 +4,10 @@ import java.util.Map;
 import java.util.Properties;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 
 import org.junit.Test;
 
-public class JTestMeConfigurationTest extends TestCase {
+public class JTestMeConfigurationTest {
 
     private final JTestMeConfiguration configuration = JTestMeConfiguration.getInstance();
 
@@ -18,20 +17,9 @@ public class JTestMeConfigurationTest extends TestCase {
     }
 
     @Test
-    public void testLoadConfiguration() {
-        // configuration.loadConfiguration(null);
-    }
-
-    @Test
     public void testGetConfigLocationNull() {
         final String configLocation = configuration.getConfigLocation(null);
         Assert.assertTrue(configLocation.endsWith("jtestme.properties"));
-    }
-
-    @Test
-    public void testGetConfigLocationPathFound() {
-        final String configLocation = configuration.getConfigLocation("./jtestme.properties");
-        Assert.assertEquals(configLocation, "./jtestme.properties");
     }
 
     @Test
