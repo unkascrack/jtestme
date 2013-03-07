@@ -1,11 +1,10 @@
 package es.map.jtestme.executors;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 
 import org.junit.Test;
 
-public class JTestMeExecutorTypeTest extends TestCase {
+public class JTestMeExecutorTypeTest {
 
     @Test
     public void testTypeJDBC() {
