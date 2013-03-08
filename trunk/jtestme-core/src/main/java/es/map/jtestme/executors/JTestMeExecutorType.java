@@ -3,9 +3,11 @@ package es.map.jtestme.executors;
 public enum JTestMeExecutorType {
 
     JDBC,
+    DATASOURCE,
     JNDI,
     CONNECTION,
     LDAP,
+    WEBSERVICE,
     CUSTOM;
 
     public static JTestMeExecutorType toType(final String str) {
