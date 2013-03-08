@@ -5,6 +5,7 @@ public enum JTestMeExecutorType {
     JDBC,
     JNDI,
     CONNECTION,
+    LDAP,
     CUSTOM;
 
     public static JTestMeExecutorType toType(final String str) {
