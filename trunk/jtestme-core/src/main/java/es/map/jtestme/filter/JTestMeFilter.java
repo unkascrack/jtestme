@@ -133,6 +133,7 @@ public class JTestMeFilter implements Filter {
     }
 
     private static final String RESOURCE_PARAMETER = "resource";
+    private static final String RESOURCE_FOLDER = "META-INF/resources/jtestme/";
 
     /**
      * @param request
@@ -141,7 +142,7 @@ public class JTestMeFilter implements Filter {
      */
     private void doResource(final ServletRequest request, final ServletResponse response) throws IOException {
         final String resource = request.getParameter(RESOURCE_PARAMETER);
-        final String localResource = "META-INF/resources/" + resource;
+        final String localResource = RESOURCE_FOLDER + resource;
         ((HttpServletResponse) response).addHeader("Cache-Control", "max-age=3600");
         response.setContentType(config.getServletContext().getMimeType(resource));
 
