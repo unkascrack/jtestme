@@ -6,8 +6,6 @@ import es.map.jtestme.domain.JTestMeResult;
 
 public class XMLViewer extends JTestMeDefaultViewer {
 
-    private final static String ROOT_NODE = "verificarSistema";
-
     public String getExtension() {
         return ".xml";
     }
@@ -39,14 +37,13 @@ public class XMLViewer extends JTestMeDefaultViewer {
     private String header() {
         final StringBuilder builder = new StringBuilder();
         builder.append("<?xml version='1.0' encoding='ISO-8859-15'?>").append(NEW_LINE);
-        builder.append("<").append(ROOT_NODE).append(" nodo='").append(getHostName()).append("'>").append(NEW_LINE);
+        builder.append("<verificarSistema nodo='").append(getHostName()).append("'>").append(NEW_LINE);
         return builder.toString();
     }
 
     private String footer() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("</").append(ROOT_NODE).append(">").append(NEW_LINE);
+        builder.append("</verificarSistema>").append(NEW_LINE);
         return builder.toString();
     }
-
 }
