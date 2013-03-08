@@ -23,8 +23,6 @@ import es.map.jtestme.domain.JTestMeResult;
 @ContextConfiguration(locations = { "classpath:spring-config-database-test.xml" })
 public class JNDIExecutorTest extends AbstractJUnit4SpringContextTests {
 
-    private static final Map<String, String> params = new HashMap<String, String>();
-
     private JNDIExecutor executor;
 
     @Autowired
@@ -32,19 +30,19 @@ public class JNDIExecutorTest extends AbstractJUnit4SpringContextTests {
 
     @Before
     public void setUp() throws IllegalStateException, NamingException {
-        executor = new JNDIExecutor(params);
         final SimpleNamingContextBuilder builder = new SimpleNamingContextBuilder();
         builder.bind("java:comp/env/jdbc/mydatasource", dataSource);
         builder.activate();
     }
 
     @Test
-    public void testJNDIExecutorNotNull() {
-        Assert.assertNotNull(executor);
+    public void testDatasourceNotNull() {
+        Assert.assertNotNull(dataSource);
     }
 
     @Test
     public void testExecutorTestMeParamsEmpty() {
+        executor = new JNDIExecutor(null);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuscess());
@@ -52,8 +50,10 @@ public class JNDIExecutorTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testExecutorTestMeParamsDatasourceNoExists() {
+        final Map<String, String> params = new HashMap<String, String>();
         params.put("datasource", "java:comp/env/noexiste");
         params.put("testquery", "");
+        executor = new JNDIExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuscess());
@@ -61,8 +61,10 @@ public class JNDIExecutorTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testExecutorTestMeParamsDatasourceNoEnv() {
+        final Map<String, String> params = new HashMap<String, String>();
         params.put("datasource", "jdbc/mydatasource");
         params.put("testquery", "");
+        executor = new JNDIExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuscess());
@@ -70,8 +72,10 @@ public class JNDIExecutorTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testExecutorTestMeParamsDatasourceExists() {
+        final Map<String, String> params = new HashMap<String, String>();
         params.put("datasource", "java:comp/env/jdbc/mydatasource");
         params.put("testquery", "select 1 from dual");
+        executor = new JNDIExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuscess());
@@ -79,8 +83,10 @@ public class JNDIExecutorTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testExecutorTestMeParamsDatasourceExistsWithouTestQuery() {
+        final Map<String, String> params = new HashMap<String, String>();
         params.put("datasource", "java:comp/env/jdbc/mydatasource");
         params.put("testquery", "");
+        executor = new JNDIExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuscess());

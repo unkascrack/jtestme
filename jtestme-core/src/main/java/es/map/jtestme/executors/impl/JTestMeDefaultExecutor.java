@@ -25,11 +25,13 @@ public abstract class JTestMeDefaultExecutor implements JTestMeExecutor {
 
     protected JTestMeResult getResult() {
         final JTestMeResult result = new JTestMeResult();
-        result.setType(params.get(PARAM_TYPE));
-        result.setName(params.get(PARAM_NAME));
-        result.setDescription(params.get(PARAM_DESCRIPTION));
-        result.setResolution(params.get(PARAM_RESOLUTION));
-        result.setOptional(toBoolean(params.get(PARAM_OPTIONAL), false));
+        if (params != null) {
+            result.setType(params.get(PARAM_TYPE));
+            result.setName(params.get(PARAM_NAME));
+            result.setDescription(params.get(PARAM_DESCRIPTION));
+            result.setResolution(params.get(PARAM_RESOLUTION));
+            result.setOptional(toBoolean(params.get(PARAM_OPTIONAL), false));
+        }
         result.setParameters(params);
         return result;
     }

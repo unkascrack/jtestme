@@ -10,15 +10,18 @@ public class CustomExecutor extends JTestMeDefaultExecutor {
 
     private static final String PARAM_CLASS = "class";
 
+    private String className;
+
     public CustomExecutor(final Map<String, String> params) {
         super(params);
+        if (params != null) {
+            className = params.get(PARAM_CLASS);
+        }
     }
 
     @SuppressWarnings("rawtypes")
     public JTestMeResult executeTestMe() {
         final JTestMeResult result = super.getResult();
-
-        final String className = params.get(PARAM_CLASS);
 
         try {
             JTestMeExecutor executor = null;

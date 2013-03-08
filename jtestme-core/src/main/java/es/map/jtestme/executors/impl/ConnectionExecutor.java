@@ -20,16 +20,30 @@ import es.map.jtestme.logger.JTestMeLogger;
 public class ConnectionExecutor extends JTestMeDefaultExecutor {
 
     private static final String PARAM_URL = "url";
+    private static final String PARAM_TRUSTSTORE = "truststore";
+    private static final String PARAM_TRUSTSTOREPASSWORD = "truststorepassword";
+
+    private String url;
+    private String trustStore;
+    private String defaultTrustStore;
+    private String trustStorePassword;
+    private String defaultTrustStorePassword;
 
     public ConnectionExecutor(final Map<String, String> params) {
         super(params);
         fixHttpsConnections();
+        if (params != null) {
+            url = params.get(PARAM_URL);
+            trustStore = params.get(PARAM_TRUSTSTORE);
+            trustStorePassword = params.get(PARAM_TRUSTSTOREPASSWORD);
+        }
+
     }
 
     public JTestMeResult executeTestMe() {
         final JTestMeResult result = super.getResult();
 
-        final String url = params.get(PARAM_URL);
+        loadTrustStore();
 
         HttpURLConnection connection = null;
         try {
@@ -51,8 +65,39 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
             if (connection != null) {
                 connection.disconnect();
             }
+            relaseTrustStore();
         }
         return result;
+    }
+
+    private void loadTrustStore() {
+        if (trustStore != null && trustStore.trim().length() > 0) {
+            defaultTrustStore = System.getProperty("javax.net.ssl.trustStore");
+            System.setProperty("javax.net.ssl.trustStore", trustStore);
+        }
+
+        if (trustStorePassword != null && trustStorePassword.trim().length() > 0) {
+            defaultTrustStorePassword = System.getProperty("javax.net.ssl.trustStorePassword");
+            System.setProperty("javax.net.ssl.trustStorePassword", trustStorePassword);
+        }
+    }
+
+    private void relaseTrustStore() {
+        if (trustStore != null && trustStore.trim().length() > 0) {
+            if (defaultTrustStore != null && defaultTrustStore.trim().length() > 0) {
+                System.setProperty("javax.net.ssl.trustStore", defaultTrustStore);
+            } else {
+                System.clearProperty("javax.net.ssl.trustStore");
+            }
+        }
+
+        if (trustStorePassword != null && trustStorePassword.trim().length() > 0) {
+            if (defaultTrustStorePassword != null && defaultTrustStorePassword.trim().length() > 0) {
+                System.setProperty("javax.net.ssl.trustStorePassword", defaultTrustStorePassword);
+            } else {
+                System.clearProperty("javax.net.ssl.trustStore");
+            }
+        }
     }
 
     /**
@@ -60,6 +105,7 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
      */
     private void fixHttpsConnections() {
         try {
+            // System.setProperty("jsse.enableSNIExtension", "false");
             final TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
                 public java.security.cert.X509Certificate[] getAcceptedIssuers() {
                     return null;
