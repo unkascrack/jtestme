@@ -18,15 +18,19 @@ public class JNDIExecutor extends JTestMeDefaultExecutor {
     private static final String PARAM_DATASOURCE = "datasource";
     private static final String PARAM_TEST_QUERY = "testquery";
 
+    private String datasourceName;
+    private String testQuery;
+
     public JNDIExecutor(final Map<String, String> params) {
         super(params);
+        if (params != null) {
+            datasourceName = params.get(PARAM_DATASOURCE);
+            testQuery = params.get(PARAM_TEST_QUERY);
+        }
     }
 
     public JTestMeResult executeTestMe() {
         final JTestMeResult result = super.getResult();
-
-        final String datasourceName = params.get(PARAM_DATASOURCE);
-        final String testQuery = params.get(PARAM_TEST_QUERY);
 
         Connection connection = null;
         Statement statement = null;

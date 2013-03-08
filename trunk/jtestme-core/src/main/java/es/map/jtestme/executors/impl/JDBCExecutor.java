@@ -17,18 +17,25 @@ public class JDBCExecutor extends JTestMeDefaultExecutor {
     private static final String PARAM_PASSWORD = "password";
     private static final String PARAM_TEST_QUERY = "testquery";
 
+    private String driver;
+    private String url;
+    private String username;
+    private String password;
+    private String testQuery;
+
     public JDBCExecutor(final Map<String, String> params) {
         super(params);
+        if (params != null) {
+            driver = params.get(PARAM_DRIVER);
+            url = params.get(PARAM_URL);
+            username = params.get(PARAM_USERNAME);
+            password = params.get(PARAM_PASSWORD);
+            testQuery = params.get(PARAM_TEST_QUERY);
+        }
     }
 
     public JTestMeResult executeTestMe() {
         final JTestMeResult result = super.getResult();
-
-        final String driver = params.get(PARAM_DRIVER);
-        final String url = params.get(PARAM_URL);
-        final String username = params.get(PARAM_USERNAME);
-        final String password = params.get(PARAM_PASSWORD);
-        final String testQuery = params.get(PARAM_TEST_QUERY);
 
         Connection connection = null;
         Statement statement = null;
