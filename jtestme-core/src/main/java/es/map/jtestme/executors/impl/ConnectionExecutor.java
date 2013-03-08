@@ -95,7 +95,7 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
             if (defaultTrustStorePassword != null && defaultTrustStorePassword.trim().length() > 0) {
                 System.setProperty("javax.net.ssl.trustStorePassword", defaultTrustStorePassword);
             } else {
-                System.clearProperty("javax.net.ssl.trustStore");
+                System.clearProperty("javax.net.ssl.trustStorePassword");
             }
         }
     }
