@@ -33,7 +33,7 @@ public class ConnectionExecutorTest {
     @Test
     public void testExecutorTestMeParamURLHttpOk() {
         final Map<String, String> params = new HashMap<String, String>();
-        params.put("url", "http://appint.map.es/snc/services/ObtenerToken?wsdl");
+        params.put("url", "http://www.google.com");
         executor = new ConnectionExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
@@ -59,6 +59,6 @@ public class ConnectionExecutorTest {
         executor = new ConnectionExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertTrue(result.isSuscess());
     }
 }
