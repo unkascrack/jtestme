@@ -1,6 +1,5 @@
 package es.map.jtestme.executors.impl;
 
-import java.util.Date;
 import java.util.Map;
 
 import es.map.jtestme.domain.JTestMeResult;
@@ -32,7 +31,6 @@ public abstract class JTestMeDefaultExecutor implements JTestMeExecutor {
         result.setResolution(params.get(PARAM_RESOLUTION));
         result.setOptional(toBoolean(params.get(PARAM_OPTIONAL), false));
         result.setParameters(params);
-        result.setTime(new Date());
         return result;
     }
 
