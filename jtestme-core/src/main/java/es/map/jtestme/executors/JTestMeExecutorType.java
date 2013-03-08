@@ -7,6 +7,8 @@ public enum JTestMeExecutorType {
     JNDI,
     CONNECTION,
     LDAP,
+    OPENOFFICE,
+    SMTP,
     WEBSERVICE,
     CUSTOM;
 

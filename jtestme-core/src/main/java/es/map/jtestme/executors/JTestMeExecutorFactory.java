@@ -9,6 +9,8 @@ import es.map.jtestme.executors.impl.JDBCExecutor;
 import es.map.jtestme.executors.impl.JNDIExecutor;
 import es.map.jtestme.executors.impl.JTestMeDefaultExecutor;
 import es.map.jtestme.executors.impl.LDAPExecutor;
+import es.map.jtestme.executors.impl.OpenOfficeExecutor;
+import es.map.jtestme.executors.impl.SMTPExecutor;
 import es.map.jtestme.executors.impl.WebServiceExecutor;
 import es.map.jtestme.logger.JTestMeLogger;
 
@@ -57,6 +59,12 @@ public class JTestMeExecutorFactory {
                     break;
                     case LDAP:
                         executor = new LDAPExecutor(params);
+                    break;
+                    case OPENOFFICE:
+                        executor = new OpenOfficeExecutor(params);
+                    break;
+                    case SMTP:
+                        executor = new SMTPExecutor(params);
                     break;
                     case WEBSERVICE:
                         executor = new WebServiceExecutor(params);
