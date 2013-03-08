@@ -29,6 +29,7 @@ public class ConnectionExecutorTest {
     public void testExecutorTestMeParamsEmpty() {
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
+        Assert.assertFalse(result.isSuscess());
     }
 
     @Test
