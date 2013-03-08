@@ -2,6 +2,7 @@ package es.map.jtestme.executors.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
@@ -31,12 +32,13 @@ public class JDBCExecutor extends JTestMeDefaultExecutor {
 
         Connection connection = null;
         Statement statement = null;
+        ResultSet resultSet = null;
         try {
             Class.forName(driver);
             connection = DriverManager.getConnection(url, username, password);
-            if (testQuery != null) {
+            if (testQuery != null && testQuery.trim().length() > 0) {
                 statement = connection.createStatement();
-                statement.executeQuery(testQuery);
+                resultSet = statement.executeQuery(testQuery);
             }
             result.setSuscess(true);
         } catch (final ClassNotFoundException e) {
@@ -46,6 +48,13 @@ public class JDBCExecutor extends JTestMeDefaultExecutor {
         } catch (final Throwable e) {
             result.setMessage(e.toString());
         } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (final SQLException e) {
+                }
+            }
+
             if (statement != null) {
                 try {
                     statement.close();
