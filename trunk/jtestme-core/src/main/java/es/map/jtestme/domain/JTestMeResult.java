@@ -1,7 +1,6 @@
 package es.map.jtestme.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ public class JTestMeResult implements Serializable {
     private Map<String, String> parameters = new HashMap<String, String>();
     private boolean suscess = false;
     private String message;
-    private Date time = new Date();
 
     public String getType() {
         return type;
@@ -95,14 +93,6 @@ public class JTestMeResult implements Serializable {
         this.message = message;
     }
 
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(final Date time) {
-        this.time = time;
-    }
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
@@ -113,7 +103,6 @@ public class JTestMeResult implements Serializable {
         sb.append("suscess: ").append(isSuscess()).append(", ");
         sb.append("message: ").append(getMessage()).append(", ");
         sb.append("resolution: ").append(resolution).append(", ");
-        sb.append("time: ").append(time).append(", ");
         sb.append("parameters: ").append(parameters);
         return sb.toString();
     }
