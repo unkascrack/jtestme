@@ -1,6 +1,7 @@
 package es.map.jtestme.executors.impl;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
@@ -29,13 +30,14 @@ public class JNDIExecutor extends JTestMeDefaultExecutor {
 
         Connection connection = null;
         Statement statement = null;
+        ResultSet resultSet = null;
         try {
             final Context initContext = new InitialContext();
             final DataSource datasource = (DataSource) initContext.lookup(datasourceName);
             connection = datasource.getConnection();
-            if (testQuery != null) {
+            if (testQuery != null && testQuery.trim().length() > 0) {
                 statement = connection.createStatement();
-                statement.executeQuery(testQuery);
+                resultSet = statement.executeQuery(testQuery);
             }
             result.setSuscess(true);
         } catch (final NamingException e) {
@@ -45,6 +47,13 @@ public class JNDIExecutor extends JTestMeDefaultExecutor {
         } catch (final Throwable e) {
             result.setMessage(e.toString());
         } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (final SQLException e) {
+                }
+            }
+
             if (statement != null) {
                 try {
                     statement.close();
