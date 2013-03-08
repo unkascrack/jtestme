@@ -4,9 +4,12 @@ import java.util.Map;
 
 import es.map.jtestme.executors.impl.ConnectionExecutor;
 import es.map.jtestme.executors.impl.CustomExecutor;
+import es.map.jtestme.executors.impl.DatasourceExecutor;
 import es.map.jtestme.executors.impl.JDBCExecutor;
 import es.map.jtestme.executors.impl.JNDIExecutor;
 import es.map.jtestme.executors.impl.JTestMeDefaultExecutor;
+import es.map.jtestme.executors.impl.LDAPExecutor;
+import es.map.jtestme.executors.impl.WebServiceExecutor;
 import es.map.jtestme.logger.JTestMeLogger;
 
 public class JTestMeExecutorFactory {
@@ -43,11 +46,20 @@ public class JTestMeExecutorFactory {
                     case JDBC:
                         executor = new JDBCExecutor(params);
                     break;
+                    case DATASOURCE:
+                        executor = new DatasourceExecutor(params);
+                    break;
                     case JNDI:
                         executor = new JNDIExecutor(params);
                     break;
                     case CONNECTION:
                         executor = new ConnectionExecutor(params);
+                    break;
+                    case LDAP:
+                        executor = new LDAPExecutor(params);
+                    break;
+                    case WEBSERVICE:
+                        executor = new WebServiceExecutor(params);
                     break;
                     case CUSTOM:
                         executor = new CustomExecutor(params);
