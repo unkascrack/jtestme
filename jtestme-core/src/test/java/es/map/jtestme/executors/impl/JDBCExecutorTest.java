@@ -20,8 +20,17 @@ public class JDBCExecutorTest extends AbstractJUnit4SpringContextTests {
     private JDBCExecutor executor;
 
     @Test
-    public void testExecutorTestMeParamsEmpty() {
+    public void testExecutorTestMeParamsNull() {
         executor = new JDBCExecutor(null);
+        final JTestMeResult result = executor.executeTestMe();
+        Assert.assertNotNull(result);
+        Assert.assertFalse(result.isSuscess());
+    }
+
+    @Test
+    public void testExecutorTestMeParamsEmpty() {
+        final Map<String, String> params = new HashMap<String, String>();
+        executor = new JDBCExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuscess());
