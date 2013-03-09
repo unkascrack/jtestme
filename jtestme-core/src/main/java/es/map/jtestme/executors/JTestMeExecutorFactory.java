@@ -44,37 +44,42 @@ public class JTestMeExecutorFactory {
                 JTestMeLogger.warn("JTestMe could not load executor '" + name + "' of type: " + type);
             } else {
                 JTestMeLogger.info("JTestMe loading executor '" + name + "' of type: " + executorType);
-                switch (executorType) {
-                    case JDBC:
-                        executor = new JDBCExecutor(params);
-                    break;
-                    case DATASOURCE:
-                        executor = new DatasourceExecutor(params);
-                    break;
-                    case JNDI:
-                        executor = new JNDIExecutor(params);
-                    break;
-                    case CONNECTION:
-                        executor = new ConnectionExecutor(params);
-                    break;
-                    case LDAP:
-                        executor = new LDAPExecutor(params);
-                    break;
-                    case OPENOFFICE:
-                        executor = new OpenOfficeExecutor(params);
-                    break;
-                    case SMTP:
-                        executor = new SMTPExecutor(params);
-                    break;
-                    case WEBSERVICE:
-                        executor = new WebServiceExecutor(params);
-                    break;
-                    case CUSTOM:
-                        executor = new CustomExecutor(params);
-                    break;
-                    default:
-                        JTestMeLogger.warn("JTestMe could not load executor '" + name + "' of type: " + executorType);
-                    break;
+                try {
+                    switch (executorType) {
+                        case JDBC:
+                            executor = new JDBCExecutor(params);
+                        break;
+                        case DATASOURCE:
+                            executor = new DatasourceExecutor(params);
+                        break;
+                        case JNDI:
+                            executor = new JNDIExecutor(params);
+                        break;
+                        case CONNECTION:
+                            executor = new ConnectionExecutor(params);
+                        break;
+                        case LDAP:
+                            executor = new LDAPExecutor(params);
+                        break;
+                        case OPENOFFICE:
+                            executor = new OpenOfficeExecutor(params);
+                        break;
+                        case SMTP:
+                            executor = new SMTPExecutor(params);
+                        break;
+                        case WEBSERVICE:
+                            executor = new WebServiceExecutor(params);
+                        break;
+                        case CUSTOM:
+                            executor = new CustomExecutor(params);
+                        break;
+                        default:
+                            JTestMeLogger.warn("JTestMe could not load executor '" + name + "' of type: "
+                                    + executorType);
+                        break;
+                    }
+                } catch (final Throwable e) {
+                    JTestMeLogger.warn("JTestMe could not load executor '" + name + "' of type: " + executorType);
                 }
             }
         }
