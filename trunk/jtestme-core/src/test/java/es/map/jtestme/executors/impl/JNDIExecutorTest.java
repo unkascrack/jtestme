@@ -3,41 +3,38 @@ package es.map.jtestme.executors.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.naming.Context;
 import javax.naming.NamingException;
-import javax.sql.DataSource;
 
 import junit.framework.Assert;
 
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.jndi.SimpleNamingContextBuilder;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import es.map.jtestme.domain.JTestMeResult;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring-config-database-test.xml" })
-public class JNDIExecutorTest extends AbstractJUnit4SpringContextTests {
+public class JNDIExecutorTest {
 
     private JNDIExecutor executor;
 
-    @Autowired
-    private DataSource dataSource;
+    private static SimpleNamingContextBuilder builder;
 
-    @Before
-    public void setUp() throws IllegalStateException, NamingException {
-        final SimpleNamingContextBuilder builder = new SimpleNamingContextBuilder();
-        builder.bind("java:comp/env/jdbc/mydatasource", dataSource);
+    @BeforeClass
+    public static void setUp() throws IllegalStateException, NamingException {
+        builder = new SimpleNamingContextBuilder();
+        builder.bind(Context.INITIAL_CONTEXT_FACTORY, "org.jnp.interfaces.NamingContextFactory");
+        builder.bind(Context.PROVIDER_URL, "jnp://localhost:1099");
+        builder.bind(Context.URL_PKG_PREFIXES, "org.jboss.naming:org.jnp.interfaces");
+        builder.bind("myresource", new Object());
         builder.activate();
     }
 
-    @Test
-    public void testDatasourceNotNull() {
-        Assert.assertNotNull(dataSource);
+    @AfterClass
+    public static void tearDown() {
+        builder.clear();
+        builder.deactivate();
     }
 
     @Test
@@ -49,10 +46,9 @@ public class JNDIExecutorTest extends AbstractJUnit4SpringContextTests {
     }
 
     @Test
-    public void testExecutorTestMeParamsDatasourceNoExists() {
+    public void testExecutorTestMeParamsLookupNoExists() {
         final Map<String, String> params = new HashMap<String, String>();
-        params.put("datasource", "java:comp/env/noexiste");
-        params.put("testquery", "");
+        params.put("lookup", "java:comp/env/noexiste");
         executor = new JNDIExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
@@ -60,10 +56,9 @@ public class JNDIExecutorTest extends AbstractJUnit4SpringContextTests {
     }
 
     @Test
-    public void testExecutorTestMeParamsDatasourceNoEnv() {
+    public void testExecutorTestMeParamsLookupNoEnv() {
         final Map<String, String> params = new HashMap<String, String>();
-        params.put("datasource", "jdbc/mydatasource");
-        params.put("testquery", "");
+        params.put("lookup", "jdbc/myresource");
         executor = new JNDIExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
@@ -71,21 +66,12 @@ public class JNDIExecutorTest extends AbstractJUnit4SpringContextTests {
     }
 
     @Test
-    public void testExecutorTestMeParamsDatasourceExists() {
+    public void testExecutorTestMeParamsLookupExists() {
         final Map<String, String> params = new HashMap<String, String>();
-        params.put("datasource", "java:comp/env/jdbc/mydatasource");
-        params.put("testquery", "select 1 from dual");
-        executor = new JNDIExecutor(params);
-        final JTestMeResult result = executor.executeTestMe();
-        Assert.assertNotNull(result);
-        Assert.assertTrue(result.isSuscess());
-    }
-
-    @Test
-    public void testExecutorTestMeParamsDatasourceExistsWithouTestQuery() {
-        final Map<String, String> params = new HashMap<String, String>();
-        params.put("datasource", "java:comp/env/jdbc/mydatasource");
-        params.put("testquery", "");
+        params.put("factory", "org.jnp.interfaces.NamingContextFactory");
+        params.put("url", "jnp://localhost:1099");
+        params.put("pkgs", "org.jboss.naming:org.jnp.interfaces");
+        params.put("lookup", "myresource");
         executor = new JNDIExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
