@@ -139,7 +139,7 @@ public class JTestMeFilter implements Filter {
     }
 
     private static final String RESOURCE_PARAMETER = "resource";
-    private static final String RESOURCE_FOLDER = "META-INF/resources/jtestme/";
+    private static final String RESOURCE_FOLDER = "/META-INF/resources/jtestme/";
 
     /**
      * @param request

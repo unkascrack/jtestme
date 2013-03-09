@@ -42,7 +42,10 @@ public class JTestMeBuilder {
             for (final Entry<String, Map<String, String>> entry : params.entrySet()) {
                 final String name = entry.getKey();
                 final Map<String, String> properties = entry.getValue();
-                executors.add(executorFactory.loadExecutor(name, properties));
+                final JTestMeExecutor executor = executorFactory.loadExecutor(name, properties);
+                if (executor != null) {
+                    executors.add(executor);
+                }
             }
         }
     }
