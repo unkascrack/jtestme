@@ -36,6 +36,10 @@ public abstract class JTestMeDefaultExecutor implements JTestMeExecutor {
         return result;
     }
 
+    protected String toString(final String value, final String defaultValue) {
+        return value != null && value.trim().length() > 0 ? value : defaultValue;
+    }
+
     protected boolean toBoolean(final String value, final boolean defaultValue) {
         return value != null ? Boolean.parseBoolean(value) : defaultValue;
     }
