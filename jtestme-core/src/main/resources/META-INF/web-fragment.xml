@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
- * Copyright 2008-2012 by Emeric Vernat
- *
- *     This file is part of Java Melody.
- *
- * Java Melody is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Java Melody is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with Java Melody.  If not, see <http://www.gnu.org/licenses/>.
--->
 
-<!-- Descripteur de déploiement du jar du monitoring pour conteneur compatible API Servlet 3.0 -->
 <web-fragment xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"
 	version="3.0">
 	<filter>
-		<filter-name>jtestme</filter-name>
-		<filter-class>es.map.jtestme.JTestMeFilter</filter-class>
+		<filter-name>jtestmefilter</filter-name>
+		<filter-class>es.map.jtestme.filter.JTestMeFilter</filter-class>
 		<async-supported>true</async-supported>
+	<!-- 
+		<init-param>
+			<param-name>config-location</param-name>
+			<param-value>classpath:jtestme.properties</param-value>
+		</init-param>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>log</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>param-type-format</param-name>
+			<param-value>format</param-value>
+		</init-param>		
+		<init-param>
+			<param-name>filename</param-name>
+			<param-value>jtestme</param-value>
+		</init-param>
+	-->		
 	</filter>
 	<filter-mapping>
-		<filter-name>jtestme</filter-name>
+		<filter-name>jtestmefilter</filter-name>
 		<url-pattern>/jtestme</url-pattern>
 	</filter-mapping>
 </web-fragment>
