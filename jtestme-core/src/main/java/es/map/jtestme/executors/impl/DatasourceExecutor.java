@@ -35,9 +35,10 @@ public class DatasourceExecutor extends JTestMeDefaultExecutor {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
+        Context context = null;
         try {
-            final Context initContext = new InitialContext();
-            final DataSource datasource = (DataSource) initContext.lookup(datasourceName);
+            context = new InitialContext();
+            final DataSource datasource = (DataSource) context.lookup(datasourceName);
             connection = datasource.getConnection();
             if (testQuery != null && testQuery.trim().length() > 0) {
                 statement = connection.createStatement();
@@ -69,6 +70,13 @@ public class DatasourceExecutor extends JTestMeDefaultExecutor {
                 try {
                     connection.close();
                 } catch (final SQLException e) {
+                }
+            }
+
+            if (context != null) {
+                try {
+                    context.close();
+                } catch (final NamingException e) {
                 }
             }
         }
