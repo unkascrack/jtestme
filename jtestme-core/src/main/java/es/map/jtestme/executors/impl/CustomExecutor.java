@@ -25,21 +25,19 @@ public class CustomExecutor extends JTestMeDefaultExecutor {
             JTestMeExecutor executor = null;
             final Class clase = Class.forName(className);
             final Constructor[] constructors = clase.getConstructors();
-            if (constructors != null && constructors.length == 0) {
+            if (constructors != null && constructors.length > 0) {
                 for (final Constructor constructor : constructors) {
-                    if (constructor.isAccessible()) {
-                        final Class[] parametersClass = constructor.getParameterTypes();
-                        if (parametersClass == null || parametersClass.length == 0) {
-                            executor = (JTestMeExecutor) clase.newInstance();
-                            break;
-                        } else if (parametersClass.length == 1 && parametersClass[0].equals(Map.class)) {
-                            executor = (JTestMeExecutor) constructor.newInstance(getParams());
-                            break;
-                        } else if (parametersClass.length == 2 && parametersClass[0].equals(String.class)
-                                && parametersClass[1].equals(Map.class)) {
-                            executor = (JTestMeExecutor) constructor.newInstance(getName(), getParams());
-                            break;
-                        }
+                    final Class[] parametersClass = constructor.getParameterTypes();
+                    if (parametersClass == null || parametersClass.length == 0) {
+                        executor = (JTestMeExecutor) clase.newInstance();
+                        break;
+                    } else if (parametersClass.length == 1 && parametersClass[0].equals(Map.class)) {
+                        executor = (JTestMeExecutor) constructor.newInstance(getParams());
+                        break;
+                    } else if (parametersClass.length == 2 && parametersClass[0].equals(String.class)
+                            && parametersClass[1].equals(Map.class)) {
+                        executor = (JTestMeExecutor) constructor.newInstance(getName(), getParams());
+                        break;
                     }
                 }
             }
