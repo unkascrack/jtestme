@@ -10,7 +10,6 @@ public interface JTestMeExecutor {
     String getName();
 
     /**
-     * @param properties
      * @return
      */
     JTestMeResult executeTestMe();

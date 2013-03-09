@@ -192,19 +192,17 @@ public class JNDIExecutor extends JTestMeDefaultExecutor {
     private static final String PARAM_PKGS = "pkgs";
     private static final String PARAM_LOOKUP = "lookup";
 
-    private String factory;
-    private String url;
-    private String pkgs;
-    private String lookup;
+    private final String factory;
+    private final String url;
+    private final String pkgs;
+    private final String lookup;
 
     public JNDIExecutor(final Map<String, String> params) {
         super(params);
-        if (params != null) {
-            factory = params.get(PARAM_FACTORY);
-            url = params.get(PARAM_URL);
-            pkgs = params.get(PARAM_PKGS);
-            lookup = params.get(PARAM_LOOKUP);
-        }
+        factory = getParamString(PARAM_FACTORY);
+        url = getParamString(PARAM_URL);
+        pkgs = getParamString(PARAM_PKGS);
+        lookup = getParamString(PARAM_LOOKUP);
     }
 
     public JTestMeResult executeTestMe() {

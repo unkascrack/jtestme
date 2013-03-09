@@ -17,17 +17,15 @@ public class LDAPExecutor extends JTestMeDefaultExecutor {
     private static final String PARAM_PRINCIPAL = "principal";
     private static final String PARAM_CREDENTIALS = "credentials";
 
-    private String url;
-    private String principal;
-    private String credentials;
+    private final String url;
+    private final String principal;
+    private final String credentials;
 
     public LDAPExecutor(final Map<String, String> params) {
         super(params);
-        if (params != null) {
-            url = params.get(PARAM_URL);
-            principal = params.get(PARAM_PRINCIPAL);
-            credentials = params.get(PARAM_CREDENTIALS);
-        }
+        url = getParamString(PARAM_URL);
+        principal = getParamString(PARAM_PRINCIPAL);
+        credentials = getParamString(PARAM_CREDENTIALS);
     }
 
     public JTestMeResult executeTestMe() {

@@ -20,25 +20,23 @@ public class SMTPExecutor extends JTestMeDefaultExecutor {
     private static final String PARAM_STARTTLS = "starttls";
     private static final String PARAM_STARTSSL = "startssl";
 
-    private String host;
-    private Integer port;
-    private String username;
-    private String password;
+    private final String host;
+    private final Integer port;
+    private final String username;
+    private final String password;
     private boolean auth = false;
     private boolean starttls = false;
     private boolean startssl = false;
 
     public SMTPExecutor(final Map<String, String> params) {
         super(params);
-        if (params != null) {
-            host = params.get(PARAM_HOST);
-            port = toInteger(params.get(PARAM_PORT), 25);
-            username = params.get(PARAM_USERNAME);
-            password = params.get(PARAM_PASSWORD);
-            auth = toBoolean(params.get(PARAM_AUTH), false);
-            starttls = toBoolean(params.get(PARAM_STARTTLS), false);
-            startssl = toBoolean(params.get(PARAM_STARTSSL), false);
-        }
+        host = getParamString(PARAM_HOST);
+        port = getParamInteger(PARAM_PORT, 25);
+        username = getParamString(PARAM_USERNAME);
+        password = getParamString(PARAM_PASSWORD);
+        auth = getParamBoolean(PARAM_AUTH, false);
+        starttls = getParamBoolean(PARAM_STARTTLS, false);
+        startssl = getParamBoolean(PARAM_STARTSSL, false);
     }
 
     public JTestMeResult executeTestMe() {

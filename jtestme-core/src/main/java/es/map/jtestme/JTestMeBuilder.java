@@ -68,4 +68,28 @@ public class JTestMeBuilder {
         }
         return results;
     }
+
+    /**
+     * @param executorName
+     * @return
+     */
+    public JTestMeResult runExecutor(final String executorName) {
+        final JTestMeExecutor executorSearch = getExecutor(executorName);
+        return executorSearch != null ? executorSearch.executeTestMe() : null;
+    }
+
+    /**
+     * @param executorName
+     * @return
+     */
+    public JTestMeExecutor getExecutor(final String executorName) {
+        JTestMeExecutor executorSearch = null;
+        for (final JTestMeExecutor executor : executors) {
+            if (executorName != null && executorName.equalsIgnoreCase(executor.getName())) {
+                executorSearch = executor;
+                break;
+            }
+        }
+        return executorSearch;
+    }
 }
