@@ -13,15 +13,13 @@ public class OpenOfficeExecutor extends JTestMeDefaultExecutor {
     private static final String PARAM_HOST = "host";
     private static final String PARAM_PORT = "port";
 
-    private String host;
-    private Integer port;
+    private final String host;
+    private final Integer port;
 
     public OpenOfficeExecutor(final Map<String, String> params) {
         super(params);
-        if (params != null) {
-            host = toString(params.get(PARAM_HOST), "localhost");
-            port = toInteger(params.get(PARAM_PORT), 8700);
-        }
+        host = getParamString(PARAM_HOST, "localhost");
+        port = getParamInteger(PARAM_PORT, 8700);
     }
 
     public JTestMeResult executeTestMe() {

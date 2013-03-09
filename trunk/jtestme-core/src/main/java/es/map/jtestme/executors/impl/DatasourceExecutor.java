@@ -18,15 +18,13 @@ public class DatasourceExecutor extends JTestMeDefaultExecutor {
     private static final String PARAM_DATASOURCE = "datasource";
     private static final String PARAM_TEST_QUERY = "testquery";
 
-    private String datasourceName;
-    private String testQuery;
+    private final String datasourceName;
+    private final String testQuery;
 
     public DatasourceExecutor(final Map<String, String> params) {
         super(params);
-        if (params != null) {
-            datasourceName = params.get(PARAM_DATASOURCE);
-            testQuery = params.get(PARAM_TEST_QUERY);
-        }
+        datasourceName = getParamString(PARAM_DATASOURCE);
+        testQuery = getParamString(PARAM_TEST_QUERY);
     }
 
     public JTestMeResult executeTestMe() {

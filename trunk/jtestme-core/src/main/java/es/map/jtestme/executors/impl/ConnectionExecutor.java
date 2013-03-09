@@ -23,21 +23,19 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
     private static final String PARAM_TRUSTSTORE = "truststore";
     private static final String PARAM_TRUSTSTOREPASSWORD = "truststorepassword";
 
-    private String url;
-    private String trustStore;
+    private final String url;
+    private final String trustStore;
     private String defaultTrustStore;
-    private String trustStorePassword;
+    private final String trustStorePassword;
     private String defaultTrustStorePassword;
 
     public ConnectionExecutor(final Map<String, String> params) {
         super(params);
-        fixHttpsConnections();
-        if (params != null) {
-            url = params.get(PARAM_URL);
-            trustStore = params.get(PARAM_TRUSTSTORE);
-            trustStorePassword = params.get(PARAM_TRUSTSTOREPASSWORD);
-        }
+        url = getParamString(PARAM_URL);
+        trustStore = getParamString(PARAM_TRUSTSTORE);
+        trustStorePassword = getParamString(PARAM_TRUSTSTOREPASSWORD);
 
+        fixHttpsConnections();
     }
 
     public JTestMeResult executeTestMe() {

@@ -10,13 +10,11 @@ public class CustomExecutor extends JTestMeDefaultExecutor {
 
     private static final String PARAM_CLASS = "class";
 
-    private String className;
+    private final String className;
 
     public CustomExecutor(final Map<String, String> params) {
         super(params);
-        if (params != null) {
-            className = params.get(PARAM_CLASS);
-        }
+        className = getParamString(PARAM_CLASS);
     }
 
     @SuppressWarnings("rawtypes")
@@ -35,7 +33,11 @@ public class CustomExecutor extends JTestMeDefaultExecutor {
                             executor = (JTestMeExecutor) clase.newInstance();
                             break;
                         } else if (parametersClass.length == 1 && parametersClass[0].equals(Map.class)) {
-                            executor = (JTestMeExecutor) constructor.newInstance(params);
+                            executor = (JTestMeExecutor) constructor.newInstance(getParams());
+                            break;
+                        } else if (parametersClass.length == 2 && parametersClass[0].equals(String.class)
+                                && parametersClass[1].equals(Map.class)) {
+                            executor = (JTestMeExecutor) constructor.newInstance(getName(), getParams());
                             break;
                         }
                     }

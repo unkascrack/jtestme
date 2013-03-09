@@ -26,7 +26,7 @@ public class JTestMeResult implements Serializable {
     }
 
     public String getName() {
-        return name != null ? name : "";
+        return name;
     }
 
     public void setName(final String name) {
