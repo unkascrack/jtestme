@@ -42,6 +42,11 @@ public class JTestMeFilter implements Filter {
     public static final String PARAM_CONFIG_ENCODING = "encoding";
 
     /**
+     * FilterConfig param to define is active logger
+     */
+    public static final String PARAM_CONFIG_LOG = "log";
+
+    /**
      * FilterConfig param to define de name of the request parameter that
      * represents the type format of the response.
      */
@@ -64,6 +69,7 @@ public class JTestMeFilter implements Filter {
     public void init(final FilterConfig config) throws ServletException {
         final long start = System.currentTimeMillis();
         this.config = config;
+        JTestMeLogger.loggerEnabled(Boolean.parseBoolean(config.getInitParameter(PARAM_CONFIG_LOG)));
         final String configLocation = config.getInitParameter(PARAM_CONFIG_LOCATION);
         BUILDER.loadExecutors(configLocation);
         final long duration = System.currentTimeMillis() - start;
