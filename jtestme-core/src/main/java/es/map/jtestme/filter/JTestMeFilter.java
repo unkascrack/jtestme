@@ -53,11 +53,6 @@ public class JTestMeFilter implements Filter {
     public static final String PARAM_CONFIG_PARAMETER_FORMAT = "param-type-format";
 
     /**
-     * FilterConfig param to define the default filename of the response
-     */
-    public static final String PARAM_CONFIG_FILENAME = "filename";
-
-    /**
      * Instance of FilterConfig
      */
     private FilterConfig config;
@@ -123,11 +118,6 @@ public class JTestMeFilter implements Filter {
             final JTestMeViewer viewer = JTestMeViewerFactory.loadViewer(viewerType);
             response.setContentType(viewer.getContentType());
             response.setCharacterEncoding(getEncoding());
-            if (!JTestMeViewerType.isHTML(viewerType)) {
-                final String fileName = getFileName(viewer);
-                ((HttpServletResponse) response).setHeader("Content-Disposition", "inline; filename=\"" + fileName
-                        + "\"");
-            }
             output = response.getWriter();
             output.println(viewer.getContentViewer(results));
             output.flush();
@@ -149,37 +139,31 @@ public class JTestMeFilter implements Filter {
     private void doResource(final ServletRequest request, final ServletResponse response) throws IOException {
         final String resource = request.getParameter(RESOURCE_PARAMETER);
         final String localResource = RESOURCE_FOLDER + resource;
-        ((HttpServletResponse) response).addHeader("Cache-Control", "max-age=3600");
-        response.setContentType(config.getServletContext().getMimeType(resource));
 
-        final OutputStream output = response.getOutputStream();
-        final InputStream input = new BufferedInputStream(getClass().getResourceAsStream(localResource));
-        try {
-            final byte[] bytes = new byte[4 * 1024];
-            int length = input.read(bytes);
-            while (length != -1) {
-                output.write(bytes, 0, length);
-                length = input.read(bytes);
-            }
-        } finally {
-            if (input != null) {
-                input.close();
-            }
-            if (output != null) {
-                output.close();
+        if (getClass().getResource(localResource) != null) {
+            ((HttpServletResponse) response).addHeader("Cache-Control", "max-age=3600");
+            response.setContentType(config.getServletContext().getMimeType(resource));
+            OutputStream output = null;
+            InputStream input = null;
+            try {
+                input = new BufferedInputStream(getClass().getResourceAsStream(localResource));
+                output = response.getOutputStream();
+
+                final byte[] bytes = new byte[4 * 1024];
+                int length = input.read(bytes);
+                while (length != -1) {
+                    output.write(bytes, 0, length);
+                    length = input.read(bytes);
+                }
+            } finally {
+                if (input != null) {
+                    input.close();
+                }
+                if (output != null) {
+                    output.close();
+                }
             }
         }
-    }
-
-    private static final String DEFAULT_FILENAME = "jtestme";
-
-    /**
-     * @param viewer
-     * @return
-     */
-    private String getFileName(final JTestMeViewer viewer) {
-        final String fileName = config.getInitParameter(PARAM_CONFIG_FILENAME);
-        return (fileName != null && fileName.trim().length() > 0 ? fileName : DEFAULT_FILENAME) + viewer.getExtension();
     }
 
     private static final String DEFAULT_REQUEST_PARAM_FORMAT = "format";
