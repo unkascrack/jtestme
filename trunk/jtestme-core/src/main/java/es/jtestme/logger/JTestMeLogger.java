@@ -62,15 +62,23 @@ public final class JTestMeLogger {
      * @param msg
      */
     public static void warn(final String msg) {
+        warn(msg, null);
+    }
+
+    /**
+     * @param msg
+     * @param throwable
+     */
+    public static void warn(final String msg, final Throwable throwable) {
         if (loggerEnabled) {
             if (LOGBACK_ENABLED) {
-                org.slf4j.LoggerFactory.getLogger(INTERNAL_LOGGER_NAME).warn(msg);
+                org.slf4j.LoggerFactory.getLogger(INTERNAL_LOGGER_NAME).warn(msg, throwable);
             } else if (LOG4J_ENABLED) {
                 final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(INTERNAL_LOGGER_NAME);
-                logger.warn(msg);
+                logger.warn(msg, throwable);
             } else {
                 final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(INTERNAL_LOGGER_NAME);
-                logger.log(Level.WARNING, msg);
+                logger.log(Level.WARNING, msg, throwable);
             }
         }
     }
@@ -79,15 +87,23 @@ public final class JTestMeLogger {
      * @param msg
      */
     public static void error(final String msg) {
+        error(msg, null);
+    }
+
+    /**
+     * @param msg
+     * @param throwable
+     */
+    public static void error(final String msg, final Throwable throwable) {
         if (loggerEnabled) {
             if (LOGBACK_ENABLED) {
-                org.slf4j.LoggerFactory.getLogger(INTERNAL_LOGGER_NAME).error(msg);
+                org.slf4j.LoggerFactory.getLogger(INTERNAL_LOGGER_NAME).error(msg, throwable);
             } else if (LOG4J_ENABLED) {
                 final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(INTERNAL_LOGGER_NAME);
-                logger.error(msg);
+                logger.error(msg, throwable);
             } else {
                 final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(INTERNAL_LOGGER_NAME);
-                logger.log(Level.SEVERE, msg);
+                logger.log(Level.SEVERE, msg, throwable);
             }
         }
     }
