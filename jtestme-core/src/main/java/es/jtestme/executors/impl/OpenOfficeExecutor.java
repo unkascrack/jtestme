@@ -28,6 +28,7 @@ public class OpenOfficeExecutor extends JTestMeDefaultExecutor {
         try {
             connection = new SocketOpenOfficeConnection(host, port);
             connection.connect();
+            result.setSuscess(true);
         } catch (final ConnectException e) {
             result.setCause(e);
         } catch (final Throwable e) {
