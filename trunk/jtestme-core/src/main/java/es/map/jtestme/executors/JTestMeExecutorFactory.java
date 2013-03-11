@@ -14,7 +14,7 @@ import es.map.jtestme.executors.impl.SMTPExecutor;
 import es.map.jtestme.executors.impl.WebServiceExecutor;
 import es.map.jtestme.logger.JTestMeLogger;
 
-public class JTestMeExecutorFactory {
+public final class JTestMeExecutorFactory {
 
     private final static JTestMeExecutorFactory INSTANCE = new JTestMeExecutorFactory();
 
@@ -43,7 +43,6 @@ public class JTestMeExecutorFactory {
             if (executorType == null) {
                 JTestMeLogger.warn("JTestMe could not load executor '" + name + "' of type: " + type);
             } else {
-                JTestMeLogger.info("JTestMe loading executor '" + name + "' of type: " + executorType);
                 try {
                     switch (executorType) {
                         case JDBC:
@@ -74,10 +73,10 @@ public class JTestMeExecutorFactory {
                             executor = new CustomExecutor(params);
                         break;
                         default:
-                            JTestMeLogger.warn("JTestMe could not load executor '" + name + "' of type: "
-                                    + executorType);
-                        break;
+                            throw new IllegalArgumentException("JTestMe could not load executor '" + name
+                                    + "' of type: " + executorType);
                     }
+                    JTestMeLogger.info("JTestMe loading executor '" + name + "' of type: " + executorType);
                 } catch (final Throwable e) {
                     JTestMeLogger.warn("JTestMe could not load executor '" + name + "' of type: " + executorType);
                 }

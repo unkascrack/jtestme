@@ -22,12 +22,7 @@ import es.map.jtestme.viewer.JTestMeViewer;
 import es.map.jtestme.viewer.JTestMeViewerFactory;
 import es.map.jtestme.viewer.JTestMeViewerType;
 
-/**
- * 
- * 
- * @author Carlos
- */
-public class JTestMeFilter implements Filter {
+public final class JTestMeFilter implements Filter {
 
     private static final JTestMeBuilder BUILDER = JTestMeBuilder.getInstance();
 
