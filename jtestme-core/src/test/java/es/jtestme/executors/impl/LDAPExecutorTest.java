@@ -13,7 +13,6 @@ import com.unboundid.ldap.listener.InMemoryDirectoryServerConfig;
 import com.unboundid.ldap.listener.InMemoryListenerConfig;
 
 import es.jtestme.domain.JTestMeResult;
-import es.jtestme.executors.impl.LDAPExecutor;
 
 public class LDAPExecutorTest {
 
@@ -23,9 +22,10 @@ public class LDAPExecutorTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        final InMemoryDirectoryServerConfig config = new InMemoryDirectoryServerConfig("cn=admin,dc=map,dc=es");
-        config.setListenerConfigs(InMemoryListenerConfig.createLDAPConfig("default", 389));
-        config.addAdditionalBindCredentials("cn=admin,dc=map,dc=es", "cambiame");
+        final InMemoryDirectoryServerConfig config = new InMemoryDirectoryServerConfig("cn=admin,dc=es");
+        final InMemoryListenerConfig listenerConfig = new InMemoryListenerConfig("test", null, 33390, null, null, null);
+        config.setListenerConfigs(listenerConfig);
+        config.addAdditionalBindCredentials("cn=admin,dc=es", "cambiame");
         server = new InMemoryDirectoryServer(config);
         server.startListening();
     }
@@ -43,7 +43,7 @@ public class LDAPExecutorTest {
     @Test
     public void testExecutorTestMeParamsURLNotFound() {
         final Map<String, String> params = new HashMap<String, String>();
-        params.put("url", "ldap://ldapnoexiste:389");
+        params.put("url", "ldap://ldapnoexiste:33390");
         executor = new LDAPExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
@@ -53,7 +53,7 @@ public class LDAPExecutorTest {
     @Test
     public void testExecutorTestMeParamsURLFoundPrincipalNull() {
         final Map<String, String> params = new HashMap<String, String>();
-        params.put("url", "ldap://localhost:389");
+        params.put("url", "ldap://localhost:33390");
         executor = new LDAPExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
@@ -63,7 +63,7 @@ public class LDAPExecutorTest {
     @Test
     public void testExecutorTestMeParamsURLFoundPrincipalCredentialsIncorrect() {
         final Map<String, String> params = new HashMap<String, String>();
-        params.put("url", "ldap://localhost:389");
+        params.put("url", "ldap://localhost:33390");
         params.put("principal", "notfound");
         params.put("credentials", "notfound");
         executor = new LDAPExecutor(params);
@@ -75,8 +75,8 @@ public class LDAPExecutorTest {
     @Test
     public void testExecutorTestMeParamsURLPrincipalOkCredentialsIncorrect() {
         final Map<String, String> params = new HashMap<String, String>();
-        params.put("url", "ldap://localhost:389");
-        params.put("principal", "cn=admin,dc=map,dc=es");
+        params.put("url", "ldap://localhost:33390");
+        params.put("principal", "cn=admin,dc=es");
         executor = new LDAPExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
@@ -86,8 +86,8 @@ public class LDAPExecutorTest {
     @Test
     public void testExecutorTestMeParamsURLPrincipalCredentialsOk() {
         final Map<String, String> params = new HashMap<String, String>();
-        params.put("url", "ldap://localhost:389");
-        params.put("principal", "cn=admin,dc=map,dc=es");
+        params.put("url", "ldap://localhost:33390");
+        params.put("principal", "cn=admin,dc=es");
         params.put("credentials", "cambiame");
         executor = new LDAPExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
