@@ -27,10 +27,6 @@
 			<param-name>param-type-format</param-name>
 			<param-value>format</param-value>
 		</init-param>		
-		<init-param>
-			<param-name>filename</param-name>
-			<param-value>jtestme</param-value>
-		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>jtestmefilter</filter-name>
