@@ -85,7 +85,7 @@ public final class JTestMeBuilder {
      * @param executorName
      * @return
      */
-    public JTestMeExecutor getExecutor(final String executorName) {
+    private JTestMeExecutor getExecutor(final String executorName) {
         JTestMeExecutor executorSearch = null;
         for (final JTestMeExecutor executor : executors) {
             if (executorName != null && executorName.equalsIgnoreCase(executor.getName())) {
