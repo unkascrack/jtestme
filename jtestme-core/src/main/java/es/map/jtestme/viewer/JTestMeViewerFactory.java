@@ -14,7 +14,7 @@ import es.map.jtestme.viewer.impl.JSONViewer;
 import es.map.jtestme.viewer.impl.PlainTextViewer;
 import es.map.jtestme.viewer.impl.XMLViewer;
 
-public class JTestMeViewerFactory {
+public final class JTestMeViewerFactory {
 
     private static final Map<JTestMeViewerType, JTestMeViewer> VIEWERS = new HashMap<JTestMeViewerType, JTestMeViewer>();
     static {

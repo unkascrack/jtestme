@@ -13,7 +13,7 @@ import java.util.Properties;
 
 import es.map.jtestme.logger.JTestMeLogger;
 
-public class JTestMeConfiguration {
+public final class JTestMeConfiguration {
 
     private static final String DEFAULT_CONFIG_LOCATION = "classpath:jtestme.properties";
 

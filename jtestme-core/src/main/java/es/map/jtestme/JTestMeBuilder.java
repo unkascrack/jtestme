@@ -11,7 +11,7 @@ import es.map.jtestme.executors.JTestMeExecutor;
 import es.map.jtestme.executors.JTestMeExecutorFactory;
 import es.map.jtestme.logger.JTestMeLogger;
 
-public class JTestMeBuilder {
+public final class JTestMeBuilder {
 
     private static final JTestMeBuilder INSTANCE = new JTestMeBuilder();
     private static final List<JTestMeExecutor> executors = new ArrayList<JTestMeExecutor>();
