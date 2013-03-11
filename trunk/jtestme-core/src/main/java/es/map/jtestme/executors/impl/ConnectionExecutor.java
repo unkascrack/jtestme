@@ -48,7 +48,7 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
             connection = (HttpURLConnection) new URL(url).openConnection();
             connection.setRequestMethod("HEAD");
             final int responseCode = connection.getResponseCode();
-            if (200 >= responseCode && responseCode <= 399) {
+            if (HttpURLConnection.HTTP_OK == responseCode) {
                 result.setSuscess(true);
             } else {
                 result.setMessage(connection.getResponseMessage());
@@ -103,6 +103,8 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
      */
     private void fixHttpsConnections() {
         try {
+            HttpURLConnection.setFollowRedirects(false);
+
             // System.setProperty("jsse.enableSNIExtension", "false");
             final TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
                 public java.security.cert.X509Certificate[] getAcceptedIssuers() {
