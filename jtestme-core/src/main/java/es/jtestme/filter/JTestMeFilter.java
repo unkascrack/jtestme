@@ -84,8 +84,6 @@ public final class JTestMeFilter implements Filter {
      */
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
             throws IOException, ServletException {
-        final long start = System.currentTimeMillis();
-
         try {
             if (request.getParameter(RESOURCE_PARAMETER) == null) {
                 doMonitoring(request, response);
@@ -95,9 +93,6 @@ public final class JTestMeFilter implements Filter {
         } catch (final Throwable e) {
             JTestMeLogger.warn("JTestMeFilter fail doFilter: " + e.getMessage());
         }
-
-        final long duration = System.currentTimeMillis() - start;
-        JTestMeLogger.info("JTestMe filter doFilter done in " + duration + " ms");
     }
 
     /**
@@ -106,6 +101,7 @@ public final class JTestMeFilter implements Filter {
      * @throws IOException
      */
     private void doMonitoring(final ServletRequest request, final ServletResponse response) throws IOException {
+        final long start = System.currentTimeMillis();
         PrintWriter output = null;
         try {
             final List<JTestMeResult> results = BUILDER.runExecutors();
@@ -121,6 +117,8 @@ public final class JTestMeFilter implements Filter {
                 output.close();
             }
         }
+        final long duration = System.currentTimeMillis() - start;
+        JTestMeLogger.info("JTestMe filter doFilter done in " + duration + " ms");
     }
 
     private static final String RESOURCE_PARAMETER = "resource";
