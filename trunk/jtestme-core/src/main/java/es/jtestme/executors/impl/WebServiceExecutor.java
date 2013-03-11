@@ -56,7 +56,7 @@ public class WebServiceExecutor extends JTestMeDefaultExecutor {
                 result.setMessage("WebService protocol not supported: " + protocol);
             }
         } catch (final Throwable e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         }
         return result;
     }

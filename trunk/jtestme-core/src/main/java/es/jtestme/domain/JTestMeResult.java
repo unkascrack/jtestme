@@ -16,6 +16,7 @@ public class JTestMeResult implements Serializable {
     private Map<String, String> parameters = new HashMap<String, String>();
     private boolean suscess = false;
     private String message;
+    private Throwable cause;
 
     public String getType() {
         return type;
@@ -93,6 +94,15 @@ public class JTestMeResult implements Serializable {
         this.message = message;
     }
 
+    public Throwable getCause() {
+        return cause;
+    }
+
+    public void setCause(final Throwable cause) {
+        this.cause = cause;
+        message = cause != null ? cause.getMessage() : message;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
@@ -102,6 +112,9 @@ public class JTestMeResult implements Serializable {
         sb.append("optional: ").append(getOptionalString()).append(", ");
         sb.append("suscess: ").append(isSuscess()).append(", ");
         sb.append("message: ").append(getMessage()).append(", ");
+        if (getCause() != null) {
+            sb.append("cause: ").append(getCause()).append(", ");
+        }
         sb.append("resolution: ").append(resolution).append(", ");
         sb.append("parameters: ").append(parameters);
         return sb.toString();

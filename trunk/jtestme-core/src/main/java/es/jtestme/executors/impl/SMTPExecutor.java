@@ -55,11 +55,11 @@ public class SMTPExecutor extends JTestMeDefaultExecutor {
             transport.connect(host, port, username, password);
             result.setSuscess(true);
         } catch (final AuthenticationFailedException e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } catch (final MessagingException e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } catch (final Throwable e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } finally {
             if (transport != null) {
                 try {
