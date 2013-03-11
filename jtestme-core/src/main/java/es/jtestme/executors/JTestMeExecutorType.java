@@ -2,15 +2,16 @@ package es.jtestme.executors;
 
 public enum JTestMeExecutorType {
 
-    JDBC,
-    DATASOURCE,
-    JNDI,
     CONNECTION,
+    CUSTOM,
+    DATASOURCE,
+    GRAPHICS,
+    JDBC,
+    JNDI,
     LDAP,
     OPENOFFICE,
     SMTP,
-    WEBSERVICE,
-    CUSTOM;
+    WEBSERVICE;
 
     public static JTestMeExecutorType toType(final String str) {
         JTestMeExecutorType type = null;
