@@ -6,7 +6,7 @@
 	version="3.0">
 	<filter>
 		<filter-name>jtestmefilter</filter-name>
-		<filter-class>es.map.jtestme.filter.JTestMeFilter</filter-class>
+		<filter-class>es.jtestme.filter.JTestMeFilter</filter-class>
 		<async-supported>true</async-supported>
 	<!-- 
 		<init-param>

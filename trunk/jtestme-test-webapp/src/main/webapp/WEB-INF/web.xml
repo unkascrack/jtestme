@@ -10,7 +10,7 @@
 	
 	<filter>
 		<filter-name>jtestmefilter</filter-name>
-		<filter-class>es.map.jtestme.filter.JTestMeFilter</filter-class>
+		<filter-class>es.jtestme.filter.JTestMeFilter</filter-class>
 		<init-param>
 			<param-name>config-location</param-name>
 			<param-value>classpath:jtestme.properties</param-value>
