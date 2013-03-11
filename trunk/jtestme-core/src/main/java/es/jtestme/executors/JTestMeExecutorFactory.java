@@ -5,6 +5,7 @@ import java.util.Map;
 import es.jtestme.executors.impl.ConnectionExecutor;
 import es.jtestme.executors.impl.CustomExecutor;
 import es.jtestme.executors.impl.DatasourceExecutor;
+import es.jtestme.executors.impl.GraphicsExecutor;
 import es.jtestme.executors.impl.JDBCExecutor;
 import es.jtestme.executors.impl.JNDIExecutor;
 import es.jtestme.executors.impl.JTestMeDefaultExecutor;
@@ -45,17 +46,20 @@ public final class JTestMeExecutorFactory {
             } else {
                 try {
                     switch (executorType) {
-                        case JDBC:
-                            executor = new JDBCExecutor(params);
+                        case CONNECTION:
+                            executor = new ConnectionExecutor(params);
                         break;
                         case DATASOURCE:
                             executor = new DatasourceExecutor(params);
                         break;
+                        case JDBC:
+                            executor = new JDBCExecutor(params);
+                        break;
                         case JNDI:
                             executor = new JNDIExecutor(params);
                         break;
-                        case CONNECTION:
-                            executor = new ConnectionExecutor(params);
+                        case GRAPHICS:
+                            executor = new GraphicsExecutor(params);
                         break;
                         case LDAP:
                             executor = new LDAPExecutor(params);
