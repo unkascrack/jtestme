@@ -43,6 +43,7 @@ jtestme.connection.description=gpermisos-ws Test
 jtestme.connection.resolution=Qué hacer si falla el test
 jtestme.connection.optional=true
 jtestme.connection.param.url=
+jtestme.connection.param.timeout=#default 5000ms
 jtestme.connection.param.truststore=
 jtestme.connection.param.truststorepassword=
 
