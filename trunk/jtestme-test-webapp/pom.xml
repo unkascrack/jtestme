@@ -41,13 +41,6 @@
 						<JAVA_OPTS>-server -Xmx256m -Xms128m</JAVA_OPTS>
 					</systemProperties>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.hsqldb</groupId>
-						<artifactId>hsqldb</artifactId>
-						<version>2.2.9</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
