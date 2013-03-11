@@ -23,6 +23,6 @@
 	</dependencies>
 	
 	<build>
-		<finalName>jtestme</finalName>
+		<finalName>jtestme-collector</finalName>
 	</build>
 </project>
