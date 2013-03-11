@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import es.jtestme.domain.JTestMeResult;
-import es.jtestme.executors.impl.ConnectionExecutor;
 
 public class ConnectionExecutorTest {
 
@@ -35,6 +34,8 @@ public class ConnectionExecutorTest {
     public void testExecutorTestMeParamURLHttpOk() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("url", "http://www.google.com");
+        params.put("proxyhost", "127.0.0.1");
+        params.put("proxyport", "3128");
         executor = new ConnectionExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
@@ -45,6 +46,8 @@ public class ConnectionExecutorTest {
     public void testExecutorTestMeParamURLHttpsOk() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("url", "https://www.google.com");
+        params.put("proxyhost", "127.0.0.1");
+        params.put("proxyport", "3128");
         executor = new ConnectionExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
@@ -55,6 +58,8 @@ public class ConnectionExecutorTest {
     public void testExecutorTestMeParamURLHttpsCertificate() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("url", "https://www.google.com");
+        params.put("proxyhost", "127.0.0.1");
+        params.put("proxyport", "3128");
         params.put("truststore", "/path/certificado");
         params.put("truststorepassword", "/path/certificado");
         executor = new ConnectionExecutor(params);
