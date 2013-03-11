@@ -44,11 +44,11 @@ public class DatasourceExecutor extends JTestMeDefaultExecutor {
             }
             result.setSuscess(true);
         } catch (final NamingException e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } catch (final SQLException e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } catch (final Throwable e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } finally {
             if (resultSet != null) {
                 try {

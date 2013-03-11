@@ -47,11 +47,11 @@ public class JDBCExecutor extends JTestMeDefaultExecutor {
             }
             result.setSuscess(true);
         } catch (final ClassNotFoundException e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } catch (final SQLException e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } catch (final Throwable e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } finally {
             if (resultSet != null) {
                 try {

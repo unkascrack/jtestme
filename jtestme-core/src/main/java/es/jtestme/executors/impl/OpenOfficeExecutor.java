@@ -29,9 +29,9 @@ public class OpenOfficeExecutor extends JTestMeDefaultExecutor {
             connection = new SocketOpenOfficeConnection(host, port);
             connection.connect();
         } catch (final ConnectException e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } catch (final Throwable e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } finally {
             if (connection != null && connection.isConnected()) {
                 try {

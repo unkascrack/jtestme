@@ -49,11 +49,11 @@ public class LDAPExecutor extends JTestMeDefaultExecutor {
             ctx = new InitialDirContext(env);
             result.setSuscess(true);
         } catch (final NameNotFoundException e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } catch (final NamingException e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } catch (final Throwable e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } finally {
             if (ctx != null) {
                 try {

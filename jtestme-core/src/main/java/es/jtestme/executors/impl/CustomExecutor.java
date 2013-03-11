@@ -49,11 +49,11 @@ public class CustomExecutor extends JTestMeDefaultExecutor {
                 result.setMessage("No se ha podido cargar el custom executor: " + className);
             }
         } catch (final ClassNotFoundException e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } catch (final InstantiationException e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } catch (final Throwable e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         }
         return result;
     }

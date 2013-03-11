@@ -2,7 +2,9 @@ package es.jtestme.executors.impl;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
+import java.net.Proxy;
 import java.net.URL;
 import java.security.cert.X509Certificate;
 import java.util.Map;
@@ -21,6 +23,8 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
 
     private static final String PARAM_URL = "url";
     private static final String PARAM_TIMEOUT = "timeout";
+    private static final String PARAM_PROXY_HOST = "proxyhost";
+    private static final String PARAM_PROXY_PORT = "proxyport";
     private static final String PARAM_TRUSTSTORE = "truststore";
     private static final String PARAM_TRUSTSTOREPASSWORD = "truststorepassword";
 
@@ -30,6 +34,7 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
     private String defaultTrustStore;
     private final String trustStorePassword;
     private String defaultTrustStorePassword;
+    private Proxy proxy;
 
     public ConnectionExecutor(final Map<String, String> params) {
         super(params);
@@ -37,7 +42,13 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
         timeout = getParamInteger(PARAM_TIMEOUT, 5000);
         trustStore = getParamString(PARAM_TRUSTSTORE);
         trustStorePassword = getParamString(PARAM_TRUSTSTOREPASSWORD);
-
+        final String proxyHost = getParamString(PARAM_PROXY_HOST);
+        final Integer proxyPort = getParamInteger(PARAM_PROXY_PORT, null);
+        if (proxyHost != null && proxyPort != null) {
+            proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
+        } else {
+            proxy = Proxy.NO_PROXY;
+        }
         fixHttpsConnections();
     }
 
@@ -48,21 +59,20 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
 
         HttpURLConnection connection = null;
         try {
-            connection = (HttpURLConnection) new URL(url).openConnection();
-            connection.setRequestMethod("HEAD");
+            connection = (HttpURLConnection) new URL(url).openConnection(proxy);
             connection.setConnectTimeout(timeout);
             final int responseCode = connection.getResponseCode();
-            if (HttpURLConnection.HTTP_OK == responseCode) {
+            if (responseCode >= 200 && responseCode <= 399) {
                 result.setSuscess(true);
             } else {
                 result.setMessage(connection.getResponseMessage());
             }
         } catch (final MalformedURLException e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } catch (final IOException e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } catch (final Throwable e) {
-            result.setMessage(e.toString());
+            result.setCause(e);
         } finally {
             if (connection != null) {
                 connection.disconnect();
