@@ -20,10 +20,12 @@ import es.jtestme.logger.JTestMeLogger;
 public class ConnectionExecutor extends JTestMeDefaultExecutor {
 
     private static final String PARAM_URL = "url";
+    private static final String PARAM_TIMEOUT = "timeout";
     private static final String PARAM_TRUSTSTORE = "truststore";
     private static final String PARAM_TRUSTSTOREPASSWORD = "truststorepassword";
 
     private final String url;
+    private final int timeout;
     private final String trustStore;
     private String defaultTrustStore;
     private final String trustStorePassword;
@@ -32,6 +34,7 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
     public ConnectionExecutor(final Map<String, String> params) {
         super(params);
         url = getParamString(PARAM_URL);
+        timeout = getParamInteger(PARAM_TIMEOUT, 5000);
         trustStore = getParamString(PARAM_TRUSTSTORE);
         trustStorePassword = getParamString(PARAM_TRUSTSTOREPASSWORD);
 
@@ -47,7 +50,7 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
         try {
             connection = (HttpURLConnection) new URL(url).openConnection();
             connection.setRequestMethod("HEAD");
-            connection.setConnectTimeout(5000);
+            connection.setConnectTimeout(timeout);
             final int responseCode = connection.getResponseCode();
             if (HttpURLConnection.HTTP_OK == responseCode) {
                 result.setSuscess(true);
