@@ -6,16 +6,16 @@ import es.jtestme.executors.JTestMeExecutorType;
 
 public class MyCustomExecutor implements JTestMeExecutor {
 
-	public String getName() {
-		return "mycustomexecutor";
-	}
+    public String getName() {
+        return "mycustomexecutor";
+    }
 
-	public JTestMeResult executeTestMe() {
-		JTestMeResult result = new JTestMeResult();
-		result.setName("mycustomexecutor");
-		result.setType(JTestMeExecutorType.CUSTOM.toString());
-		result.setSuscess(true);
-		return result;
-	}
+    public JTestMeResult executeTestMe() {
+        final JTestMeResult result = new JTestMeResult();
+        result.setName("mycustomexecutor");
+        result.setType(JTestMeExecutorType.CUSTOM.toString());
+        result.setSuscess(true);
+        return result;
+    }
 
 }
