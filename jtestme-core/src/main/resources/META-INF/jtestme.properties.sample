@@ -9,10 +9,10 @@
 #  * webservice = test conexiones servicio web
 #  * custom = test implementado por el usuario (clase debe implementar JTestMeExecutor) 
 
-# Par�metros por defecto para todos los tipos de test:
+# Parametros por defecto para todos los tipos de test:
 #  * type = Tipo de Test (obligatorio)
 #  * name = Nombre (obligatorio)
-#  * description = Descripci�n del tipo de test
+#  * description = Descripción del tipo de test
 #  * resolution = comentario que hacer si falla el test
 #  * optional = valor boolean indica si el test es opcional o no
 
@@ -20,7 +20,7 @@
 jtestme.jdbc.type=jdbc
 jtestme.jdbc.name=JDBC Database Test
 jtestme.jdbc.description=JDBC Database Test
-jtestme.jdbc.resolution=Qu� hacer si falla el test
+jtestme.jdbc.resolution=Qué hacer si falla el test
 jtestme.jdbc.param.driver=
 jtestme.jdbc.param.url=
 jtestme.jdbc.param.username=
@@ -31,7 +31,7 @@ jtestme.jdbc.param.testquery=
 jtestme.datasource.type=datasource
 jtestme.datasource.name=Datasource Test
 jtestme.datasource.description=Datasource Test
-jtestme.datasource.resolution=Qu� hacer si falla el test
+jtestme.datasource.resolution=Qué hacer si falla el test
 jtestme.datasource.param.datasource=java:comp/env/jdbc/test
 jtestme.datasource.param.testquery=select 1 from dual
 jtestme.datasource.optional=true
@@ -40,7 +40,7 @@ jtestme.datasource.optional=true
 jtestme.connection.type=connection
 jtestme.connection.name=gpermisos-ws Test
 jtestme.connection.description=gpermisos-ws Test
-jtestme.connection.resolution=Qu� hacer si falla el test
+jtestme.connection.resolution=Qué hacer si falla el test
 jtestme.connection.optional=true
 jtestme.connection.param.url=
 jtestme.connection.param.truststore=
@@ -50,7 +50,7 @@ jtestme.connection.param.truststorepassword=
 jtestme.ldap.type=ldap
 jtestme.ldap.name=LDAP Test
 jtestme.ldap.description=LDAP Test
-jtestme.ldap.resolution=Qu� hacer si falla el test
+jtestme.ldap.resolution=Qué hacer si falla el test
 jtestme.ldap.param.url=url ldap
 jtestme.ldap.param.principal=username ldap
 jtestme.ldap.param.credentials=password user ldap
@@ -59,7 +59,7 @@ jtestme.ldap.param.credentials=password user ldap
 jtestme.jndi.type=jndi
 jtestme.jndi.name=JNDI Test
 jtestme.jndi.description=JNDI Test
-jtestme.jndi.resolution=Qu� hacer si falla el test
+jtestme.jndi.resolution=Qué hacer si falla el test
 jtestme.jndi.param.factory=#Context.INITIAL_CONTEXT_FACTORY
 jtestme.jndi.param.url=#Context.PROVIDER_URL
 jtestme.jndi.param.pkgs=#Context.URL_PKG_PREFIXES
@@ -69,7 +69,7 @@ jtestme.jndi.param.lookup=
 jtestme.openoffice.type=openoffice
 jtestme.openoffice.name=OpenOffice Test
 jtestme.openoffice.description=OpenOffice Test
-jtestme.openoffice.resolution=Qu� hacer si falla el test
+jtestme.openoffice.resolution=Qué hacer si falla el test
 jtestme.openoffice.param.host=#default localhost
 jtestme.openoffice.param.port=#default 8700
 
@@ -90,7 +90,7 @@ jtestme.smtp.param.startssl=
 jtestme.webservice.type=webservice
 jtestme.webservice.name=WebService Test
 jtestme.webservice.description=WebService Test
-jtestme.webservice.resolution=Qu� hacer si falla el test
+jtestme.webservice.resolution=Qué hacer si falla el test
 jtestme.webservice.param.protocol=#rpc, soap, rest
 jtestme.webservice.param.endpoint=
 jtestme.webservice.param.namespaceuri=
@@ -102,6 +102,6 @@ jtestme.webservice.param.truststorepassword=
 jtestme.custom.type=custom
 jtestme.custom.name=My Own Test
 jtestme.custom.description=My Own Test
-jtestme.custom.resolution=Qu� hacer si falla el test
+jtestme.custom.resolution=Qué hacer si falla el test
 jtestme.custom.param.class= #className implements JTestMeExecutor
 
