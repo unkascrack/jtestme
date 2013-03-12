@@ -25,18 +25,16 @@ public class WebServiceExecutor extends JTestMeDefaultExecutor {
     private static final String PARAM_TRUSTSTOREPASSWORD = "truststorepassword";
 
     private final String protocol;
-    private final String endpoint;
+    private final String endPoint;
     private final String namespaceURI;
     private final String localPart;
     private final String trustStore;
-    private String defaultTrustStore;
     private final String trustStorePassword;
-    private String defaultTrustStorePassword;
 
     public WebServiceExecutor(final Map<String, String> params) {
         super(params);
         protocol = getParamString(PARAM_PROTOCOL, "soap");
-        endpoint = getParamString(PARAM_ENDPOINT);
+        endPoint = getEndPoint();
         namespaceURI = getParamString(PARAM_NAMESPACE_URI);
         localPart = getParamString(PARAM_LOCAL_PART);
         trustStore = getParamString(PARAM_TRUSTSTORE);
@@ -45,6 +43,9 @@ public class WebServiceExecutor extends JTestMeDefaultExecutor {
 
     public JTestMeResult executeTestMe() {
         final JTestMeResult result = super.getResult();
+
+        loadTrustStore(trustStore, trustStorePassword);
+
         try {
             if ("rpc".equalsIgnoreCase(protocol)) {
                 result.setSuscess(testRPC());
@@ -53,23 +54,22 @@ public class WebServiceExecutor extends JTestMeDefaultExecutor {
             } else if ("soap".equalsIgnoreCase(protocol)) {
                 result.setSuscess(testSOAP());
             } else {
-                result.setMessage("WebService protocol not supported: " + protocol);
+                result.setMessage("WebService protocol not supported [RPC|SOAP|REST]: " + protocol);
             }
         } catch (final Throwable e) {
             result.setCause(e);
+        } finally {
+            relaseTrustStore(trustStore, trustStorePassword);
         }
         return result;
     }
 
-    private boolean testRPC() throws javax.xml.rpc.ServiceException, RemoteException {
-        final javax.xml.rpc.ServiceFactory factory = javax.xml.rpc.ServiceFactory.newInstance();
-        final javax.xml.rpc.Service service = factory.createService(new QName(namespaceURI));
-
-        final QName port = new QName(localPart);
-        final javax.xml.rpc.Call call = service.createCall(port);
-        call.setTargetEndpointAddress(endpoint);
-        final Object result = call.invoke(null);
-        return result != null;
+    private boolean testRPC() throws javax.xml.rpc.ServiceException, RemoteException, MalformedURLException {
+        final javax.xml.rpc.ServiceFactory serviceFactory = javax.xml.rpc.ServiceFactory.newInstance();
+        final java.net.URL url = new java.net.URL(endPoint);
+        final javax.xml.namespace.QName serviceName = new javax.xml.namespace.QName(namespaceURI, localPart);
+        final javax.xml.rpc.Service service = serviceFactory.createService(url, serviceName);
+        return service != null;
     }
 
     private boolean testREST() {
@@ -89,9 +89,16 @@ public class WebServiceExecutor extends JTestMeDefaultExecutor {
         final SOAPBody body = message.getSOAPBody();
         body.addBodyElement(new QName(namespaceURI, localPart));
 
-        final SOAPMessage response = connection.call(message, endpoint);
+        final SOAPMessage response = connection.call(message, endPoint);
         connection.close();
-
         return response != null;
+    }
+
+    private String getEndPoint() {
+        String endPoint = getParamString(PARAM_ENDPOINT);
+        if (endPoint != null && !endPoint.toLowerCase().endsWith("?wsld")) {
+            endPoint = endPoint + "?wsdl";
+        }
+        return endPoint;
     }
 }
