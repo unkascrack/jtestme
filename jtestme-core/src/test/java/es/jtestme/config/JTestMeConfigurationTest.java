@@ -7,8 +7,6 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import es.jtestme.config.JTestMeConfiguration;
-
 public class JTestMeConfigurationTest {
 
     private final JTestMeConfiguration configuration = JTestMeConfiguration.getInstance();
@@ -27,7 +25,20 @@ public class JTestMeConfigurationTest {
     @Test
     public void testGetConfigLocationPathNotFound() {
         final String configLocation = configuration.getConfigLocation("./jtestme-noexiste.properties");
-        Assert.assertNull(configLocation);
+        Assert.assertTrue(configLocation.endsWith("jtestme.properties"));
+    }
+
+    @Test
+    public void testGetConfigLocationPathFound() {
+        final String configLocation = configuration.getConfigLocation(getClass().getClassLoader()
+                .getResource("jtestme.properties").getFile());
+        Assert.assertTrue(configLocation.endsWith("jtestme.properties"));
+    }
+
+    @Test
+    public void testGetConfigLocationClasspathNotFound() {
+        final String configLocation = configuration.getConfigLocation("classpath:jtestme-noexiste.properties");
+        Assert.assertTrue(configLocation.endsWith("jtestme.properties"));
     }
 
     @Test
@@ -37,9 +48,36 @@ public class JTestMeConfigurationTest {
     }
 
     @Test
-    public void testGetConfigLocationClasspathNotFound() {
-        final String configLocation = configuration.getConfigLocation("classpath:jtestme-noexiste.properties");
-        Assert.assertNull(configLocation);
+    public void testExistsConfigLocationNull() {
+        final boolean existsConfigLocation = configuration.existsConfigLocation(null);
+        Assert.assertFalse(existsConfigLocation);
+    }
+
+    @Test
+    public void testExistsConfigLocationPathNotFound() {
+
+        final boolean existsConfigLocation = configuration.existsConfigLocation("./jtestme-noexiste.properties");
+        Assert.assertFalse(existsConfigLocation);
+    }
+
+    @Test
+    public void testExistsConfigLocationPathFound() {
+        final boolean existsConfigLocation = configuration.existsConfigLocation(getClass().getClassLoader()
+                .getResource("jtestme.properties").getFile());
+        Assert.assertTrue(existsConfigLocation);
+    }
+
+    @Test
+    public void testExistsConfigLocationClasspathNotFound() {
+        final boolean existsConfigLocation = configuration
+                .existsConfigLocation("classpath:jtestme-noexiste.properties");
+        Assert.assertFalse(existsConfigLocation);
+    }
+
+    @Test
+    public void testExistsConfigLocationClasspathFound() {
+        final boolean existsConfigLocation = configuration.existsConfigLocation("classpath:jtestme.properties");
+        Assert.assertTrue(existsConfigLocation);
     }
 
     @Test

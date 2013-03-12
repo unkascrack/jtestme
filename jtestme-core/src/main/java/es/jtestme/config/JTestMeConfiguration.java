@@ -2,7 +2,6 @@ package es.jtestme.config;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -29,9 +28,11 @@ public final class JTestMeConfiguration {
     public Map<String, Map<String, String>> loadConfiguration(final String configLocation) {
         Map<String, Map<String, String>> params = null;
         final String configPath = getConfigLocation(configLocation);
-        final Properties properties = loadProperties(configPath);
-        if (properties != null) {
-            params = readProperties(properties);
+        if (configPath != null) {
+            final Properties properties = loadProperties(configPath);
+            if (properties != null) {
+                params = readProperties(properties);
+            }
         }
         return params;
     }
@@ -41,8 +42,6 @@ public final class JTestMeConfiguration {
      * @return
      */
     final Properties loadProperties(final String configLocation) {
-        JTestMeLogger.info("JavaTestMe loading configuration: " + configLocation);
-
         Properties properties = null;
         InputStream inputStream = null;
         try {
@@ -53,12 +52,9 @@ public final class JTestMeConfiguration {
             } else {
                 properties.load(inputStream);
             }
-        } catch (final FileNotFoundException e) {
-            JTestMeLogger.warn("JTestMe could not load configuration from: " + configLocation);
-        } catch (final IOException e) {
-            JTestMeLogger.warn("JavaTestMe configuration " + e.toString());
-        } catch (final Exception e) {
-            JTestMeLogger.warn("JavaTestMe configuration " + e.toString());
+            JTestMeLogger.info("JavaTestMe loading configuration: " + configLocation);
+        } catch (final Throwable e) {
+            JTestMeLogger.warn("JavaTestMe error loading configuration: " + e.getMessage(), e);
         } finally {
             if (inputStream != null) {
                 try {
@@ -107,16 +103,46 @@ public final class JTestMeConfiguration {
      * @return
      */
     final String getConfigLocation(final String configLocation) {
-        String configPath = configLocation != null && configLocation.trim().length() > 0 ? configLocation
-                : DEFAULT_CONFIG_LOCATION;
-        if (configPath.toLowerCase().startsWith("classpath:")) {
-            final String auxPath = configPath.substring(configPath.toLowerCase().indexOf(":") + 1);
-            final URL url = JTestMeConfiguration.class.getClassLoader().getResource(auxPath);
-            configPath = url != null ? url.getFile() : null;
-        } else {
-            final File file = new File(configPath);
-            configPath = file.exists() ? configPath : null;
+        String path = null;
+        if (existsConfigLocation(configLocation)) {
+            path = convertConfigLocationToFilePath(configLocation);
+        } else if (existsConfigLocation(DEFAULT_CONFIG_LOCATION)) {
+            path = convertConfigLocationToFilePath(DEFAULT_CONFIG_LOCATION);
         }
-        return configPath;
+        return path;
+    }
+
+    /**
+     * @param configLocation
+     * @return
+     */
+    final boolean existsConfigLocation(final String configLocation) {
+        boolean exists = false;
+        if (configLocation != null && configLocation.trim().length() > 0) {
+            exists = convertConfigLocationToFilePath(configLocation) != null;
+            if (!exists) {
+                JTestMeLogger.warn("JavaTestMe could not load configuration from: " + configLocation);
+            }
+        }
+        return exists;
+    }
+
+    /**
+     * @param configLocation
+     * @return
+     */
+    final String convertConfigLocationToFilePath(final String configLocation) {
+        String filePath = null;
+        if (configLocation != null && configLocation.trim().length() > 0) {
+            if (configLocation.toLowerCase().startsWith("classpath:")) {
+                final String auxPath = configLocation.substring(configLocation.toLowerCase().indexOf(":") + 1);
+                final URL url = JTestMeConfiguration.class.getClassLoader().getResource(auxPath);
+                filePath = url != null ? url.getFile() : null;
+            } else {
+                final File file = new File(configLocation);
+                filePath = file.exists() ? file.getPath() : null;
+            }
+        }
+        return filePath;
     }
 }
