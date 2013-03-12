@@ -3,15 +3,26 @@ package es.jtestme.executors.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import es.jtestme.domain.JTestMeResult;
-import es.jtestme.executors.impl.JTestMeDefaultExecutor;
 
 public class JTestMeDefaultExecutorTest {
 
     private JTestMeDefaultExecutor executor;
+
+    @BeforeClass
+    public static void setUp() {
+        System.setProperty("my-system-property", "my-value-property");
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        System.clearProperty("my-system-property");
+    }
 
     @Test
     public void testGetParamStringParamsNullValueNull() {
@@ -45,6 +56,85 @@ public class JTestMeDefaultExecutorTest {
         final String value = executor.getParamString("name");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "name");
+    }
+
+    @Test
+    public void testGetParamStringParamsSystemPropertyNotFoundValueNull1() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("name", "${my-system-property-notfound}");
+        executor = new FakeExecutor(params);
+        final String value = executor.getParamString("name");
+        Assert.assertNull(value);
+    }
+
+    @Test
+    public void testGetParamStringParamsSystemPropertyNotFoundValueNull2() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("name", "${my-system-property-notfound}/value/");
+        executor = new FakeExecutor(params);
+        final String value = executor.getParamString("name");
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value, "null/value/");
+    }
+
+    @Test
+    public void testGetParamStringParamsSystemPropertyNotFoundValueNull3() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("name", "/value/${my-system-property-notfound}");
+        executor = new FakeExecutor(params);
+        final String value = executor.getParamString("name");
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value, "/value/null");
+    }
+
+    @Test
+    public void testGetParamStringParamsSystemPropertyNotFoundValueNull4() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("name", "/value/${my-system-property-notfound}/value/");
+        executor = new FakeExecutor(params);
+        final String value = executor.getParamString("name");
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value, "/value/null/value/");
+    }
+
+    @Test
+    public void testGetParamStringParamsSystemPropertyFoundValueNotNull1() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("name", "${my-system-property}");
+        executor = new FakeExecutor(params);
+        final String value = executor.getParamString("name");
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value, "my-value-property");
+    }
+
+    @Test
+    public void testGetParamStringParamsSystemPropertyFoundValueNotNull2() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("name", "${my-system-property}/value/");
+        executor = new FakeExecutor(params);
+        final String value = executor.getParamString("name");
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value, "my-value-property/value/");
+    }
+
+    @Test
+    public void testGetParamStringParamsSystemPropertyFoundValueNotNull3() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("name", "/value/${my-system-property}");
+        executor = new FakeExecutor(params);
+        final String value = executor.getParamString("name");
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value, "/value/my-value-property");
+    }
+
+    @Test
+    public void testGetParamStringParamsSystemPropertyFoundValueNotNull4() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("name", "/value/${my-system-property}/value/");
+        executor = new FakeExecutor(params);
+        final String value = executor.getParamString("name");
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value, "/value/my-value-property/value/");
     }
 
     @Test
@@ -82,6 +172,26 @@ public class JTestMeDefaultExecutorTest {
         final String value = executor.getParamString("name", "default");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "name");
+    }
+
+    @Test
+    public void testGetParamStringParamsSystemPropertyNotFoundValueIsDefault() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("name", "${my-system-property-notfound}");
+        executor = new FakeExecutor(params);
+        final String value = executor.getParamString("name", "default");
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value, "default");
+    }
+
+    @Test
+    public void testGetParamStringParamsSystemPropertyFoundValueNotIsDefault() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("name", "${my-system-property}");
+        executor = new FakeExecutor(params);
+        final String value = executor.getParamString("name", "default");
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value, "my-value-property");
     }
 
     @Test
