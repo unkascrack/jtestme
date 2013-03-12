@@ -16,6 +16,8 @@ public abstract class JTestMeDefaultExecutor implements JTestMeExecutor {
 
     private final String name;
     private final Map<String, String> params;
+    private String defaultTrustStore;
+    private String defaultTrustStorePassword;
 
     /**
      * @param params
@@ -99,5 +101,43 @@ public abstract class JTestMeDefaultExecutor implements JTestMeExecutor {
             val = null;
         }
         return val != null ? val : defaultValue;
+    }
+
+    /**
+     * @param trustStore
+     * @param trustStorePassword
+     */
+    protected void loadTrustStore(final String trustStore, final String trustStorePassword) {
+        if (trustStore != null && trustStore.trim().length() > 0) {
+            defaultTrustStore = System.getProperty("javax.net.ssl.trustStore");
+            System.setProperty("javax.net.ssl.trustStore", trustStore);
+        }
+
+        if (trustStorePassword != null && trustStorePassword.trim().length() > 0) {
+            defaultTrustStorePassword = System.getProperty("javax.net.ssl.trustStorePassword");
+            System.setProperty("javax.net.ssl.trustStorePassword", trustStorePassword);
+        }
+    }
+
+    /**
+     * @param trustStore
+     * @param trustStorePassword
+     */
+    protected void relaseTrustStore(final String trustStore, final String trustStorePassword) {
+        if (trustStore != null && trustStore.trim().length() > 0) {
+            if (defaultTrustStore != null && defaultTrustStore.trim().length() > 0) {
+                System.setProperty("javax.net.ssl.trustStore", defaultTrustStore);
+            } else {
+                System.clearProperty("javax.net.ssl.trustStore");
+            }
+        }
+
+        if (trustStorePassword != null && trustStorePassword.trim().length() > 0) {
+            if (defaultTrustStorePassword != null && defaultTrustStorePassword.trim().length() > 0) {
+                System.setProperty("javax.net.ssl.trustStorePassword", defaultTrustStorePassword);
+            } else {
+                System.clearProperty("javax.net.ssl.trustStorePassword");
+            }
+        }
     }
 }

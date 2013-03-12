@@ -31,9 +31,7 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
     private final String url;
     private final int timeout;
     private final String trustStore;
-    private String defaultTrustStore;
     private final String trustStorePassword;
-    private String defaultTrustStorePassword;
     private Proxy proxy;
 
     public ConnectionExecutor(final Map<String, String> params) {
@@ -55,7 +53,7 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
     public JTestMeResult executeTestMe() {
         final JTestMeResult result = super.getResult();
 
-        loadTrustStore();
+        loadTrustStore(trustStore, trustStorePassword);
 
         HttpURLConnection connection = null;
         try {
@@ -77,39 +75,9 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
             if (connection != null) {
                 connection.disconnect();
             }
-            relaseTrustStore();
+            relaseTrustStore(trustStore, trustStorePassword);
         }
         return result;
-    }
-
-    private void loadTrustStore() {
-        if (trustStore != null && trustStore.trim().length() > 0) {
-            defaultTrustStore = System.getProperty("javax.net.ssl.trustStore");
-            System.setProperty("javax.net.ssl.trustStore", trustStore);
-        }
-
-        if (trustStorePassword != null && trustStorePassword.trim().length() > 0) {
-            defaultTrustStorePassword = System.getProperty("javax.net.ssl.trustStorePassword");
-            System.setProperty("javax.net.ssl.trustStorePassword", trustStorePassword);
-        }
-    }
-
-    private void relaseTrustStore() {
-        if (trustStore != null && trustStore.trim().length() > 0) {
-            if (defaultTrustStore != null && defaultTrustStore.trim().length() > 0) {
-                System.setProperty("javax.net.ssl.trustStore", defaultTrustStore);
-            } else {
-                System.clearProperty("javax.net.ssl.trustStore");
-            }
-        }
-
-        if (trustStorePassword != null && trustStorePassword.trim().length() > 0) {
-            if (defaultTrustStorePassword != null && defaultTrustStorePassword.trim().length() > 0) {
-                System.setProperty("javax.net.ssl.trustStorePassword", defaultTrustStorePassword);
-            } else {
-                System.clearProperty("javax.net.ssl.trustStorePassword");
-            }
-        }
     }
 
     /**
@@ -143,7 +111,7 @@ public class ConnectionExecutor extends JTestMeDefaultExecutor {
             };
             HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
         } catch (final Throwable e) {
-            JTestMeLogger.warn("JTestMeExecutor.ConnectionExecutor failed: " + e.getMessage());
+            JTestMeLogger.warn("JTestMeExecutor.ConnectionExecutor failed: " + e.getMessage(), e);
         }
     }
 }
