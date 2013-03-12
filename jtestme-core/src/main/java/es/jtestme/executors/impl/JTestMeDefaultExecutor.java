@@ -73,8 +73,21 @@ public abstract class JTestMeDefaultExecutor implements JTestMeExecutor {
      * @return
      */
     protected String getParamString(final String param, final String defaultValue) {
-        final String value = param != null && param.trim().length() > 0 && params != null ? params.get(param) : null;
-        return value != null && value.trim().length() > 0 ? value : defaultValue;
+        String value = param != null && param.trim().length() > 0 && params != null ? params.get(param) : null;
+        if (value != null && value.contains("${") && value.substring(value.indexOf("${")).contains("}")) {
+            value = value.trim();
+            final String part1 = value.substring(0, value.indexOf("${"));
+            final String part2 = value.substring(value.indexOf("}") + 1);
+            final String keyProperty = value.substring(value.indexOf("${") + 2, value.indexOf("}"));
+            value = System.getProperty(keyProperty);
+            if (part1.length() > 0) {
+                value = part1 + value;
+            }
+            if (part2.length() > 0) {
+                value = value + part2;
+            }
+        }
+        return value != null && value.trim().length() > 0 ? value.trim() : defaultValue;
     }
 
     /**
@@ -108,12 +121,12 @@ public abstract class JTestMeDefaultExecutor implements JTestMeExecutor {
      * @param trustStorePassword
      */
     protected void loadTrustStore(final String trustStore, final String trustStorePassword) {
-        if (trustStore != null && trustStore.trim().length() > 0) {
+        if (trustStore != null && trustStore.length() > 0) {
             defaultTrustStore = System.getProperty("javax.net.ssl.trustStore");
             System.setProperty("javax.net.ssl.trustStore", trustStore);
         }
 
-        if (trustStorePassword != null && trustStorePassword.trim().length() > 0) {
+        if (trustStorePassword != null && trustStorePassword.length() > 0) {
             defaultTrustStorePassword = System.getProperty("javax.net.ssl.trustStorePassword");
             System.setProperty("javax.net.ssl.trustStorePassword", trustStorePassword);
         }
@@ -124,16 +137,16 @@ public abstract class JTestMeDefaultExecutor implements JTestMeExecutor {
      * @param trustStorePassword
      */
     protected void relaseTrustStore(final String trustStore, final String trustStorePassword) {
-        if (trustStore != null && trustStore.trim().length() > 0) {
-            if (defaultTrustStore != null && defaultTrustStore.trim().length() > 0) {
+        if (trustStore != null && trustStore.length() > 0) {
+            if (defaultTrustStore != null && defaultTrustStore.length() > 0) {
                 System.setProperty("javax.net.ssl.trustStore", defaultTrustStore);
             } else {
                 System.clearProperty("javax.net.ssl.trustStore");
             }
         }
 
-        if (trustStorePassword != null && trustStorePassword.trim().length() > 0) {
-            if (defaultTrustStorePassword != null && defaultTrustStorePassword.trim().length() > 0) {
+        if (trustStorePassword != null && trustStorePassword.length() > 0) {
+            if (defaultTrustStorePassword != null && defaultTrustStorePassword.length() > 0) {
                 System.setProperty("javax.net.ssl.trustStorePassword", defaultTrustStorePassword);
             } else {
                 System.clearProperty("javax.net.ssl.trustStorePassword");

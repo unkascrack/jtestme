@@ -17,6 +17,12 @@
 #  * resolution = comentario que hacer si falla el test
 #  * optional = valor boolean indica si el test es opcional o no
 
+# Para los parámetros es posible introducir claves de variables alojadas en las 
+# propiedades del sistema (System.getProperty). Ejemplo:
+#  * ....param.truststore=${pathTrustStore}/trustore
+#  * ....param.truststore=${trustStorePassword}
+
+
 # Test Connection
 jtestme.connection.type=connection
 jtestme.connection.name=Connection Test
