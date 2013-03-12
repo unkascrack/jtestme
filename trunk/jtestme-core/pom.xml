@@ -9,7 +9,7 @@
 	</parent>
 	<artifactId>jtestme-core</artifactId>
 	<name>jTestMe - Core</name>
-	<version>1.0</version>
+	<version>1.1</version>
 	
 	<dependencies>
 		<dependency>

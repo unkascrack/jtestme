@@ -63,10 +63,9 @@ public final class JTestMeBuilder {
     public List<JTestMeResult> runExecutors() {
         final List<JTestMeResult> results = new ArrayList<JTestMeResult>();
         for (final JTestMeExecutor executor : executors) {
-            try {
-                results.add(executor.executeTestMe());
-            } catch (final Throwable e) {
-                JTestMeLogger.warn("JTestMeBuilder loading executor '" + executor.getName() + "': " + e.getMessage());
+            final JTestMeResult result = runExecutor(executor);
+            if (result != null) {
+                results.add(result);
             }
         }
         return results;
@@ -78,7 +77,21 @@ public final class JTestMeBuilder {
      */
     public JTestMeResult runExecutor(final String executorName) {
         final JTestMeExecutor executorSearch = getExecutor(executorName);
-        return executorSearch != null ? executorSearch.executeTestMe() : null;
+        return executorSearch != null ? runExecutor(executorSearch) : null;
+    }
+
+    /**
+     * @param executor
+     * @return
+     */
+    private JTestMeResult runExecutor(final JTestMeExecutor executor) {
+        JTestMeResult result = null;
+        try {
+            result = executor.executeTestMe();
+        } catch (final Throwable e) {
+            JTestMeLogger.warn("JTestMeBuilder running executor '" + executor.getName() + "': " + e.getMessage(), e);
+        }
+        return result;
     }
 
     /**

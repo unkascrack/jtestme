@@ -35,57 +35,66 @@ public final class JTestMeExecutorFactory {
      * @return
      */
     public JTestMeExecutor loadExecutor(final String name, final Map<String, String> params) {
+        final JTestMeExecutorType executorType = getExecutorType(name, params);
         JTestMeExecutor executor = null;
+        if (executorType != null) {
+            try {
+                switch (executorType) {
+                    case CONNECTION:
+                        executor = new ConnectionExecutor(params);
+                    break;
+                    case DATASOURCE:
+                        executor = new DatasourceExecutor(params);
+                    break;
+                    case JDBC:
+                        executor = new JDBCExecutor(params);
+                    break;
+                    case JNDI:
+                        executor = new JNDIExecutor(params);
+                    break;
+                    case GRAPHICS:
+                        executor = new GraphicsExecutor(params);
+                    break;
+                    case LDAP:
+                        executor = new LDAPExecutor(params);
+                    break;
+                    case OPENOFFICE:
+                        executor = new OpenOfficeExecutor(params);
+                    break;
+                    case SMTP:
+                        executor = new SMTPExecutor(params);
+                    break;
+                    case WEBSERVICE:
+                        executor = new WebServiceExecutor(params);
+                    break;
+                    case CUSTOM:
+                        executor = new CustomExecutor(params);
+                    break;
+                }
+                JTestMeLogger.info("JTestMe loading executor '" + name + "' of type: " + executorType);
+            } catch (final Throwable e) {
+                JTestMeLogger.warn("JTestMe could not load executor '" + name + "' of type: " + executorType);
+            }
+        }
+        return executor;
+    }
+
+    /**
+     * @param name
+     * @param params
+     * @return
+     */
+    private JTestMeExecutorType getExecutorType(final String name, final Map<String, String> params) {
+        JTestMeExecutorType executorType = null;
         if (params == null || !params.containsKey(JTestMeDefaultExecutor.PARAM_TYPE)) {
             JTestMeLogger.warn("JTestMe could not load executor '" + name + "' no typedef.");
         } else {
             final String type = params.get(JTestMeDefaultExecutor.PARAM_TYPE);
-            final JTestMeExecutorType executorType = JTestMeExecutorType.toType(type);
+            executorType = JTestMeExecutorType.toType(type);
             if (executorType == null) {
                 JTestMeLogger.warn("JTestMe could not load executor '" + name + "' of type: " + type);
-            } else {
-                try {
-                    switch (executorType) {
-                        case CONNECTION:
-                            executor = new ConnectionExecutor(params);
-                        break;
-                        case DATASOURCE:
-                            executor = new DatasourceExecutor(params);
-                        break;
-                        case JDBC:
-                            executor = new JDBCExecutor(params);
-                        break;
-                        case JNDI:
-                            executor = new JNDIExecutor(params);
-                        break;
-                        case GRAPHICS:
-                            executor = new GraphicsExecutor(params);
-                        break;
-                        case LDAP:
-                            executor = new LDAPExecutor(params);
-                        break;
-                        case OPENOFFICE:
-                            executor = new OpenOfficeExecutor(params);
-                        break;
-                        case SMTP:
-                            executor = new SMTPExecutor(params);
-                        break;
-                        case WEBSERVICE:
-                            executor = new WebServiceExecutor(params);
-                        break;
-                        case CUSTOM:
-                            executor = new CustomExecutor(params);
-                        break;
-                        default:
-                            throw new IllegalArgumentException("JTestMe could not load executor '" + name
-                                    + "' of type: " + executorType);
-                    }
-                    JTestMeLogger.info("JTestMe loading executor '" + name + "' of type: " + executorType);
-                } catch (final Throwable e) {
-                    JTestMeLogger.warn("JTestMe could not load executor '" + name + "' of type: " + executorType);
-                }
             }
         }
-        return executor;
+        return executorType;
     }
 }
