@@ -71,10 +71,10 @@ public final class JTestMeConfiguration {
         for (final Entry<Object, Object> entry : properties.entrySet()) {
             JTestMeLogger.debug("JTestMe configuration property: " + entry.getKey() + "=" + entry.getValue());
             if (entry.getKey() != null) {
-                final String key = entry.getKey().toString();
+                final String key = entry.getKey().toString().trim();
                 final String name = getNameKeyProperty(key);
                 final String param = getParamKeyProperty(key);
-                final String value = entry.getValue() != null ? entry.getValue().toString() : null;
+                final String value = entry.getValue() != null ? entry.getValue().toString().trim() : null;
                 if (!params.containsKey(name)) {
                     params.put(name, new HashMap<String, String>());
                 }
