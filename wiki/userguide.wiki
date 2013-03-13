@@ -4,29 +4,22 @@
 = JTestMe: Guía del Usuario =
 
 == Índice ==
- 1. [userguide#introduccion Introducción]
- 1. [introduccion Introducción]
+ * [#1._Introducci%C3%B3n Introducción]
+ * [#2._Dependencias Dependencias]
+ * [#3._Configuraci%C3%B3n_B%C3%A1sica Configuración Básica]
+  * [#3.1._Tipos_de_Test Tipos de Test]
+  * Properties
+  * Java SE
+  * Java EE
+ * Configuración Avanzada
+  * Log
+  * JTestMeExecutor Personalizados
+  * JTestMeView Personalizados
+  * Seguridad
+ * Desarrollo
 
- 2. [dependencias Dependencias]
 
- 3. [#3._Configuraci%C3%B3n_B%C3%A1sica Configuración Básica]
-
-  3.1 Tipos de Test
-
-  3.2 Properties<br>
-
-  3.3 Java SE<br>
-  3.4 Java EE
-
- 4. Configuración Avanzada
-   4.1 Log
-   4.2 JTestMeExecutor Personalizados
-   4.3 JTestMeView Personalizados
-   4.4 Seguridad
- 5. Desarrollo
-  
-
-<h2 id="introduccion">1. Introducción</h2>
+==1. Introducción==
 
 == 2. Dependencias ==
 
