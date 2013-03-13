@@ -1,0 +1,125 @@
+# Tipos de Test:
+#  * connection = test conexiones http y https
+#  * datasource = test conexiones Datasource
+#  * graphics = test comprueba Graphics enabled
+#  * jndi = test conexiones servicios jndi (ejb, resources,...)
+#  * jdbc = test conexiones JDBC
+#  * ldap = test conexiones LDAP
+#  * openoffice = test conexiones servicio openoffice
+#  * smtp = test conexiones servers SMTP
+#  * webservice = test conexiones servicio web
+#  * custom = test implementado por el usuario (clase debe implementar JTestMeExecutor)
+
+# Parámetros por defecto para todos los tipos de test:
+#  * type = Tipo de Test (obligatorio)
+#  * name = Nombre (obligatorio)
+#  * description = Descripción del tipo de test
+#  * resolution = comentario que hacer si falla el test
+#  * optional = valor boolean indica si el test es opcional o no
+
+# Para los parámetros es posible introducir claves de variables alojadas en las 
+# propiedades del sistema (System.getProperty) o recursos del classpath (classpath:). 
+# Ejemplo:
+#  * ....param.truststore=${pathTrustStore}/trustore
+#  * ....param.truststore=${trustStorePassword}
+#  * ....param.truststore=classpath:resource
+ 
+
+# Test Connection
+jtestme.connection.type=connection
+jtestme.connection.name=Connection Test
+jtestme.connection.description=Connection Test
+jtestme.connection.resolution=Qué hacer si falla el test
+jtestme.connection.optional=true
+jtestme.connection.param.url=
+jtestme.connection.param.timeout=
+jtestme.connection.param.proxyhost=
+jtestme.connection.param.proxyport=
+jtestme.connection.param.truststore=
+jtestme.connection.param.truststorepassword=
+
+# Test Datasource
+jtestme.datasource.type=datasource
+jtestme.datasource.name=Datasource Test
+jtestme.datasource.description=Datasource Test
+jtestme.datasource.resolution=Qué hacer si falla el test
+jtestme.datasource.param.datasource=
+jtestme.datasource.param.testquery=#optional
+jtestme.datasource.optional=true
+
+# Test Graphics
+jtestme.graphics.type=graphics
+jtestme.graphics.name=Graphics Test
+jtestme.graphics.description=Graphics Test
+jtestme.graphics.resolution=Qué hacer si falla el test
+
+# Test JDBC
+jtestme.jdbc.type=jdbc
+jtestme.jdbc.name=JDBC Database Test
+jtestme.jdbc.description=JDBC Database Test
+jtestme.jdbc.resolution=Qué hacer si falla el test
+jtestme.jdbc.param.driver=
+jtestme.jdbc.param.url=
+jtestme.jdbc.param.username=
+jtestme.jdbc.param.password=
+jtestme.jdbc.param.testquery=#optional
+
+# Test JNDI
+jtestme.jndi.type=jndi
+jtestme.jndi.name=JNDI Test
+jtestme.jndi.description=JNDI Test
+jtestme.jndi.resolution=Qué hacer si falla el test
+jtestme.jndi.param.factory=#Context.INITIAL_CONTEXT_FACTORY
+jtestme.jndi.param.url=#Context.PROVIDER_URL
+jtestme.jndi.param.pkgs=#Context.URL_PKG_PREFIXES
+jtestme.jndi.param.lookup=#lookup name
+
+# Test LDAP
+jtestme.ldap.type=ldap
+jtestme.ldap.name=LDAP Test
+jtestme.ldap.description=LDAP Test
+jtestme.ldap.resolution=Qué hacer si falla el test
+jtestme.ldap.param.url=
+jtestme.ldap.param.principal=
+jtestme.ldap.param.credentials=
+
+# Test OpenOffice
+jtestme.openoffice.type=openoffice
+jtestme.openoffice.name=OpenOffice Test
+jtestme.openoffice.description=OpenOffice Test
+jtestme.openoffice.resolution=Qué hacer si falla el test
+jtestme.openoffice.param.host=#default localhost
+jtestme.openoffice.param.port=#default 8700
+
+# Test SMTP
+jtestme.smtp.type=smtp
+jtestme.smtp.name=SMTP Test
+jtestme.smtp.description=SMTP Test
+jtestme.smtp.resolution=Qué hacer si falla el test
+jtestme.smtp.param.host=
+jtestme.smtp.param.port=#default 25
+jtestme.smtp.param.auth=#default false
+jtestme.smtp.param.username=
+jtestme.smtp.param.password=
+jtestme.smtp.param.starttls=
+jtestme.smtp.param.startssl=
+
+# Test WebService : rpc / soap /rest
+jtestme.webservice.type=webservice
+jtestme.webservice.name=WebService Test
+jtestme.webservice.description=WebService Test
+jtestme.webservice.resolution=Qué hacer si falla el test
+jtestme.webservice.param.protocol=#rpc|soap|rest
+jtestme.webservice.param.endpoint=
+jtestme.webservice.param.namespaceuri=
+jtestme.webservice.param.localpart=
+jtestme.webservice.param.truststore=
+jtestme.webservice.param.truststorepassword= 
+
+# Test Custom
+jtestme.custom.type=custom
+jtestme.custom.name=Custom Test
+jtestme.custom.description=Custom Test
+jtestme.custom.resolution=Qué hacer si falla el test
+jtestme.custom.param.class=#className implements JTestMeExecutor
+
