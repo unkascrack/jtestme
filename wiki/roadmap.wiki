@@ -1,7 +1,9 @@
 #summary Roadmap del desarrollo de la aplicación.
 #labels Phase-Design
 
-= Roadmap =
+= JTestMe: Roadmap =
+
+Planificación del desarrollo de JTestMe con los objetivos a corto y largo plazo.
 
 == Versión 1.2 ==
  * Documentar el proyecto, construyendo la wiki correspondiente de uso de la librería, dependencias.
