@@ -1,0 +1,6 @@
+#summary Ideas y cosas por hacer en la aplicación.
+
+= JTestMe: TODO =
+
+Ideas y cosas por hacer en el proyecto:
+ * crear una FAQ
