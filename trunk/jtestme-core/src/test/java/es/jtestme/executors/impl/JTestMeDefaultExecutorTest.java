@@ -138,6 +138,25 @@ public class JTestMeDefaultExecutorTest {
     }
 
     @Test
+    public void testGetParamStringParamsClasspathResourceNoFoundValueNull() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("name", "classpath:notfound.properties");
+        executor = new FakeExecutor(params);
+        final String value = executor.getParamString("name");
+        Assert.assertNull(value);
+    }
+
+    @Test
+    public void testGetParamStringParamsClasspathResourceFoundValueNotNull() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("name", "classpath:jtestme.properties");
+        executor = new FakeExecutor(params);
+        final String value = executor.getParamString("name");
+        Assert.assertNotNull(value);
+        Assert.assertTrue(value.endsWith("jtestme.properties"));
+    }
+
+    @Test
     public void testGetParamStringParamsNullValueIsDefault() {
         executor = new FakeExecutor(null);
         final String value = executor.getParamString("name", "default");
