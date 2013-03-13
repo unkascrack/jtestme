@@ -11,7 +11,7 @@ Planificación del desarrollo de JTestMe con los objetivos a corto y largo plazo
  * Añadir nuevos JTestMeExecutors: ftp y ssh.
  * Revisar la factoría de clases JTestMeExecutor, JTestMeExecutorFactory.java, para que la instanciación de los tipos de executors se realice utilizando Reflection, en vez de switch. La solución más sencilla
  * Mejorar el interfaz Web, revisando el contenido HTML, así como posibilitando nuevas opciones, por ejemplo si se produce un error al ejecutar uno de los test además de mostrar el mensaje de la causa del error ({{{throwable.getMessage()}}}), permitir desplegar la excepción completa.
- * Estudiar la posibilidad de poder crear una vista de tipo "custom", así como se podrían reemplazar la JTestMeView que se generan por defecto
+ * Estudiar la posibilidad de poder crear una vista de tipo "*custom*", así como se podrían reemplazar la JTestMeView que se generan por defecto
 
 
 == Versión 1.3 ==
