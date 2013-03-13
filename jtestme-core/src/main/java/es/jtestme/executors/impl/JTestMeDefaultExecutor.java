@@ -1,5 +1,6 @@
 package es.jtestme.executors.impl;
 
+import java.net.URL;
 import java.util.Map;
 
 import es.jtestme.domain.JTestMeResult;
@@ -138,8 +139,11 @@ public abstract class JTestMeDefaultExecutor implements JTestMeExecutor {
      */
     protected String getParamString(final String param, final String defaultValue) {
         String value = param != null && param.trim().length() > 0 && params != null ? params.get(param) : null;
-        while (value != null && value.contains("${") && value.substring(value.indexOf("${")).contains("}")) {
+        while (containsSystemProperty(value)) {
             value = getSystemPropertyValue(value);
+        }
+        if (containsClasspathResource(value)) {
+            value = getClasspathResource(value);
         }
         return value != null && value.trim().length() > 0 ? value.trim() : defaultValue;
     }
@@ -148,9 +152,17 @@ public abstract class JTestMeDefaultExecutor implements JTestMeExecutor {
      * @param str
      * @return
      */
+    private boolean containsSystemProperty(final String str) {
+        return str != null && str.contains("${") && str.substring(str.indexOf("${")).contains("}");
+    }
+
+    /**
+     * @param str
+     * @return
+     */
     private String getSystemPropertyValue(final String str) {
         String value = str;
-        if (str != null) {
+        if (value != null) {
             final String part1 = value.substring(0, value.indexOf("${"));
             final String part2 = value.substring(value.indexOf("}") + 1);
             final String keyProperty = value.substring(value.indexOf("${") + 2, value.indexOf("}"));
@@ -165,4 +177,25 @@ public abstract class JTestMeDefaultExecutor implements JTestMeExecutor {
         return value;
     }
 
+    /**
+     * @param str
+     * @return
+     */
+    private boolean containsClasspathResource(final String str) {
+        return str != null && str.toLowerCase().startsWith("classpath:");
+    }
+
+    /**
+     * @param str
+     * @return
+     */
+    private String getClasspathResource(final String str) {
+        String value = str;
+        if (value != null) {
+            final String resource = value.substring(value.toLowerCase().indexOf("classpath:") + 10);
+            final URL url = getClass().getClassLoader().getResource(resource);
+            value = url != null ? url.getFile() : null;
+        }
+        return value;
+    }
 }
