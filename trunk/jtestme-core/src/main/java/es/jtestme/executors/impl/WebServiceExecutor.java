@@ -1,6 +1,9 @@
 package es.jtestme.executors.impl;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Map;
 
@@ -25,6 +28,7 @@ public class WebServiceExecutor extends JTestMeDefaultExecutor {
     private static final String PARAM_TRUSTSTOREPASSWORD = "truststorepassword";
 
     private final String protocol;
+    private final WebServiceProtocolType protocolType;
     private final String endPoint;
     private final String namespaceURI;
     private final String localPart;
@@ -34,7 +38,8 @@ public class WebServiceExecutor extends JTestMeDefaultExecutor {
     public WebServiceExecutor(final Map<String, String> params) {
         super(params);
         protocol = getParamString(PARAM_PROTOCOL, "soap");
-        endPoint = getEndPoint();
+        protocolType = WebServiceProtocolType.toType(protocol);
+        endPoint = getParamString(PARAM_ENDPOINT);
         namespaceURI = getParamString(PARAM_NAMESPACE_URI);
         localPart = getParamString(PARAM_LOCAL_PART);
         trustStore = getParamString(PARAM_TRUSTSTORE);
@@ -43,23 +48,27 @@ public class WebServiceExecutor extends JTestMeDefaultExecutor {
 
     public JTestMeResult executeTestMe() {
         final JTestMeResult result = super.getResult();
-
-        loadTrustStore(trustStore, trustStorePassword);
-
-        try {
-            if ("rpc".equalsIgnoreCase(protocol)) {
-                result.setSuscess(testRPC());
-            } else if ("rest".equalsIgnoreCase(protocol)) {
-                result.setSuscess(testREST());
-            } else if ("soap".equalsIgnoreCase(protocol)) {
-                result.setSuscess(testSOAP());
-            } else {
-                result.setMessage("WebService protocol not supported [RPC|SOAP|REST]: " + protocol);
+        if (protocolType == null) {
+            result.setMessage("WebService protocol not supported [RPC|SOAP|REST]: " + protocol);
+        } else {
+            loadTrustStore(trustStore, trustStorePassword);
+            try {
+                switch (protocolType) {
+                    case RPC:
+                        result.setSuscess(testRPC());
+                    break;
+                    case SOAP:
+                        result.setSuscess(testSOAP());
+                    break;
+                    case REST:
+                        result.setSuscess(testREST());
+                    break;
+                }
+            } catch (final Throwable e) {
+                result.setCause(e);
+            } finally {
+                relaseTrustStore(trustStore, trustStorePassword);
             }
-        } catch (final Throwable e) {
-            result.setCause(e);
-        } finally {
-            relaseTrustStore(trustStore, trustStorePassword);
         }
         return result;
     }
@@ -70,11 +79,6 @@ public class WebServiceExecutor extends JTestMeDefaultExecutor {
         final javax.xml.namespace.QName serviceName = new javax.xml.namespace.QName(namespaceURI, localPart);
         final javax.xml.rpc.Service service = serviceFactory.createService(url, serviceName);
         return service != null;
-    }
-
-    private boolean testREST() {
-        // TODO Auto-generated method stub
-        return false;
     }
 
     private boolean testSOAP() throws MalformedURLException, SOAPException {
@@ -94,11 +98,35 @@ public class WebServiceExecutor extends JTestMeDefaultExecutor {
         return response != null;
     }
 
-    private String getEndPoint() {
-        String endPoint = getParamString(PARAM_ENDPOINT);
-        if (endPoint != null && !endPoint.toLowerCase().endsWith("?wsld")) {
-            endPoint = endPoint + "?wsdl";
+    private boolean testREST() throws MalformedURLException, IOException {
+        HttpURLConnection connection = null;
+        try {
+            connection = (HttpURLConnection) new URL(endPoint).openConnection();
+            connection.setConnectTimeout(1000);
+            final int responseCode = connection.getResponseCode();
+            return responseCode >= 200 && responseCode <= 399;
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+            relaseTrustStore(trustStore, trustStorePassword);
         }
-        return endPoint;
+    }
+
+    enum WebServiceProtocolType {
+
+        RPC,
+        SOAP,
+        REST;
+
+        static WebServiceProtocolType toType(final String str) {
+            WebServiceProtocolType type = null;
+            try {
+                type = str != null ? valueOf(str.toUpperCase()) : null;
+            } catch (final IllegalArgumentException e) {
+                type = null;
+            }
+            return type;
+        }
     }
 }
