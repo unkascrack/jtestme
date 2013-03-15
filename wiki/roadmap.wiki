@@ -7,7 +7,7 @@ Planificación del desarrollo de JTestMe con los objetivos a corto y largo plazo
 
 == Versión 1.2 ==
  * issue 1:  Error en los tests webservice, cuando se introduce en el endpoint la terminación ?wsdl.
- * issue 2:  ConnectorExecutor, modificar el comportamiento de los componentes HttpUrlConnection y HttpsUrlConnection.
+ * issue 2:  !ConnectorExecutor, modificar el comportamiento de los componentes !HttpUrlConnection y !HttpsUrlConnection.
  * Documentar el proyecto, construyendo la wiki correspondiente de uso de la librería, dependencias.
  * Implementar el executor para validación test web service REST.
  * Añadir nuevos JTestMeExecutors: ftp y ssh.
