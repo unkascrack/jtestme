@@ -30,41 +30,106 @@ public class WebServiceExecutorTest {
     }
 
     @Test
-    public void testExecutorTestMeParamsRPC() {
+    public void testExecutorTestMeParamsEmptyRPCWebService() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("protocol", "rpc");
-        params.put("endpoint", "http://eeutil.dev.mpt.es/eeutil/ws/EeUtilService");
-        params.put("namespaceuri", "http://impl.service.ws.inside.dsic.mpt.es/");
-        params.put("localpart", "EeUtilServiceImplService");
-        executor = new WebServiceExecutor(params);
-        final JTestMeResult result = executor.executeTestMe();
-        Assert.assertNotNull(result);
-        Assert.assertTrue(result.isSuscess());
-    }
-
-    @Test
-    public void testExecutorTestMeParamsSOAP() {
-        final Map<String, String> params = new HashMap<String, String>();
-        params.put("protocol", "soap");
-        params.put("endpoint", "http://mazingerz.map.es/gpermisos-ws/services/PingWebService");
-        params.put("namespaceuri", "http://es.minhap.seap.gpermisos.ws");
-        params.put("localpart", "PingWebService");
-        executor = new WebServiceExecutor(params);
-        final JTestMeResult result = executor.executeTestMe();
-        Assert.assertNotNull(result);
-        Assert.assertTrue(result.isSuscess());
-    }
-
-    @Test
-    public void testExecutorTestMeParamsREST() {
-        final Map<String, String> params = new HashMap<String, String>();
-        params.put("protocol", "rest");
-        params.put("endpoint", "http://localhost:80/MyHelloService/MyHelloService");
-        params.put("namespaceuri", "MyHelloService");
-        params.put("localpart", "MyHelloServiceRPC");
         executor = new WebServiceExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuscess());
+    }
+
+    @Test
+    public void testExecutorTestMeParamsIncorrectRPCWebService() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("protocol", "rpc");
+        params.put("endpoint", "http://notfound.com?wsdl");
+        params.put("namespaceuri", "http://notfound.com/");
+        params.put("localpart", "notfound");
+        executor = new WebServiceExecutor(params);
+        final JTestMeResult result = executor.executeTestMe();
+        Assert.assertNotNull(result);
+        Assert.assertFalse(result.isSuscess());
+    }
+
+    @Test
+    public void testExecutorTestMeParamsOkRPCWebService() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("protocol", "rpc");
+        params.put("endpoint", "http://graphical.weather.gov/xml/SOAP_server/ndfdXMLserver.php?wsdl");
+        params.put("namespaceuri", "http://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl");
+        params.put("localpart", "ndfdXML");
+        executor = new WebServiceExecutor(params);
+        final JTestMeResult result = executor.executeTestMe();
+        Assert.assertNotNull(result);
+        Assert.assertTrue(result.isSuscess());
+    }
+
+    @Test
+    public void testExecutorTestMeParamsEmptySOAPWebService() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("protocol", "soap");
+        executor = new WebServiceExecutor(params);
+        final JTestMeResult result = executor.executeTestMe();
+        Assert.assertNotNull(result);
+        Assert.assertFalse(result.isSuscess());
+    }
+
+    @Test
+    public void testExecutorTestMeParamsIncorrectSOAPWebService() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("protocol", "soap");
+        params.put("endpoint", "http://notfound.com?wsdl");
+        params.put("namespaceuri", "http://notfound.com/");
+        params.put("localpart", "notfound");
+        executor = new WebServiceExecutor(params);
+        final JTestMeResult result = executor.executeTestMe();
+        Assert.assertNotNull(result);
+        Assert.assertFalse(result.isSuscess());
+    }
+
+    @Test
+    public void testExecutorTestMeParamsOkSOAPWebService() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("protocol", "soap");
+        params.put("endpoint", "http://www.webservicex.net/whois.asmx?WSDL");
+        params.put("namespaceuri", "http://www.webservicex.net");
+        params.put("localpart", "GetWhoIS");
+        executor = new WebServiceExecutor(params);
+        final JTestMeResult result = executor.executeTestMe();
+        Assert.assertNotNull(result);
+        Assert.assertTrue(result.isSuscess());
+    }
+
+    @Test
+    public void testExecutorTestMeParamsEmptyWebServiceREST() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("protocol", "rest");
+        executor = new WebServiceExecutor(params);
+        final JTestMeResult result = executor.executeTestMe();
+        Assert.assertNotNull(result);
+        Assert.assertFalse(result.isSuscess());
+    }
+
+    @Test
+    public void testExecutorTestMeParamsIncorrectWebServiceREST() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("protocol", "rest");
+        params.put("endpoint", "http://incorrrectrestservice.com");
+        executor = new WebServiceExecutor(params);
+        final JTestMeResult result = executor.executeTestMe();
+        Assert.assertNotNull(result);
+        Assert.assertFalse(result.isSuscess());
+    }
+
+    @Test
+    public void testExecutorTestMeParamsOkWebServiceREST() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("protocol", "rest");
+        params.put("endpoint", "http://www.dtcenter.org/met/metviewer/servlet");
+        executor = new WebServiceExecutor(params);
+        final JTestMeResult result = executor.executeTestMe();
+        Assert.assertNotNull(result);
+        Assert.assertTrue(result.isSuscess());
     }
 }
