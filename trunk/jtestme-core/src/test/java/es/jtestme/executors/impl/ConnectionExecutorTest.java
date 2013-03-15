@@ -10,6 +10,9 @@ import es.jtestme.domain.JTestMeResult;
 
 public class ConnectionExecutorTest {
 
+    private static final String PROXY_HOST = "";
+    private static final String PROXY_PORT = "";
+
     private ConnectionExecutor executor;
 
     @Test
@@ -34,8 +37,8 @@ public class ConnectionExecutorTest {
     public void testExecutorTestMeParamURLHttpOk() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("url", "http://www.google.com");
-        params.put("proxyhost", "127.0.0.1");
-        params.put("proxyport", "3128");
+        params.put("proxyhost", PROXY_HOST);
+        params.put("proxyport", PROXY_PORT);
         executor = new ConnectionExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
@@ -46,8 +49,8 @@ public class ConnectionExecutorTest {
     public void testExecutorTestMeParamURLHttpsOk() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("url", "https://www.google.com");
-        params.put("proxyhost", "127.0.0.1");
-        params.put("proxyport", "3128");
+        params.put("proxyhost", PROXY_HOST);
+        params.put("proxyport", PROXY_PORT);
         executor = new ConnectionExecutor(params);
         final JTestMeResult result = executor.executeTestMe();
         Assert.assertNotNull(result);
@@ -58,8 +61,8 @@ public class ConnectionExecutorTest {
     public void testExecutorTestMeParamURLHttpsCertificate() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("url", "https://www.google.com");
-        params.put("proxyhost", "127.0.0.1");
-        params.put("proxyport", "3128");
+        params.put("proxyhost", PROXY_HOST);
+        params.put("proxyport", PROXY_PORT);
         params.put("truststore", "/path/certificado");
         params.put("truststorepassword", "/path/certificado");
         executor = new ConnectionExecutor(params);
