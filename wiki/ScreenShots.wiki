@@ -1,0 +1,13 @@
+#summary Capturas de pantalla de la aplicación.
+
+= JTestMe: ScreenShots =
+
+Pantallas:
+
+== HTML ==
+
+== XML ==
+
+== TXT ==
+
+== JSON ==
