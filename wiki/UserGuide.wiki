@@ -1,4 +1,5 @@
 #summary Guía del usuario.
+#labels Featured
 
 = JTestMe: Guía del Usuario =
 
