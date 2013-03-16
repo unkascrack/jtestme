@@ -7,8 +7,8 @@ Here is a list of wishes of features.
 JTestMe is opensource: Priorities and todos may change any time. There is no promise of dates or that a particular feature will ever be done.
 
 <ol>
- <li>Fix [https://code.google.com/p/jtestme/issues/list issues].
- <li>Documentar el proyecto: [https://code.google.com/p/jtestme/wiki/UserGuide wiki].
+ <li>Fix [http://code.google.com/p/jtestme/issues/list issues].
+ <li>Documentar el proyecto: [http://code.google.com/p/jtestme/wiki/UserGuide wiki].
  <li>Implementar el executor para validación test web service REST.
  <li>Anadir nuevo JTestMeExecutor: FTP.
  <li>Anadir nuevo JTestMeExecutor: SSH.
