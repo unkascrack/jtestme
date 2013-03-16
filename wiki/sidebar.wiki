@@ -1,8 +1,8 @@
- * [http://jtestme.googlecode.com/ Home]
- * Screenshots
+[http://jtestme.googlecode.com/ Home]<br>
+[screenshots Screenshots]
 ----
- * [userguide User's Guide]
- * [relases Relases]
+[userguide User's Guide]<br>
+[relases Relases]
 ----
- * [roadmap Roadmap]
- * [todo TO DO]
+[roadmap Roadmap]<br>
+[todo TO DO]
