@@ -10,8 +10,8 @@
  <ol type=i>
   <li>[#3.1._Tipos_de_Test Tipos de Test]
   <li>[#3.2._Properties Properties]
-  <li>[#3.4._Java_SE Java SE]
-  <li>[#3.5._Java_EE Java EE]
+  <li>[#3.3._Java_SE Java SE]
+  <li>[#3.4._Java_EE Java EE]
 
  <li>[#4._Configuraci%C3%B3n_Avanzada Configuración Avanzada]
  <ol type=i>
@@ -43,32 +43,64 @@ Las dependencias maven de estas librerías son:
 	<groupId>javax.mail</groupId>
 	<artifactId>mail</artifactId>
 	<version>1.4.6</version>
-	<scope>provided</scope>
 	<optional>true</optional>
 </dependency>
 <dependency>
 	<groupId>com.artofsolving</groupId>
 	<artifactId>jodconverter</artifactId>
 	<version>2.2.1</version>
-	<scope>provided</scope>
 	<optional>true</optional>
 </dependency>
 <dependency>
 	<groupId>com.sun.xml.rpc</groupId>
 	<artifactId>jaxrpc-impl</artifactId>
 	<version>1.1.3_01</version>
-	<scope>provided</scope>
 	<optional>true</optional>
 </dependency>
 }}}
 
 
 == 3. Configuración Básica ==
+JTestMe se puede configurar tanto de forma programática, como mediante archivo properties externo.
+
 === 3.1. Tipos de Test === 
+Lo primero que hemos de conocer son los tipos de verificadores que dispone de manera interna JTestMe para poder utilizarlos:
+
+ * *connection*, permite verificar conexiones HTTP y HTTPS.
+ * *datasource*, permite verificar conexiones JNDI de {{{java.sql.DataSource}}}.
+ * *ftp*, permite verificar conexión FTP.
+ * *graphics*, permite comprobar si el sistema dispone de librerías X para imprimir reportes y otras librerías que hacen uso de este servicio.
+ * *jndi*, permite verificar conexiones con recursos JNDI (EJB, Resources,...).
+ * *jdbc*, permite verificar conexiones JDBC.
+ * *ldap*, permite verificar conexiones LDAP.
+ * *openoffice*, permite verificar conexiones con el servicio !OpenOffice o !LibreOffice.
+ * *smtp*, permite verificar la conexión con el servidor SMTP.
+ * *webservice*, permite verificar las conexiones con servicios web.
+ * *custom*, permite implementar una solución propia para poder verificar un recurso de la aplicación. En el punto [#4.2._JTestMeExecutor_Personalizadas 4.2.] Más adelante se mostrará como implementar este tipo de verificación.
+
 === 3.2. Properties ===
-=== 3.3. Tipos de Test ===
-=== 3.4. Java SE ===
-=== 3.5. Java EE ===
+Para cada uno de los tipos de test será necesario definir una serie de parámetros para que JTestMe ejecuta de forma correcta la verificación.
+
+Los parámetros de configuración comunes para todos los tipos de test son:
+ * *type*, indica el tipo de test que se trata, este parámetro es obligatorio.
+ * *name*, representa el nombre del verificador, este parámetro es obligatorio.
+ * *description*, almacena la descripción del verificador, campo opcional.
+ * *resolution*, almacena el comentario de qué hacer en caso de que falle la verificación, campo opcional.
+ * *optional*, indica si la verificación es opcional o no, campo booleano opcional cuyo valor por defecto es false.
+
+Para cada tipo de test existen toda una serie de parámetros propios de configuración:
+ * 
+
+
+Para los parámetros es posible introducir claves de variables alojadas en las propiedades del sistema ({{{System.getProperty}}}) o recursos del classpath ({{{classpath:}}}).  Ejemplo:
+{{{
+....param.truststore=${pathTrustStore}/trustore
+....param.truststore=${trustStorePassword}
+....param.truststore=classpath:resource
+}}}
+ 
+=== 3.3. Java SE ===
+=== 3.4. Java EE ===
 
 == 4. Configuración Avanzada ==
 === 4.1. Log ===
