@@ -1,6 +1,6 @@
 #summary Ideas y cosas por hacer en la aplicación.
 
-= JTestMe: TODO =
+= JTestMe: TO DO =
 
 Here is a list of wishes of features.
 
