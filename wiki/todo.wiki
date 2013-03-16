@@ -8,7 +8,7 @@ JTestMe is opensource: Priorities and todos may change any time. There is no pro
 
 <ol>
  <li>Fix [https://code.google.com/p/jtestme/issues/list issues].
- <li>Documentar el proyecto: [https://code.google.com/p/jtestme/wiki/ wiki].
+ <li>Documentar el proyecto: [https://code.google.com/p/jtestme/wiki/UserGuide wiki].
  <li>Implementar el executor para validación test web service REST.
  <li>Anadir nuevo JTestMeExecutor: FTP.
  <li>Anadir nuevo JTestMeExecutor: SSH.
