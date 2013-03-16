@@ -277,8 +277,9 @@ jtestme.custom.param.class=#className implements JTestMeExecutor
 === 3.4. Java EE ===
 Para configurar JTestMe en una aplicación Web, es necesario dos pasos:
 
-1.Configurar el {{{javax.servlet.Filter}}} en el *web.xml*:
+1.Configurar el {{{javax.servlet.Filter}}} en el *web.xml*, añadiendo el filtro el primero:
 {{{
+...
 <filter>
 	<filter-name>jtestmefilter</filter-name>
 	<filter-class>es.jtestme.filter.JTestMeFilter</filter-class>
@@ -305,6 +306,7 @@ Para configurar JTestMe en una aplicación Web, es necesario dos pasos:
 	<filter-name>jtestmefilter</filter-name>
 	<url-pattern>/jtestme</url-pattern>
 </filter-mapping>
+...
 }}}
 
   Todos los parámetros configurables del {{{javax.servlet.Filter}}} de JTestMe son opcionales. Los parámetros disponibles son:
@@ -331,5 +333,50 @@ NOTA: también es posible cargar en tiempo de ejecución verificadores, al igual
 === 4.2. JTestMeExecutor Personalizadas ===
 === 4.3. JTestMeView Personalizadas ===
 === 4.4. Seguridad ===
+The monitoring page does not contain data such as passwords, but before using it in production, you may probably want that this page is in restricted access. You may secure it by using your own means. Otherwise, it is possible to restrict its access by a regular expression on ip address of client with the parameter allowed-addr-pattern (regular expression with a range of internal ip addresses or fixed ip addresses of administrators). For example, "192\.168\..*|123\.123\.123\.123" to allow the ip addresses in the "192.168.*.*" range plus any pc hiding behind the gateway 123.123.123.123. 
+
+Note that if you use a http proxy server like Apache in front of the server, the ip address of the client will be the one of Apache. So you may not use allowed-addr-pattern in this case, or do not use Apache to access this page, or you may enable mod_proxy_ajp in order that the monitored server knows the ip address of the clients. Example of httpd conf with ajp: 
+
+{{{
+<location /webapp>
+		ProxyPass ajp://localhost:8080/webapp
+</location> 
+}}}
+
+Or if some security-constraint et security-role(s) are defined in the web.xml file of the application, you can also restrict in the web.xml file the access to the monitoring page to "monitoring" role for example. 
+
+Example of content of the web.xml file for authentication by login and password: 
+{{{
+<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>JTestMe</realm-name>
+</login-config>
+<security-role>
+		<role-name>jtestme</role-name>
+</security-role>
+<security-constraint>
+		<web-resource-collection>
+				<web-resource-name>JTestMe</web-resource-name>
+				<url-pattern>/jtestme</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+				<role-name>jtestme</role-name>
+		</auth-constraint>
+		<!-- if SSL enabled (SSL and certificate must then be configured in the server)
+		<user-data-constraint>
+				<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint> 
+		-->
+</security-constraint>
+}}}
+
+The realm and the users must be defined in the application server, and the users must have the "jtestme" role to have access to the reports. For example, if tomcat is used with the default realm, modify the content of the conf/tomcat-users.xml file as follows: 
+{{{
+<?xml version='1.0' encoding='utf-8'?>
+<tomcat-users>
+	 <role rolename="jtestme"/>
+	 <user username="jtestme" password="jtestme" roles="jtestme"/>
+</tomcat-users>
+}}}
 
 == 5. Desarrollo ==
