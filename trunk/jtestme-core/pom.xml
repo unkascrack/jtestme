@@ -10,7 +10,7 @@
 	<artifactId>jtestme-core</artifactId>
 	<name>jTestMe - Core</name>
 	<version>1.2</version>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -33,7 +33,7 @@
 			<scope>provided</scope>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -54,7 +54,7 @@
 			<artifactId>log4j</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>dumbster</groupId>
 			<artifactId>dumbster</artifactId>
@@ -74,7 +74,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName>
 		<plugins>
@@ -84,6 +84,33 @@
 				<configuration>
 					<skip>false</skip>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
