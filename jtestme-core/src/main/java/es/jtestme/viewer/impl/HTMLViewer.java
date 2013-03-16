@@ -18,35 +18,56 @@ public class HTMLViewer extends JTestMeDefaultViewer {
         final StringBuilder builder = new StringBuilder();
         builder.append(header());
         if (results == null || results.isEmpty()) {
-            // TODO: Añadir README
-            builder.append("ICON ERROR");
-            builder.append("No se han definidio ningún test!!! README");
+            builder.append("<img src='?resource=img/error.png' alt='Error'/>");
+            builder.append("<b>&nbsp;No se han definidio ningún test!!!</b>");
         } else {
-            builder.append("<table border='1' cellspacing='0' cellpading='0'>").append(NEW_LINE);
+            int contador = 1;
+            builder.append("<table border='1' cellspacing='1' cellpading='1' width='100%'>").append(NEW_LINE);
             for (final JTestMeResult result : results) {
                 builder.append("<tr>").append(NEW_LINE);
-                builder.append("<td align='right'>").append(NEW_LINE);
+                builder.append("<td align='right' style='white-space:nowrap' valign='top'>").append(NEW_LINE);
                 builder.append("<b>").append(result.getName()).append("</b>").append(NEW_LINE);
                 builder.append("</td>").append(NEW_LINE);
-                builder.append("<td align='center'>").append(NEW_LINE);
+                builder.append("<td align='center' valign='top'>").append(NEW_LINE);
                 if (result.isSuscess()) {
-                    builder.append("<img src='?resource=success.png' alt='Suscess'/>");
+                    builder.append("<img src='?resource=img/success.png' alt='Suscess' style='padding:4px'/>");
                 } else {
-                    builder.append("<img src='?resource=error.png' alt='Error'/>");
+                    builder.append("<img src='?resource=img/error.png' alt='Error' style='padding:4px'/>");
                 }
                 builder.append("</td>").append(NEW_LINE);
-                builder.append("<td align='left'>").append(NEW_LINE);
-                builder.append("<b>").append(result.getSuscessString()).append("</b>").append(NEW_LINE);
-                if (!result.isSuscess()) {
-                    builder.append(" - ").append(result.getMessage()).append(NEW_LINE);
-                    builder.append("<br/><em>").append(result.getResolution()).append("</em>").append(NEW_LINE);
+                builder.append("<td align='left' width='100%' valign='top'>").append(NEW_LINE);
+                if (result.isSuscess()) {
+                    builder.append("<b>").append(result.getSuscessString()).append("</b>").append(NEW_LINE);
+                } else {
+                    builder.append("<em>").append(result.getResolution()).append("</em><br/>").append(NEW_LINE);
+                    builder.append("<a href='javascript:showHide(").append(contador).append(")'>");
+                    builder.append("<img src='?resource=img/plus.png' id='").append(contador).append("Img'/>");
+                    builder.append("</a>").append(NEW_LINE);
+                    builder.append("<b>").append(result.getMessage()).append("</b>").append(NEW_LINE);
+                    builder.append("<div id='").append(contador).append("' style='display:none'>").append(NEW_LINE);
+                    builder.append(getStackTraceToString(result.getCause())).append(NEW_LINE);
+                    builder.append("</div>").append(NEW_LINE);
                 }
                 builder.append("</td>").append(NEW_LINE);
                 builder.append("</tr>").append(NEW_LINE);
+                contador++;
             }
             builder.append("</table>").append(NEW_LINE);
         }
         builder.append(footer());
+        return builder.toString();
+    }
+
+    private String getStackTraceToString(final Throwable cause) {
+        final StringBuilder builder = new StringBuilder();
+        if (cause != null) {
+            builder.append("<blockquote>").append(NEW_LINE);
+            final StackTraceElement elements[] = cause.getStackTrace();
+            for (final StackTraceElement element : elements) {
+                builder.append(element).append("</br>").append(NEW_LINE);
+            }
+            builder.append("</blockquote>").append(NEW_LINE);
+        }
         return builder.toString();
     }
 
@@ -60,19 +81,22 @@ public class HTMLViewer extends JTestMeDefaultViewer {
                 .append(NEW_LINE);
         builder.append("<html>").append(NEW_LINE);
         builder.append("<head>").append(NEW_LINE);
-        builder.append("<title>").append("JTestMe Monitoring").append("</title>").append(NEW_LINE);
+        builder.append("<title>").append("JTestMe Monitor").append("</title>").append(NEW_LINE);
+        builder.append("<link rel='stylesheet' href='?resource=css/jtestme.css' type='text/css'/>").append(NEW_LINE);
         builder.append("</head>").append(NEW_LINE);
         builder.append("<body>").append(NEW_LINE);
-        builder.append("<h1>").append("JTestMe Monitoring:").append("</h1>").append(NEW_LINE);
+        builder.append("<h2>").append("<a href='http://jtestme.googlecode.com/' target='_blank'>JTestMe</a> Monitor:")
+                .append("</h2>").append(NEW_LINE);
         builder.append("<hr/>");
-        builder.append("<a href='?' title='Refresh'><img src='?resource=refresh.png' alt='Refresh'/></a>");
-        builder.append("Monitoring taken at ").append(currentDateAndTime).append(" on ").append(hostName).append(".")
-                .append(NEW_LINE);
+        builder.append("<p><a href='?' title='Refresh'><img src='?resource=img/refresh.png' alt='Refresh'/></a>");
+        builder.append("&nbsp;Monitoring taken at ").append(currentDateAndTime).append(" on ").append(hostName)
+                .append(":</p>").append(NEW_LINE);
         return builder.toString();
     }
 
     private String footer() {
         final StringBuilder builder = new StringBuilder();
+        builder.append("<script type='text/javascript' src='?resource=js/jtestme.js'></script>").append(NEW_LINE);
         builder.append("</body>").append(NEW_LINE);
         builder.append("</html>").append(NEW_LINE);
         return builder.toString();
