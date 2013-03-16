@@ -100,7 +100,7 @@ public class JTestMeResult implements Serializable {
 
     public void setCause(final Throwable cause) {
         this.cause = cause;
-        message = cause != null ? cause.getMessage() : message;
+        message = cause == null ? message : cause.getMessage() != null ? cause.getMessage() : cause.toString();
     }
 
     @Override
