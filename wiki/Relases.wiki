@@ -1,4 +1,5 @@
 #summary Relases.
+#labels Featured
 
 = JTestMe: Relases =
 
