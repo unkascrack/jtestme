@@ -50,33 +50,9 @@ public class DatasourceExecutor extends JTestMeDefaultExecutor {
         } catch (final Throwable e) {
             result.setCause(e);
         } finally {
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (final SQLException e) {
-                }
-            }
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (final SQLException e) {
-                }
-            }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (final SQLException e) {
-                }
-            }
-
-            if (context != null) {
-                try {
-                    context.close();
-                } catch (final NamingException e) {
-                }
-            }
+            closeQuietly(resultSet);
+            closeQuietly(statement);
+            closeQuietly(context);
         }
         return result;
     }

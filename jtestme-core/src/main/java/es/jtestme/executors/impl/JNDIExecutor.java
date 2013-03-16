@@ -56,12 +56,7 @@ public class JNDIExecutor extends JTestMeDefaultExecutor {
         } catch (final Throwable e) {
             result.setCause(e);
         } finally {
-            if (context != null) {
-                try {
-                    context.close();
-                } catch (final NamingException e) {
-                }
-            }
+            closeQuietly(context);
         }
         return result;
     }

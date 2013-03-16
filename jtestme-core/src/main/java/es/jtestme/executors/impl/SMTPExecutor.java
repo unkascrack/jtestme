@@ -61,15 +61,19 @@ public class SMTPExecutor extends JTestMeDefaultExecutor {
         } catch (final Throwable e) {
             result.setCause(e);
         } finally {
-            if (transport != null) {
-                try {
-                    transport.close();
-                } catch (final MessagingException e) {
-                }
-            }
+            closeQuietly(transport);
         }
 
         return result;
+    }
+
+    private void closeQuietly(final Transport transport) {
+        if (transport != null) {
+            try {
+                transport.close();
+            } catch (final MessagingException e) {
+            }
+        }
     }
 
 }
