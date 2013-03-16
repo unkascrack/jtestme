@@ -24,8 +24,44 @@
 
 
 ==1. Introducción==
+El objetivo de JTestMe es facilitar la comprobación de los servicios y/o recursos necesarios de una aplicación para su correcta ejecución, de esta forma será posible tener monitorizado en todo momento las dependencias externas de una aplicación.
+
+JTestMe es una librería Java, que es compatible tanto con aplicaciones Java SE, como aplicaciones Java EE, disponiendo incluso de un {{{javax.servlet.Filter}}} para poder visualizar de forma sencilla el estado de los recursos de una aplicación.
 
 == 2. Dependencias ==
+
+JTestMe esta implementado con la versión *1.5* de Java.
+
+Además existirá una serie de dependencias adiciones en función de los verificadores que se utilicen:
+ * *smpt*, {{{javax.mail}}}
+ * *openoffice*, {{{jodconverter}}}
+ * *webservice rpc* {{{jaxrpc-impl}}}
+
+Las dependencias maven de estas librerías son:
+{{{
+<dependency>
+	<groupId>javax.mail</groupId>
+	<artifactId>mail</artifactId>
+	<version>1.4.6</version>
+	<scope>provided</scope>
+	<optional>true</optional>
+</dependency>
+<dependency>
+	<groupId>com.artofsolving</groupId>
+	<artifactId>jodconverter</artifactId>
+	<version>2.2.1</version>
+	<scope>provided</scope>
+	<optional>true</optional>
+</dependency>
+<dependency>
+	<groupId>com.sun.xml.rpc</groupId>
+	<artifactId>jaxrpc-impl</artifactId>
+	<version>1.1.3_01</version>
+	<scope>provided</scope>
+	<optional>true</optional>
+</dependency>
+}}}
+
 
 == 3. Configuración Básica ==
 === 3.1. Tipos de Test === 
