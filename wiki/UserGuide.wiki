@@ -158,9 +158,173 @@ Para los parámetros es posible introducir claves de variables alojadas en las p
 ....param.truststore=${trustStorePassword}
 ....param.truststore=classpath:resource
 }}}
+
+<br>
+Ejemplo de archivo de configuración con verificadores JTestMe:
+{{{
+# Test Connection
+jtestme.connection.type=connection
+jtestme.connection.name=Connection Test
+jtestme.connection.description=Connection Test
+jtestme.connection.resolution=Qué hacer si falla el test
+jtestme.connection.optional=true
+jtestme.connection.param.url=
+jtestme.connection.param.timeout=
+jtestme.connection.param.proxyhost=
+jtestme.connection.param.proxyport=
+jtestme.connection.param.truststore=
+jtestme.connection.param.truststorepassword=
+
+# Test Datasource
+jtestme.datasource.type=datasource
+jtestme.datasource.name=Datasource Test
+jtestme.datasource.description=Datasource Test
+jtestme.datasource.resolution=Qué hacer si falla el test
+jtestme.datasource.param.datasource=
+jtestme.datasource.param.testquery=#optional
+jtestme.datasource.optional=true
+
+# Test FTP
+jtestme.ftp.type=ftp
+jtestme.ftp.name=FTP Test
+jtestme.ftp.description=FTP Test
+jtestme.ftp.resolution=Qué hacer si falla el test
+jtestme.ftp.param.host=
+jtestme.ftp.param.port=#default 21
+jtestme.ftp.param.username=#default anonymous
+jtestme.ftp.param.password=#default anonymous
+
+# Test Graphics
+jtestme.graphics.type=graphics
+jtestme.graphics.name=Graphics Test
+jtestme.graphics.description=Graphics Test
+jtestme.graphics.resolution=Qué hacer si falla el test
+
+# Test JDBC
+jtestme.jdbc.type=jdbc
+jtestme.jdbc.name=JDBC Database Test
+jtestme.jdbc.description=JDBC Database Test
+jtestme.jdbc.resolution=Qué hacer si falla el test
+jtestme.jdbc.param.driver=
+jtestme.jdbc.param.url=
+jtestme.jdbc.param.username=
+jtestme.jdbc.param.password=
+jtestme.jdbc.param.testquery=#optional
+jtestme.jdbc.param.testquery=#optional
+
+# Test JNDI
+jtestme.jndi.type=jndi
+jtestme.jndi.name=JNDI Test
+jtestme.jndi.description=JNDI Test
+jtestme.jndi.resolution=Qué hacer si falla el test
+jtestme.jndi.param.factory=#Context.INITIAL_CONTEXT_FACTORY
+jtestme.jndi.param.url=#Context.PROVIDER_URL
+jtestme.jndi.param.pkgs=#Context.URL_PKG_PREFIXES
+jtestme.jndi.param.lookup=#lookup name
+
+# Test LDAP
+jtestme.ldap.type=ldap
+jtestme.ldap.name=LDAP Test
+jtestme.ldap.description=LDAP Test
+jtestme.ldap.resolution=Qué hacer si falla el test
+jtestme.ldap.param.url=
+jtestme.ldap.param.principal=
+jtestme.ldap.param.credentials=
+
+# Test OpenOffice
+jtestme.openoffice.type=openoffice
+jtestme.openoffice.name=OpenOffice Test
+jtestme.openoffice.description=OpenOffice Test
+jtestme.openoffice.resolution=Qué hacer si falla el test
+jtestme.openoffice.param.host=#default localhost
+jtestme.openoffice.param.port=#default 8700
+
+# Test SMTP
+jtestme.smtp.type=smtp
+jtestme.smtp.name=SMTP Test
+jtestme.smtp.description=SMTP Test
+jtestme.smtp.resolution=Qué hacer si falla el test
+jtestme.smtp.param.host=
+jtestme.smtp.param.port=#default 25
+jtestme.smtp.param.auth=#default false
+jtestme.smtp.param.username=
+jtestme.smtp.param.password=
+jtestme.smtp.param.starttls=
+jtestme.smtp.param.startssl=
+
+# Test WebService : rpc / soap /rest
+jtestme.webservice.type=webservice
+jtestme.webservice.name=WebService Test
+jtestme.webservice.description=WebService Test
+jtestme.webservice.resolution=Qué hacer si falla el test
+jtestme.webservice.param.protocol=#rpc|soap|rest
+jtestme.webservice.param.endpoint=
+jtestme.webservice.param.namespaceuri=
+jtestme.webservice.param.localpart=
+jtestme.webservice.param.truststore=
+jtestme.webservice.param.truststorepassword= 
+
+# Test Custom
+jtestme.custom.type=custom
+jtestme.custom.name=Custom Test
+jtestme.custom.description=Custom Test
+jtestme.custom.resolution=Qué hacer si falla el test
+jtestme.custom.param.class=#className implements JTestMeExecutor
+}}}
  
 === 3.3. Java SE ===
+
 === 3.4. Java EE ===
+Para configurar JTestMe en una aplicación Web, es necesario dos pasos:
+
+1.Configurar el {{{javax.servlet.Filter}}} en el *web.xml*:
+{{{
+<filter>
+	<filter-name>jtestmefilter</filter-name>
+	<filter-class>es.jtestme.filter.JTestMeFilter</filter-class>
+	<!--
+	<init-param>
+		<param-name>config-location</param-name>
+		<param-value>classpath:jtestme.properties</param-value>
+	</init-param>
+	<init-param>
+		<param-name>encoding</param-name>
+		<param-value>UTF-8</param-value>
+	</init-param>
+	<init-param>
+		<param-name>log</param-name>
+		<param-value>true</param-value>
+	</init-param>
+	<init-param>
+		<param-name>param-type-format</param-name>
+		<param-value>format</param-value>
+	</init-param>		
+	-->
+</filter>
+<filter-mapping>
+	<filter-name>jtestmefilter</filter-name>
+	<url-pattern>/jtestme</url-pattern>
+</filter-mapping>
+}}}
+
+  Todos los parámetros configurables del {{{javax.servlet.Filter}}} de JTestMe son opcionales. Los parámetros disponibles son:
+   * *config-location*, parámetro que define la ubicación del archivo de configuración, por defecto "classpath:jtestme.properties".
+   * *encoding*, parámetro que define la codificación de los carácters en las respuestas HTTP, por defecto "UTF-8".
+   * *log*, activa/desactiva las trazas de log lanzadas por la librería. por defecto "true".
+   * *param-type-format*, clave del parámetro request para cambiar el tipo de formato, por defecto "format". Ejemplo: {{{http://..../jtestme?format=xml}}}.
+
+<br> 
+2. Configurar el archivo properties, *jtestme.properties*, en la ruta indicada en los parámetros del filtro:
+{{{
+...
+# Test Datasource
+jtestme.datasource.type=datasource
+jtestme.datasource.name=Datasource Test
+jtestme.datasource.param.datasource=
+...
+}}}
+ 
+NOTA: también es posible cargar en tiempo de ejecución verificadores, al igual que se muestra para aplicaciones Java SE. Igualmente se podría arrancar JTestMe sin definir ningún archivo de configuración externo.
 
 == 4. Configuración Avanzada ==
 === 4.1. Log ===
