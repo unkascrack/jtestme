@@ -102,12 +102,56 @@ Para cada tipo de test existen toda una serie de parámetros propios de configur
   * testquery, consulta SQL para verificar el correcto funcionamiento de la conexión a la fuente de datos, campo opcional.
   
  * *ftp*:
-  * *host*, indica el host del servidor FTP para conectarse, campo obligatorio.
+  * *host*, host del servidor FTP para conectarse, campo obligatorio.
   * port, puerto del servidor FTP a conectarse, campo opcional su valor por defecto es 21.
   * username, usuario de conexión al servidor FTP, campo opcional.
   * password, password de conexión al servidor FTP, campo opcional.
 
+ * *graphics*: No tiene ningún parámetro de configuración exclusivo.
+ 
+ * *jdbc*:
+  * *driver*, nombre de la clase con el driver JDBC para cargarlo, campo obligatorio.
+  * *url*, cadena de conexión a la base de datos, campo obligatorio.
+  * username, usuario de conexión a la base de datos, campo opcional.
+  * password, password de conexión a la base de datos, campo opcional.
+  * testquery, consulta SQL para verificar el correcto funcionamiento de la conexión a la fuente de datos, campo opcional.
+  
+ * *jndi*:
+  * *lookup*, nombre del recurso JNDI para buscarlo en el contexto, campo obligatorio.
+  * factory, parámetro que permite modificar el parámetro {{{Context.INITIAL_CONTEXT_FACTORY}}}, campo opcional.
+  * url, parámetro que permite modificar el parámetro {{{Context.PROVIDER_URL}}}, campo opcional.
+  * pkgs, parámetro que permite modificar el parámetro {{{Context.URL_PKG_PREFIXES}}}, campo opcional.
 
+ * *ldap*:
+  * *url*, cadena de conexión al servidor LDAP, campo obligatorio.
+  * principal, usuario de conexión al servidor LDAP, campo opcional.
+  * credentials, password de conexión al servidor LDAP, campo opcional.
+  
+ * *openoffice*:
+  * host, host del servidor donde se encuentra disponible el servicio !OpenOffice, campo opcional su valor por defecto es localhost.
+  * port, puerto del servicio !OpenOffice, campo opcional por defecto es 8700.
+  
+ * *smtp*:
+  * *host*, host de conexión al servidor SMTP, campo obligatorio.
+  * port, puerto de escucha del servidor SMTP, campo opcional por defecto su valor es 25.
+  * auth, valor booleano que nos indica si es necesaria autorización para conectarnos al servidor SMTP, por defecto su valor es "false".
+  * username, usuario de conexión al servidor SMTP, campo opcional.
+  * password, password de conexión al servidor SMTP, campo opcional.
+  * starttls
+  * startssl
+ 
+ * *webservice*:
+  * *protocol*, protocolo de conexión al web service, campo obligatorio cuyo valores pueden ser: "rpc" o "soap" o "rest".
+  * *endpoint*, URL con la ubicación del endpoint web service, campo obligatorio.
+  * namespaceuri, namespace del web service, campo opcional.
+  * localpart, nombre del servicio del web service que se utilizará, campo opcional.
+  * truststore, almacén de claves para aceptar conexiones seguras (HTTPS), campo opcional.
+  * truststorepassword, password del almacén de claves para aceptar conexiones seguras (HTTPS), campo opcional.
+  
+ * *custom*:
+  * *class*, classpath completo de la clase propia que implementa un verificador, esta clase debe implementar el interface {{{JTestMeExecutor}}}, campo obligatorio.
+
+<br>
 Para los parámetros es posible introducir claves de variables alojadas en las propiedades del sistema ({{{System.getProperty}}}) o recursos del classpath ({{{classpath:}}}).  Ejemplo:
 {{{
 ....param.truststore=${pathTrustStore}/trustore
