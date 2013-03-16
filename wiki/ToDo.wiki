@@ -12,6 +12,7 @@ JTestMe is opensource: Priorities and todos may change any time. There is no pro
  <li>~~Implementar el executor para validación test web service REST.~~
  <li>~~Anadir nuevo JTestMeExecutor: FTP.~~
  <li>Anadir nuevo JTestMeExecutor: SSH.
+ <li>Anadir nuevo JTestMeExecutor: IMAP.
  <li>~~Revisar la factoría de clases JTestMeExecutor, JTestMeExecutorFactory.java, para que la instanciación de los tipos de executors se realice utilizando Reflection, en vez de switch. ~~
  <li>Mejorar el interfaz Web.
  <li>Estudiar la posibilidad de poder crear una vista de tipo "*custom*", así como se podrían reemplazar la JTestMeView que se generan por defecto.
