@@ -6,8 +6,6 @@
 	
 	<display-name>JTestMe</display-name>
 	
-	<distributable/>
-	
 	<filter>
 		<filter-name>jtestmefilter</filter-name>
 		<filter-class>es.jtestme.filter.JTestMeFilter</filter-class>

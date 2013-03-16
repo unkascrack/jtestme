@@ -46,6 +46,11 @@
 			<artifactId>unboundid-ldapsdk</artifactId>
 			<version>2.3.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mockftpserver</groupId>
+			<artifactId>MockFtpServer</artifactId>
+			<version>2.4</version>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.slf4j</groupId>

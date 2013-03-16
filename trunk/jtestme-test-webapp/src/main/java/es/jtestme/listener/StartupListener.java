@@ -7,6 +7,12 @@ import javax.naming.NamingException;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.mockftpserver.fake.FakeFtpServer;
+import org.mockftpserver.fake.UserAccount;
+import org.mockftpserver.fake.filesystem.DirectoryEntry;
+import org.mockftpserver.fake.filesystem.FileSystem;
+import org.mockftpserver.fake.filesystem.WindowsFakeFileSystem;
+
 import com.dumbster.smtp.SimpleSmtpServer;
 import com.unboundid.ldap.listener.InMemoryDirectoryServer;
 import com.unboundid.ldap.listener.InMemoryDirectoryServerConfig;
@@ -20,6 +26,7 @@ public class StartupListener implements ServletContextListener {
     private SimpleSmtpServer smtpServer;
     private InMemoryDirectoryServer ldapServer;
     private Process sOffice;
+    private FakeFtpServer fakeFtpServer;
 
     public void contextInitialized(final ServletContextEvent context) {
         smtpServer = SimpleSmtpServer.start(2525);
@@ -56,12 +63,30 @@ public class StartupListener implements ServletContextListener {
         } catch (final InterruptedException e) {
             JTestMeLogger.error(e.toString(), e);
         }
+        
+        try {
+            final String dir = "C:\\data";
+
+            fakeFtpServer = new FakeFtpServer();
+            fakeFtpServer.setServerControlPort(2121);
+            fakeFtpServer.addUserAccount(new UserAccount("anonymous", "anonymous", dir));
+            fakeFtpServer.addUserAccount(new UserAccount("user", "password", dir));
+
+            final FileSystem fileSystem = new WindowsFakeFileSystem();
+            fileSystem.add(new DirectoryEntry(dir));
+            fakeFtpServer.setFileSystem(fileSystem);
+
+            fakeFtpServer.start();
+        } catch (final Throwable e) {
+            JTestMeLogger.error(e.toString(), e);
+        }
     }
 
     public void contextDestroyed(final ServletContextEvent context) {
         smtpServer.stop();
         ldapServer.shutDown(true);
         sOffice.destroy();
+        fakeFtpServer.stop();
     }
 
 }
