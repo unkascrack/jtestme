@@ -1,6 +1,7 @@
 # Tipos de Test:
 #  * connection = test conexiones http y https
 #  * datasource = test conexiones Datasource
+#  * ftp = test conexión FTP
 #  * graphics = test comprueba Graphics enabled
 #  * jndi = test conexiones servicios jndi (ejb, resources,...)
 #  * jdbc = test conexiones JDBC
@@ -46,6 +47,16 @@ jtestme.datasource.resolution=Qué hacer si falla el test
 jtestme.datasource.param.datasource=
 jtestme.datasource.param.testquery=#optional
 jtestme.datasource.optional=true
+
+# Test FTP
+jtestme.ftp.type=ftp
+jtestme.ftp.name=FTP Test
+jtestme.ftp.description=FTP Test
+jtestme.ftp.resolution=Qué hacer si falla el test
+jtestme.ftp.param.host=
+jtestme.ftp.param.port=#default 21
+jtestme.ftp.param.username=#default anonymous
+jtestme.ftp.param.password=#default anonymous
 
 # Test Graphics
 jtestme.graphics.type=graphics
