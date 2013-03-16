@@ -89,7 +89,23 @@ Los parámetros de configuración comunes para todos los tipos de test son:
  * *optional*, indica si la verificación es opcional o no, campo booleano opcional cuyo valor por defecto es false.
 
 Para cada tipo de test existen toda una serie de parámetros propios de configuración:
- * 
+ * *connection*:
+  * *url*, representa la URL sobre la que se efectuará la verificación, campo obligatorio.
+  * timeout, indica el tiempo máximo de espera antes de cancelar al verificación de la conexión, por defecto 5''.
+  * proxyhost, host del proxy de la red, campo opcional.
+  * proxyport, puerto del proxy de la red, campo opcional.
+  * truststore, almacén de claves para aceptar conexiones seguras (HTTPS), campo opcional.
+  * truststorepassword, password del almacén de claves para aceptar conexiones seguras (HTTPS), campo opcional.
+  
+ * *datasource*:
+  * *datasource*, nombre del contexto del DataSource, campo obligatorio.
+  * testquery, consulta SQL para verificar el correcto funcionamiento de la conexión a la fuente de datos, campo opcional.
+  
+ * *ftp*:
+  * *host*, indica el host del servidor FTP para conectarse, campo obligatorio.
+  * port, puerto del servidor FTP a conectarse, campo opcional su valor por defecto es 21.
+  * username, usuario de conexión al servidor FTP, campo opcional.
+  * password, password de conexión al servidor FTP, campo opcional.
 
 
 Para los parámetros es posible introducir claves de variables alojadas en las propiedades del sistema ({{{System.getProperty}}}) o recursos del classpath ({{{classpath:}}}).  Ejemplo:
