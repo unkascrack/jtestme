@@ -279,7 +279,6 @@ Para configurar JTestMe en una aplicación Web, es necesario dos pasos:
 
 1.Configurar el {{{javax.servlet.Filter}}} en el *web.xml*, añadiendo el filtro el primero:
 {{{
-...
 <filter>
 	<filter-name>jtestmefilter</filter-name>
 	<filter-class>es.jtestme.filter.JTestMeFilter</filter-class>
@@ -306,7 +305,6 @@ Para configurar JTestMe en una aplicación Web, es necesario dos pasos:
 	<filter-name>jtestmefilter</filter-name>
 	<url-pattern>/jtestme</url-pattern>
 </filter-mapping>
-...
 }}}
 
   Todos los parámetros configurables del {{{javax.servlet.Filter}}} de JTestMe son opcionales. Los parámetros disponibles son:
