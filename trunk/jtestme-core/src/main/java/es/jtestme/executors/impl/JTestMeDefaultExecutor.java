@@ -1,7 +1,12 @@
 package es.jtestme.executors.impl;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
+
+import javax.naming.Context;
+import javax.naming.NamingException;
 
 import es.jtestme.domain.JTestMeResult;
 import es.jtestme.executors.JTestMeExecutor;
@@ -95,6 +100,51 @@ public abstract class JTestMeDefaultExecutor implements JTestMeExecutor {
             } else {
                 System.clearProperty("javax.net.ssl.trustStorePassword");
             }
+        }
+    }
+
+    /**
+     * @param context
+     */
+    protected void closeQuietly(final Context context) {
+        if (context != null) {
+            try {
+                context.close();
+            } catch (final NamingException e) {
+            }
+        }
+    }
+
+    /**
+     * @param closeable
+     */
+    protected void closeQuietly(final AutoCloseable closeable) {
+        if (closeable != null) {
+            try {
+                closeable.close();
+            } catch (final Exception e) {
+            }
+        }
+    }
+
+    /**
+     * @param closeable
+     */
+    protected void closeQuietly(final Closeable closeable) {
+        if (closeable != null) {
+            try {
+                closeable.close();
+            } catch (final IOException e) {
+            }
+        }
+    }
+
+    /**
+     * @param param
+     */
+    protected void removeParam(final String param) {
+        if (params != null && params.containsKey(param)) {
+            params.remove(param);
         }
     }
 

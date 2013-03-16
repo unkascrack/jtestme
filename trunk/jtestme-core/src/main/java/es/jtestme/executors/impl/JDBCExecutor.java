@@ -53,26 +53,9 @@ public class JDBCExecutor extends JTestMeDefaultExecutor {
         } catch (final Throwable e) {
             result.setCause(e);
         } finally {
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (final SQLException e) {
-                }
-            }
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (final SQLException e) {
-                }
-            }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (final SQLException e) {
-                }
-            }
+            closeQuietly(resultSet);
+            closeQuietly(statement);
+            closeQuietly(connection);
         }
         return result;
     }

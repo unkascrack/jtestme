@@ -44,9 +44,9 @@ public class LDAPExecutor extends JTestMeDefaultExecutor {
             env.put(Context.SECURITY_CREDENTIALS, credentials);
         }
 
-        DirContext ctx = null;
+        DirContext context = null;
         try {
-            ctx = new InitialDirContext(env);
+            context = new InitialDirContext(env);
             result.setSuscess(true);
         } catch (final NameNotFoundException e) {
             result.setCause(e);
@@ -55,12 +55,7 @@ public class LDAPExecutor extends JTestMeDefaultExecutor {
         } catch (final Throwable e) {
             result.setCause(e);
         } finally {
-            if (ctx != null) {
-                try {
-                    ctx.close();
-                } catch (final NamingException e) {
-                }
-            }
+            closeQuietly(context);
         }
         return result;
     }
