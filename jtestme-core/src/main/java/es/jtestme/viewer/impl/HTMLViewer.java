@@ -39,7 +39,9 @@ public class HTMLViewer extends AbstractViewer {
                 if (result.isSuscess()) {
                     builder.append("<b>").append(result.getSuscessString()).append("</b>").append(NEW_LINE);
                 } else {
-                    builder.append("<em>").append(result.getResolution()).append("</em><br/>").append(NEW_LINE);
+                    if (result.getResolution() != null) {
+                        builder.append("<em>").append(result.getResolution()).append("</em><br/>").append(NEW_LINE);
+                    }
                     builder.append("<a href='javascript:showHide(").append(contador).append(")'>");
                     builder.append("<img src='?resource=img/plus.png' id='").append(contador).append("Img'/>");
                     builder.append("</a>").append(NEW_LINE);
