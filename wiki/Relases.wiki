@@ -10,6 +10,7 @@
  * Revisión viewer HTML.
  * Verificación conexiones FTP.
  * Verificación web service REST.
+ * Mejora de rendimiento en la ejecución de multiples verificators utilizando threads en paralelo.
 
 == 1.1 ==
  * Corregido verificator webservice.

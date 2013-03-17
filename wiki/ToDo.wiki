@@ -18,5 +18,5 @@ JTestMe is opensource: Priorities and todos may change any time. There is no pro
  <li>Estudiar la posibilidad de poder crear una vista de tipo "*custom*", así como se podrían reemplazar la JTestMeView que se generan por defecto.
  <li>Extraer los textos a messages resources para poder I18N.
  <li>Construcción de la aplicación jtestme-collector-server, para poder monitorizar el estado de N aplicaciones configuradas con jtestme-core.
- <li>Utilizar multiple threads para realizar simultáneamente varios test y ganar en rendimiento de respuesta.
+ <li>~~Utilizar multiple threads para realizar simultáneamente varios test y ganar en rendimiento de respuesta.~~
  <li>Eliminar dependencias con la librería "jodconverter" del verificator !OpenOffice. Construir una conexión con {{{Sockets}}}.
