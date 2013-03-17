@@ -29,7 +29,7 @@ El objetivo de JTestMe es facilitar la comprobación de los servicios y/o recurs
 
 JTestMe es una librería Java, que es compatible tanto con aplicaciones Java SE, como aplicaciones Java EE, disponiendo incluso de un {{{javax.servlet.Filter}}} para poder visualizar de forma sencilla el estado de los recursos de una aplicación.
 
-== 3. Configuración Básica ==
+== 2. Configuración Básica ==
 JTestMe se puede configurar tanto de forma programática, como mediante archivo properties de configuración externo.
 
 === 2.1. Tipos de Test === 
