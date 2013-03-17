@@ -104,7 +104,7 @@ public final class JTestMeFilter implements Filter {
         final long start = System.currentTimeMillis();
         PrintWriter output = null;
         try {
-            final List<VerificatorResult> results = BUILDER.runVerificators();
+            final List<VerificatorResult> results = BUILDER.executeVerificators();
             final ViewerType viewerType = getViewerType(request);
             final Viewer viewer = ViewerFactory.loadViewer(viewerType);
             response.setContentType(viewer.getContentType());
