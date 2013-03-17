@@ -6,65 +6,33 @@
 == Índice ==
 <ol>
  <li>[#1._Introducci%C3%B3n Introducción]
- <li>[#2._Dependencias Dependencias]
- <li>[#3._Configuraci%C3%B3n_B%C3%A1sica Configuración Básica]
+ <li>[#2._Configuraci%C3%B3n_B%C3%A1sica Configuración Básica]
  <ol type=i>
-  <li>[#3.1._Tipos_de_Test Tipos de Test]
-  <li>[#3.2._Properties Properties]
-  <li>[#3.3._Java_SE Java SE]
-  <li>[#3.4._Java_EE Java EE]
+  <li>[#2.1._Tipos_de_Test Tipos de Test]
+  <li>[#2.2._Properties Properties]
+  <li>[#2.3._Java_SE Java SE]
+  <li>[#2.4._Java_EE Java EE]
+  <li>[#2.5._Dependencias Dependencias]
 
- <li>[#4._Configuraci%C3%B3n_Avanzada Configuración Avanzada]
+ <li>[#3._Configuraci%C3%B3n_Avanzada Configuración Avanzada]
  <ol type=i>
-  <li>[#4.1._Log Log]
-  <li>[#4.2._Verificators_Personalizados Verificators Personalizados]
-  <li>[#4.3._Views_Personalizadas Views Personalizados]
-  <li>[#4.4._Seguridad Seguridad]
+  <li>[#3.1._Log Log]
+  <li>[#3.2._Verificators_Personalizados Verificators Personalizados]
+  <li>[#3.3._Views_Personalizadas Views Personalizados]
+  <li>[#3.4._Seguridad Seguridad]
 
- <li>[#5._Desarrollo Desarrollo]
+ <li>[#4._Desarrollo Desarrollo]
 
 
-==1. Introducción==
+== 1. Introducción ==
 El objetivo de JTestMe es facilitar la comprobación de los servicios y/o recursos necesarios de una aplicación para su correcta ejecución, de esta forma será posible tener monitorizado en todo momento las dependencias externas de una aplicación.
 
 JTestMe es una librería Java, que es compatible tanto con aplicaciones Java SE, como aplicaciones Java EE, disponiendo incluso de un {{{javax.servlet.Filter}}} para poder visualizar de forma sencilla el estado de los recursos de una aplicación.
 
-== 2. Dependencias ==
-
-JTestMe esta implementado con la versión *1.5* de Java.
-
-Además existirá una serie de dependencias adiciones en función de los verificadores que se utilicen:
- * *smpt*, {{{javax.mail}}}
- * *openoffice*, {{{jodconverter}}}
- * *webservice rpc* {{{jaxrpc-impl}}}
-
-Las dependencias maven de estas librerías son:
-{{{
-<dependency>
-	<groupId>javax.mail</groupId>
-	<artifactId>mail</artifactId>
-	<version>1.4.6</version>
-	<optional>true</optional>
-</dependency>
-<dependency>
-	<groupId>com.artofsolving</groupId>
-	<artifactId>jodconverter</artifactId>
-	<version>2.2.1</version>
-	<optional>true</optional>
-</dependency>
-<dependency>
-	<groupId>com.sun.xml.rpc</groupId>
-	<artifactId>jaxrpc-impl</artifactId>
-	<version>1.1.3_01</version>
-	<optional>true</optional>
-</dependency>
-}}}
-
-
 == 3. Configuración Básica ==
 JTestMe se puede configurar tanto de forma programática, como mediante archivo properties de configuración externo.
 
-=== 3.1. Tipos de Test === 
+=== 2.1. Tipos de Test === 
 Lo primero que hemos de conocer son los tipos de verificadores que dispone de manera interna JTestMe para poder utilizarlos:
 
  * *connection*, permite verificar conexiones HTTP y HTTPS.
@@ -79,7 +47,7 @@ Lo primero que hemos de conocer son los tipos de verificadores que dispone de ma
  * *webservice*, permite verificar las conexiones con servicios web.
  * *custom*, permite implementar una solución propia para poder verificar un recurso de la aplicación. En el punto [#4.2._Verificators_Personalizados 4.2.] Más adelante se mostrará como implementar este tipo de verificación.
 
-=== 3.2. Properties ===
+=== 2.2. Properties ===
 Para cada uno de los tipos de test será necesario definir una serie de parámetros para que JTestMe ejecuta de forma correcta la verificación.
 
 Los parámetros de configuración comunes para todos los tipos de test son:
@@ -273,9 +241,9 @@ jtestme.custom.resolution=Qué hacer si falla el test
 jtestme.custom.param.class=#className implements es.jtestme.verificators.Verificator
 }}}
  
-=== 3.3. Java SE ===
+=== 2.3. Java SE ===
 
-=== 3.4. Java EE ===
+=== 2.4. Java EE ===
 Para configurar JTestMe en una aplicación Web, es necesario dos pasos:
 
 1.Configurar el {{{javax.servlet.Filter}}} en el *web.xml*, añadiendo el filtro el primero:
@@ -327,11 +295,45 @@ jtestme.datasource.param.datasource=
  
 NOTA: también es posible cargar en tiempo de ejecución verificadores, al igual que se muestra para aplicaciones Java SE. Igualmente se podría arrancar JTestMe sin definir ningún archivo de configuración externo.
 
-== 4. Configuración Avanzada ==
-=== 4.1. Log ===
-=== 4.2. Verificators Personalizados ===
-=== 4.3. Views Personalizadas ===
-=== 4.4. Seguridad ===
+=== 2.5 Dependencias ===
+La librería JTestMe esta implementado con la versión *1.5* de Java.
+
+Además existirá una serie de dependencias adiciones en función de los verificadores que se utilicen:
+ * *smpt*, {{{javax.mail}}}
+{{{
+<dependency>
+	<groupId>javax.mail</groupId>
+	<artifactId>mail</artifactId>
+	<version>1.4.6</version>
+	<optional>true</optional>
+</dependency>
+}}}
+ 
+ * *openoffice*, {{{jodconverter}}}
+{{{
+<dependency>
+	<groupId>com.artofsolving</groupId>
+	<artifactId>jodconverter</artifactId>
+	<version>2.2.1</version>
+	<optional>true</optional>
+</dependency>
+}}}
+ 
+ * *webservice rpc* {{{jaxrpc-impl}}}
+{{{
+ <dependency>
+	<groupId>com.sun.xml.rpc</groupId>
+	<artifactId>jaxrpc-impl</artifactId>
+	<version>1.1.3_01</version>
+	<optional>true</optional>
+</dependency>
+}}}
+
+== 3. Configuración Avanzada ==
+=== 3.1. Log ===
+=== 3.2. Verificators Personalizados ===
+=== 3.3. Views Personalizadas ===
+=== 3.4. Seguridad ===
 The monitoring page does not contain data such as passwords, but before using it in production, you may probably want that this page is in restricted access. You may secure it by using your own means. Otherwise, it is possible to restrict its access by a regular expression on ip address of client with the parameter allowed-addr-pattern (regular expression with a range of internal ip addresses or fixed ip addresses of administrators). For example, "192\.168\..*|123\.123\.123\.123" to allow the ip addresses in the "192.168.*.*" range plus any pc hiding behind the gateway 123.123.123.123. 
 
 Note that if you use a http proxy server like Apache in front of the server, the ip address of the client will be the one of Apache. So you may not use allowed-addr-pattern in this case, or do not use Apache to access this page, or you may enable mod_proxy_ajp in order that the monitored server knows the ip address of the clients. Example of httpd conf with ajp: 
@@ -378,4 +380,4 @@ The realm and the users must be defined in the application server, and the users
 </tomcat-users>
 }}}
 
-== 5. Desarrollo ==
+== 4. Desarrollo ==
