@@ -295,7 +295,7 @@ jtestme.datasource.param.datasource=
  
 NOTA: también es posible cargar en tiempo de ejecución verificadores, al igual que se muestra para aplicaciones Java SE. Igualmente se podría arrancar JTestMe sin definir ningún archivo de configuración externo.
 
-=== 2.5 Dependencias ===
+=== 2.5. Dependencias ===
 La librería JTestMe esta implementado con la versión *1.5* de Java.
 
 Además existirá una serie de dependencias adiciones en función de los verificadores que se utilicen:
