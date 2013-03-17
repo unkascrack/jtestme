@@ -74,6 +74,7 @@ jtestme.jdbc.param.url=
 jtestme.jdbc.param.username=
 jtestme.jdbc.param.password=
 jtestme.jdbc.param.testquery=#optional
+jtestme.jdbc.param.testquery=#optional
 
 # Test JNDI
 jtestme.jndi.type=jndi
