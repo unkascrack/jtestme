@@ -16,11 +16,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 import es.jtestme.JTestMeBuilder;
-import es.jtestme.domain.JTestMeResult;
+import es.jtestme.domain.VerificatorResult;
 import es.jtestme.logger.JTestMeLogger;
-import es.jtestme.viewer.JTestMeViewer;
-import es.jtestme.viewer.JTestMeViewerFactory;
-import es.jtestme.viewer.JTestMeViewerType;
+import es.jtestme.viewer.Viewer;
+import es.jtestme.viewer.ViewerFactory;
+import es.jtestme.viewer.ViewerType;
 
 public final class JTestMeFilter implements Filter {
 
@@ -61,7 +61,7 @@ public final class JTestMeFilter implements Filter {
         this.config = config;
         JTestMeLogger.loggerEnabled(Boolean.parseBoolean(config.getInitParameter(PARAM_CONFIG_LOG)));
         final String configLocation = config.getInitParameter(PARAM_CONFIG_LOCATION);
-        BUILDER.loadExecutors(configLocation);
+        BUILDER.loadVerificators(configLocation);
         final long duration = System.currentTimeMillis() - start;
         JTestMeLogger.info("JTestMe filter init done in " + duration + " ms");
     }
@@ -104,9 +104,9 @@ public final class JTestMeFilter implements Filter {
         final long start = System.currentTimeMillis();
         PrintWriter output = null;
         try {
-            final List<JTestMeResult> results = BUILDER.runExecutors();
-            final JTestMeViewerType viewerType = getViewerType(request);
-            final JTestMeViewer viewer = JTestMeViewerFactory.loadViewer(viewerType);
+            final List<VerificatorResult> results = BUILDER.runVerificators();
+            final ViewerType viewerType = getViewerType(request);
+            final Viewer viewer = ViewerFactory.loadViewer(viewerType);
             response.setContentType(viewer.getContentType());
             response.setCharacterEncoding(getEncoding());
             output = response.getWriter();
@@ -165,11 +165,11 @@ public final class JTestMeFilter implements Filter {
      * @param request
      * @return
      */
-    private JTestMeViewerType getViewerType(final ServletRequest request) {
+    private ViewerType getViewerType(final ServletRequest request) {
         String requestParam = config.getInitParameter(PARAM_CONFIG_PARAMETER_FORMAT);
         requestParam = requestParam != null && requestParam.trim().length() > 0 ? requestParam
                 : DEFAULT_REQUEST_PARAM_FORMAT;
-        return JTestMeViewerType.toType(request.getParameter(requestParam), JTestMeViewerType.HTML);
+        return ViewerType.toType(request.getParameter(requestParam), ViewerType.HTML);
     }
 
     private static final String DEFAULT_ENCODING = "UTF-8";

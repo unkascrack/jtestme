@@ -4,7 +4,7 @@ import org.junit.Before;
 
 import es.jtestme.viewer.impl.JSONViewer;
 
-public class JSONViewerTest extends JTestMeDefaultViewerTest {
+public class JSONViewerTest extends AbstractViewerTest {
 
     @Override
     @Before

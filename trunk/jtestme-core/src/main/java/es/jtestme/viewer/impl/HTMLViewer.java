@@ -2,9 +2,9 @@ package es.jtestme.viewer.impl;
 
 import java.util.List;
 
-import es.jtestme.domain.JTestMeResult;
+import es.jtestme.domain.VerificatorResult;
 
-public class HTMLViewer extends JTestMeDefaultViewer {
+public class HTMLViewer extends AbstractViewer {
 
     public String getExtension() {
         return ".xhtml";
@@ -14,7 +14,7 @@ public class HTMLViewer extends JTestMeDefaultViewer {
         return "text/html";
     }
 
-    public String getContentViewer(final List<JTestMeResult> results) {
+    public String getContentViewer(final List<VerificatorResult> results) {
         final StringBuilder builder = new StringBuilder();
         builder.append(header());
         if (results == null || results.isEmpty()) {
@@ -23,7 +23,7 @@ public class HTMLViewer extends JTestMeDefaultViewer {
         } else {
             int contador = 1;
             builder.append("<table border='1' cellspacing='1' cellpading='1' width='100%'>").append(NEW_LINE);
-            for (final JTestMeResult result : results) {
+            for (final VerificatorResult result : results) {
                 builder.append("<tr>").append(NEW_LINE);
                 builder.append("<td align='right' style='white-space:nowrap' valign='top'>").append(NEW_LINE);
                 builder.append("<b>").append(result.getName()).append("</b>").append(NEW_LINE);

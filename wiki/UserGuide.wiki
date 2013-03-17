@@ -17,8 +17,8 @@
  <li>[#4._Configuraci%C3%B3n_Avanzada Configuración Avanzada]
  <ol type=i>
   <li>[#4.1._Log Log]
-  <li>[#4.2._JTestMeExecutor_Personalizadas JTestMeExecutor Personalizados]
-  <li>[#4.3._JTestMeView_Personalizadas JTestMeView Personalizados]
+  <li>[#4.2._Verificators_Personalizados Verificators Personalizados]
+  <li>[#4.3._Views_Personalizadas Views Personalizados]
   <li>[#4.4._Seguridad Seguridad]
 
  <li>[#5._Desarrollo Desarrollo]
@@ -62,7 +62,7 @@ Las dependencias maven de estas librerías son:
 
 
 == 3. Configuración Básica ==
-JTestMe se puede configurar tanto de forma programática, como mediante archivo properties externo.
+JTestMe se puede configurar tanto de forma programática, como mediante archivo properties de configuración externo.
 
 === 3.1. Tipos de Test === 
 Lo primero que hemos de conocer son los tipos de verificadores que dispone de manera interna JTestMe para poder utilizarlos:
@@ -77,7 +77,7 @@ Lo primero que hemos de conocer son los tipos de verificadores que dispone de ma
  * *openoffice*, permite verificar conexiones con el servicio !OpenOffice o !LibreOffice.
  * *smtp*, permite verificar la conexión con el servidor SMTP.
  * *webservice*, permite verificar las conexiones con servicios web.
- * *custom*, permite implementar una solución propia para poder verificar un recurso de la aplicación. En el punto [#4.2._JTestMeExecutor_Personalizadas 4.2.] Más adelante se mostrará como implementar este tipo de verificación.
+ * *custom*, permite implementar una solución propia para poder verificar un recurso de la aplicación. En el punto [#4.2._Verificators_Personalizados 4.2.] Más adelante se mostrará como implementar este tipo de verificación.
 
 === 3.2. Properties ===
 Para cada uno de los tipos de test será necesario definir una serie de parámetros para que JTestMe ejecuta de forma correcta la verificación.
@@ -150,7 +150,7 @@ Para cada tipo de test existen toda una serie de parámetros propios de configur
   * truststorepassword, password del almacén de claves para aceptar conexiones seguras (HTTPS), campo opcional.
   
  * *custom*:
-  * *class*, classpath completo de la clase propia que implementa un verificador, esta clase debe implementar el interface {{{JTestMeExecutor}}}, campo obligatorio.
+  * *class*, classpath completo de la clase propia que implementa un verificador, esta clase debe implementar el interface {{{Verificator}}}, campo obligatorio.
 
 <br>
 Para los parámetros es posible introducir claves de variables alojadas en las propiedades del sistema ({{{System.getProperty}}}) o recursos del classpath ({{{classpath:}}}).  Ejemplo:
@@ -270,7 +270,7 @@ jtestme.custom.type=custom
 jtestme.custom.name=Custom Test
 jtestme.custom.description=Custom Test
 jtestme.custom.resolution=Qué hacer si falla el test
-jtestme.custom.param.class=#className implements JTestMeExecutor
+jtestme.custom.param.class=#className implements es.jtestme.verificators.Verificator
 }}}
  
 === 3.3. Java SE ===
@@ -329,8 +329,8 @@ NOTA: también es posible cargar en tiempo de ejecución verificadores, al igual
 
 == 4. Configuración Avanzada ==
 === 4.1. Log ===
-=== 4.2. JTestMeExecutor Personalizadas ===
-=== 4.3. JTestMeView Personalizadas ===
+=== 4.2. Verificators Personalizados ===
+=== 4.3. Views Personalizadas ===
 === 4.4. Seguridad ===
 The monitoring page does not contain data such as passwords, but before using it in production, you may probably want that this page is in restricted access. You may secure it by using your own means. Otherwise, it is possible to restrict its access by a regular expression on ip address of client with the parameter allowed-addr-pattern (regular expression with a range of internal ip addresses or fixed ip addresses of administrators). For example, "192\.168\..*|123\.123\.123\.123" to allow the ip addresses in the "192.168.*.*" range plus any pc hiding behind the gateway 123.123.123.123. 
 

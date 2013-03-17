@@ -2,9 +2,9 @@ package es.jtestme.viewer.impl;
 
 import java.util.List;
 
-import es.jtestme.domain.JTestMeResult;
+import es.jtestme.domain.VerificatorResult;
 
-public class PlainTextViewer extends JTestMeDefaultViewer {
+public class PlainTextViewer extends AbstractViewer {
 
     public String getExtension() {
         return ".txt";
@@ -14,13 +14,13 @@ public class PlainTextViewer extends JTestMeDefaultViewer {
         return "text/plain";
     }
 
-    public String getContentViewer(final List<JTestMeResult> results) {
+    public String getContentViewer(final List<VerificatorResult> results) {
         final StringBuilder builder = new StringBuilder();
         builder.append(header());
         if (results == null || results.isEmpty()) {
             builder.append("No se han definido tests.").append(NEW_LINE);
         } else {
-            for (final JTestMeResult result : results) {
+            for (final VerificatorResult result : results) {
                 builder.append(TAB).append(" * ").append(result.toString()).append(NEW_LINE);
             }
         }

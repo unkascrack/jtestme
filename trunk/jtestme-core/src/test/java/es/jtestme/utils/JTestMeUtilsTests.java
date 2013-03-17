@@ -5,44 +5,44 @@ import java.lang.reflect.InvocationTargetException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import es.jtestme.executors.JTestMeExecutor;
-import es.jtestme.executors.impl.FakeExecutor;
+import es.jtestme.verificators.Verificator;
+import es.jtestme.verificators.custom.FakeVerificator;
 
 public class JTestMeUtilsTests {
 
     @Test
-    public void testLoadExecutorNull() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
-            IllegalArgumentException, InvocationTargetException {
-        final JTestMeExecutor executor = JTestMeUtils.loadExecutor(null, null, null);
-        Assert.assertNull(executor);
+    public void testLoadVerificatorNull() throws ClassNotFoundException, InstantiationException,
+            IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        final Verificator verificator = JTestMeUtils.loadVerificator(null, null, null);
+        Assert.assertNull(verificator);
     }
 
     @Test
-    public void testLoadExecutorEmpty() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
-            IllegalArgumentException, InvocationTargetException {
-        final JTestMeExecutor executor = JTestMeUtils.loadExecutor(" ", null, null);
-        Assert.assertNull(executor);
+    public void testLoadVerificatorEmpty() throws ClassNotFoundException, InstantiationException,
+            IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        final Verificator verificator = JTestMeUtils.loadVerificator(" ", null, null);
+        Assert.assertNull(verificator);
     }
 
     @Test(expected = ClassNotFoundException.class)
-    public void testLoadExecutorNotFound() throws ClassNotFoundException, InstantiationException,
+    public void testLoadVerificatorNotFound() throws ClassNotFoundException, InstantiationException,
             IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        final JTestMeExecutor executor = JTestMeUtils.loadExecutor("notfound", null, null);
-        Assert.assertNull(executor);
+        final Verificator verificator = JTestMeUtils.loadVerificator("notfound", null, null);
+        Assert.assertNull(verificator);
     }
 
     @Test
-    public void testLoadExecutorNoConstructor() throws ClassNotFoundException, InstantiationException,
+    public void testLoadVerificatorNoConstructor() throws ClassNotFoundException, InstantiationException,
             IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        final JTestMeExecutor executor = JTestMeUtils.loadExecutor(JTestMeUtils.class.getName(), null, null);
-        Assert.assertNull(executor);
+        final Verificator verificator = JTestMeUtils.loadVerificator(JTestMeUtils.class.getName(), null, null);
+        Assert.assertNull(verificator);
     }
 
     @Test
-    public void testLoadExecutorOk() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+    public void testLoadVerificatorOk() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
             IllegalArgumentException, InvocationTargetException {
-        final JTestMeExecutor executor = JTestMeUtils.loadExecutor(FakeExecutor.class.getName(), null, null);
-        Assert.assertNotNull(executor);
+        final Verificator verificator = JTestMeUtils.loadVerificator(FakeVerificator.class.getName(), null, null);
+        Assert.assertNotNull(verificator);
     }
 
 }

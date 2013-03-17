@@ -9,11 +9,11 @@ JTestMe is opensource: Priorities and todos may change any time. There is no pro
 <ol>
  <li>Fix [http://code.google.com/p/jtestme/issues/list issues].
  <li>Documentar el proyecto: [http://code.google.com/p/jtestme/wiki/UserGuide wiki].
- <li>~~Implementar el executor para validación test web service REST.~~
- <li>~~Anadir nuevo JTestMeExecutor: FTP.~~
- <li>Anadir nuevo JTestMeExecutor: SSH.
- <li>Anadir nuevo JTestMeExecutor: IMAP.
- <li>~~Revisar la factoría de clases JTestMeExecutor, JTestMeExecutorFactory.java, para que la instanciación de los tipos de executors se realice utilizando Reflection, en vez de switch. ~~
+ <li>~~Implementar el verificator para validación test web service REST.~~
+ <li>~~Anadir nuevo verificator: FTP.~~
+ <li>Anadir nuevo verificator: SSH.
+ <li>Anadir nuevo verificator: IMAP.
+ <li>~~Revisar la factoría de clases Verificator, VerificatorFactory.java, para que la instanciación de los tipos de verificators se realice utilizando Reflection, en vez de switch. ~~
  <li>Mejorar el interfaz Web.
  <li>Estudiar la posibilidad de poder crear una vista de tipo "*custom*", así como se podrían reemplazar la JTestMeView que se generan por defecto.
  <li>Extraer los textos a messages resources para poder I18N.

@@ -3,13 +3,21 @@
 
 = JTestMe: Relases =
 
+== 1.2 ==
+ * Issue 1: Error en los tests webservice, cuando se introduce en el endpoint la terminación ?wsdl .
+ * Issue 2: ConnectorVerificator, modificar el comportamiento de los componentes HttpUrlConnection y HttpsUrlConnection.
+ * Refactoring de todas los packages y clases.
+ * Revisión viewer HTML.
+ * Verificación conexiones FTP.
+ * Verificación web service REST.
+
 == 1.1 ==
- * Corregido executor webservice
- * Añadida posibilidad de asignar system properties ({{{System.getProperty()}}}) y classpath para los valores de las propiedades de los executors.
+ * Corregido verificator webservice.
+ * Añadida posibilidad de asignar system properties ({{{System.getProperty()}}}) y classpath para los valores de las propiedades de los verificators.
 
 == 1.0 ==
- * Versión inicial del proyecto
+ * Versión inicial del proyecto.
  * Implementado el módulo core (jtesme-core).
  * Implementado el módulo test-webapp (jtestme-test-webapp).
- * Creado los executors: connection, datasource, graphics, jndi, jdbc, ldap, openoffice, smtp, webservice y custom.
+ * Creado los verificators: connection, datasource, graphics, jndi, jdbc, ldap, openoffice, smtp, webservice y custom.
  * Creada los views: html, xml, text y json.

@@ -5,16 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import es.jtestme.config.JTestMeConfiguration;
-import es.jtestme.domain.JTestMeResult;
-import es.jtestme.executors.JTestMeExecutor;
-import es.jtestme.executors.JTestMeExecutorFactory;
+import es.jtestme.config.ConfigurationBuilder;
+import es.jtestme.domain.VerificatorResult;
 import es.jtestme.logger.JTestMeLogger;
+import es.jtestme.verificators.Verificator;
+import es.jtestme.verificators.VerificatorFactory;
 
 public final class JTestMeBuilder {
 
     private static final JTestMeBuilder INSTANCE = new JTestMeBuilder();
-    private static final List<JTestMeExecutor> executors = new ArrayList<JTestMeExecutor>();
+    private static final List<Verificator> verificators = new ArrayList<Verificator>();
 
     private JTestMeBuilder() {
     }
@@ -27,43 +27,43 @@ public final class JTestMeBuilder {
      * 
      */
     public void destroy() {
-        executors.clear();
+        verificators.clear();
     }
 
     /**
      * @param configLocation
      * @return
      */
-    public void loadExecutors(final String configLocation) {
-        final JTestMeConfiguration configuration = JTestMeConfiguration.getInstance();
+    public void loadVerificators(final String configLocation) {
+        final ConfigurationBuilder configuration = ConfigurationBuilder.getInstance();
         final Map<String, Map<String, String>> params = configuration.loadConfiguration(configLocation);
         if (params != null && !params.isEmpty()) {
-            final JTestMeExecutorFactory executorFactory = JTestMeExecutorFactory.getInstance();
+            final VerificatorFactory verificatorFactory = VerificatorFactory.getInstance();
             for (final Entry<String, Map<String, String>> entry : params.entrySet()) {
                 final String name = entry.getKey();
                 final Map<String, String> properties = entry.getValue();
-                final JTestMeExecutor executor = executorFactory.loadExecutor(name, properties);
-                if (executor != null) {
-                    executors.add(executor);
+                final Verificator verificator = verificatorFactory.loadVerificator(name, properties);
+                if (verificator != null) {
+                    verificators.add(verificator);
                 }
             }
         }
     }
 
     /**
-     * @return
+     * @param verificator
      */
-    public void addExecutor(final JTestMeExecutor executor) {
-        executors.add(executor);
+    public void addVerificator(final Verificator verificator) {
+        verificators.add(verificator);
     }
 
     /**
      * @return
      */
-    public List<JTestMeResult> runExecutors() {
-        final List<JTestMeResult> results = new ArrayList<JTestMeResult>();
-        for (final JTestMeExecutor executor : executors) {
-            final JTestMeResult result = runExecutor(executor);
+    public List<VerificatorResult> runVerificators() {
+        final List<VerificatorResult> results = new ArrayList<VerificatorResult>();
+        for (final Verificator verificator : verificators) {
+            final VerificatorResult result = runVerificator(verificator);
             if (result != null) {
                 results.add(result);
             }
@@ -72,40 +72,41 @@ public final class JTestMeBuilder {
     }
 
     /**
-     * @param executorName
+     * @param verificatorUid
      * @return
      */
-    public JTestMeResult runExecutor(final String executorName) {
-        final JTestMeExecutor executorSearch = getExecutor(executorName);
-        return executorSearch != null ? runExecutor(executorSearch) : null;
+    public VerificatorResult runVerificator(final String verificatorUid) {
+        final Verificator verificatorSearch = getVerificator(verificatorUid);
+        return verificatorSearch != null ? runVerificator(verificatorSearch) : null;
     }
 
     /**
-     * @param executor
+     * @param verificator
      * @return
      */
-    private JTestMeResult runExecutor(final JTestMeExecutor executor) {
-        JTestMeResult result = null;
+    private VerificatorResult runVerificator(final Verificator verificator) {
+        VerificatorResult result = null;
         try {
-            result = executor.executeTestMe();
+            result = verificator.execute();
         } catch (final Throwable e) {
-            JTestMeLogger.warn("JTestMeBuilder running executor '" + executor.getName() + "': " + e.getMessage(), e);
+            JTestMeLogger.warn("JTestMeBuilder running verificator '" + verificator.getUid() + "': " + e.getMessage(),
+                    e);
         }
         return result;
     }
 
     /**
-     * @param executorName
+     * @param verificatorUid
      * @return
      */
-    private JTestMeExecutor getExecutor(final String executorName) {
-        JTestMeExecutor executorSearch = null;
-        for (final JTestMeExecutor executor : executors) {
-            if (executorName != null && executorName.equalsIgnoreCase(executor.getName())) {
-                executorSearch = executor;
+    private Verificator getVerificator(final String verificatorUid) {
+        Verificator verificatorSearch = null;
+        for (final Verificator verificator : verificators) {
+            if (verificatorUid != null && verificatorUid.equalsIgnoreCase(verificator.getUid())) {
+                verificatorSearch = verificator;
                 break;
             }
         }
-        return executorSearch;
+        return verificatorSearch;
     }
 }
