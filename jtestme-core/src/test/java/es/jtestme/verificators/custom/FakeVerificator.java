@@ -5,8 +5,17 @@ import es.jtestme.verificators.Verificator;
 
 public class FakeVerificator implements Verificator {
 
+    private String uid = getClass().getName();
+
+    public FakeVerificator() {
+    }
+
+    public FakeVerificator(final String uid) {
+        this.uid = uid;
+    }
+
     public String getUid() {
-        return null;
+        return uid;
     }
 
     public VerificatorResult execute() {
@@ -14,5 +23,4 @@ public class FakeVerificator implements Verificator {
         result.setSuscess(true);
         return result;
     }
-
 }
