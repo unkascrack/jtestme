@@ -2,9 +2,9 @@ package es.jtestme.viewer.impl;
 
 import java.util.List;
 
-import es.jtestme.domain.JTestMeResult;
+import es.jtestme.domain.VerificatorResult;
 
-public class XMLViewer extends JTestMeDefaultViewer {
+public class XMLViewer extends AbstractViewer {
 
     public String getExtension() {
         return ".xml";
@@ -14,11 +14,11 @@ public class XMLViewer extends JTestMeDefaultViewer {
         return "text/xml";
     }
 
-    public String getContentViewer(final List<JTestMeResult> results) {
+    public String getContentViewer(final List<VerificatorResult> results) {
         final StringBuilder builder = new StringBuilder();
         builder.append(header());
         if (results != null && !results.isEmpty()) {
-            for (final JTestMeResult result : results) {
+            for (final VerificatorResult result : results) {
                 builder.append("<servicio>").append(NEW_LINE);
                 builder.append("<nombre>").append(result.getName()).append("</nombre>").append(NEW_LINE);
                 builder.append("<estado>").append(result.getSuscessString()).append("</estado>").append(NEW_LINE);

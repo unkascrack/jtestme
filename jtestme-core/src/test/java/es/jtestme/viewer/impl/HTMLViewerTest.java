@@ -4,7 +4,7 @@ import org.junit.Before;
 
 import es.jtestme.viewer.impl.HTMLViewer;
 
-public class HTMLViewerTest extends JTestMeDefaultViewerTest {
+public class HTMLViewerTest extends AbstractViewerTest {
 
     @Override
     @Before

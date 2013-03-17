@@ -4,7 +4,7 @@ import org.junit.Before;
 
 import es.jtestme.viewer.impl.PlainTextViewer;
 
-public class PlainTextViewerTest extends JTestMeDefaultViewerTest {
+public class PlainTextViewerTest extends AbstractViewerTest {
 
     @Override
     @Before
