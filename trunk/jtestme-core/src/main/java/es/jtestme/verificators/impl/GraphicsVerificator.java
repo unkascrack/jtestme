@@ -16,10 +16,9 @@ public class GraphicsVerificator extends AbstractVerificator {
     public VerificatorResult execute() {
         final VerificatorResult result = super.getResult();
         try {
+            // final String graphicClass = System.getProperty("java.awt.graphicsenv");
             final Toolkit tk = Toolkit.getDefaultToolkit();
             final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            GraphicsEnvironment.isHeadless();
-            Class.forName("sun.awt.X11GraphicsEnvironment");
             result.setSuscess(true);
         } catch (final Throwable e) {
             result.setCause(e);
