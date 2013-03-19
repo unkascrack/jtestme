@@ -147,6 +147,16 @@ public class AbstractVerificatorTest {
     }
 
     @Test
+    public void testGetParamStringParamsNotClasspathResourceValueNotNull() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("name", "java:comp/env/jdbc/datasource");
+        verificator = new FakeVerificator(params);
+        final String value = verificator.getParamString("name");
+        Assert.assertNotNull(value);
+        Assert.assertEquals("java:comp/env/jdbc/datasource", value);
+    }
+
+    @Test
     public void testGetParamStringParamsClasspathResourceFoundValueNotNull() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "classpath:jtestme.properties");
