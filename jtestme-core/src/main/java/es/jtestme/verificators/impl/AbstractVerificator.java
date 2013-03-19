@@ -2,7 +2,12 @@ package es.jtestme.verificators.impl;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Map;
 
 import javax.naming.Context;
@@ -118,22 +123,58 @@ public abstract class AbstractVerificator implements Verificator {
     /**
      * @param closeable
      */
-    protected void closeQuietly(final AutoCloseable closeable) {
+    protected void closeQuietly(final Closeable closeable) {
         if (closeable != null) {
             try {
                 closeable.close();
-            } catch (final Exception e) {
+            } catch (final IOException e) {
             }
         }
     }
 
     /**
-     * @param closeable
+     * @param resultSet
      */
-    protected void closeQuietly(final Closeable closeable) {
-        if (closeable != null) {
+    protected void closeQuietly(final ResultSet resultSet) {
+        if (resultSet != null) {
             try {
-                closeable.close();
+                resultSet.close();
+            } catch (final SQLException e) {
+            }
+        }
+    }
+
+    /**
+     * @param statement
+     */
+    protected void closeQuietly(final Statement statement) {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (final SQLException e) {
+            }
+        }
+    }
+
+    /**
+     * @param connection
+     */
+    protected void closeQuietly(final Connection connection) {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (final SQLException e) {
+            }
+        }
+    }
+
+    /**
+     * @param socket
+     */
+    protected void closeQuietly(final Socket socket) {
+        if (socket != null) {
+            try {
+                socket.close();
             } catch (final IOException e) {
             }
         }
