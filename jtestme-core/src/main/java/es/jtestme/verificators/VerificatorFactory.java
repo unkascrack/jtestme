@@ -34,7 +34,7 @@ public final class VerificatorFactory {
                 verificator = JTestMeUtils.loadVerificator(verificatorClassName, name, params);
                 JTestMeLogger.info("JTestMe loading verificator '" + name + "' of type: " + verificatorType);
             } catch (final Throwable e) {
-                JTestMeLogger.warn("JTestMe could not load verificator '" + name + "' of type: " + verificatorType);
+                JTestMeLogger.warn("JTestMe could not load verificator '" + name + "' of type: " + verificatorType, e);
             }
         }
         return verificator;
