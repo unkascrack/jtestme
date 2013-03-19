@@ -42,9 +42,11 @@ public class HTMLViewer extends AbstractViewer {
                     if (result.getResolution() != null) {
                         builder.append("<em>").append(result.getResolution()).append("</em><br/>").append(NEW_LINE);
                     }
-                    builder.append("<a href='javascript:showHide(").append(contador).append(")'>");
-                    builder.append("<img src='?resource=img/plus.png' id='").append(contador).append("Img'/>");
-                    builder.append("</a>").append(NEW_LINE);
+                    if (result.getCause() != null) {
+                        builder.append("<a href='javascript:showHide(").append(contador).append(")'>");
+                        builder.append("<img src='?resource=img/plus.png' id='").append(contador).append("Img'/>");
+                        builder.append("</a>").append(NEW_LINE);
+                    }
                     builder.append("<b>").append(result.getMessage()).append("</b>").append(NEW_LINE);
                     builder.append("<div id='").append(contador).append("' style='display:none'>").append(NEW_LINE);
                     builder.append(getStackTraceToString(result.getCause())).append(NEW_LINE);
