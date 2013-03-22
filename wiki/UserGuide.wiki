@@ -244,20 +244,20 @@ jtestme.custom.param.class=#className implements es.jtestme.verificators.Verific
 }}}
 
 === 2.3. Viewers ===
-JTestMe tiene definido una serie de visores, {{{es.jtestme.viewer.Viewer}}}, por defecto, lo que permite de forma sencilla formatear los resultados obtenidos de la ejecución de los verificators ({{{es.jtestme.domain.VerificatorResult}}}).
+JTestMe tiene definido una serie de visores, {{{es.jtestme.viewers.Viewer}}}, por defecto, lo que permite de forma sencilla formatear los resultados obtenidos de la ejecución de los verificators ({{{es.jtestme.domain.VerificatorResult}}}).
 
-Los tipos de visores predefinidos están definidos en el enum {{{es.jtestme.viewer.ViewerType}}} y son:
- * *HTML*, resultado HTML, implementado en la clase {{{es.jtestme.viewer.impl.HTMLViewer}}}.
- * *TXT*, resultado en texto plano formateado, implementado en la clase {{{es.jtestme.viewer.impl.PlainTextViewer}}}.
- * *JSON*, resultado anotación JSon, implementado en la clase {{{es.jtestme.viewer.impl.JSONViewer}}}.
- * *XML*, resultado en formato XML, implementado en la clase {{{es.jtestme.viewer.impl.XMLViewer}}}.
+Los tipos de visores predefinidos están definidos en el enum {{{es.jtestme.viewers.ViewerType}}} y son:
+ * *HTML*, resultado HTML, implementado en la clase {{{es.jtestme.viewers.impl.HTMLViewer}}}.
+ * *TXT*, resultado en texto plano formateado, implementado en la clase {{{es.jtestme.viewers.impl.PlainTextViewer}}}.
+ * *JSON*, resultado anotación JSon, implementado en la clase {{{es.jtestme.viewers.impl.JSONViewer}}}.
+ * *XML*, resultado en formato XML, implementado en la clase {{{es.jtestme.viewers.impl.XMLViewer}}}.
 
 Todas las clases constructoras de vistas, siguen el patrón Singleton, sólo existirá una instancia en ejecución. 
 
-Para facilitar la invocación del viewer adecuado JTestMe dispone de la factoría {{{es.jtestme.viewer.ViewerFactory}}}:
+Para facilitar la invocación del viewer adecuado JTestMe dispone de la factoría {{{es.jtestme.viewers.ViewerFactory}}}:
 {{{
 // json viewer 
-es.jtestme.viewer.Viewer jsonViewer = es.jtestme.viewer.ViewerFactory.loadViewer(es.jtestme.viewer.ViewerType.JSON);
+es.jtestme.viewers.Viewer jsonViewer = es.jtestme.viewers.ViewerFactory.loadViewer(es.jtestme.viewers.ViewerType.JSON);
 
 // recuperar content-type
 String contentType = jsonViewer.getContentType();
@@ -302,7 +302,7 @@ JTestMe permite además de utilizar su motor de ejecución de verificatos, tambi
 List<es.jtestme.domain.VerificatorResult> verificatorsResults = ...;
 
 // cargamos el viewer deseado
-es.jtestme.viewer.Viewer viewer = es.jtestme.viewer.ViewerFactory.loadViewer(es.jtestme.viewer.ViewerType.TXT);
+es.jtestme.viewers.Viewer viewer = es.jtestme.viewers.ViewerFactory.loadViewer(es.jtestme.viewers.ViewerType.TXT);
 
 // delegamos los resultados de los verificators al viewer para construya la vista 
 String txt = viewer.getContentViewer(verificatorsResults);
@@ -452,7 +452,7 @@ Los parámetros de configuración de {{{es.jtestme.filter.JTestMeFilter}}} son:
 ||  *log*  || {{{true}}}  ||Activa/Desactiva las trazas log de la librería JTestMe ||
 ||  *param-type-format*  ||  {{{format}}}  ||Nombre del parámetro request que debe recibir el filtro de JTestMe para cambiar el tipo de respuesta. ||
 
-El parámetro *param-type-format*, permite definir el nombre de la variable request que permitirá cambiar el tipo de respuesta que se devuelve: HTML, TXT, JSON y XML. El valor del tipo de respuesta es "case insensitive" y debe coincidir con uno de los tipos definidos en la clase {{{es.jtestme.viewer.ViewerType}}}.
+El parámetro *param-type-format*, permite definir el nombre de la variable request que permitirá cambiar el tipo de respuesta que se devuelve: HTML, TXT, JSON y XML. El valor del tipo de respuesta es "case insensitive" y debe coincidir con uno de los tipos definidos en la clase {{{es.jtestme.viewers.ViewerType}}}.
 Ejemplo:
  * {{{http://.../jtestme}}} ==> resultado HTML
  * {{{http://.../jtestme?format=txt}}} ==> resultado TXT
@@ -460,21 +460,119 @@ Ejemplo:
  * {{{http://.../jtestme?format=XML}}} ==> resultado XML
 
 === 3.3. Verificators Personalizados ===
+Uno de los tipos de verificators de JTestMe es *custom*, el cual permite definir un tipo de verificator personalizado, siendo necesario programar su comportamiento.
 
+Para definir la configuración del verificator de un tipo *custom* es necesario definir la ruta de la clase que implementa el interface {{{es.jtestme.verificators.Verificator}}} en el parámetro {{{class}}}. Adicionalmente se pueden pasar parámetros a la clase personalizada que implementa el verificator.
+{{{
+....
+jtestme.custom.type=custom
+jtestme.custom.name=Custom Test
+jtestme.custom.description=Custom Test Description
+jtestme.custom.resolution=How to resolve the problema
+jtestme.custom.param.class=#class implements es.jtestme.verificators.Verificator
+jtestme.custom.param.paramRecivedCustomVerificatorClass=...
+....
+}}}
+
+Para implementar un verificator personalizado este debe implementar el interface {{{es.jtestme.verificators.Verificator}}}, hay dos posibles soluciones:
+ * clase pública que implementa el interface {{{es.jtestme.verificators.Verificator}}}
+{{{
+public class MyCustomVerificator implements es.jtestme.verificators.Verificator {
+
+	private String uid = "myCustomVerificator";
+	private Map<String, String> parameters;
+	private String paramRecivedCustomVerificatorClass;
+	
+	// constructor opcional sin parámetros
+	public MyCustomVerificator() {
+	}
+	
+	// constructor opcional que recibe los parámetros de la configuración
+	public MyCustomVerificator(Map<String, String> parameters) {
+		this("myCustomVerificator", parameters);
+	}
+	
+	// constructor opcional que recibe el identificador del verificator (uid) y los parámetros de la configuración
+	public MyCustomVerificator(String uid, Map<String, String> parameters) {
+		this.uid = uid;
+		this.parameters = parameters;
+		this.paramRecivedCustomVerificatorClass = parameters.get("paramRecivedCustomVerificatorClass"); 
+	}
+
+	// devuelve el identificador único del verificator para poder identificarlo
+    public String getUid() {
+    	return uid;
+    }
+
+	// ejecuta la lógica del verificator
+    public VerificatorResult execute() {
+    	es.jtestme.domain.VerificatorResult result = new es.jtestme.domain.VerificatorResult();
+        result.setType(es.jtestme.verificators.VerificatorType.CUSTOM.toString());
+        result.setName("my custom verificator");
+        result.setDescription("my custom verificator description");
+        result.setResolution("my custom verificator resolution");
+        result.setOptional(true|false);
+        
+    	// implementación del custom verificator
+    	
+    	return result; 
+    }
+}
+}}}
+
+ 
+ * clase pública que extiende de la clase {{{es.jtestme.verificators.impl.AbstractVerificator}}} la cual implementa el interface Verificator y además cuenta que varios métodos útiles para recuperar los valores de los parámetros de la configuración.
+{{{
+public class MyCustomVerificator extends es.jtestme.verificators.impl.AbstractVerificator {
+
+	private String paramRecivedCustomVerificatorClass;
+	private Integer myCustomParameter;
+	
+	// uno de los siguientes constructores es obligatorio implementarlo
+	
+	// constructor recibe los parámetros de la configuración
+	public MyCustomVerificator(Map<String, String> parameters) {
+		super(parameters);
+		this.paramRecivedCustomVerificatorClass = super.getParamString("paramRecivedCustomVerificatorClass");
+		this.myCustomParameter = super.getParamInteger("myCustomParameter");
+	}
+	
+	// constructor recibe el identificador del verificator (uid) y los parámetros de la configuración
+	public MyCustomVerificator(String uid, Map<String, String> parameters) {
+		super(uid, parameters);
+		this.paramRecivedCustomVerificatorClass = super.getParamString("paramRecivedCustomVerificatorClass");
+		this.myCustomParameter = super.getParamInteger("myCustomParameter"); 
+	}
+	
+	// el método "getUid()" es implementado por el padre, no es necesario
+	
+	// ejecuta la lógica del verificator
+    public VerificatorResult execute() {
+    	// clase padre facilita el VerificatorResult con la información por defecto: type, name, description,...
+    	es.jtestme.domain.VerificatorResult result = super.getResult();
+    	
+    	// implementación del custom verificator
+    	
+    	return result; 
+    }
+}
+}}}
+ 
+NOTA: las clases verificators custom sólo son instanciadas una única vez, por lo que sus método, especialmente {{{VerificatorResult execute()}}}, debe ser thread-safe, para ello es recomendable solo utilizar variables locales del método y no atributos de la clase, cuyos valores podrían ser accedidos por multiples hilos simultáneamente.
 
 === 3.4. Viewers Personalizadas ===
 Una vez visto los conceptos básicos de los [#2.3._Viewers Viewers], en el siguiente punto mostraremos como implementar viewers personalizados y añadirlos a la factoría de viewers.
  
-Mediante la factoría de viewers, {{{es.jtestme.viewer.Viewer}}}, también es posible cargar viewers personalizados de forma programática en la factoría de viewers:
+Mediante la factoría de viewers, {{{es.jtestme.viewers.Viewer}}}, también es posible cargar viewers personalizados de forma programática en la factoría de viewers:
 {{{
 // permite definir un tipo propio "custom"
-es.jtestme.viewer.ViewerFactory.registerViewer(es.jtestme.viewer.ViewerType.CUSTOM, new es.jtestme.viewer.Viewer());
+es.jtestme.viewers.ViewerFactory.registerViewer(es.jtestme.viewers.ViewerType.CUSTOM, new es.jtestme.viewers.Viewer());
 
 // o incluso, reemplazar un viewer por defecto
-es.jtestme.viewer.ViewerFactory.registerViewer(es.jtestme.viewer.ViewerType.HTML, new es.jtestme.viewer.Viewer());
+es.jtestme.viewers.ViewerFactory.registerViewer(es.jtestme.viewers.ViewerType.HTML, new es.jtestme.viewers.Viewer());
 
 // para obtener el viewer basta con invocarlo en la factoría 
-es.jtestme.viewer.Viewer myViewer = es.jtestme.viewer.ViewerFactory.loadViewer(es.jtestme.viewer.ViewerType.CUSTOM);
+es.jtestme.viewers.Viewer myViewer = es.jtestme.viewers.ViewerFactory.loadViewer(es.jtestme.viewers.ViewerType.CUSTOM);
 }}}
 
 NOTA: más adelante se espera ampliar los parámetros de configuración de {{{es.jtestme.filter.JTestMeFilter}}} para mediante configuración permite definir un tipo de viewer propio, o incluso reemplazar los predefinidos: HTML, XML, TXT y JSON. 
