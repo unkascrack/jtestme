@@ -18,6 +18,13 @@ public final class JTestMeLogger {
     }
 
     /**
+     * @return
+     */
+    public static boolean isLoggerEnabled() {
+        return loggerEnabled;
+    }
+
+    /**
      * @param enabled
      */
     public static void loggerEnabled(final boolean enabled) {
