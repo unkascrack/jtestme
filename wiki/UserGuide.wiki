@@ -18,9 +18,10 @@
  <li>[#3._Configuraci%C3%B3n_Avanzada Configuración Avanzada]
  <ol type=i>
   <li>[#3.1._Log Log]
-  <li>[#3.2._Verificators_Personalizados Verificators Personalizados]
-  <li>[#3.3._Viewers_Personalizadas Viewers Personalizados]
-  <li>[#3.4._Seguridad Seguridad]
+  <li>[#3.2._Parametros_JTestMeFilter Parámetros JTestMeFilter]
+  <li>[#3.3._Verificators_Personalizados Verificators Personalizados]
+  <li>[#3.4._Viewers_Personalizadas Viewers Personalizados]
+  <li>[#3.5._Seguridad Seguridad]
 
  <li>[#4._Desarrollo Desarrollo]
 
@@ -431,16 +432,49 @@ Para una aplicación web, el filtro de JTestMe, dispone de un parámetro para de
 </filter>
 }}}
 
-=== 3.2. Verificators Personalizados ===
+=== 3.2. Parámetros JTestMeFilter ===
+El filtro web de JTestMe, {{{es.jtestme.filter.JTestMeFilter}}}, dispone de una serie de parámetros que permiten modificar su configuración por defecto.
+
+Para definir los parámetros de configuración del filtro sólo es necesario definirlos mediante un {{{<init-param>}}} en al configuración del {{{javax.servlet.Filter}}}. 
+{{{
+<filter>
+	<filter-name>jtestmefilter</filter-name>
+	<filter-class>es.jtestme.filter.JTestMeFilter</filter-class>
+	...
+	<init-param>
+		<param-name>...</param-name>
+		<param-value>...</param-value>
+	</init-param>
+	...
+</filter>
+}}}
+
+Los parámetros de configuración de {{{es.jtestme.filter.JTestMeFilter}}} son: 
+|| PROPIEDAD || VALOR POR DEFECTO || DESCRIPCIÓN ||
+|| *config-location* || {{{classpath:jtestme.properties}}} ||Ubicación del archivo de configuración de JTestMe donde se definen los verificators || 
+|| *encoding* || {{{UTF-8}}} ||Códificación por defecto de las respuestas HTTP a las peticiones el filtro de JTestMe ||
+|| *log* || {{{true}}} ||Activa/Desactiva las trazas log de la librería JTestMe ||
+|| *param-type-format* || {{{format}}} ||Nombre del parámetro request que debe recibir el filtro de JTestMe para cambiar el tipo de respuesta. ||
+
+El parámetro *param-type-format*, permite definir el nombre de la variable request que permitirá cambiar el tipo de respuesta que se devuelve. Ejemplo:
+ * !http://localhost:8080/jtestme-test-webapp/jtestme ==> resultado HTML
+ * !http://localhost:8080/jtestme-test-webapp/jtestme?*format=txt* ==> resultado TXT
+ * !http://localhost:8080/jtestme-test-webapp/jtestme?*format=json* ==> resultado JSON
+ * !http://localhost:8080/jtestme-test-webapp/jtestme?*format=XML* ==> resultado XML
+
+=== 3.3. Verificators Personalizados ===
 
 
-=== 3.3. Viewers Personalizadas ===
+=== 3.4. Viewers Personalizadas ===
 Una vez visto los conceptos básicos de los [#2.3._Viewers Viewers], en el siguiente punto mostraremos como implementar viewers personalizados y añadirlos a la factoría de viewers.
  
 Mediante la factoría de viewers, {{{es.jtestme.viewer.Viewer}}}, también es posible cargar viewers personalizados:
 
 
-=== 3.4. Seguridad ===
+
+
+
+=== 3.5. Seguridad ===
 The monitoring page does not contain data such as passwords, but before using it in production, you may probably want that this page is in restricted access. You may secure it by using your own means. Otherwise, it is possible to restrict its access by a regular expression on ip address of client with the parameter allowed-addr-pattern (regular expression with a range of internal ip addresses or fixed ip addresses of administrators). For example, "192\.168\..*|123\.123\.123\.123" to allow the ip addresses in the "192.168.*.*" range plus any pc hiding behind the gateway 123.123.123.123. 
 
 Note that if you use a http proxy server like Apache in front of the server, the ip address of the client will be the one of Apache. So you may not use allowed-addr-pattern in this case, or do not use Apache to access this page, or you may enable mod_proxy_ajp in order that the monitored server knows the ip address of the clients. Example of httpd conf with ajp: 
