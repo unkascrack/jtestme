@@ -18,7 +18,7 @@
  <li>[#3._Configuraci%C3%B3n_Avanzada Configuración Avanzada]
  <ol type=i>
   <li>[#3.1._Log Log]
-  <li>[#3.2._Parametros_JTestMeFilter Parámetros JTestMeFilter]
+  <li>[#3.2._Par%C3%A1metros_JTestMeFilter Parámetros JTestMeFilter]
   <li>[#3.3._Verificators_Personalizados Verificators Personalizados]
   <li>[#3.4._Viewers_Personalizadas Viewers Personalizados]
   <li>[#3.5._Seguridad Seguridad]
@@ -269,7 +269,7 @@ String extension = jsonViewer.getExtension();
 String content = jsonViewer.getContentViewer(List<es.jtestme.domain.VerificatorResult> verificatorsResults);	
 }}}
  
-=== 2.3. Java SE ===
+=== 2.4. Java SE ===
 Para configurar JTestMe en una aplicación Java SE, es necesario invocar al constructor de JTestMe, {{{es.jtestme.JTestMeBuilder}}}, el cual permite tanto configurar los verifcators (añadiendolos directamente, o bien mediante archivo de propiedades), y ejecutar los verificators configurados.
 
 El constructor {{{es.jtestme.JTestMeBuilder}}}, sigue el patrón Singleton, por lo que se puede invocar desde distintos sitios de la aplicación y siempre se tratará de la misma referencia, solo hay una única instancia.
@@ -308,7 +308,7 @@ es.jtestme.viewers.Viewer viewer = es.jtestme.viewers.ViewerFactory.loadViewer(e
 String txt = viewer.getContentViewer(verificatorsResults);
 }}}
 
-=== 2.4. Java EE ===
+=== 2.5. Java EE ===
 Para configurar JTestMe en una aplicación Web, se puede hacer de distantas formas:
  * *automática*, definir en el web.xml el {{{javax.servlet.Filter}}} de JTestMe, {{{es.jtestme.filter.JTestMeFilter}}} y definir en un archivo properties los verificators.
  * *manual*, invocar al constructor de JTestMe, {{{es.jtestme.JTestMeBuilder}}}, al igual que se hace en una aplicación Java SE. Además será necesario configurar los filtros o servlet necesario para mapear la ruta donde se desea mostrar visualmente los resultados de los verificators.   
@@ -360,7 +360,7 @@ jtestme.datasource.param.datasource=
  
   _NOTA: también es posible cargar en tiempo de ejecución verificadores, al igual que se muestra para aplicaciones Java SE. Igualmente se podría arrancar JTestMe sin definir ningún archivo de configuración externo._
 
-=== 2.5. Dependencias ===
+=== 2.6. Dependencias ===
 La librería JTestMe esta implementado con la versión *1.5* de Java.
 
 Además existirá una serie de dependencias adiciones en función de los verificadores que se utilicen:
