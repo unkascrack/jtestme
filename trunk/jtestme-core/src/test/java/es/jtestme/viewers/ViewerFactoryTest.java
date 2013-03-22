@@ -4,13 +4,13 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import es.jtestme.viewer.impl.HTMLViewer;
-import es.jtestme.viewer.impl.JSONViewer;
-import es.jtestme.viewer.impl.PlainTextViewer;
-import es.jtestme.viewer.impl.XMLViewer;
 import es.jtestme.viewers.Viewer;
 import es.jtestme.viewers.ViewerFactory;
 import es.jtestme.viewers.ViewerType;
+import es.jtestme.viewers.impl.HTMLViewer;
+import es.jtestme.viewers.impl.JSONViewer;
+import es.jtestme.viewers.impl.PlainTextViewer;
+import es.jtestme.viewers.impl.XMLViewer;
 
 public class ViewerFactoryTest {
 

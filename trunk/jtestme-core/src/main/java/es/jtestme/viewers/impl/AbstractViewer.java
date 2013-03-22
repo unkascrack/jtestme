@@ -1,4 +1,4 @@
-package es.jtestme.viewer.impl;
+package es.jtestme.viewers.impl;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
