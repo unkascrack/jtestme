@@ -345,11 +345,7 @@ En este caso mostaremos como efectuar la configuración de forma automática, la
 </filter-mapping>
 }}}
 
-  Todos los parámetros configurables del {{{javax.servlet.Filter}}} de JTestMe son opcionales. Los parámetros disponibles son:
-   * *config-location*, parámetro que define la ubicación del archivo de configuración, por defecto "classpath:jtestme.properties".
-   * *encoding*, parámetro que define la codificación de los carácters en las respuestas HTTP, por defecto "UTF-8".
-   * *log*, activa/desactiva las trazas de log lanzadas por la librería. por defecto "true".
-   * *param-type-format*, clave del parámetro request para cambiar el tipo de formato, por defecto "format". Ejemplo: {{{http://..../jtestme?format=xml}}}.
+  Todos los parámetros configurables del {{{javax.servlet.Filter}}} de JTestMe son opcionales.
 
 <br> 
 2. Configurar el archivo properties, *jtestme.properties*, en la ruta indicada en los parámetros del filtro:
@@ -426,7 +422,7 @@ Para una aplicación web, el filtro de JTestMe, dispone de un parámetro para de
 	...
 	<init-param>
 		<param-name>log</param-name>
-		<param-value>true</param-value>
+		<param-value>false</param-value>
 	</init-param>
 	...
 </filter>
@@ -450,17 +446,18 @@ Para definir los parámetros de configuración del filtro sólo es necesario def
 }}}
 
 Los parámetros de configuración de {{{es.jtestme.filter.JTestMeFilter}}} son: 
-|| PROPIEDAD || VALOR POR DEFECTO || DESCRIPCIÓN ||
-|| *config-location* || {{{classpath:jtestme.properties}}} ||Ubicación del archivo de configuración de JTestMe donde se definen los verificators || 
-|| *encoding* || {{{UTF-8}}} ||Códificación por defecto de las respuestas HTTP a las peticiones el filtro de JTestMe ||
-|| *log* || {{{true}}} ||Activa/Desactiva las trazas log de la librería JTestMe ||
-|| *param-type-format* || {{{format}}} ||Nombre del parámetro request que debe recibir el filtro de JTestMe para cambiar el tipo de respuesta. ||
+||  PROPIEDAD  ||  VALOR POR DEFECTO  ||  DESCRIPCIÓN  ||
+||  *config-location*  ||  {{{classpath:jtestme.properties}}}  ||Ubicación del archivo de configuración de JTestMe donde se definen los verificators || 
+||  *encoding*  ||  {{{UTF-8}}}  ||Códificación por defecto de las respuestas HTTP a las peticiones el filtro de JTestMe ||
+||  *log*  || {{{true}}}  ||Activa/Desactiva las trazas log de la librería JTestMe ||
+||  *param-type-format*  ||  {{{format}}}  ||Nombre del parámetro request que debe recibir el filtro de JTestMe para cambiar el tipo de respuesta. ||
 
-El parámetro *param-type-format*, permite definir el nombre de la variable request que permitirá cambiar el tipo de respuesta que se devuelve. Ejemplo:
- * !http://localhost:8080/jtestme-test-webapp/jtestme ==> resultado HTML
- * !http://localhost:8080/jtestme-test-webapp/jtestme?*format=txt* ==> resultado TXT
- * !http://localhost:8080/jtestme-test-webapp/jtestme?*format=json* ==> resultado JSON
- * !http://localhost:8080/jtestme-test-webapp/jtestme?*format=XML* ==> resultado XML
+El parámetro *param-type-format*, permite definir el nombre de la variable request que permitirá cambiar el tipo de respuesta que se devuelve: HTML, TXT, JSON y XML. El valor del tipo de respuesta es "case insensitive" y debe coincidir con uno de los tipos definidos en la clase {{{es.jtestme.viewer.ViewerType}}}.
+Ejemplo:
+ * {{{http://.../jtestme}}} ==> resultado HTML
+ * {{{http://.../jtestme?format=txt}}} ==> resultado TXT
+ * {{{http://.../jtestme?format=json}}} ==> resultado JSON
+ * {{{http://.../jtestme?format=XML}}} ==> resultado XML
 
 === 3.3. Verificators Personalizados ===
 
