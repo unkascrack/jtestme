@@ -10,6 +10,7 @@ import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 
 import es.jtestme.domain.VerificatorResult;
+import es.jtestme.utils.JTestMeUtils;
 
 public class LDAPVerificator extends AbstractVerificator {
 
@@ -55,7 +56,7 @@ public class LDAPVerificator extends AbstractVerificator {
         } catch (final Throwable e) {
             result.setCause(e);
         } finally {
-            closeQuietly(context);
+            JTestMeUtils.closeQuietly(context);
         }
         return result;
     }
