@@ -18,9 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import es.jtestme.JTestMeBuilder;
 import es.jtestme.domain.VerificatorResult;
 import es.jtestme.logger.JTestMeLogger;
-import es.jtestme.viewer.Viewer;
-import es.jtestme.viewer.ViewerFactory;
-import es.jtestme.viewer.ViewerType;
+import es.jtestme.viewers.Viewer;
+import es.jtestme.viewers.ViewerFactory;
+import es.jtestme.viewers.ViewerType;
 
 public final class JTestMeFilter implements Filter {
 
@@ -138,6 +138,7 @@ public final class JTestMeFilter implements Filter {
             response.setContentType(config.getServletContext().getMimeType(resource));
             OutputStream output = null;
             InputStream input = null;
+
             try {
                 input = new BufferedInputStream(getClass().getResourceAsStream(localResource));
                 output = response.getOutputStream();
