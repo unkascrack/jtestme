@@ -591,7 +591,7 @@ Note that if you use a http proxy server like Apache in front of the server, the
 
 {{{
 <location /webapp>
-		ProxyPass ajp://localhost:8080/webapp
+	ProxyPass ajp://localhost:8080/webapp
 </location> 
 }}}
 
@@ -600,25 +600,25 @@ Or if some security-constraint et security-role(s) are defined in the web.xml fi
 Example of content of the web.xml file for authentication by login and password: 
 {{{
 <login-config>
-		<auth-method>BASIC</auth-method>
-		<realm-name>JTestMe</realm-name>
+	<auth-method>BASIC</auth-method>
+	<realm-name>JTestMe</realm-name>
 </login-config>
 <security-role>
-		<role-name>jtestme</role-name>
+	<role-name>jtestme</role-name>
 </security-role>
 <security-constraint>
-		<web-resource-collection>
-				<web-resource-name>JTestMe</web-resource-name>
-				<url-pattern>/jtestme</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-				<role-name>jtestme</role-name>
-		</auth-constraint>
-		<!-- if SSL enabled (SSL and certificate must then be configured in the server)
-		<user-data-constraint>
-				<transport-guarantee>CONFIDENTIAL</transport-guarantee>
-		</user-data-constraint> 
-		-->
+	<web-resource-collection>
+		<web-resource-name>JTestMe</web-resource-name>
+		<url-pattern>/jtestme</url-pattern>
+	</web-resource-collection>
+	<auth-constraint>
+		<role-name>jtestme</role-name>
+	</auth-constraint>
+	<!-- if SSL enabled (SSL and certificate must then be configured in the server)
+	<user-data-constraint>
+		<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+	</user-data-constraint> 
+	-->
 </security-constraint>
 }}}
 
@@ -626,8 +626,8 @@ The realm and the users must be defined in the application server, and the users
 {{{
 <?xml version='1.0' encoding='utf-8'?>
 <tomcat-users>
-	 <role rolename="jtestme"/>
-	 <user username="jtestme" password="jtestme" roles="jtestme"/>
+	<role rolename="jtestme"/>
+	<user username="jtestme" password="jtestme" roles="jtestme"/>
 </tomcat-users>
 }}}
 
