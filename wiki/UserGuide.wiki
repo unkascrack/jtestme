@@ -465,10 +465,19 @@ Ejemplo:
 === 3.4. Viewers Personalizadas ===
 Una vez visto los conceptos básicos de los [#2.3._Viewers Viewers], en el siguiente punto mostraremos como implementar viewers personalizados y añadirlos a la factoría de viewers.
  
-Mediante la factoría de viewers, {{{es.jtestme.viewer.Viewer}}}, también es posible cargar viewers personalizados:
+Mediante la factoría de viewers, {{{es.jtestme.viewer.Viewer}}}, también es posible cargar viewers personalizados de forma programática en la factoría de viewers:
+{{{
+// permite definir un tipo propio "custom"
+es.jtestme.viewer.ViewerFactory.registerViewer(es.jtestme.viewer.ViewerType.CUSTOM, new es.jtestme.viewer.Viewer());
 
+// o incluso, reemplazar un viewer por defecto
+es.jtestme.viewer.ViewerFactory.registerViewer(es.jtestme.viewer.ViewerType.HTML, new es.jtestme.viewer.Viewer());
 
+// para obtener el viewer basta con invocarlo en la factoría 
+es.jtestme.viewer.Viewer myViewer = es.jtestme.viewer.ViewerFactory.loadViewer(es.jtestme.viewer.ViewerType.CUSTOM);
+}}}
 
+NOTA: más adelante se espera ampliar los parámetros de configuración de {{{es.jtestme.filter.JTestMeFilter}}} para mediante configuración permite definir un tipo de viewer propio, o incluso reemplazar los predefinidos: HTML, XML, TXT y JSON. 
 
 
 === 3.5. Seguridad ===
