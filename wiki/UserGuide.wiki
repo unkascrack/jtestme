@@ -8,17 +8,18 @@
  <li>[#1._Introducci%C3%B3n Introducción]
  <li>[#2._Configuraci%C3%B3n_B%C3%A1sica Configuración Básica]
  <ol type=i>
-  <li>[#2.1._Tipos_de_Test Tipos de Test]
+  <li>[#2.1._Tipos_Verificators Tipos Verificators]
   <li>[#2.2._Properties Properties]
-  <li>[#2.3._Java_SE Java SE]
-  <li>[#2.4._Java_EE Java EE]
-  <li>[#2.5._Dependencias Dependencias]
+  <li>[#2.3._Viewers Viewers]
+  <li>[#2.4._Java_SE Java SE]
+  <li>[#2.5._Java_EE Java EE]
+  <li>[#2.6._Dependencias Dependencias]
 
  <li>[#3._Configuraci%C3%B3n_Avanzada Configuración Avanzada]
  <ol type=i>
   <li>[#3.1._Log Log]
   <li>[#3.2._Verificators_Personalizados Verificators Personalizados]
-  <li>[#3.3._Views_Personalizadas Views Personalizados]
+  <li>[#3.3._Viewers_Personalizadas Viewers Personalizados]
   <li>[#3.4._Seguridad Seguridad]
 
  <li>[#4._Desarrollo Desarrollo]
@@ -32,7 +33,7 @@ JTestMe es una librería Java, que es compatible tanto con aplicaciones Java SE,
 == 2. Configuración Básica ==
 JTestMe se puede configurar tanto de forma programática, como mediante archivo properties de configuración externo.
 
-=== 2.1. Tipos de Test === 
+=== 2.1. Tipos Verificators === 
 Lo primero que hemos de conocer son los tipos de verificadores que dispone de manera interna JTestMe para poder utilizarlos:
 
  * *connection*, permite verificar conexiones HTTP y HTTPS.
@@ -240,11 +241,72 @@ jtestme.custom.description=Custom Test
 jtestme.custom.resolution=Qué hacer si falla el test
 jtestme.custom.param.class=#className implements es.jtestme.verificators.Verificator
 }}}
+
+=== 2.3. Viewers ===
+JTestMe tiene definido una serie de visores, {{{es.jtestme.viewer.Viewer}}}, por defecto, lo que permite de forma sencilla formatear los resultados obtenidos de la ejecución de los verificators ({{es.jtestme.domain.VerificatorResult}}}).
+
+Los tipos de visores predefinidos están definidos en el enum {{{es.jtestme.viewer.ViewerType}}} y son:
+ * *HTML*, resultado HTML, implementado en la clase {{{es.jtestme.viewer.impl.HTMLViewer}}}.
+ * *TXT*, resultado en texto plano formateado, implementado en la clase {{{es.jtestme.viewer.impl.PlainTextViewer}}}.
+ * *JSON*, resultado anotación JSon, implementado en la clase {{{es.jtestme.viewer.impl.JSONViewer}}}.
+ * *XML*, resultado en formato XML, implementado en la clase {{{es.jtestme.viewer.impl.XMLViewer}}}.
+
+Todas las clases constructoras de vistas, siguen el patrón Singleton, sólo existirá una instancia en ejecución. 
+
+Para facilitar la invocación del viewer adecuado JTestMe dispone de la factoría {{{es.jtestme.viewer.ViewerFactory}}}:
+{{{
+	// json viewer 
+	es.jtestme.viewer.Viewer jsonViewer = es.jtestme.viewer.ViewerFactory.loadViewer(es.jtestme.viewer.ViewerType.JSON);
+	
+	// recuperar content-type
+	String contentType = jsonViewer.getContentType();
+	
+	// extensión por defecto
+	String extension = jsonViewer.getExtension();
+	
+	// construcción de vista
+	String content = jsonViewer.getContentViewer(List<es.jtestme.domain.VerificatorResult> verificatorsResults);	
+}}}
  
 === 2.3. Java SE ===
+Para configurar JTestMe en una aplicación Java SE, es necesario invocar al constructor de JTestMe, {{{es.jtestme.JTestMeBuilder}}}, el cual permite tanto configurar los verifcators (añadiendolos directamente, o bien mediante archivo de propiedades), y ejecutar los verificators configurados.
+
+El constructor {{{es.jtestme.JTestMeBuilder}}}, sigue el patrón Singleton, por lo que se puede invocar desde distintos sitios de la aplicación y siempre se tratará de la misma referencia, solo hay una única instancia.
+
+Ejemplo:
+{{{
+	es.jtestme.JTestMeBuilder builder = es.jtestme.JTestMeBuilder.getInstance();
+	
+	// cargar verificators de un archivo properties
+    builder.loadVerificators(configLocation);
+    
+    // cargar verificator de forma programada
+    builder.addVerificator(new es.jtestme.verificators.Verificator());
+    builder.addVerificator(new es.jtestme.verificators.impl.SMTPVerificator(params));
+    
+    // permite ejecutar un verificator de forma individual (uid), devolviendo su resultado 
+    es.jtestme.domain.VerificatorResult verificatorResult = builder.executeVerificator(verificatorUid);
+    
+    // permite ejecutar todos los verificators, devolviendo sus resultados
+    List<es.jtestme.domain.VerificatorResult> verificatorsResults = builder.executeVerificators();
+    
+    // dispone de un método para limpiar la lista de verificators configurados
+    builder.destroy();
+}}}
+
+JTestMe permite además de utilizar su motor de ejecución de verificatos, tambien permite construir facilmente una vista gracias a los visores ([#2.3._Viewers Viewers]):
+{{{
+	List<es.jtestme.domain.VerificatorResult> verificatorsResults = ...;
+	es.jtestme.viewer.Viewer viewer = es.jtestme.viewer.ViewerFactory.loadViewer(es.jtestme.viewer.ViewerType.TXT);
+	String txt = viewer.getContentViewer(verificatorsResults);
+}}}
 
 === 2.4. Java EE ===
-Para configurar JTestMe en una aplicación Web, es necesario dos pasos:
+Para configurar JTestMe en una aplicación Web, se puede hacer de distantas formas:
+ * *automática*, definir en el web.xml el {{{javax.servlet.Filter}}} de JTestMe, {{{es.jtestme.filter.JTestMeFilter}}} y definir en un archivo properties los verificators.
+ * *manual*, invocar al constructor de JTestMe, {{{es.jtestme.JTestMeBuilder}}}, al igual que se hace en una aplicación Java SE. Además será necesario configurar los filtros o servlet necesario para mapear la ruta donde se desea mostrar visualmente los resultados de los verificators.   
+
+En este caso mostaremos como efectuar la configuración de forma automática, la más sencilla y rápida; configurando el {{{javax.servlet.Filter}}} y definiendo el archivo de properties con los verificators definidos.
 
 1.Configurar el {{{javax.servlet.Filter}}} en el *web.xml*, añadiendo el filtro el primero:
 {{{
@@ -332,7 +394,12 @@ Además existirá una serie de dependencias adiciones en función de los verific
 == 3. Configuración Avanzada ==
 === 3.1. Log ===
 === 3.2. Verificators Personalizados ===
-=== 3.3. Views Personalizadas ===
+=== 3.3. Viewers Personalizadas ===
+Una vez visto los conceptos básicos de los [#2.3._Viewers Viewers], en el siguiente punto mostraremos como implementar viewers personalizados y añadirlos a la factoría de viewers.
+ 
+Mediante la factoría de viewers, {{{es.jtestme.viewer.Viewer}}}, también es posible cargar viewers personalizados:
+
+
 === 3.4. Seguridad ===
 The monitoring page does not contain data such as passwords, but before using it in production, you may probably want that this page is in restricted access. You may secure it by using your own means. Otherwise, it is possible to restrict its access by a regular expression on ip address of client with the parameter allowed-addr-pattern (regular expression with a range of internal ip addresses or fixed ip addresses of administrators). For example, "192\.168\..*|123\.123\.123\.123" to allow the ip addresses in the "192.168.*.*" range plus any pc hiding behind the gateway 123.123.123.123. 
 
