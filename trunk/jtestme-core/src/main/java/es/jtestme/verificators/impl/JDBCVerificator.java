@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.Map;
 
 import es.jtestme.domain.VerificatorResult;
+import es.jtestme.utils.JTestMeUtils;
 
 public class JDBCVerificator extends AbstractVerificator {
 
@@ -53,9 +54,9 @@ public class JDBCVerificator extends AbstractVerificator {
         } catch (final Throwable e) {
             result.setCause(e);
         } finally {
-            closeQuietly(resultSet);
-            closeQuietly(statement);
-            closeQuietly(connection);
+            JTestMeUtils.closeQuietly(resultSet);
+            JTestMeUtils.closeQuietly(statement);
+            JTestMeUtils.closeQuietly(connection);
         }
         return result;
     }

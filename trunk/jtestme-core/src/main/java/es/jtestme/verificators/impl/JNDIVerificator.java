@@ -8,6 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import es.jtestme.domain.VerificatorResult;
+import es.jtestme.utils.JTestMeUtils;
 
 public class JNDIVerificator extends AbstractVerificator {
 
@@ -56,7 +57,7 @@ public class JNDIVerificator extends AbstractVerificator {
         } catch (final Throwable e) {
             result.setCause(e);
         } finally {
-            closeQuietly(context);
+            JTestMeUtils.closeQuietly(context);
         }
         return result;
     }

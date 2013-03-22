@@ -12,6 +12,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import es.jtestme.domain.VerificatorResult;
+import es.jtestme.utils.JTestMeUtils;
 
 public class DatasourceVerificator extends AbstractVerificator {
 
@@ -50,9 +51,9 @@ public class DatasourceVerificator extends AbstractVerificator {
         } catch (final Throwable e) {
             result.setCause(e);
         } finally {
-            closeQuietly(resultSet);
-            closeQuietly(statement);
-            closeQuietly(context);
+            JTestMeUtils.closeQuietly(resultSet);
+            JTestMeUtils.closeQuietly(statement);
+            JTestMeUtils.closeQuietly(context);
         }
         return result;
     }

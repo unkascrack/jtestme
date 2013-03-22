@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.Map;
 
 import es.jtestme.domain.VerificatorResult;
+import es.jtestme.utils.JTestMeUtils;
 
 public class FTPVerificator extends AbstractVerificator {
 
@@ -65,9 +66,9 @@ public class FTPVerificator extends AbstractVerificator {
         } catch (final Throwable e) {
             result.setCause(e);
         } finally {
-            closeQuietly(reader);
-            closeQuietly(writer);
-            closeQuietly(socket);
+            JTestMeUtils.closeQuietly(reader);
+            JTestMeUtils.closeQuietly(writer);
+            JTestMeUtils.closeQuietly(socket);
         }
         return result;
     }
