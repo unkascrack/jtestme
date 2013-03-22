@@ -1,9 +1,9 @@
-package es.jtestme.viewer;
+package es.jtestme.viewers;
 
-import static es.jtestme.viewer.ViewerType.HTML;
-import static es.jtestme.viewer.ViewerType.JSON;
-import static es.jtestme.viewer.ViewerType.TXT;
-import static es.jtestme.viewer.ViewerType.XML;
+import static es.jtestme.viewers.ViewerType.HTML;
+import static es.jtestme.viewers.ViewerType.JSON;
+import static es.jtestme.viewers.ViewerType.TXT;
+import static es.jtestme.viewers.ViewerType.XML;
 
 import java.util.HashMap;
 import java.util.Map;

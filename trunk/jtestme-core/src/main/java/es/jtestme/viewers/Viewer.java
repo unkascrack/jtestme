@@ -1,4 +1,4 @@
-package es.jtestme.viewer;
+package es.jtestme.viewers;
 
 import java.util.List;
 

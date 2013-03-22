@@ -6,7 +6,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import es.jtestme.viewer.Viewer;
+import es.jtestme.viewers.Viewer;
 
 public abstract class AbstractViewer implements Viewer {
 

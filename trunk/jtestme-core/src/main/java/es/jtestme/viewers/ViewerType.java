@@ -1,11 +1,12 @@
-package es.jtestme.viewer;
+package es.jtestme.viewers;
 
 public enum ViewerType {
 
     HTML,
     TXT,
     JSON,
-    XML;
+    XML,
+    CUSTOM;
 
     public static ViewerType toType(final String str) {
         return toType(str, null);
@@ -20,8 +21,8 @@ public enum ViewerType {
         }
         return type;
     }
-    
-    public static boolean isHTML(ViewerType viewerType) {
-    	return HTML == viewerType;
+
+    public static boolean isHTML(final ViewerType viewerType) {
+        return HTML == viewerType;
     }
 }
