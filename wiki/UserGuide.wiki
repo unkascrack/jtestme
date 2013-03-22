@@ -243,7 +243,7 @@ jtestme.custom.param.class=#className implements es.jtestme.verificators.Verific
 }}}
 
 === 2.3. Viewers ===
-JTestMe tiene definido una serie de visores, {{{es.jtestme.viewer.Viewer}}}, por defecto, lo que permite de forma sencilla formatear los resultados obtenidos de la ejecución de los verificators ({{es.jtestme.domain.VerificatorResult}}}).
+JTestMe tiene definido una serie de visores, {{{es.jtestme.viewer.Viewer}}}, por defecto, lo que permite de forma sencilla formatear los resultados obtenidos de la ejecución de los verificators ({{{es.jtestme.domain.VerificatorResult}}}).
 
 Los tipos de visores predefinidos están definidos en el enum {{{es.jtestme.viewer.ViewerType}}} y son:
  * *HTML*, resultado HTML, implementado en la clase {{{es.jtestme.viewer.impl.HTMLViewer}}}.
@@ -255,17 +255,17 @@ Todas las clases constructoras de vistas, siguen el patrón Singleton, sólo exi
 
 Para facilitar la invocación del viewer adecuado JTestMe dispone de la factoría {{{es.jtestme.viewer.ViewerFactory}}}:
 {{{
-	// json viewer 
-	es.jtestme.viewer.Viewer jsonViewer = es.jtestme.viewer.ViewerFactory.loadViewer(es.jtestme.viewer.ViewerType.JSON);
-	
-	// recuperar content-type
-	String contentType = jsonViewer.getContentType();
-	
-	// extensión por defecto
-	String extension = jsonViewer.getExtension();
-	
-	// construcción de vista
-	String content = jsonViewer.getContentViewer(List<es.jtestme.domain.VerificatorResult> verificatorsResults);	
+// json viewer 
+es.jtestme.viewer.Viewer jsonViewer = es.jtestme.viewer.ViewerFactory.loadViewer(es.jtestme.viewer.ViewerType.JSON);
+
+// recuperar content-type
+String contentType = jsonViewer.getContentType();
+
+// extensión por defecto
+String extension = jsonViewer.getExtension();
+
+// construcción de vista
+String content = jsonViewer.getContentViewer(List<es.jtestme.domain.VerificatorResult> verificatorsResults);	
 }}}
  
 === 2.3. Java SE ===
@@ -275,30 +275,36 @@ El constructor {{{es.jtestme.JTestMeBuilder}}}, sigue el patrón Singleton, por 
 
 Ejemplo:
 {{{
-	es.jtestme.JTestMeBuilder builder = es.jtestme.JTestMeBuilder.getInstance();
-	
-	// cargar verificators de un archivo properties
-    builder.loadVerificators(configLocation);
-    
-    // cargar verificator de forma programada
-    builder.addVerificator(new es.jtestme.verificators.Verificator());
-    builder.addVerificator(new es.jtestme.verificators.impl.SMTPVerificator(params));
-    
-    // permite ejecutar un verificator de forma individual (uid), devolviendo su resultado 
-    es.jtestme.domain.VerificatorResult verificatorResult = builder.executeVerificator(verificatorUid);
-    
-    // permite ejecutar todos los verificators, devolviendo sus resultados
-    List<es.jtestme.domain.VerificatorResult> verificatorsResults = builder.executeVerificators();
-    
-    // dispone de un método para limpiar la lista de verificators configurados
-    builder.destroy();
+// invocamos al constructor de JTestMe
+es.jtestme.JTestMeBuilder builder = es.jtestme.JTestMeBuilder.getInstance();
+
+// cargar verificators de un archivo properties
+builder.loadVerificators(configLocation);
+
+// cargar verificator de forma programada
+builder.addVerificator(new es.jtestme.verificators.Verificator());
+builder.addVerificator(new es.jtestme.verificators.impl.SMTPVerificator(params));
+
+// permite ejecutar un verificator de forma individual (uid), devolviendo su resultado 
+es.jtestme.domain.VerificatorResult verificatorResult = builder.executeVerificator(verificatorUid);
+
+// permite ejecutar todos los verificators, devolviendo sus resultados
+List<es.jtestme.domain.VerificatorResult> verificatorsResults = builder.executeVerificators();
+
+// dispone de un método para limpiar la lista de verificators configurados
+builder.destroy();
 }}}
 
 JTestMe permite además de utilizar su motor de ejecución de verificatos, tambien permite construir facilmente una vista gracias a los visores ([#2.3._Viewers Viewers]):
 {{{
-	List<es.jtestme.domain.VerificatorResult> verificatorsResults = ...;
-	es.jtestme.viewer.Viewer viewer = es.jtestme.viewer.ViewerFactory.loadViewer(es.jtestme.viewer.ViewerType.TXT);
-	String txt = viewer.getContentViewer(verificatorsResults);
+// ejecutamos los verificators obteniendo sus resultados
+List<es.jtestme.domain.VerificatorResult> verificatorsResults = ...;
+
+// cargamos el viewer deseado
+es.jtestme.viewer.Viewer viewer = es.jtestme.viewer.ViewerFactory.loadViewer(es.jtestme.viewer.ViewerType.TXT);
+
+// delegamos los resultados de los verificators al viewer para construya la vista 
+String txt = viewer.getContentViewer(verificatorsResults);
 }}}
 
 === 2.4. Java EE ===
@@ -392,8 +398,42 @@ Además existirá una serie de dependencias adiciones en función de los verific
 }}}
 
 == 3. Configuración Avanzada ==
+A continuación se muestran conceptos avanzados de la librería JTestMe que se pueden aplicar. 
+
 === 3.1. Log ===
+JTestMe cuenta con un Logger propio, {{{es.jtestme.logger.JTestMeLogger}}}. Esta clase no instanciable dispone de las funciones más comunes para lanzar trazas de log utilizando las librerías Java de Logger más utilizadas:
+ * *SLF4J*, {{{org.slf4j.Logger}}}.
+ * *LOG4J*, {{{org.apache.log4j.Logger}}}.
+ * *LOGGER*, {{{java.util.logging.Logger}}}.
+
+La clase se encarga de detectar cual de las librerías está disponible para mostrar los las trazas log. No es necesario que en el classpath se encuentre la librería, slf4j o log4j, pero si se encuentra su uso tiene preferencia frente al logger por defecto de java ({{{java.util.logging.Logger}}}).
+
+La clase de Logger de JTestMe, permite también desactivar todos las trazas de forma programática:
+{{{
+// método para activar/desactivar todas las trazas log de JTestMe
+es.jtestme.logger.JTestMeLogger.loggerEnabled(false);
+
+// comprobamos si están activadas/desactivadas las trazas log
+boolean jtestmeLoggerEnabled = es.jtestme.logger.JTestMeLogger.isLoggerEnabled();
+}}}
+
+Para una aplicación web, el filtro de JTestMe, dispone de un parámetro para definir su comportamiento:
+{{{
+<filter>
+	<filter-name>jtestmefilter</filter-name>
+	<filter-class>es.jtestme.filter.JTestMeFilter</filter-class>
+	...
+	<init-param>
+		<param-name>log</param-name>
+		<param-value>true</param-value>
+	</init-param>
+	...
+</filter>
+}}}
+
 === 3.2. Verificators Personalizados ===
+
+
 === 3.3. Viewers Personalizadas ===
 Una vez visto los conceptos básicos de los [#2.3._Viewers Viewers], en el siguiente punto mostraremos como implementar viewers personalizados y añadirlos a la factoría de viewers.
  
@@ -448,3 +488,4 @@ The realm and the users must be defined in the application server, and the users
 }}}
 
 == 4. Desarrollo ==
+TODO
