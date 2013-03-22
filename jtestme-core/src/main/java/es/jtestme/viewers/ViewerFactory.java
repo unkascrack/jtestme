@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import es.jtestme.logger.JTestMeLogger;
-import es.jtestme.viewer.impl.HTMLViewer;
-import es.jtestme.viewer.impl.JSONViewer;
-import es.jtestme.viewer.impl.PlainTextViewer;
-import es.jtestme.viewer.impl.XMLViewer;
+import es.jtestme.viewers.impl.HTMLViewer;
+import es.jtestme.viewers.impl.JSONViewer;
+import es.jtestme.viewers.impl.PlainTextViewer;
+import es.jtestme.viewers.impl.XMLViewer;
 
 public final class ViewerFactory {
 

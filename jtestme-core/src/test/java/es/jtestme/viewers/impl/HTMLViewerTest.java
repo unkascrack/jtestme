@@ -1,8 +1,8 @@
-package es.jtestme.viewer.impl;
+package es.jtestme.viewers.impl;
 
 import org.junit.Before;
 
-import es.jtestme.viewer.impl.HTMLViewer;
+import es.jtestme.viewers.impl.HTMLViewer;
 
 public class HTMLViewerTest extends AbstractViewerTest {
 

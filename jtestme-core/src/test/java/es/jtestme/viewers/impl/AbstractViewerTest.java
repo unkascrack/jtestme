@@ -1,4 +1,4 @@
-package es.jtestme.viewer.impl;
+package es.jtestme.viewers.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import es.jtestme.domain.VerificatorResult;
-import es.jtestme.viewer.impl.AbstractViewer;
+import es.jtestme.viewers.impl.AbstractViewer;
 
 public abstract class AbstractViewerTest {
 
