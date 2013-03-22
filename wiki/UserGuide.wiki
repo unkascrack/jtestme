@@ -296,7 +296,7 @@ List<es.jtestme.domain.VerificatorResult> verificatorsResults = builder.executeV
 builder.destroy();
 }}}
 
-JTestMe permite además de utilizar su motor de ejecución de verificatos, tambien permite construir facilmente una vista gracias a los visores ([#2.3._Viewers Viewers]):
+JTestMe permite además de utilizar su motor de ejecución de verificatos, también permite construir facilmente una vista gracias a los visores ([#2.3._Viewers Viewers]):
 {{{
 // ejecutamos los verificators obteniendo sus resultados
 List<es.jtestme.domain.VerificatorResult> verificatorsResults = ...;
@@ -309,11 +309,11 @@ String txt = viewer.getContentViewer(verificatorsResults);
 }}}
 
 === 2.5. Java EE ===
-Para configurar JTestMe en una aplicación Web, se puede hacer de distantas formas:
+Para configurar JTestMe en una aplicación Web, se puede hacer de distintas formas:
  * *automática*, definir en el web.xml el {{{javax.servlet.Filter}}} de JTestMe, {{{es.jtestme.filter.JTestMeFilter}}} y definir en un archivo properties los verificators.
  * *manual*, invocar al constructor de JTestMe, {{{es.jtestme.JTestMeBuilder}}}, al igual que se hace en una aplicación Java SE. Además será necesario configurar los filtros o servlet necesario para mapear la ruta donde se desea mostrar visualmente los resultados de los verificators.   
 
-En este caso mostaremos como efectuar la configuración de forma automática, la más sencilla y rápida; configurando el {{{javax.servlet.Filter}}} y definiendo el archivo de properties con los verificators definidos.
+En este caso se muestra como efectuar la configuración de forma automática, la más sencilla y rápida; configurando el {{{javax.servlet.Filter}}} y definiendo el archivo de properties con los verificators definidos.
 
 1.Configurar el {{{javax.servlet.Filter}}} en el *web.xml*, añadiendo el filtro el primero:
 {{{
