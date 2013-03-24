@@ -262,9 +262,6 @@ es.jtestme.viewers.Viewer jsonViewer = es.jtestme.viewers.ViewerFactory.loadView
 // recuperar content-type
 String contentType = jsonViewer.getContentType();
 
-// extensión por defecto
-String extension = jsonViewer.getExtension();
-
 // construcción de vista
 String content = jsonViewer.getContentViewer(List<es.jtestme.domain.VerificatorResult> verificatorsResults);	
 }}}
@@ -451,6 +448,12 @@ Los parámetros de configuración de {{{es.jtestme.filter.JTestMeFilter}}} son:
 ||  *encoding*  ||  {{{UTF-8}}}  ||Códificación por defecto de las respuestas HTTP a las peticiones el filtro de JTestMe ||
 ||  *log*  || {{{true}}}  ||Activa/Desactiva las trazas log de la librería JTestMe ||
 ||  *param-type-format*  ||  {{{format}}}  ||Nombre del parámetro request que debe recibir el filtro de JTestMe para cambiar el tipo de respuesta. ||
+||  *default-viewer*  ||  {{{html}}}  ||Viewer que se mostrará por defecto si no especifíca el formato. ||
+||  *html-viewer-class*  ||  {{{es.jtestme.viewers.impl.HTMLViewer}}}  ||Implementación por defecto del viewer HTML. ||
+||  *json-viewer-class*  ||  {{{es.jtestme.viewers.impl.JSONViewer}}}  ||Implementación por defecto del viewer JSON. ||
+||  *txt-viewer-class*  ||  {{{es.jtestme.viewers.impl.PlainTextViewer}}}  ||Implementación por defecto del viewer TXT. ||
+||  *xml-viewer-class*  ||  {{{es.jtestme.viewers.impl.XMLViewer}}}  ||Implementación por defecto del viewer XML. ||
+||  *custom-viewer-class*  ||  {{{es.jtestme.viewers.impl.CustomViewer}}}  ||Implementación por defecto del viewer CUSTOM. ||
 
 El parámetro *param-type-format*, permite definir el nombre de la variable request que permitirá cambiar el tipo de respuesta que se devuelve: HTML, TXT, JSON y XML. El valor del tipo de respuesta es "case insensitive" y debe coincidir con uno de los tipos definidos en la clase {{{es.jtestme.viewers.ViewerType}}}.
 Ejemplo:
@@ -458,6 +461,60 @@ Ejemplo:
  * {{{http://.../jtestme?format=txt}}} ==> resultado TXT
  * {{{http://.../jtestme?format=json}}} ==> resultado JSON
  * {{{http://.../jtestme?format=XML}}} ==> resultado XML
+ 
+JTestMe permite redifinir todos los viewers por defecto: HTML, JSON, TXT y XML, así como un tipo propio CUSTOM. Además permite cambiar el viewer por defecto al mostrar las páginas en el navegador si no se recibe el parámetro de formato ({{{{{{http://.../jtestme?format=xml}}}}}}).
+
+Para cambiar el viewer por defecto, HTML, se debe hacer mediante el parámetro *default-viewer* en la configuración del {{{javax.servlet.Filter}}}:
+{{{
+...
+<init-param>
+	<param-name>default-viewer</param-name>
+	<param-value>custom</param-value>
+</init-param>
+...
+}}}
+
+Para cambiar cualquier tipo de viewer disponible es necesario definirlo en la configuración del filtro:
+{{{
+...
+<init-param>
+	<param-name>xml-viewer-class</param-name>
+	<param-value>es.jtestme.test.viewers.MyXMLViewer</param-value>
+</init-param>
+...
+}}}
+
+La clase que reemplaza el viewer por defecto de implementar el interface {{{es.jtestme.viewers.Viewer}}}, o bien puede heredar de la clase {{{es.jtestme.viewers.impl.AbstractViewer}}} que implementa el interface además de disponer de métodos comunes:
+{{{
+public class MyXMLViewer extends es.jtestme.viewers.impl.AbstractViewer {
+
+    public String getContentType() {
+        return "text/xml";
+    }
+
+    public String getContentViewer(final List<es.jtestme.domain.VerificatorResult> results) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("<?xml version='1.0' encoding='ISO-8859-15'?>").append(NEW_LINE);
+        builder.append("<verificarSistema nodo='").append(getHostName()).append("'>").append(NEW_LINE);
+        if (results != null && !results.isEmpty()) {
+            for (final es.jtestme.domain.VerificatorResult result : results) {
+                builder.append("<servicio>").append(NEW_LINE);
+                builder.append("<nombre>").append(result.getName()).append("</nombre>").append(NEW_LINE);
+                builder.append("<estado>").append(result.isSuscess() ? "OK" : "KO").append("</estado>")
+                        .append(NEW_LINE);
+                if (!result.isSuscess()) {
+                    builder.append("<descError>").append(result.getMessage()).append("</descError>").append(NEW_LINE);
+                    builder.append("<accionError>").append(result.getResolution()).append("</accionError>")
+                            .append(NEW_LINE);
+                }
+                builder.append("</servicio>").append(NEW_LINE);
+            }
+        }
+        builder.append("</verificarSistema>").append(NEW_LINE);
+        return builder.toString();
+    }
+}
+}}}
 
 === 3.3. Verificators Personalizados ===
 Uno de los tipos de verificators de JTestMe es *custom*, el cual permite definir un tipo de verificator personalizado, siendo necesario programar su comportamiento.
