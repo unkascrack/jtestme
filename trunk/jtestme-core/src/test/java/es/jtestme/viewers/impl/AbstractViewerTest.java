@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import es.jtestme.domain.VerificatorResult;
-import es.jtestme.viewers.impl.AbstractViewer;
 
 public abstract class AbstractViewerTest {
 
@@ -35,11 +34,6 @@ public abstract class AbstractViewerTest {
     @Test
     public void testGetContentTypeNotNull() {
         Assert.assertNotNull(viewer.getContentType());
-    }
-
-    @Test
-    public void testGetExtensionNotNull() {
-        Assert.assertNotNull(viewer.getExtension());
     }
 
     @Test
