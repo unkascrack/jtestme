@@ -1,4 +1,4 @@
-package es.jtestme.verificator.custom;
+package es.jtestme.test.verificators;
 
 import es.jtestme.domain.VerificatorResult;
 import es.jtestme.verificators.Verificator;
