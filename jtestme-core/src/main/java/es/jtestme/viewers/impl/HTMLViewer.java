@@ -44,9 +44,11 @@ public class HTMLViewer extends AbstractViewer {
                         builder.append("</a>").append(NEW_LINE);
                     }
                     builder.append("<b>").append(result.getMessage()).append("</b>").append(NEW_LINE);
-                    builder.append("<div id='").append(contador).append("' style='display:none'>").append(NEW_LINE);
-                    builder.append(getStackTraceToString(result.getCause())).append(NEW_LINE);
-                    builder.append("</div>").append(NEW_LINE);
+                    if (result.getCause() != null) {
+                        builder.append("<div id='").append(contador).append("' style='display:none'>").append(NEW_LINE);
+                        builder.append(getStackTraceToHTML(result.getCauseString())).append(NEW_LINE);
+                        builder.append("</div>").append(NEW_LINE);
+                    }
                 }
                 builder.append("</td>").append(NEW_LINE);
                 builder.append("</tr>").append(NEW_LINE);
@@ -58,14 +60,11 @@ public class HTMLViewer extends AbstractViewer {
         return builder.toString();
     }
 
-    private String getStackTraceToString(final Throwable cause) {
+    private String getStackTraceToHTML(final String stackTrace) {
         final StringBuilder builder = new StringBuilder();
-        if (cause != null) {
+        if (stackTrace != null && stackTrace.trim().length() > 0) {
             builder.append("<blockquote>").append(NEW_LINE);
-            final StackTraceElement elements[] = cause.getStackTrace();
-            for (final StackTraceElement element : elements) {
-                builder.append(element).append("</br>").append(NEW_LINE);
-            }
+            builder.append(stackTrace.replace(NEW_LINE, "<br/>"));
             builder.append("</blockquote>").append(NEW_LINE);
         }
         return builder.toString();
