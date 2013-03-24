@@ -26,98 +26,13 @@ public final class JTestMeFilter implements Filter {
 
     private static final JTestMeBuilder BUILDER = JTestMeBuilder.getInstance();
 
-    /**
-     * FilterConfig param to indicate the path to configuration file.
-     */
-    public static final String PARAM_CONFIG_LOCATION = "config-location";
-
-    /**
-     * FilterConfig param to define the encoding of the response.
-     */
-    public static final String PARAM_CONFIG_ENCODING = "encoding";
-
-    /**
-     * FilterConfig param to define is active logger
-     */
-    public static final String PARAM_CONFIG_LOG = "log";
-
-    /**
-     * FilterConfig param to define de name of the request parameter that
-     * represents the type format of the response.
-     */
-    public static final String PARAM_CONFIG_PARAMETER_FORMAT = "param-type-format";
-
-    /**
-     * FilterConfig param to define the default viewer: HTML, JSON, TXT, XML or CUSTOM, by default the value is HTML
-     */
-    public static final String PARAM_CONFIG_DEFAULT_VIEWER = "default-viewer";
-
-    /**
-     * FilterConfig param to define the class that implements the HTML viewer, by default is the class
-     * es.jtestme.viewers.impl.HTMLViewer
-     */
-    public static final String PARAM_CONFIG_HTML_VIEWER_CLASS = "html-viewer-class";
-
-    /**
-     * FilterConfig param to define the class that implements the JSON viewer, by default is the class
-     * es.jtestme.viewers.impl.JSONViewer
-     */
-    public static final String PARAM_CONFIG_JSON_VIEWER_CLASS = "json-viewer-class";
-
-    /**
-     * FilterConfig param to define the class that implements the TXT viewer, by default is the class
-     * es.jtestme.viewers.impl.PlainTextViewer
-     */
-    public static final String PARAM_CONFIG_TXT_VIEWER_CLASS = "txt-viewer-class";
-
-    /**
-     * FilterConfig param to define the class that implements the XML viewer, by default is the class
-     * es.jtestme.viewers.impl.XMLViewer
-     */
-    public static final String PARAM_CONFIG_XML_VIEWER_CLASS = "xml-viewer-class";
-
-    /**
-     * FilterConfig param to define the class that implements the CUSTOM viewer, by default is the class
-     * es.jtestme.viewers.impl.CustomViewer
-     */
-    public static final String PARAM_CONFIG_CUSTOM_VIEWER_CLASS = "custom-viewer-class";
-
-    /**
-     * Instance of FilterConfig
-     */
-    private FilterConfig config;
-
-    /**
-     * 
-     */
-    private ViewerType defaultViewer;
-
     /*
      * (non-Javadoc)
      * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
      */
     public void init(final FilterConfig config) throws ServletException {
         final long start = System.currentTimeMillis();
-        this.config = config;
-        {
-            JTestMeLogger.loggerEnabled(Boolean.parseBoolean(config.getInitParameter(PARAM_CONFIG_LOG)));
-        }
-        {
-            BUILDER.loadVerificators(config.getInitParameter(PARAM_CONFIG_LOCATION));
-        }
-
-        {
-            JTestMeLogger.info("JTestMe loading viewers...");
-            defaultViewer = ViewerType.toType(config.getInitParameter(PARAM_CONFIG_DEFAULT_VIEWER), ViewerType.HTML);
-            JTestMeLogger.debug("JTestMe default viewer: " + defaultViewer);
-
-            ViewerFactory.registerViewer(ViewerType.HTML, config.getInitParameter(PARAM_CONFIG_HTML_VIEWER_CLASS));
-            ViewerFactory.registerViewer(ViewerType.JSON, config.getInitParameter(PARAM_CONFIG_JSON_VIEWER_CLASS));
-            ViewerFactory.registerViewer(ViewerType.TXT, config.getInitParameter(PARAM_CONFIG_TXT_VIEWER_CLASS));
-            ViewerFactory.registerViewer(ViewerType.XML, config.getInitParameter(PARAM_CONFIG_XML_VIEWER_CLASS));
-            ViewerFactory.registerViewer(ViewerType.CUSTOM, config.getInitParameter(PARAM_CONFIG_CUSTOM_VIEWER_CLASS));
-        }
-
+        Parameters.initialize(config);
         final long duration = System.currentTimeMillis() - start;
         JTestMeLogger.info("JTestMe filter init done in " + duration + " ms");
     }
@@ -164,7 +79,7 @@ public final class JTestMeFilter implements Filter {
             final ViewerType viewerType = getViewerType(request);
             final Viewer viewer = ViewerFactory.loadViewer(viewerType);
             response.setContentType(viewer.getContentType());
-            response.setCharacterEncoding(getEncoding());
+            response.setCharacterEncoding(Parameters.getEncoding());
             output = response.getWriter();
             output.println(viewer.getContentViewer(results));
             output.flush();
@@ -191,7 +106,7 @@ public final class JTestMeFilter implements Filter {
 
         if (getClass().getResource(localResource) != null) {
             ((HttpServletResponse) response).addHeader("Cache-Control", "max-age=3600");
-            response.setContentType(config.getServletContext().getMimeType(resource));
+            response.setContentType(Parameters.getMimeType(resource));
             OutputStream output = null;
             InputStream input = null;
 
@@ -216,26 +131,13 @@ public final class JTestMeFilter implements Filter {
         }
     }
 
-    private static final String DEFAULT_REQUEST_PARAM_FORMAT = "format";
-
     /**
      * @param request
      * @return
      */
     private ViewerType getViewerType(final ServletRequest request) {
-        String requestParam = config.getInitParameter(PARAM_CONFIG_PARAMETER_FORMAT);
-        requestParam = requestParam != null && requestParam.trim().length() > 0 ? requestParam
-                : DEFAULT_REQUEST_PARAM_FORMAT;
-        return ViewerType.toType(request.getParameter(requestParam), defaultViewer);
-    }
-
-    private static final String DEFAULT_ENCODING = "UTF-8";
-
-    /**
-     * @return
-     */
-    private String getEncoding() {
-        final String encoding = config.getInitParameter(PARAM_CONFIG_ENCODING);
-        return encoding != null && encoding.trim().length() > 0 ? encoding : DEFAULT_ENCODING;
+        final String requestParamFormat = Parameters.getRequestParamFormat();
+        final ViewerType defaultViewer = Parameters.getDefaultViewer();
+        return ViewerType.toType(request.getParameter(requestParamFormat), defaultViewer);
     }
 }
