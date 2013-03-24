@@ -15,15 +15,19 @@ public class XMLViewer extends AbstractViewer {
         builder.append(header());
         if (results != null && !results.isEmpty()) {
             for (final VerificatorResult result : results) {
-                builder.append("<servicio>").append(NEW_LINE);
-                builder.append("<nombre>").append(result.getName()).append("</nombre>").append(NEW_LINE);
-                builder.append("<estado>").append(result.getSuscessString()).append("</estado>").append(NEW_LINE);
+                builder.append("<verificator>").append(NEW_LINE);
+                builder.append("<type>").append(result.getType()).append("</type>").append(NEW_LINE);
+                builder.append("<name>").append(result.getName()).append("</name>").append(NEW_LINE);
+                builder.append("<description>").append(result.getDescription()).append("</description>")
+                        .append(NEW_LINE);
+                builder.append("<success>").append(result.getSuscessString()).append("</success>").append(NEW_LINE);
                 if (!result.isSuscess()) {
-                    builder.append("<descError>").append(result.getMessage()).append("</descError>").append(NEW_LINE);
-                    builder.append("<accionError>").append(result.getResolution()).append("</accionError>")
+                    builder.append("<message>").append(result.getMessage()).append("</message>").append(NEW_LINE);
+                    builder.append("<cause>").append(result.getCauseString()).append("</cause>").append(NEW_LINE);
+                    builder.append("<resolution>").append(result.getResolution()).append("</resolution>")
                             .append(NEW_LINE);
                 }
-                builder.append("</servicio>").append(NEW_LINE);
+                builder.append("</verificator>").append(NEW_LINE);
             }
         }
         builder.append(footer());
@@ -32,14 +36,14 @@ public class XMLViewer extends AbstractViewer {
 
     private String header() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("<?xml version='1.0' encoding='ISO-8859-15'?>").append(NEW_LINE);
-        builder.append("<verificarSistema nodo='").append(getHostName()).append("'>").append(NEW_LINE);
+        builder.append("<?xml version='1.0' encoding='UTF-8'?>").append(NEW_LINE);
+        builder.append("<verificators>").append(NEW_LINE);
         return builder.toString();
     }
 
     private String footer() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("</verificarSistema>").append(NEW_LINE);
+        builder.append("</verificators>").append(NEW_LINE);
         return builder.toString();
     }
 }

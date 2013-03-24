@@ -18,7 +18,7 @@ public class MyXMLViewer extends AbstractViewer {
             for (final VerificatorResult result : results) {
                 builder.append("<servicio>").append(NEW_LINE);
                 builder.append("<nombre>").append(result.getName()).append("</nombre>").append(NEW_LINE);
-                builder.append("<estado>").append(result.getSuscessString()).append("</estado>").append(NEW_LINE);
+                builder.append("<estado>").append(result.isSuscess() ? "OK": "KO").append("</estado>").append(NEW_LINE);
                 if (!result.isSuscess()) {
                     builder.append("<descError>").append(result.getMessage()).append("</descError>").append(NEW_LINE);
                     builder.append("<accionError>").append(result.getResolution()).append("</accionError>")
