@@ -594,7 +594,7 @@ Para cambiar cualquier tipo de viewer disponible es necesario definirlo en la co
 ...
 }}}
 
-La clase que reemplaza el viewer por defecto de implementar el interface {{{es.jtestme.viewers.Viewer}}}, o bien puede heredar de la clase {{{es.jtestme.viewers.impl.AbstractViewer}}} que implementa el interface además de disponer de métodos comunes:
+La clase que reemplaza el viewer por defecto debe implementar el interface {{{es.jtestme.viewers.Viewer}}}, o bien puede heredar de la clase {{{es.jtestme.viewers.impl.AbstractViewer}}} que implementa el interface además de disponer de métodos comunes.
 {{{
 public class MyXMLViewer extends es.jtestme.viewers.impl.AbstractViewer {
 
@@ -632,11 +632,14 @@ Otra forma de modificar los viewers por defecto es registrar los nuevos viewers 
 es.jtestme.viewers.ViewerFactory.registerViewer(es.jtestme.viewers.ViewerType.CUSTOM, new es.jtestme.viewers.Viewer());
 
 // o incluso, reemplazar un viewer por defecto
-es.jtestme.viewers.ViewerFactory.registerViewer(es.jtestme.viewers.ViewerType.HTML, new es.jtestme.viewers.Viewer());
+es.jtestme.viewers.ViewerFactory.registerViewer(es.jtestme.viewers.ViewerType.XML, new MyXMlViewer());
 
 // para obtener el viewer basta con invocarlo en la factoría 
-es.jtestme.viewers.Viewer myViewer = es.jtestme.viewers.ViewerFactory.loadViewer(es.jtestme.viewers.ViewerType.CUSTOM);
+es.jtestme.viewers.Viewer customViewer = es.jtestme.viewers.ViewerFactory.loadViewer(es.jtestme.viewers.ViewerType.CUSTOM);
+es.jtestme.viewers.Viewer xmlViewer = es.jtestme.viewers.ViewerFactory.loadViewer(es.jtestme.viewers.ViewerType.XML);
 }}}
+
+_NOTA: los viewers, al igual que los verificators, sólo se instancian una única vez por lo que sus métodos deben ser thread-safe: evitar atributos compartidos._
 
 === 3.5. Seguridad ===
 The monitoring page does not contain data such as passwords, but before using it in production, you may probably want that this page is in restricted access. You may secure it by using your own means. Otherwise, it is possible to restrict its access by a regular expression on ip address of client with the parameter allowed-addr-pattern (regular expression with a range of internal ip addresses or fixed ip addresses of administrators). For example, "192\.168\..*|123\.123\.123\.123" to allow the ip addresses in the "192.168.*.*" range plus any pc hiding behind the gateway 123.123.123.123. 
