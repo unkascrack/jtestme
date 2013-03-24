@@ -40,7 +40,7 @@ public class CustomVerificator extends AbstractVerificator {
     private Verificator loadCustomVerificator(final String className) {
         Verificator verificator = null;
         try {
-            verificator = JTestMeUtils.loadVerificator(className, getUid(), getParams());
+            verificator = JTestMeUtils.loadVerificatorClass(className, getUid(), getParams());
         } catch (final Throwable e) {
             JTestMeLogger.warn("No se ha podido cargar el custom verificator: " + className, e);
         }

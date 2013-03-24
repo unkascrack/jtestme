@@ -53,5 +53,4 @@ public class VerificatorFactoryTest {
         params.put("type", "jdbc");
         Assert.assertNotNull(verificator.loadVerificator(name, params));
     }
-
 }
