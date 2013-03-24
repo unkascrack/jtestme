@@ -12,11 +12,6 @@ public interface Viewer {
     /**
      * @return
      */
-    public String getExtension();
-
-    /**
-     * @return
-     */
     public String getContentType();
 
     /**

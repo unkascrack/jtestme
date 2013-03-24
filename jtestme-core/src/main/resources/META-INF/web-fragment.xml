@@ -29,6 +29,32 @@
 			<param-name>filename</param-name>
 			<param-value>jtestme</param-value>
 		</init-param>
+		
+		<init-param>
+			<param-name>default-viewer</param-name>
+			<param-value>html</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>html-viewer-class</param-name>
+			<param-value>es.jtestme.viewers.impl.HTMLViewer</param-value>
+		</init-param>
+		<init-param>
+			<param-name>json-viewer-class</param-name>
+			<param-value>es.jtestme.viewers.impl.JSONViewer</param-value>
+		</init-param>
+		<init-param>
+			<param-name>txt-viewer-class</param-name>
+			<param-value>es.jtestme.viewers.impl.PlainTextViewer</param-value>
+		</init-param>
+		<init-param>
+			<param-name>xml-viewer-class</param-name>
+			<param-value>es.jtestme.viewers.impl.XMLViewer</param-value>
+		</init-param>
+		<init-param>
+			<param-name>custom-viewer-class</param-name>
+			<param-value>class implements es.jtestme.viewers.Viewer</param-value>
+		</init-param>
 	-->		
 	</filter>
 	<filter-mapping>

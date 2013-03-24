@@ -6,10 +6,6 @@ import es.jtestme.domain.VerificatorResult;
 
 public class XMLViewer extends AbstractViewer {
 
-    public String getExtension() {
-        return ".xml";
-    }
-
     public String getContentType() {
         return "text/xml";
     }

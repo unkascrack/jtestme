@@ -1,5 +1,6 @@
 package es.jtestme.viewers;
 
+import static es.jtestme.viewers.ViewerType.CUSTOM;
 import static es.jtestme.viewers.ViewerType.HTML;
 import static es.jtestme.viewers.ViewerType.JSON;
 import static es.jtestme.viewers.ViewerType.TXT;
@@ -9,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import es.jtestme.logger.JTestMeLogger;
+import es.jtestme.utils.JTestMeUtils;
+import es.jtestme.viewers.impl.CustomViewer;
 import es.jtestme.viewers.impl.HTMLViewer;
 import es.jtestme.viewers.impl.JSONViewer;
 import es.jtestme.viewers.impl.PlainTextViewer;
@@ -22,6 +25,7 @@ public final class ViewerFactory {
         VIEWERS.put(XML, new XMLViewer());
         VIEWERS.put(TXT, new PlainTextViewer());
         VIEWERS.put(JSON, new JSONViewer());
+        VIEWERS.put(CUSTOM, new CustomViewer());
     }
 
     /**
@@ -29,7 +33,27 @@ public final class ViewerFactory {
      * @param viewer
      */
     public static void registerViewer(final ViewerType viewerType, final Viewer viewer) {
-        VIEWERS.put(viewerType, viewer);
+        if (viewerType != null && viewer != null) {
+            JTestMeLogger.info("JTestMe register viewer type " + viewerType + " for class: "
+                    + viewer.getClass().getName());
+            VIEWERS.put(viewerType, viewer);
+        }
+    }
+
+    /**
+     * @param viewerType
+     * @param viewer
+     */
+    public static void registerViewer(final ViewerType viewerType, final String viewerClass) {
+        if (viewerType != null && viewerClass != null && viewerClass.trim().length() > 0) {
+            try {
+                final Viewer viewer = JTestMeUtils.loadClass(viewerClass);
+                registerViewer(viewerType, viewer);
+            } catch (final Throwable e) {
+                JTestMeLogger.warn("JTestMe error loading " + viewerType + " viewer of class " + viewerClass + ": "
+                        + e.getMessage());
+            }
+        }
     }
 
     /**
@@ -44,5 +68,4 @@ public final class ViewerFactory {
         }
         return VIEWERS.get(viewerType);
     }
-
 }

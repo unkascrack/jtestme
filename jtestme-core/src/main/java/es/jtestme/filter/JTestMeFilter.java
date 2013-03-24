@@ -48,9 +48,49 @@ public final class JTestMeFilter implements Filter {
     public static final String PARAM_CONFIG_PARAMETER_FORMAT = "param-type-format";
 
     /**
+     * FilterConfig param to define the default viewer: HTML, JSON, TXT, XML or CUSTOM, by default the value is HTML
+     */
+    public static final String PARAM_CONFIG_DEFAULT_VIEWER = "default-viewer";
+
+    /**
+     * FilterConfig param to define the class that implements the HTML viewer, by default is the class
+     * es.jtestme.viewers.impl.HTMLViewer
+     */
+    public static final String PARAM_CONFIG_HTML_VIEWER_CLASS = "html-viewer-class";
+
+    /**
+     * FilterConfig param to define the class that implements the JSON viewer, by default is the class
+     * es.jtestme.viewers.impl.JSONViewer
+     */
+    public static final String PARAM_CONFIG_JSON_VIEWER_CLASS = "json-viewer-class";
+
+    /**
+     * FilterConfig param to define the class that implements the TXT viewer, by default is the class
+     * es.jtestme.viewers.impl.PlainTextViewer
+     */
+    public static final String PARAM_CONFIG_TXT_VIEWER_CLASS = "txt-viewer-class";
+
+    /**
+     * FilterConfig param to define the class that implements the XML viewer, by default is the class
+     * es.jtestme.viewers.impl.XMLViewer
+     */
+    public static final String PARAM_CONFIG_XML_VIEWER_CLASS = "xml-viewer-class";
+
+    /**
+     * FilterConfig param to define the class that implements the CUSTOM viewer, by default is the class
+     * es.jtestme.viewers.impl.CustomViewer
+     */
+    public static final String PARAM_CONFIG_CUSTOM_VIEWER_CLASS = "custom-viewer-class";
+
+    /**
      * Instance of FilterConfig
      */
     private FilterConfig config;
+
+    /**
+     * 
+     */
+    private ViewerType defaultViewer;
 
     /*
      * (non-Javadoc)
@@ -59,9 +99,25 @@ public final class JTestMeFilter implements Filter {
     public void init(final FilterConfig config) throws ServletException {
         final long start = System.currentTimeMillis();
         this.config = config;
-        JTestMeLogger.loggerEnabled(Boolean.parseBoolean(config.getInitParameter(PARAM_CONFIG_LOG)));
-        final String configLocation = config.getInitParameter(PARAM_CONFIG_LOCATION);
-        BUILDER.loadVerificators(configLocation);
+        {
+            JTestMeLogger.loggerEnabled(Boolean.parseBoolean(config.getInitParameter(PARAM_CONFIG_LOG)));
+        }
+        {
+            BUILDER.loadVerificators(config.getInitParameter(PARAM_CONFIG_LOCATION));
+        }
+
+        {
+            JTestMeLogger.info("JTestMe loading viewers...");
+            defaultViewer = ViewerType.toType(config.getInitParameter(PARAM_CONFIG_DEFAULT_VIEWER), ViewerType.HTML);
+            JTestMeLogger.debug("JTestMe default viewer: " + defaultViewer);
+
+            ViewerFactory.registerViewer(ViewerType.HTML, config.getInitParameter(PARAM_CONFIG_HTML_VIEWER_CLASS));
+            ViewerFactory.registerViewer(ViewerType.JSON, config.getInitParameter(PARAM_CONFIG_JSON_VIEWER_CLASS));
+            ViewerFactory.registerViewer(ViewerType.TXT, config.getInitParameter(PARAM_CONFIG_TXT_VIEWER_CLASS));
+            ViewerFactory.registerViewer(ViewerType.XML, config.getInitParameter(PARAM_CONFIG_XML_VIEWER_CLASS));
+            ViewerFactory.registerViewer(ViewerType.CUSTOM, config.getInitParameter(PARAM_CONFIG_CUSTOM_VIEWER_CLASS));
+        }
+
         final long duration = System.currentTimeMillis() - start;
         JTestMeLogger.info("JTestMe filter init done in " + duration + " ms");
     }
@@ -170,7 +226,7 @@ public final class JTestMeFilter implements Filter {
         String requestParam = config.getInitParameter(PARAM_CONFIG_PARAMETER_FORMAT);
         requestParam = requestParam != null && requestParam.trim().length() > 0 ? requestParam
                 : DEFAULT_REQUEST_PARAM_FORMAT;
-        return ViewerType.toType(request.getParameter(requestParam), ViewerType.HTML);
+        return ViewerType.toType(request.getParameter(requestParam), defaultViewer);
     }
 
     private static final String DEFAULT_ENCODING = "UTF-8";

@@ -6,10 +6,6 @@ import es.jtestme.domain.VerificatorResult;
 
 public class HTMLViewer extends AbstractViewer {
 
-    public String getExtension() {
-        return ".xhtml";
-    }
-
     public String getContentType() {
         return "text/html";
     }

@@ -6,10 +6,6 @@ import es.jtestme.domain.VerificatorResult;
 
 public class JSONViewer extends AbstractViewer {
 
-    public String getExtension() {
-        return ".json";
-    }
-
     public String getContentType() {
         return "application/json";
     }

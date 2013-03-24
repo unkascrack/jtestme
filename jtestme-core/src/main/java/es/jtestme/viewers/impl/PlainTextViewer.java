@@ -6,10 +6,6 @@ import es.jtestme.domain.VerificatorResult;
 
 public class PlainTextViewer extends AbstractViewer {
 
-    public String getExtension() {
-        return ".txt";
-    }
-
     public String getContentType() {
         return "text/plain";
     }
