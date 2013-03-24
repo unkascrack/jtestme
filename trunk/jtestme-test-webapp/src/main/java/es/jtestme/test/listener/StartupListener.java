@@ -63,7 +63,7 @@ public class StartupListener implements ServletContextListener {
         } catch (final InterruptedException e) {
             JTestMeLogger.error(e.toString(), e);
         }
-        
+
         try {
             final String dir = "C:\\data";
 
