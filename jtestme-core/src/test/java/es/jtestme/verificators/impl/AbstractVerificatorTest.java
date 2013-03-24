@@ -228,7 +228,7 @@ public class AbstractVerificatorTest {
         verificator = new FakeVerificator(null);
         final Integer value = verificator.getParamInteger("name", 0);
         Assert.assertNotNull(value);
-        Assert.assertSame(value, 0);
+        Assert.assertTrue(value.equals(0));
     }
 
     @Test
@@ -237,7 +237,7 @@ public class AbstractVerificatorTest {
         verificator = new FakeVerificator(params);
         final Integer value = verificator.getParamInteger("name", 0);
         Assert.assertNotNull(value);
-        Assert.assertSame(value, 0);
+        Assert.assertTrue(value.equals(0));
     }
 
     @Test
@@ -247,7 +247,7 @@ public class AbstractVerificatorTest {
         verificator = new FakeVerificator(params);
         final Integer value = verificator.getParamInteger("notfound", 0);
         Assert.assertNotNull(value);
-        Assert.assertSame(value, 0);
+        Assert.assertTrue(value.equals(0));
     }
 
     @Test
@@ -257,7 +257,7 @@ public class AbstractVerificatorTest {
         verificator = new FakeVerificator(params);
         final Integer value = verificator.getParamInteger("name", 0);
         Assert.assertNotNull(value);
-        Assert.assertSame(value, 10);
+        Assert.assertTrue(value.equals(10));
     }
 
     @Test

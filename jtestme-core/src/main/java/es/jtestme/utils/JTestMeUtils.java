@@ -22,6 +22,44 @@ public final class JTestMeUtils {
     }
 
     /**
+     * @param className
+     * @param arguments
+     * @return
+     * @throws ClassNotFoundException
+     * @throws IllegalArgumentException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     */
+    @SuppressWarnings("unchecked")
+    public static final <T> T loadClass(final String className, final Object... arguments)
+            throws ClassNotFoundException, IllegalArgumentException, InstantiationException, IllegalAccessException,
+            InvocationTargetException {
+        T _class = null;
+        if (className != null && className.trim().length() > 0) {
+            final Class<?> clase = Class.forName(className);
+            final Constructor<?>[] constructors = clase.getConstructors();
+            for (final Constructor<?> constructor : constructors) {
+                final Class<?>[] parametersClass = constructor.getParameterTypes();
+                if (parametersClass.length == arguments.length) {
+                    boolean exact = true;
+                    for (int i = 0; i < arguments.length; i++) {
+                        if (arguments[i] != null && !parametersClass[i].isAssignableFrom(arguments[i].getClass())) {
+                            exact = false;
+                            break;
+                        }
+                    }
+                    if (exact) {
+                        _class = (T) constructor.newInstance(arguments);
+                        break;
+                    }
+                }
+            }
+        }
+        return _class;
+    }
+
+    /**
      * @param verificatorClassName
      * @param name
      * @param params
@@ -32,28 +70,20 @@ public final class JTestMeUtils {
      * @throws IllegalArgumentException
      * @throws InvocationTargetException
      */
-    @SuppressWarnings("unchecked")
-    public static final Verificator loadVerificator(final String verificatorClassName, final String name,
+    public static final Verificator loadVerificatorClass(final String verificatorClassName, final String name,
             final Map<String, String> params) throws ClassNotFoundException, InstantiationException,
             IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         Verificator verificator = null;
         if (verificatorClassName != null && verificatorClassName.trim().length() > 0) {
-            final Class<? extends Verificator> clase = (Class<? extends Verificator>) Class
-                    .forName(verificatorClassName);
-            final Constructor<?>[] constructors = clase.getConstructors();
-            for (final Constructor<?> constructor : constructors) {
-                final Class<?>[] parametersClass = constructor.getParameterTypes();
-                if (parametersClass == null || parametersClass.length == 0) {
-                    verificator = clase.newInstance();
-                    break;
-                } else if (parametersClass.length == 1 && parametersClass[0].equals(Map.class)) {
-                    verificator = (Verificator) constructor.newInstance(params);
-                    break;
-                } else if (parametersClass.length == 2 && parametersClass[0].equals(String.class)
-                        && parametersClass[1].equals(Map.class)) {
-                    verificator = (Verificator) constructor.newInstance(name, params);
-                    break;
-                }
+            verificator = loadClass(verificatorClassName, name, params);
+            if (verificator == null) {
+                verificator = loadClass(verificatorClassName, params);
+            }
+            if (verificator == null) {
+                verificator = loadClass(verificatorClassName, name);
+            }
+            if (verificator == null) {
+                verificator = loadClass(verificatorClassName);
             }
         }
         return verificator;
