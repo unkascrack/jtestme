@@ -34,7 +34,7 @@ public final class ViewerFactory {
      */
     public static void registerViewer(final ViewerType viewerType, final Viewer viewer) {
         if (viewerType != null && viewer != null) {
-            JTestMeLogger.info("JTestMe register viewer type " + viewerType + " for class: "
+            JTestMeLogger.debug("JTestMe register viewer type " + viewerType + " for class: "
                     + viewer.getClass().getName());
             VIEWERS.put(viewerType, viewer);
         }
@@ -62,7 +62,7 @@ public final class ViewerFactory {
      * @throws IllegalArgumentException
      */
     public static Viewer loadViewer(final ViewerType viewerType) throws IllegalArgumentException {
-        JTestMeLogger.info("JTestMe loading viewer of type: " + viewerType);
+        JTestMeLogger.debug("JTestMe loading viewer of type: " + viewerType);
         if (!VIEWERS.containsKey(viewerType)) {
             throw new IllegalArgumentException("JTestMeViewerType not supported: " + viewerType);
         }
