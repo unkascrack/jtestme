@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import es.jtestme.viewers.Viewer;
+
 public class VerificatorResult implements Serializable {
 
     private static final long serialVersionUID = -2134315643510887806L;
@@ -79,7 +81,7 @@ public class VerificatorResult implements Serializable {
     }
 
     public String getSuscessString() {
-        return suscess ? "OK" : "KO";
+        return suscess ? "OK" : "ERROR";
     }
 
     public void setSuscess(final boolean suscess) {
@@ -96,6 +98,17 @@ public class VerificatorResult implements Serializable {
 
     public Throwable getCause() {
         return cause;
+    }
+
+    public String getCauseString() {
+        final StringBuilder builder = new StringBuilder();
+        if (cause != null) {
+            final StackTraceElement elements[] = cause.getStackTrace();
+            for (final StackTraceElement element : elements) {
+                builder.append(element).append(Viewer.NEW_LINE);
+            }
+        }
+        return builder.toString();
     }
 
     public void setCause(final Throwable cause) {
