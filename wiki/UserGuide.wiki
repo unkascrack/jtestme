@@ -462,60 +462,6 @@ Ejemplo:
  * {{{http://.../jtestme?format=json}}} ==> resultado JSON
  * {{{http://.../jtestme?format=XML}}} ==> resultado XML
  
-JTestMe permite redifinir todos los viewers por defecto: HTML, JSON, TXT y XML, así como un tipo propio CUSTOM. Además permite cambiar el viewer por defecto al mostrar las páginas en el navegador si no se recibe el parámetro de formato ({{{{{{http://.../jtestme?format=xml}}}}}}).
-
-Para cambiar el viewer por defecto, HTML, se debe hacer mediante el parámetro *default-viewer* en la configuración del {{{javax.servlet.Filter}}}:
-{{{
-...
-<init-param>
-	<param-name>default-viewer</param-name>
-	<param-value>custom</param-value>
-</init-param>
-...
-}}}
-
-Para cambiar cualquier tipo de viewer disponible es necesario definirlo en la configuración del filtro:
-{{{
-...
-<init-param>
-	<param-name>xml-viewer-class</param-name>
-	<param-value>es.jtestme.test.viewers.MyXMLViewer</param-value>
-</init-param>
-...
-}}}
-
-La clase que reemplaza el viewer por defecto de implementar el interface {{{es.jtestme.viewers.Viewer}}}, o bien puede heredar de la clase {{{es.jtestme.viewers.impl.AbstractViewer}}} que implementa el interface además de disponer de métodos comunes:
-{{{
-public class MyXMLViewer extends es.jtestme.viewers.impl.AbstractViewer {
-
-    public String getContentType() {
-        return "text/xml";
-    }
-
-    public String getContentViewer(final List<es.jtestme.domain.VerificatorResult> results) {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("<?xml version='1.0' encoding='ISO-8859-15'?>").append(NEW_LINE);
-        builder.append("<verificarSistema nodo='").append(getHostName()).append("'>").append(NEW_LINE);
-        if (results != null && !results.isEmpty()) {
-            for (final es.jtestme.domain.VerificatorResult result : results) {
-                builder.append("<servicio>").append(NEW_LINE);
-                builder.append("<nombre>").append(result.getName()).append("</nombre>").append(NEW_LINE);
-                builder.append("<estado>").append(result.isSuscess() ? "OK" : "KO").append("</estado>")
-                        .append(NEW_LINE);
-                if (!result.isSuscess()) {
-                    builder.append("<descError>").append(result.getMessage()).append("</descError>").append(NEW_LINE);
-                    builder.append("<accionError>").append(result.getResolution()).append("</accionError>")
-                            .append(NEW_LINE);
-                }
-                builder.append("</servicio>").append(NEW_LINE);
-            }
-        }
-        builder.append("</verificarSistema>").append(NEW_LINE);
-        return builder.toString();
-    }
-}
-}}}
-
 === 3.3. Verificators Personalizados ===
 Uno de los tipos de verificators de JTestMe es *custom*, el cual permite definir un tipo de verificator personalizado, siendo necesario programar su comportamiento.
 
@@ -625,8 +571,62 @@ public class MyCustomVerificator extends es.jtestme.verificators.impl.AbstractVe
 
 === 3.4. Viewers Personalizadas ===
 Una vez visto los conceptos básicos de los [#2.3._Viewers Viewers], en el siguiente punto mostraremos como implementar viewers personalizados y añadirlos a la factoría de viewers.
+
+JTestMe permite redifinir todos los viewers por defecto: HTML, JSON, TXT y XML, así como un tipo propio CUSTOM. Además permite cambiar el viewer por defecto al mostrar las páginas en el navegador si no se recibe el parámetro de formato ({{{{{{http://.../jtestme?format=xml}}}}}}).
+
+Para cambiar el viewer por defecto, HTML, se debe hacer mediante el parámetro *default-viewer* en la configuración del {{{javax.servlet.Filter}}}:
+{{{
+...
+<init-param>
+	<param-name>default-viewer</param-name>
+	<param-value>custom</param-value>
+</init-param>
+...
+}}}
+
+Para cambiar cualquier tipo de viewer disponible es necesario definirlo en la configuración del filtro:
+{{{
+...
+<init-param>
+	<param-name>xml-viewer-class</param-name>
+	<param-value>es.jtestme.test.viewers.MyXMLViewer</param-value>
+</init-param>
+...
+}}}
+
+La clase que reemplaza el viewer por defecto de implementar el interface {{{es.jtestme.viewers.Viewer}}}, o bien puede heredar de la clase {{{es.jtestme.viewers.impl.AbstractViewer}}} que implementa el interface además de disponer de métodos comunes:
+{{{
+public class MyXMLViewer extends es.jtestme.viewers.impl.AbstractViewer {
+
+    public String getContentType() {
+        return "text/xml";
+    }
+
+    public String getContentViewer(final List<es.jtestme.domain.VerificatorResult> results) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("<?xml version='1.0' encoding='ISO-8859-15'?>").append(NEW_LINE);
+        builder.append("<verificarSistema nodo='").append(getHostName()).append("'>").append(NEW_LINE);
+        if (results != null && !results.isEmpty()) {
+            for (final es.jtestme.domain.VerificatorResult result : results) {
+                builder.append("<servicio>").append(NEW_LINE);
+                builder.append("<nombre>").append(result.getName()).append("</nombre>").append(NEW_LINE);
+                builder.append("<estado>").append(result.isSuscess() ? "OK" : "KO").append("</estado>")
+                        .append(NEW_LINE);
+                if (!result.isSuscess()) {
+                    builder.append("<descError>").append(result.getMessage()).append("</descError>").append(NEW_LINE);
+                    builder.append("<accionError>").append(result.getResolution()).append("</accionError>")
+                            .append(NEW_LINE);
+                }
+                builder.append("</servicio>").append(NEW_LINE);
+            }
+        }
+        builder.append("</verificarSistema>").append(NEW_LINE);
+        return builder.toString();
+    }
+}
+}}}
  
-Mediante la factoría de viewers, {{{es.jtestme.viewers.Viewer}}}, también es posible cargar viewers personalizados de forma programática en la factoría de viewers:
+Otra forma de modificar los viewers por defecto es registrar los nuevos viewers en su factoría, {{{es.jtestme.viewers.Viewer}}}, la cual permite registrarlos de forma programática:
 {{{
 // permite definir un tipo propio "custom"
 es.jtestme.viewers.ViewerFactory.registerViewer(es.jtestme.viewers.ViewerType.CUSTOM, new es.jtestme.viewers.Viewer());
@@ -637,9 +637,6 @@ es.jtestme.viewers.ViewerFactory.registerViewer(es.jtestme.viewers.ViewerType.HT
 // para obtener el viewer basta con invocarlo en la factoría 
 es.jtestme.viewers.Viewer myViewer = es.jtestme.viewers.ViewerFactory.loadViewer(es.jtestme.viewers.ViewerType.CUSTOM);
 }}}
-
-  _NOTA: más adelante se espera ampliar los parámetros de configuración de {{{es.jtestme.filter.JTestMeFilter}}} para mediante configuración permite definir un tipo de viewer propio, o incluso reemplazar los predefinidos: HTML, XML, TXT y JSON._ 
-
 
 === 3.5. Seguridad ===
 The monitoring page does not contain data such as passwords, but before using it in production, you may probably want that this page is in restricted access. You may secure it by using your own means. Otherwise, it is possible to restrict its access by a regular expression on ip address of client with the parameter allowed-addr-pattern (regular expression with a range of internal ip addresses or fixed ip addresses of administrators). For example, "192\.168\..*|123\.123\.123\.123" to allow the ip addresses in the "192.168.*.*" range plus any pc hiding behind the gateway 123.123.123.123. 
