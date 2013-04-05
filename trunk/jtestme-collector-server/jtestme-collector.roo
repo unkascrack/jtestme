@@ -93,24 +93,13 @@ service --interface ~.service.ServerService --entity ~.domain.Server
 service --interface ~.service.EnvironmentService --entity ~.domain.Environment
 service --interface ~.service.OwnerService --entity ~.domain.Owner
 service --interface ~.service.ApplicationService --entity ~.domain.Application
-service --interface ~.service.MyService
-
-//email sender configuration
-email sender setup --hostServer 127.0.0.1
-field email template --class ~.service.MyServiceImpl
 
 //web
 web mvc setup
-//web mvc controller --class ~.web.ApplicationController
-//web mvc controller --class ~.web.OwnerController
-//web mvc controller --class ~.web.EnvironmentController
-//web mvc controller --class ~.web.ServerController
-
 web mvc scaffold --class ~.web.ApplicationController
 web mvc scaffold --class ~.web.OwnerController
 web mvc scaffold --class ~.web.EnvironmentController
 web mvc scaffold --class ~.web.ServerController
-
 //web mvc finder all
 //web mvc language --code de
 //web mvc language --code es
@@ -129,7 +118,12 @@ test integration --entity ~.domain.Server
 test integration --entity ~.domain.ServerState
 test integration --entity ~.domain.Verificator
 
-selenium test --controller ~.web.ApplicationController
-selenium test --controller ~.web.OwnerController
-selenium test --controller ~.web.EnvironmentController
-selenium test --controller ~.web.ServerController
+//selenium test --controller ~.web.ApplicationController
+//selenium test --controller ~.web.OwnerController
+//selenium test --controller ~.web.EnvironmentController
+//selenium test --controller ~.web.ServerController
+
+//email sender configuration
+service --interface ~.service.ApplicationScannerService --class ~.service.ApplicationScannerServiceImpl
+email sender setup --hostServer 127.0.0.1
+field email template --class ~.service.ApplicationScannerServiceImpl
