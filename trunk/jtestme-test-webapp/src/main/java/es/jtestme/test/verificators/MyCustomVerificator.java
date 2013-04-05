@@ -14,7 +14,7 @@ public class MyCustomVerificator implements Verificator {
         final VerificatorResult result = new VerificatorResult();
         result.setName("mycustomverificator");
         result.setType(VerificatorType.CUSTOM.toString());
-        result.setSuscess(true);
+        result.setSuccess(true);
         return result;
     }
 

@@ -53,7 +53,7 @@ public class SMTPVerificator extends AbstractVerificator {
             session = Session.getDefaultInstance(props);
             transport = session.getTransport("smtp");
             transport.connect(host, port, username, password);
-            result.setSuscess(true);
+            result.setSuccess(true);
         } catch (final AuthenticationFailedException e) {
             result.setCause(e);
         } catch (final MessagingException e) {

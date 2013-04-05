@@ -42,7 +42,7 @@ public class OpenOfficeVerificatorTest {
         verificator = new OpenOfficeVerificator(null);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class OpenOfficeVerificatorTest {
         verificator = new OpenOfficeVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -62,7 +62,7 @@ public class OpenOfficeVerificatorTest {
         verificator = new OpenOfficeVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class OpenOfficeVerificatorTest {
         verificator = new OpenOfficeVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertTrue(result.isSuscess());
+        Assert.assertTrue(result.isSuccess());
     }
 
 }

@@ -39,7 +39,7 @@ public class SMTPVerificatorTest {
         verificator = new SMTPVerificator(null);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class SMTPVerificatorTest {
         verificator = new SMTPVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -58,7 +58,7 @@ public class SMTPVerificatorTest {
         verificator = new SMTPVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class SMTPVerificatorTest {
         verificator = new SMTPVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertTrue(result.isSuscess());
+        Assert.assertTrue(result.isSuccess());
     }
 
 }

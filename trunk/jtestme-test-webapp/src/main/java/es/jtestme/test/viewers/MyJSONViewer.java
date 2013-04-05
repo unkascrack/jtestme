@@ -20,9 +20,9 @@ public class MyJSONViewer extends AbstractViewer {
                 builder.append(TAB).append("\"servicio\" : {").append(NEW_LINE);
                 builder.append(TAB).append(TAB).append("\"nombre\" : \"").append(result.getName()).append("\"")
                         .append(NEW_LINE);
-                builder.append(TAB).append(TAB).append("\"estado\" : \"").append(result.getSuscessString())
+                builder.append(TAB).append(TAB).append("\"estado\" : \"").append(result.getSuccessString())
                         .append("\"").append(NEW_LINE);
-                if (!result.isSuscess()) {
+                if (!result.isSuccess()) {
                     builder.append(TAB).append(TAB).append("\"descError\" : \"").append(result.getMessage())
                             .append("\"").append(NEW_LINE);
                     builder.append(TAB).append(TAB).append("\"accionError\" : \"").append(result.getResolution())

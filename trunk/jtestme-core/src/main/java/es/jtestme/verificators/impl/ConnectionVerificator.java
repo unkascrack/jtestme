@@ -51,7 +51,7 @@ public class ConnectionVerificator extends AbstractVerificator {
             connection.setConnectTimeout(timeout);
             final int responseCode = connection.getResponseCode();
             if (responseCode >= 200 && responseCode <= 399) {
-                result.setSuscess(true);
+                result.setSuccess(true);
             } else {
                 result.setMessage(connection.getResponseMessage());
             }

@@ -16,7 +16,7 @@ public class MyCustomViewer implements Viewer {
         final StringBuilder errorMessage = new StringBuilder();
         errorMessage.append("ERROR").append(NEW_LINE);
         for (final VerificatorResult result : results) {
-            if (!result.isSuscess()) {
+            if (!result.isSuccess()) {
                 error = true;
                 errorMessage.append("\t - ").append(result.getName()).append(": ").append(result.getMessage())
                         .append(NEW_LINE);

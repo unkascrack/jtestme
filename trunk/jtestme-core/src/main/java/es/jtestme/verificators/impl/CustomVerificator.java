@@ -27,7 +27,7 @@ public class CustomVerificator extends AbstractVerificator {
         } else {
             try {
                 final VerificatorResult resultCustomVerificator = customVerificator.execute();
-                result.setSuscess(resultCustomVerificator.isSuscess());
+                result.setSuccess(resultCustomVerificator.isSuccess());
                 result.setMessage(resultCustomVerificator.getMessage());
                 result.setCause(resultCustomVerificator.getCause());
             } catch (final Throwable e) {

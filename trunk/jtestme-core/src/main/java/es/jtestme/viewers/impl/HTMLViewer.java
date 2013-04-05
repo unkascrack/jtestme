@@ -25,15 +25,15 @@ public class HTMLViewer extends AbstractViewer {
                 builder.append("<b>").append(result.getName()).append("</b>").append(NEW_LINE);
                 builder.append("</td>").append(NEW_LINE);
                 builder.append("<td align='center' valign='top'>").append(NEW_LINE);
-                if (result.isSuscess()) {
-                    builder.append("<img src='?resource=img/success.png' alt='Suscess' style='padding:4px'/>");
+                if (result.isSuccess()) {
+                    builder.append("<img src='?resource=img/success.png' alt='Success' style='padding:4px'/>");
                 } else {
                     builder.append("<img src='?resource=img/error.png' alt='Error' style='padding:4px'/>");
                 }
                 builder.append("</td>").append(NEW_LINE);
                 builder.append("<td align='left' width='100%' valign='top'>").append(NEW_LINE);
-                if (result.isSuscess()) {
-                    builder.append("<b>").append(result.getSuscessString()).append("</b>").append(NEW_LINE);
+                if (result.isSuccess()) {
+                    builder.append("<b>").append(result.getSuccessString()).append("</b>").append(NEW_LINE);
                 } else {
                     if (result.getResolution() != null) {
                         builder.append("<em>").append(result.getResolution()).append("</em><br/>").append(NEW_LINE);

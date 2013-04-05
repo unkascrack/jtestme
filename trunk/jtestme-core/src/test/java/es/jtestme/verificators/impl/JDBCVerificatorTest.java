@@ -24,7 +24,7 @@ public class JDBCVerificatorTest extends AbstractJUnit4SpringContextTests {
         verificator = new JDBCVerificator(null);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class JDBCVerificatorTest extends AbstractJUnit4SpringContextTests {
         verificator = new JDBCVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class JDBCVerificatorTest extends AbstractJUnit4SpringContextTests {
         verificator = new JDBCVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class JDBCVerificatorTest extends AbstractJUnit4SpringContextTests {
         verificator = new JDBCVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class JDBCVerificatorTest extends AbstractJUnit4SpringContextTests {
         verificator = new JDBCVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertTrue(result.isSuscess());
+        Assert.assertTrue(result.isSuccess());
     }
 
     @Test
@@ -89,7 +89,7 @@ public class JDBCVerificatorTest extends AbstractJUnit4SpringContextTests {
         verificator = new JDBCVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertTrue(result.isSuscess());
+        Assert.assertTrue(result.isSuccess());
     }
 
 }

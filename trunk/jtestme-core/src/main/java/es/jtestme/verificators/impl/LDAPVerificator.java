@@ -48,7 +48,7 @@ public class LDAPVerificator extends AbstractVerificator {
         DirContext context = null;
         try {
             context = new InitialDirContext(env);
-            result.setSuscess(true);
+            result.setSuccess(true);
         } catch (final NameNotFoundException e) {
             result.setCause(e);
         } catch (final NamingException e) {

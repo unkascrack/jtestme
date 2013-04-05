@@ -42,7 +42,7 @@ public class JNDIVerificatorTest {
         verificator = new JNDIVerificator(null);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -52,7 +52,7 @@ public class JNDIVerificatorTest {
         verificator = new JNDIVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -62,7 +62,7 @@ public class JNDIVerificatorTest {
         verificator = new JNDIVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -75,6 +75,6 @@ public class JNDIVerificatorTest {
         verificator = new JNDIVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertTrue(result.isSuscess());
+        Assert.assertTrue(result.isSuccess());
     }
 }

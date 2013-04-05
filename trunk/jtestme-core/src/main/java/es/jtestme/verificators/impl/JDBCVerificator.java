@@ -46,7 +46,7 @@ public class JDBCVerificator extends AbstractVerificator {
                 statement = connection.createStatement();
                 resultSet = statement.executeQuery(testQuery);
             }
-            result.setSuscess(true);
+            result.setSuccess(true);
         } catch (final ClassNotFoundException e) {
             result.setCause(e);
         } catch (final SQLException e) {

@@ -47,7 +47,7 @@ public class LDAPVerificatorTest {
         verificator = new LDAPVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class LDAPVerificatorTest {
         verificator = new LDAPVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertTrue(result.isSuscess());
+        Assert.assertTrue(result.isSuccess());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class LDAPVerificatorTest {
         verificator = new LDAPVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -80,7 +80,7 @@ public class LDAPVerificatorTest {
         verificator = new LDAPVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -92,6 +92,6 @@ public class LDAPVerificatorTest {
         verificator = new LDAPVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertTrue(result.isSuscess());
+        Assert.assertTrue(result.isSuccess());
     }
 }

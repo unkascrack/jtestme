@@ -36,7 +36,7 @@ public class FakeVerificator implements Verificator {
 
     public VerificatorResult execute() {
         final VerificatorResult result = new VerificatorResult();
-        result.setSuscess(true);
+        result.setSuccess(true);
         return result;
     }
 }

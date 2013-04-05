@@ -59,7 +59,7 @@ public class FTPVerificator extends AbstractVerificator {
             if (!response.startsWith("230 ")) {
                 throw new IOException("FTP was unable to log in with the supplied password: " + response);
             }
-            result.setSuscess(true);
+            result.setSuccess(true);
             sendLine(writer, "QUIT");
         } catch (final IOException e) {
             result.setCause(e);

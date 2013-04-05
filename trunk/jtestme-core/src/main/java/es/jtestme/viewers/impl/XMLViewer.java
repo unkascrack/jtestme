@@ -20,8 +20,8 @@ public class XMLViewer extends AbstractViewer {
                 builder.append("<name>").append(result.getName()).append("</name>").append(NEW_LINE);
                 builder.append("<description>").append(result.getDescription()).append("</description>")
                         .append(NEW_LINE);
-                builder.append("<success>").append(result.getSuscessString()).append("</success>").append(NEW_LINE);
-                if (!result.isSuscess()) {
+                builder.append("<success>").append(result.getSuccessString()).append("</success>").append(NEW_LINE);
+                if (!result.isSuccess()) {
                     builder.append("<message>").append(result.getMessage()).append("</message>").append(NEW_LINE);
                     builder.append("<cause>").append(result.getCauseString()).append("</cause>").append(NEW_LINE);
                     builder.append("<resolution>").append(result.getResolution()).append("</resolution>")
