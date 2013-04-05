@@ -45,7 +45,7 @@ public class DatasourceVerificatorTest extends AbstractJUnit4SpringContextTests 
         verificator = new DatasourceVerificator(null);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -56,7 +56,7 @@ public class DatasourceVerificatorTest extends AbstractJUnit4SpringContextTests 
         verificator = new DatasourceVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class DatasourceVerificatorTest extends AbstractJUnit4SpringContextTests 
         verificator = new DatasourceVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertFalse(result.isSuscess());
+        Assert.assertFalse(result.isSuccess());
     }
 
     @Test
@@ -78,7 +78,7 @@ public class DatasourceVerificatorTest extends AbstractJUnit4SpringContextTests 
         verificator = new DatasourceVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertTrue(result.isSuscess());
+        Assert.assertTrue(result.isSuccess());
     }
 
     @Test
@@ -89,6 +89,6 @@ public class DatasourceVerificatorTest extends AbstractJUnit4SpringContextTests 
         verificator = new DatasourceVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertTrue(result.isSuscess());
+        Assert.assertTrue(result.isSuccess());
     }
 }

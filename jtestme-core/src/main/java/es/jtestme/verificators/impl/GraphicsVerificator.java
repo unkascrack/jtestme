@@ -19,7 +19,7 @@ public class GraphicsVerificator extends AbstractVerificator {
             // final String graphicClass = System.getProperty("java.awt.graphicsenv");
             final Toolkit tk = Toolkit.getDefaultToolkit();
             final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            result.setSuscess(true);
+            result.setSuccess(true);
         } catch (final Throwable e) {
             result.setCause(e);
         }

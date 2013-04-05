@@ -7,27 +7,27 @@ import org.junit.Test;
 public class VerificatorResultTest {
 
     @Test
-    public void testGetSuscessStringValueDefault() {
+    public void testGetSuccessStringValueDefault() {
         final VerificatorResult result = new VerificatorResult();
-        final String success = result.getSuscessString();
+        final String success = result.getSuccessString();
         Assert.assertNotNull(success);
         Assert.assertEquals(success, "ERROR");
     }
 
     @Test
-    public void testGetSuscessStringValueFalse() {
+    public void testGetSuccessStringValueFalse() {
         final VerificatorResult result = new VerificatorResult();
-        result.setSuscess(false);
-        final String success = result.getSuscessString();
+        result.setSuccess(false);
+        final String success = result.getSuccessString();
         Assert.assertNotNull(success);
         Assert.assertEquals(success, "ERROR");
     }
 
     @Test
-    public void testGetSuscessStringTrue() {
+    public void testGetSuccessStringTrue() {
         final VerificatorResult result = new VerificatorResult();
-        result.setSuscess(true);
-        final String success = result.getSuscessString();
+        result.setSuccess(true);
+        final String success = result.getSuccessString();
         Assert.assertNotNull(success);
         Assert.assertEquals(success, "OK");
     }

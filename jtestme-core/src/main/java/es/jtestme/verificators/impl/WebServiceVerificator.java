@@ -55,13 +55,13 @@ public class WebServiceVerificator extends AbstractVerificator {
             try {
                 switch (protocolType) {
                     case RPC:
-                        result.setSuscess(testRPC());
+                        result.setSuccess(testRPC());
                     break;
                     case SOAP:
-                        result.setSuscess(testSOAP());
+                        result.setSuccess(testSOAP());
                     break;
                     case REST:
-                        result.setSuscess(testREST());
+                        result.setSuccess(testREST());
                     break;
                 }
             } catch (final Throwable e) {

@@ -16,7 +16,7 @@ public class VerificatorResult implements Serializable {
     private String resolution;
     private boolean optional = false;
     private Map<String, String> parameters = new HashMap<String, String>();
-    private boolean suscess = false;
+    private boolean success = false;
     private String message;
     private Throwable cause;
 
@@ -76,16 +76,16 @@ public class VerificatorResult implements Serializable {
         this.parameters = parameters;
     }
 
-    public boolean isSuscess() {
-        return suscess;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public String getSuscessString() {
-        return suscess ? "OK" : "ERROR";
+    public String getSuccessString() {
+        return success ? "OK" : "ERROR";
     }
 
-    public void setSuscess(final boolean suscess) {
-        this.suscess = suscess;
+    public void setSuccess(final boolean success) {
+        this.success = success;
     }
 
     public String getMessage() {
@@ -123,7 +123,7 @@ public class VerificatorResult implements Serializable {
         sb.append("name: ").append(getName()).append(", ");
         sb.append("description: ").append(getDescription()).append(", ");
         sb.append("optional: ").append(getOptionalString()).append(", ");
-        sb.append("suscess: ").append(isSuscess()).append(", ");
+        sb.append("success: ").append(isSuccess()).append(", ");
         sb.append("message: ").append(getMessage()).append(", ");
         if (getCause() != null) {
             sb.append("cause: ").append(getCause()).append(", ");

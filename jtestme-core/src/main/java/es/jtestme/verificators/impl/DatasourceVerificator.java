@@ -43,7 +43,7 @@ public class DatasourceVerificator extends AbstractVerificator {
                 statement = connection.createStatement();
                 resultSet = statement.executeQuery(testQuery);
             }
-            result.setSuscess(true);
+            result.setSuccess(true);
         } catch (final NamingException e) {
             result.setCause(e);
         } catch (final SQLException e) {

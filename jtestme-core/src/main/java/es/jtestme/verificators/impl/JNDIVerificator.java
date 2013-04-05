@@ -48,7 +48,7 @@ public class JNDIVerificator extends AbstractVerificator {
             context = new InitialContext(env);
             final Object jndiRef = context.lookup(lookup);
             if (jndiRef != null) {
-                result.setSuscess(true);
+                result.setSuccess(true);
             } else {
                 result.setMessage("JNDI Reference not found");
             }

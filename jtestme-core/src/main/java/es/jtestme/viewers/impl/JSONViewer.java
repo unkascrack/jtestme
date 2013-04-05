@@ -23,9 +23,9 @@ public class JSONViewer extends AbstractViewer {
                         .append(NEW_LINE);
                 builder.append(TAB).append(TAB).append("\"description\" : \"").append(result.getDescription())
                         .append("\"").append(NEW_LINE);
-                builder.append(TAB).append(TAB).append("\"success\" : \"").append(result.getSuscessString())
+                builder.append(TAB).append(TAB).append("\"success\" : \"").append(result.getSuccessString())
                         .append("\"").append(NEW_LINE);
-                if (!result.isSuscess()) {
+                if (!result.isSuccess()) {
                     builder.append(TAB).append(TAB).append("\"message\" : \"").append(result.getMessage()).append("\"")
                             .append(NEW_LINE);
                     builder.append(TAB).append(TAB).append("\"cause\" : \"").append(result.getCauseString())

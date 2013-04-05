@@ -17,7 +17,7 @@ public class GraphicsVerificatorTest {
         verificator = new GraphicsVerificator(null);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertTrue(result.isSuscess());
+        Assert.assertTrue(result.isSuccess());
     }
 
     @Test
@@ -26,7 +26,7 @@ public class GraphicsVerificatorTest {
         verificator = new GraphicsVerificator(params);
         final VerificatorResult result = verificator.execute();
         Assert.assertNotNull(result);
-        Assert.assertTrue(result.isSuscess());
+        Assert.assertTrue(result.isSuccess());
     }
 
 }

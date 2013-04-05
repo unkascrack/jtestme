@@ -28,7 +28,7 @@ public class OpenOfficeVerificator extends AbstractVerificator {
         try {
             connection = new SocketOpenOfficeConnection(host, port);
             connection.connect();
-            result.setSuscess(true);
+            result.setSuccess(true);
         } catch (final ConnectException e) {
             result.setCause(e);
         } catch (final Throwable e) {
