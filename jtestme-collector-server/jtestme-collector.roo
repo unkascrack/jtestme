@@ -1,0 +1,135 @@
+// Create a new project
+project --topLevelPackage es.jtestme.collector ---projectName jtestme-collector --packaging WAR --java 6 
+
+// Setup JPA persistence using Hibernate and HSQL
+jpa setup --provider HIBERNATE --database HYPERSONIC_PERSISTENT --databaseName jtestme-collector
+
+// Create domain entities
+entity jpa --class ~.domain.Verificator --serializable --equals --activeRecord false --testAutomatically
+field string --fieldName name --notNull
+field string --fieldName type --notNull
+field string --fieldName message
+field string --fieldName cause
+
+enum type --class ~.reference.StateType
+enum constant --name OK
+enum constant --name ERROR
+enum constant --name NO_CONNECT
+enum constant --name NO_VERIFICATOR
+
+entity jpa --class ~.domain.ServerState --serializable --equals --activeRecord false --testAutomatically
+field enum --fieldName stateType --type ~.reference.StateType --notNull
+field date --fieldName stateDate --type java.util.Date --persistenceType JPA_TIMESTAMP
+field set --fieldName verificators --type ~.domain.Verificator --cardinality ONE_TO_MANY --fetch EAGER
+
+enum type --class ~.reference.ServerType
+enum constant --name HTTP
+enum constant --name HTTPS
+//enum constant --name CUSTOM
+
+entity jpa --class ~.domain.Server --serializable --equals --activeRecord false --testAutomatically
+field enum --fieldName serverType --type ~.reference.ServerType --notNull
+field string --fieldName url --sizeMax 255
+field string --fieldName username --sizeMax 50
+field string --fieldName password --sizeMax 50
+field string --fieldName httpProxyHost 
+field string --fieldName httpProxyPort
+field string --fieldName httpsProxyHost 
+field string --fieldName httpsProxyPort
+field string --fieldName proxyUser 
+field string --fieldName proxyPassword
+//field string --fieldName trustStore
+field string --fieldName trustStorePassword
+//field string --fieldName class
+field set --fieldName states --type ~.domain.ServerState --cardinality ONE_TO_MANY --fetch LAZY
+
+enum type --class ~.reference.EnvironmentType
+enum constant --name DEVELOPMENT
+enum constant --name PREPRODUCTION
+enum constant --name PRODUCTION
+enum constant --name TESTING
+enum constant --name OTHER
+
+entity jpa --class ~.domain.Environment --serializable --equals --activeRecord false --testAutomatically
+field string --fieldName name --notNull --sizeMax 100
+field enum --fieldName environmentType --type ~.reference.EnvironmentType --notNull
+field string --fieldName description
+field boolean --fieldName startWatching --notNull --primitive --value true
+field boolean --fieldName mailingError --notNull --primitive --value true
+field boolean --fieldName mailingNoConnect --notNull --primitive --value false
+//field date --fieldName watchStartDate
+//field date --fieldName watchEndDate
+//field number --type int --fieldName watchEveryMinutes --min 1 --max 1440
+//field string --fieldName watchDays
+field set --fieldName servers --type ~.domain.Server --notNull --cardinality ONE_TO_MANY --fetch EAGER
+
+entity jpa --class ~.domain.Owner --serializable --equals --activeRecord false --testAutomatically
+field string --fieldName firstName --notNull --sizeMax 100
+field string --fieldName lastName --sizeMax 100
+field string --fieldName email --regexp "[a-zA-Z0-9\.\-]+@[a-zA-Z0-9\.]+" --notNull --sizeMax 100
+field string --fieldName phone --sizeMax 10
+
+entity jpa --class ~.domain.Application --serializable --equals --activeRecord false --testAutomatically
+field string --fieldName name --notNull --sizeMax 50
+field string --fieldName description
+field set --fieldName owners --type ~.domain.Owner --cardinality ONE_TO_MANY --fetch LAZY
+field set --fieldName environments --type ~.domain.Environment --notNull --cardinality ONE_TO_MANY --fetch EAGER
+
+// Define a repository layer for persistence
+repository jpa --interface ~.repository.VerificatorRepository --entity ~.domain.Verificator
+repository jpa --interface ~.repository.ServerStateRepository --entity ~.domain.ServerState
+repository jpa --interface ~.repository.ServerRepository --entity ~.domain.Server
+repository jpa --interface ~.repository.EnvironmentRepository --entity ~.domain.Environment
+repository jpa --interface ~.repository.OwnerRepository --entity ~.domain.Owner
+repository jpa --interface ~.repository.ApplicationRepository --entity ~.domain.Application
+
+//finders
+//finder add --finderName findPetsByNameAndWeight --class ~.domain.Pet
+
+// Define a service/facade layer
+service --interface ~.service.VerificatorService --entity ~.domain.Verificator
+service --interface ~.service.ServerStateService --entity ~.domain.ServerState
+service --interface ~.service.ServerService --entity ~.domain.Server
+service --interface ~.service.EnvironmentService --entity ~.domain.Environment
+service --interface ~.service.OwnerService --entity ~.domain.Owner
+service --interface ~.service.ApplicationService --entity ~.domain.Application
+service --interface ~.service.MyService
+
+//email sender configuration
+email sender setup --hostServer 127.0.0.1
+field email template --class ~.service.MyServiceImpl
+
+//web
+web mvc setup
+//web mvc controller --class ~.web.ApplicationController
+//web mvc controller --class ~.web.OwnerController
+//web mvc controller --class ~.web.EnvironmentController
+//web mvc controller --class ~.web.ServerController
+
+web mvc scaffold --class ~.web.ApplicationController
+web mvc scaffold --class ~.web.OwnerController
+web mvc scaffold --class ~.web.EnvironmentController
+web mvc scaffold --class ~.web.ServerController
+
+//web mvc finder all
+//web mvc language --code de
+//web mvc language --code es
+
+//security
+security setup
+
+//logging
+logging setup --level INFO
+
+//testing
+test integration --entity ~.domain.Application
+test integration --entity ~.domain.Owner
+test integration --entity ~.domain.Environment
+test integration --entity ~.domain.Server
+test integration --entity ~.domain.ServerState
+test integration --entity ~.domain.Verificator
+
+selenium test --controller ~.web.ApplicationController
+selenium test --controller ~.web.OwnerController
+selenium test --controller ~.web.EnvironmentController
+selenium test --controller ~.web.ServerController
