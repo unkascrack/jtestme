@@ -32,6 +32,7 @@ public class Environment {
     @Enumerated
     private EnvironmentType environmentType;
 
+    @Size(max = 250)
     private String description;
 
     @NotNull

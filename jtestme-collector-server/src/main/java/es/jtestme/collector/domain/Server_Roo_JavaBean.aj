@@ -51,36 +51,20 @@ privileged aspect Server_Roo_JavaBean {
         this.password = password;
     }
     
-    public String Server.getHttpProxyHost() {
-        return this.httpProxyHost;
+    public String Server.getProxyHost() {
+        return this.proxyHost;
     }
     
-    public void Server.setHttpProxyHost(String httpProxyHost) {
-        this.httpProxyHost = httpProxyHost;
+    public void Server.setProxyHost(String proxyHost) {
+        this.proxyHost = proxyHost;
     }
     
-    public String Server.getHttpProxyPort() {
-        return this.httpProxyPort;
+    public String Server.getProxyPort() {
+        return this.proxyPort;
     }
     
-    public void Server.setHttpProxyPort(String httpProxyPort) {
-        this.httpProxyPort = httpProxyPort;
-    }
-    
-    public String Server.getHttpsProxyHost() {
-        return this.httpsProxyHost;
-    }
-    
-    public void Server.setHttpsProxyHost(String httpsProxyHost) {
-        this.httpsProxyHost = httpsProxyHost;
-    }
-    
-    public String Server.getHttpsProxyPort() {
-        return this.httpsProxyPort;
-    }
-    
-    public void Server.setHttpsProxyPort(String httpsProxyPort) {
-        this.httpsProxyPort = httpsProxyPort;
+    public void Server.setProxyPort(String proxyPort) {
+        this.proxyPort = proxyPort;
     }
     
     public String Server.getProxyUser() {
