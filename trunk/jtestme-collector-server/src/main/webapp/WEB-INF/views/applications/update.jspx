@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_es_jtestme_collector_domain_Application" modelAttribute="application" path="/applications" versionField="Version" z="hSBBgo9HJujfHI0Z0coBF8InkAs=">
+        <field:input field="name" id="c_es_jtestme_collector_domain_Application_name" max="30" required="true" z="dOjloUrojSOFBlouO7Xc3NVYzJk="/>
+        <field:textarea field="description" id="c_es_jtestme_collector_domain_Application_description" z="WezhTuGYMfBBD5vX/PFDA5vkDDQ="/>
+        <field:simple field="environments" id="c_es_jtestme_collector_domain_Application_environments" messageCode="entity_reference_not_managed" messageCodeAttribute="Environment" z="Uor+9G7vj+QcKdujJwqH2IkypT0="/>
+        <field:simple field="owners" id="c_es_jtestme_collector_domain_Application_owners" messageCode="entity_reference_not_managed" messageCodeAttribute="Owner" z="uks99xNnGv3MpYuEm5WC+mFQLPA="/>
+    </form:update>
+</div>
