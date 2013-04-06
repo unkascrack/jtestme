@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_es_jtestme_collector_domain_Server" items="${servers}" z="pUiQVOs5ghWIi4vfow1nmhztJhM=">
+        <table:table data="${servers}" id="l_es_jtestme_collector_domain_Server" path="/servers" z="S9FjF+R8roCMRx3nQDArop16zRA=">
+            <table:column id="c_es_jtestme_collector_domain_Server_serverType" property="serverType" z="7x6ay4Wf3LB64LBiGAZAs5qtxwE="/>
+            <table:column id="c_es_jtestme_collector_domain_Server_name" property="name" z="nnzkBNjF3ExLKAPxAk+OHnunUoo="/>
+            <table:column id="c_es_jtestme_collector_domain_Server_url" property="url" z="lpwcfjlNKPktw2NXI+0TnpfBj2k="/>
+            <table:column id="c_es_jtestme_collector_domain_Server_username" property="username" z="CdhaB82LkhWvmFyvWJpFoiPVokw="/>
+            <table:column id="c_es_jtestme_collector_domain_Server_password" property="password" z="Fehkqn5runi95+6az0l8AxCXVQY="/>
+            <table:column id="c_es_jtestme_collector_domain_Server_httpProxyHost" property="httpProxyHost" z="Qrh4oPywj6SFVqvVIdsPxJv7ucE="/>
+        </table:table>
+    </page:list>
+</div>
