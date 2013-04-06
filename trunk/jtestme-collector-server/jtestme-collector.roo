@@ -8,6 +8,7 @@ jpa setup --provider HIBERNATE --database HYPERSONIC_PERSISTENT --databaseName d
 entity jpa --class ~.domain.Verificator --serializable --equals --activeRecord true --testAutomatically
 field string --fieldName name --notNull
 field string --fieldName type --notNull
+field string --fieldName success --notNull
 field string --fieldName message
 field string --fieldName cause
 
@@ -29,7 +30,8 @@ enum constant --name HTTPS
 
 entity jpa --class ~.domain.Server --serializable --equals --activeRecord true --testAutomatically
 field enum --fieldName serverType --type ~.domain.reference.ServerType --notNull
-field string --fieldName url --sizeMax 255
+field string --fieldName name --notNull --sizeMax 100
+field string --fieldName url --sizeMax 255 --regexp "\\b(https?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"
 field string --fieldName username --sizeMax 50
 field string --fieldName password --sizeMax 50
 field string --fieldName httpProxyHost 
@@ -92,6 +94,7 @@ field set --fieldName applications --type ~.domain.Application --cardinality MAN
 //finders
 //NOTE: with repository don't work only with activeRecord
 finder add --finderName findEnvironmentsByStartWatching --class ~.domain.Environment
+//finder add --finderName findServerStateByEnvironmentAndLastState --class ~.domain.ServerState
 
 // Define a service/facade layer
 service --interface ~.service.JTestMeCollectorService --class ~.service.JTestMeCollectorServiceImpl --entity ~.domain.Environment
