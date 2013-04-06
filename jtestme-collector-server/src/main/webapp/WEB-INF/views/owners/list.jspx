@@ -7,7 +7,7 @@
             <table:column id="c_es_jtestme_collector_domain_Owner_firstName" property="firstName" z="s9ms33kZInpWWpDum/1a341HCL4="/>
             <table:column id="c_es_jtestme_collector_domain_Owner_lastName" property="lastName" z="ohnBaeHwHwiiUkXFI9hUzoL26w0="/>
             <table:column id="c_es_jtestme_collector_domain_Owner_email" property="email" z="aj4/KLrGmuNksOLZjl390qnj1A0="/>
-            <table:column id="c_es_jtestme_collector_domain_Owner_phone" property="phone" z="/feTFC43hNwcRDsrKbSS3dJItfo="/>
+            <table:column id="c_es_jtestme_collector_domain_Owner_phone" property="phone" z="user-managed" render="false"/>
             <table:column id="c_es_jtestme_collector_domain_Owner_applications" property="applications" z="Ew+q1+S4d/AI0/pFP8UXxrHKssM="/>
         </table:table>
     </page:list>
