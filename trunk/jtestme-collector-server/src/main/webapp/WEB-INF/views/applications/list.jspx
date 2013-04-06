@@ -6,6 +6,7 @@
         <table:table data="${applications}" id="l_es_jtestme_collector_domain_Application" path="/applications" z="rnTiji6QShJ/c5MiS2RogoWE0sI=">
             <table:column id="c_es_jtestme_collector_domain_Application_name" property="name" z="6kCONYoBUcy/B46hZS+cwZmoM5M="/>
             <table:column id="c_es_jtestme_collector_domain_Application_description" property="description" z="i8oZFgx55+SQQRi0zFTdnL+izjg="/>
+            <table:column id="c_es_jtestme_collector_domain_Application_owners" property="owners" z="user-managed"/>
         </table:table>
     </page:list>
 </div>

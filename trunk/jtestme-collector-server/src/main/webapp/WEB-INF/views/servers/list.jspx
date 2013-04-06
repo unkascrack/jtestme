@@ -4,12 +4,13 @@
     <jsp:output omit-xml-declaration="yes"/>
     <page:list id="pl_es_jtestme_collector_domain_Server" items="${servers}" z="pUiQVOs5ghWIi4vfow1nmhztJhM=">
         <table:table data="${servers}" id="l_es_jtestme_collector_domain_Server" path="/servers" z="S9FjF+R8roCMRx3nQDArop16zRA=">
+            <table:column id="c_es_jtestme_collector_domain_Server_environment" property="environment" z="user-managed"/>
             <table:column id="c_es_jtestme_collector_domain_Server_serverType" property="serverType" z="7x6ay4Wf3LB64LBiGAZAs5qtxwE="/>
             <table:column id="c_es_jtestme_collector_domain_Server_name" property="name" z="nnzkBNjF3ExLKAPxAk+OHnunUoo="/>
             <table:column id="c_es_jtestme_collector_domain_Server_url" property="url" z="lpwcfjlNKPktw2NXI+0TnpfBj2k="/>
-            <table:column id="c_es_jtestme_collector_domain_Server_username" property="username" z="CdhaB82LkhWvmFyvWJpFoiPVokw="/>
-            <table:column id="c_es_jtestme_collector_domain_Server_password" property="password" z="Fehkqn5runi95+6az0l8AxCXVQY="/>
-            <table:column id="c_es_jtestme_collector_domain_Server_httpProxyHost" property="httpProxyHost" z="Qrh4oPywj6SFVqvVIdsPxJv7ucE="/>
+            <table:column id="c_es_jtestme_collector_domain_Server_username" property="username" z="user-managed" render="false"/>
+            <table:column id="c_es_jtestme_collector_domain_Server_password" property="password" z="user-managed" render="false"/>
+            <table:column id="c_es_jtestme_collector_domain_Server_proxyHost" property="proxyHost" z="user-managed" render="false"/>
         </table:table>
     </page:list>
 </div>
