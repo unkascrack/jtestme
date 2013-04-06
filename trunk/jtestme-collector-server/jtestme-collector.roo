@@ -31,13 +31,11 @@ enum constant --name HTTPS
 entity jpa --class ~.domain.Server --serializable --equals --activeRecord true --testAutomatically
 field enum --fieldName serverType --type ~.domain.reference.ServerType --notNull
 field string --fieldName name --notNull --sizeMax 100
-field string --fieldName url --sizeMax 255 --regexp "\\b(https?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"
+field string --fieldName url --sizeMax 250 --regexp "\\b(https?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"
 field string --fieldName username --sizeMax 50
 field string --fieldName password --sizeMax 50
-field string --fieldName httpProxyHost 
-field string --fieldName httpProxyPort
-field string --fieldName httpsProxyHost 
-field string --fieldName httpsProxyPort
+field string --fieldName proxyHost 
+field string --fieldName proxyPort
 field string --fieldName proxyUser 
 field string --fieldName proxyPassword
 //field string --fieldName trustStore
@@ -55,7 +53,7 @@ enum constant --name OTHER
 entity jpa --class ~.domain.Environment --serializable --equals --activeRecord true --testAutomatically
 field string --fieldName name --notNull --sizeMax 100
 field enum --fieldName environmentType --type ~.domain.reference.EnvironmentType --notNull
-field string --fieldName description
+field string --fieldName description --sizeMax 250
 field boolean --fieldName startWatching --notNull --primitive --value true
 field boolean --fieldName mailingError --notNull --primitive --value true
 field boolean --fieldName mailingNoConnect --notNull --primitive --value false
