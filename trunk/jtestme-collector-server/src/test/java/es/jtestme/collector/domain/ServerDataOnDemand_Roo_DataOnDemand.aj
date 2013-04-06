@@ -30,39 +30,17 @@ privileged aspect ServerDataOnDemand_Roo_DataOnDemand {
     
     public Server ServerDataOnDemand.getNewTransientServer(int index) {
         Server obj = new Server();
-        setHttpProxyHost(obj, index);
-        setHttpProxyPort(obj, index);
-        setHttpsProxyHost(obj, index);
-        setHttpsProxyPort(obj, index);
         setName(obj, index);
         setPassword(obj, index);
+        setProxyHost(obj, index);
         setProxyPassword(obj, index);
+        setProxyPort(obj, index);
         setProxyUser(obj, index);
         setServerType(obj, index);
         setTrustStorePassword(obj, index);
         setUrl(obj, index);
         setUsername(obj, index);
         return obj;
-    }
-    
-    public void ServerDataOnDemand.setHttpProxyHost(Server obj, int index) {
-        String httpProxyHost = "httpProxyHost_" + index;
-        obj.setHttpProxyHost(httpProxyHost);
-    }
-    
-    public void ServerDataOnDemand.setHttpProxyPort(Server obj, int index) {
-        String httpProxyPort = "httpProxyPort_" + index;
-        obj.setHttpProxyPort(httpProxyPort);
-    }
-    
-    public void ServerDataOnDemand.setHttpsProxyHost(Server obj, int index) {
-        String httpsProxyHost = "httpsProxyHost_" + index;
-        obj.setHttpsProxyHost(httpsProxyHost);
-    }
-    
-    public void ServerDataOnDemand.setHttpsProxyPort(Server obj, int index) {
-        String httpsProxyPort = "httpsProxyPort_" + index;
-        obj.setHttpsProxyPort(httpsProxyPort);
     }
     
     public void ServerDataOnDemand.setName(Server obj, int index) {
@@ -81,9 +59,19 @@ privileged aspect ServerDataOnDemand_Roo_DataOnDemand {
         obj.setPassword(password);
     }
     
+    public void ServerDataOnDemand.setProxyHost(Server obj, int index) {
+        String proxyHost = "proxyHost_" + index;
+        obj.setProxyHost(proxyHost);
+    }
+    
     public void ServerDataOnDemand.setProxyPassword(Server obj, int index) {
         String proxyPassword = "proxyPassword_" + index;
         obj.setProxyPassword(proxyPassword);
+    }
+    
+    public void ServerDataOnDemand.setProxyPort(Server obj, int index) {
+        String proxyPort = "proxyPort_" + index;
+        obj.setProxyPort(proxyPort);
     }
     
     public void ServerDataOnDemand.setProxyUser(Server obj, int index) {

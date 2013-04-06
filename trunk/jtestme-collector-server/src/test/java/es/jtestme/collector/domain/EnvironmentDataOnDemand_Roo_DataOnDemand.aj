@@ -45,6 +45,9 @@ privileged aspect EnvironmentDataOnDemand_Roo_DataOnDemand {
     
     public void EnvironmentDataOnDemand.setDescription(Environment obj, int index) {
         String description = "description_" + index;
+        if (description.length() > 250) {
+            description = description.substring(0, 250);
+        }
         obj.setDescription(description);
     }
     

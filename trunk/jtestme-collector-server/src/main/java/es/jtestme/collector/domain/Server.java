@@ -33,7 +33,6 @@ public class Server {
     private String name;
 
     @Size(max = 255)
-    @Pattern(regexp = "\\\\b(https?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]")
     private String url;
 
     @Size(max = 50)
@@ -42,13 +41,9 @@ public class Server {
     @Size(max = 50)
     private String password;
 
-    private String httpProxyHost;
+    private String proxyHost;
 
-    private String httpProxyPort;
-
-    private String httpsProxyHost;
-
-    private String httpsProxyPort;
+    private String proxyPort;
 
     private String proxyUser;
 
