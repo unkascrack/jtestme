@@ -3,13 +3,16 @@
 
 package es.jtestme.collector.web;
 
+import es.jtestme.collector.domain.Environment;
 import es.jtestme.collector.domain.Server;
 import es.jtestme.collector.domain.ServerState;
 import es.jtestme.collector.domain.reference.ServerType;
 import es.jtestme.collector.service.JTestMeCollectorService;
 import es.jtestme.collector.web.ServerController;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +44,11 @@ privileged aspect ServerController_Roo_Controller {
     @RequestMapping(params = "form", produces = "text/html")
     public String ServerController.createForm(Model uiModel) {
         populateEditForm(uiModel, new Server());
+        List<String[]> dependencies = new ArrayList<String[]>();
+        if (jTestMeCollectorService.countAllEnvironments() == 0) {
+            dependencies.add(new String[] { "environment", "environments" });
+        }
+        uiModel.addAttribute("dependencies", dependencies);
         return "servers/create";
     }
     

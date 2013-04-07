@@ -10,7 +10,9 @@ import es.jtestme.collector.domain.reference.EnvironmentType;
 import es.jtestme.collector.service.JTestMeCollectorService;
 import es.jtestme.collector.web.EnvironmentController;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,11 @@ privileged aspect EnvironmentController_Roo_Controller {
     @RequestMapping(params = "form", produces = "text/html")
     public String EnvironmentController.createForm(Model uiModel) {
         populateEditForm(uiModel, new Environment());
+        List<String[]> dependencies = new ArrayList<String[]>();
+        if (Application.countApplications() == 0) {
+            dependencies.add(new String[] { "application", "applications" });
+        }
+        uiModel.addAttribute("dependencies", dependencies);
         return "environments/create";
     }
     

@@ -103,4 +103,8 @@ privileged aspect Server_Roo_JavaBean {
         return this.states;
     }
     
+    public void Server.setStates(Set<ServerState> states) {
+        this.states = states;
+    }
+    
 }

@@ -17,11 +17,11 @@ privileged aspect Verificator_Roo_Equals {
             return true;
         }
         Verificator rhs = (Verificator) obj;
-        return new EqualsBuilder().append(cause, rhs.cause).append(id, rhs.id).append(message, rhs.message).append(name, rhs.name).append(success, rhs.success).append(type, rhs.type).isEquals();
+        return new EqualsBuilder().append(cause, rhs.cause).append(id, rhs.id).append(message, rhs.message).append(name, rhs.name).append(serverState, rhs.serverState).append(success, rhs.success).append(type, rhs.type).isEquals();
     }
     
     public int Verificator.hashCode() {
-        return new HashCodeBuilder().append(cause).append(id).append(message).append(name).append(success).append(type).toHashCode();
+        return new HashCodeBuilder().append(cause).append(id).append(message).append(name).append(serverState).append(success).append(type).toHashCode();
     }
     
 }

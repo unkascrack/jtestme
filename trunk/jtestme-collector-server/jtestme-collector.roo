@@ -21,7 +21,7 @@ enum constant --name NO_VERIFICATOR
 entity jpa --class ~.domain.ServerState --serializable --equals --activeRecord true --testAutomatically
 field enum --fieldName stateType --type ~.domain.reference.StateType --notNull
 field date --fieldName stateDate --type java.util.Date --persistenceType JPA_TIMESTAMP
-field set --fieldName verificators --type ~.domain.Verificator --cardinality ONE_TO_MANY --fetch EAGER
+
 
 enum type --class ~.domain.reference.ServerType
 enum constant --name HTTP
@@ -41,7 +41,7 @@ field string --fieldName proxyPassword
 //field string --fieldName trustStore
 field string --fieldName trustStorePassword
 //field string --fieldName class
-field set --fieldName states --type ~.domain.ServerState --cardinality ONE_TO_MANY --fetch LAZY
+
 
 enum type --class ~.domain.reference.EnvironmentType
 enum constant --name DEVELOPMENT
@@ -72,13 +72,20 @@ entity jpa --class ~.domain.Application --serializable --equals --activeRecord t
 field string --fieldName name --notNull --sizeMax 30
 field string --fieldName description --sizeMax 250
 
+
+field reference --fieldName serverState --type ~.domain.ServerState --cardinality MANY_TO_ONE --notNull --fetch LAZY --class ~.domain.Verificator
+field set --fieldName verificators --type ~.domain.Verificator --cardinality ONE_TO_MANY --fetch EAGER --class ~.domain.ServerState --mappedBy serverState
+
+field reference --fieldName server --type ~.domain.Server --cardinality MANY_TO_ONE --notNull --fetch LAZY --class ~.domain.ServerState
+field set --fieldName states --type ~.domain.ServerState --cardinality ONE_TO_MANY --fetch LAZY --class ~.domain.Server --mappedBy server
+
 field reference --fieldName environment --type ~.domain.Environment --cardinality MANY_TO_ONE --fetch LAZY --class ~.domain.Server
-field set --fieldName servers --type ~.domain.Server --notNull --cardinality ONE_TO_MANY --fetch EAGER --class ~.domain.Environment --mappedBy environment
+field set --fieldName servers --type ~.domain.Server --cardinality ONE_TO_MANY --fetch EAGER --class ~.domain.Environment --mappedBy environment
 
 field reference --fieldName application --type ~.domain.Application --cardinality MANY_TO_ONE --fetch LAZY --class ~.domain.Environment
-field set --fieldName environments --type ~.domain.Environment  --notNull --cardinality ONE_TO_MANY --fetch EAGER --class ~.domain.Application --mappedBy application
+field set --fieldName environments --type ~.domain.Environment  --cardinality ONE_TO_MANY --fetch EAGER --class ~.domain.Application --mappedBy application
 
-field set --fieldName owners --type ~.domain.Owner --cardinality ONE_TO_MANY --fetch LAZY --class ~.domain.Application
+field set --fieldName owners --type ~.domain.Owner --cardinality MANY_TO_MANY --fetch LAZY --class ~.domain.Application
 field set --fieldName applications --type ~.domain.Application --cardinality MANY_TO_MANY --fetch LAZY --class ~.domain.Owner --mappedBy owners
 
 // Define a repository layer for persistence
