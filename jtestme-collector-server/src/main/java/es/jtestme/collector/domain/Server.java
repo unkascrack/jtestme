@@ -58,6 +58,6 @@ public class Server {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Environment environment;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private final Set<ServerState> states = new HashSet<ServerState>();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "server")
+	private Set<ServerState> states = new HashSet<ServerState>();
 }

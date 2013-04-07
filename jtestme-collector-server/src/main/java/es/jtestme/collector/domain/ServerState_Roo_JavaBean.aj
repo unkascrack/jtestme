@@ -3,6 +3,7 @@
 
 package es.jtestme.collector.domain;
 
+import es.jtestme.collector.domain.Server;
 import es.jtestme.collector.domain.ServerState;
 import es.jtestme.collector.domain.Verificator;
 import es.jtestme.collector.domain.reference.StateType;
@@ -25,6 +26,14 @@ privileged aspect ServerState_Roo_JavaBean {
     
     public void ServerState.setStateDate(Date stateDate) {
         this.stateDate = stateDate;
+    }
+    
+    public Server ServerState.getServer() {
+        return this.server;
+    }
+    
+    public void ServerState.setServer(Server server) {
+        this.server = server;
     }
     
     public Set<Verificator> ServerState.getVerificators() {

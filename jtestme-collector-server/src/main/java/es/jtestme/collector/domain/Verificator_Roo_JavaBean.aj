@@ -3,6 +3,7 @@
 
 package es.jtestme.collector.domain;
 
+import es.jtestme.collector.domain.ServerState;
 import es.jtestme.collector.domain.Verificator;
 
 privileged aspect Verificator_Roo_JavaBean {
@@ -45,6 +46,14 @@ privileged aspect Verificator_Roo_JavaBean {
     
     public void Verificator.setCause(String cause) {
         this.cause = cause;
+    }
+    
+    public ServerState Verificator.getServerState() {
+        return this.serverState;
+    }
+    
+    public void Verificator.setServerState(ServerState serverState) {
+        this.serverState = serverState;
     }
     
 }

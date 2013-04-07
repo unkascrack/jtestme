@@ -3,6 +3,8 @@
 
 package es.jtestme.collector.domain;
 
+import es.jtestme.collector.domain.ServerState;
+import es.jtestme.collector.domain.ServerStateDataOnDemand;
 import es.jtestme.collector.domain.Verificator;
 import es.jtestme.collector.domain.VerificatorDataOnDemand;
 import java.security.SecureRandom;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 privileged aspect VerificatorDataOnDemand_Roo_DataOnDemand {
@@ -22,11 +25,15 @@ privileged aspect VerificatorDataOnDemand_Roo_DataOnDemand {
     
     private List<Verificator> VerificatorDataOnDemand.data;
     
+    @Autowired
+    ServerStateDataOnDemand VerificatorDataOnDemand.serverStateDataOnDemand;
+    
     public Verificator VerificatorDataOnDemand.getNewTransientVerificator(int index) {
         Verificator obj = new Verificator();
         setCause(obj, index);
         setMessage(obj, index);
         setName(obj, index);
+        setServerState(obj, index);
         setSuccess(obj, index);
         setType(obj, index);
         return obj;
@@ -45,6 +52,11 @@ privileged aspect VerificatorDataOnDemand_Roo_DataOnDemand {
     public void VerificatorDataOnDemand.setName(Verificator obj, int index) {
         String name = "name_" + index;
         obj.setName(name);
+    }
+    
+    public void VerificatorDataOnDemand.setServerState(Verificator obj, int index) {
+        ServerState serverState = serverStateDataOnDemand.getRandomServerState();
+        obj.setServerState(serverState);
     }
     
     public void VerificatorDataOnDemand.setSuccess(Verificator obj, int index) {

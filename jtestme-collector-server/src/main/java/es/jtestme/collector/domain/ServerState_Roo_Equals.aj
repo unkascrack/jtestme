@@ -17,11 +17,11 @@ privileged aspect ServerState_Roo_Equals {
             return true;
         }
         ServerState rhs = (ServerState) obj;
-        return new EqualsBuilder().append(id, rhs.id).append(stateDate, rhs.stateDate).append(stateType, rhs.stateType).isEquals();
+        return new EqualsBuilder().append(id, rhs.id).append(server, rhs.server).append(stateDate, rhs.stateDate).append(stateType, rhs.stateType).isEquals();
     }
     
     public int ServerState.hashCode() {
-        return new HashCodeBuilder().append(id).append(stateDate).append(stateType).toHashCode();
+        return new HashCodeBuilder().append(id).append(server).append(stateDate).append(stateType).toHashCode();
     }
     
 }

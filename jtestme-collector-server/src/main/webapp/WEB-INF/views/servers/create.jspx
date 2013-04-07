@@ -6,7 +6,7 @@
         <field:select field="environment" id="c_es_jtestme_collector_domain_Server_environment" itemValue="id" items="${environments}" path="/environments" required="true" z="x0KraatgdU7+X9OpokXMjRMyfTw="/>
         <field:select field="serverType" id="c_es_jtestme_collector_domain_Server_serverType" items="${servertypes}" path="servertypes" required="true" z="Q06gqkJYKmlT2L1PH1IK8ZyxQQw="/>
         <field:input field="name" id="c_es_jtestme_collector_domain_Server_name" required="true" z="user-managed"/>
-        <field:input field="url" id="c_es_jtestme_collector_domain_Server_url" z="user-managed"/>
+        <field:input field="url" id="c_es_jtestme_collector_domain_Server_url" required="true" z="user-managed"/>
         <field:input field="proxyHost" id="c_es_jtestme_collector_domain_Server_proxyHost" z="ANcyz7hTZzqfxnLwad0LXlnO47k="/>
         <field:input field="proxyPort" id="c_es_jtestme_collector_domain_Server_proxyPort" z="7l/mlYiC9pp0ZqQMk/50mgUqldM="/>
         <field:input field="proxyUser" id="c_es_jtestme_collector_domain_Server_proxyUser" z="e48R041ftgJZX53f3wzU3iMXPtM="/>

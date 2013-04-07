@@ -3,6 +3,8 @@
 
 package es.jtestme.collector.domain;
 
+import es.jtestme.collector.domain.Server;
+import es.jtestme.collector.domain.ServerDataOnDemand;
 import es.jtestme.collector.domain.ServerState;
 import es.jtestme.collector.domain.ServerStateDataOnDemand;
 import es.jtestme.collector.domain.reference.StateType;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.Random;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 privileged aspect ServerStateDataOnDemand_Roo_DataOnDemand {
@@ -26,11 +29,20 @@ privileged aspect ServerStateDataOnDemand_Roo_DataOnDemand {
     
     private List<ServerState> ServerStateDataOnDemand.data;
     
+    @Autowired
+    ServerDataOnDemand ServerStateDataOnDemand.serverDataOnDemand;
+    
     public ServerState ServerStateDataOnDemand.getNewTransientServerState(int index) {
         ServerState obj = new ServerState();
+        setServer(obj, index);
         setStateDate(obj, index);
         setStateType(obj, index);
         return obj;
+    }
+    
+    public void ServerStateDataOnDemand.setServer(ServerState obj, int index) {
+        Server server = serverDataOnDemand.getRandomServer();
+        obj.setServer(server);
     }
     
     public void ServerStateDataOnDemand.setStateDate(ServerState obj, int index) {
