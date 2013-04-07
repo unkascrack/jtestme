@@ -3,6 +3,7 @@
 
 package es.jtestme.collector.domain;
 
+import es.jtestme.collector.domain.Environment;
 import es.jtestme.collector.domain.EnvironmentDataOnDemand;
 import es.jtestme.collector.domain.Server;
 import es.jtestme.collector.domain.ServerDataOnDemand;
@@ -30,6 +31,7 @@ privileged aspect ServerDataOnDemand_Roo_DataOnDemand {
     
     public Server ServerDataOnDemand.getNewTransientServer(int index) {
         Server obj = new Server();
+        setEnvironment(obj, index);
         setName(obj, index);
         setPassword(obj, index);
         setProxyHost(obj, index);
@@ -41,6 +43,11 @@ privileged aspect ServerDataOnDemand_Roo_DataOnDemand {
         setUrl(obj, index);
         setUsername(obj, index);
         return obj;
+    }
+    
+    public void ServerDataOnDemand.setEnvironment(Server obj, int index) {
+        Environment environment = environmentDataOnDemand.getRandomEnvironment();
+        obj.setEnvironment(environment);
     }
     
     public void ServerDataOnDemand.setName(Server obj, int index) {
