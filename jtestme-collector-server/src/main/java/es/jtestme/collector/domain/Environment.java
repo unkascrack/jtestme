@@ -48,9 +48,9 @@ public class Environment {
     private boolean mailingNoConnect;
 
     @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Application application;    
+    
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "environment")
     private Set<Server> servers = new HashSet<Server>();
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Application application;
 }
