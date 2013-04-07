@@ -13,7 +13,7 @@
         <field:input field="proxyPassword" id="c_es_jtestme_collector_domain_Server_proxyPassword" z="RXH+4Mwj/hlRR3xKrDhaTySK0Ok="/>
         <field:input field="username" id="c_es_jtestme_collector_domain_Server_username" z="user-managed"/>
         <field:input field="password" id="c_es_jtestme_collector_domain_Server_password" z="user-managed"/>
-        <field:input field="trustStorePassword" id="c_es_jtestme_collector_domain_Server_trustStorePassword" z="+5YdTssn/MyjoUEAkNrfRC33gO4="/>
+        <field:input field="trustStorePassword" id="c_es_jtestme_collector_domain_Server_trustStorePassword" z="user-managed" render="false"/>
         <field:simple field="states" id="c_es_jtestme_collector_domain_Server_states" messageCode="entity_reference_not_managed" messageCodeAttribute="Server State" z="user-managed" render="false"/>
     </form:update>
 </div>
