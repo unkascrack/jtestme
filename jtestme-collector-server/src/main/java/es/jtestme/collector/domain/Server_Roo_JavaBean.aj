@@ -91,20 +91,16 @@ privileged aspect Server_Roo_JavaBean {
         this.trustStorePassword = trustStorePassword;
     }
     
-    public Set<ServerState> Server.getStates() {
-        return this.states;
-    }
-    
-    public void Server.setStates(Set<ServerState> states) {
-        this.states = states;
-    }
-    
     public Environment Server.getEnvironment() {
         return this.environment;
     }
     
     public void Server.setEnvironment(Environment environment) {
         this.environment = environment;
+    }
+    
+    public Set<ServerState> Server.getStates() {
+        return this.states;
     }
     
 }
