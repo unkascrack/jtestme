@@ -24,8 +24,6 @@ import es.jtestme.viewers.ViewerType;
 
 public final class JTestMeFilter implements Filter {
 
-    private static final JTestMeBuilder BUILDER = JTestMeBuilder.getInstance();
-
     /*
      * (non-Javadoc)
      * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
@@ -43,7 +41,7 @@ public final class JTestMeFilter implements Filter {
      */
     public void destroy() {
         final long start = System.currentTimeMillis();
-        BUILDER.destroy();
+        Parameters.destroy();
         final long duration = System.currentTimeMillis() - start;
         JTestMeLogger.info("JTestMe filter destroy done in " + duration + " ms");
     }
@@ -75,7 +73,7 @@ public final class JTestMeFilter implements Filter {
         final long start = System.currentTimeMillis();
         PrintWriter output = null;
         try {
-            final List<VerificatorResult> results = BUILDER.executeVerificators();
+            final List<VerificatorResult> results = JTestMeBuilder.getInstance().executeVerificators();
             final ViewerType viewerType = getViewerType(request);
             final Viewer viewer = ViewerFactory.loadViewer(viewerType);
             response.setContentType(viewer.getContentType());

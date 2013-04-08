@@ -4,6 +4,7 @@ import javax.servlet.FilterConfig;
 
 import es.jtestme.JTestMeBuilder;
 import es.jtestme.logger.JTestMeLogger;
+import es.jtestme.schedule.JTestMeScheduler;
 import es.jtestme.viewers.ViewerFactory;
 import es.jtestme.viewers.ViewerType;
 
@@ -69,6 +70,12 @@ public final class Parameters {
         initializeLogger();
         initializeVerificators();
         initializeViewers();
+        initializeScheduler();
+    }
+
+    static final void destroy() {
+        destroyVerificators();
+        destroyScheduler();
     }
 
     private static void initializeLogger() {
@@ -89,6 +96,26 @@ public final class Parameters {
         ViewerFactory.registerViewer(ViewerType.TXT, getInitParameter(ParameterType.TXT_VIEWER_CLASS));
         ViewerFactory.registerViewer(ViewerType.XML, getInitParameter(ParameterType.XML_VIEWER_CLASS));
         ViewerFactory.registerViewer(ViewerType.CUSTOM, getInitParameter(ParameterType.CUSTOM_VIEWER_CLASS));
+    }
+
+    private static void initializeScheduler() {
+        JTestMeLogger.info("JTestMe starting scheduler...");
+        final JTestMeScheduler scheduler = JTestMeScheduler.getInstance();
+        final String period = getInitParameter(ParameterType.CONFIG_LOCATION);
+        final String viewer = getInitParameter(ParameterType.CONFIG_LOCATION);
+        scheduler.start();
+    }
+
+    private static void destroyVerificators() {
+        JTestMeLogger.info("JTestMe destroy verificators...");
+        JTestMeBuilder.getInstance().destroy();
+    }
+
+    private static void destroyScheduler() {
+        if (JTestMeScheduler.getInstance().isRunning()) {
+            JTestMeLogger.info("JTestMe stopping scheduler...");
+            JTestMeScheduler.getInstance().stop();
+        }
     }
 
     private static final String getInitParameter(final ParameterType parameter) {
