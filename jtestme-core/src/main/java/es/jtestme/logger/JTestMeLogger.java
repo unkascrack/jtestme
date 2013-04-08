@@ -9,8 +9,6 @@ public final class JTestMeLogger {
     static final boolean LOG4J_ENABLED = isLog4jEnabled();
     static final boolean LOGBACK_ENABLED = isLogbackEnabled();
 
-    private static final String INTERNAL_LOGGER_NAME = "es.jtestme";
-
     private static boolean loggerEnabled = false;
 
     private JTestMeLogger() {
@@ -37,12 +35,12 @@ public final class JTestMeLogger {
     public static void debug(final String msg) {
         if (loggerEnabled) {
             if (LOGBACK_ENABLED) {
-                org.slf4j.LoggerFactory.getLogger(INTERNAL_LOGGER_NAME).debug(msg);
+                org.slf4j.LoggerFactory.getLogger(getLoggerName()).debug(msg);
             } else if (LOG4J_ENABLED) {
-                final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(INTERNAL_LOGGER_NAME);
+                final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(getLoggerName());
                 logger.debug(msg);
             } else {
-                final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(INTERNAL_LOGGER_NAME);
+                final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(getLoggerName());
                 logger.log(Level.FINE, msg);
             }
         }
@@ -54,12 +52,12 @@ public final class JTestMeLogger {
     public static void info(final String msg) {
         if (loggerEnabled) {
             if (LOGBACK_ENABLED) {
-                org.slf4j.LoggerFactory.getLogger(INTERNAL_LOGGER_NAME).info(msg);
+                org.slf4j.LoggerFactory.getLogger(getLoggerName()).info(msg);
             } else if (LOG4J_ENABLED) {
-                final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(INTERNAL_LOGGER_NAME);
+                final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(getLoggerName());
                 logger.info(msg);
             } else {
-                final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(INTERNAL_LOGGER_NAME);
+                final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(getLoggerName());
                 logger.log(Level.INFO, msg);
             }
         }
@@ -79,12 +77,12 @@ public final class JTestMeLogger {
     public static void warn(final String msg, final Throwable throwable) {
         if (loggerEnabled) {
             if (LOGBACK_ENABLED) {
-                org.slf4j.LoggerFactory.getLogger(INTERNAL_LOGGER_NAME).warn(msg, throwable);
+                org.slf4j.LoggerFactory.getLogger(getLoggerName()).warn(msg, throwable);
             } else if (LOG4J_ENABLED) {
-                final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(INTERNAL_LOGGER_NAME);
+                final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(getLoggerName());
                 logger.warn(msg, throwable);
             } else {
-                final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(INTERNAL_LOGGER_NAME);
+                final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(getLoggerName());
                 logger.log(Level.WARNING, msg, throwable);
             }
         }
@@ -104,12 +102,12 @@ public final class JTestMeLogger {
     public static void error(final String msg, final Throwable throwable) {
         if (loggerEnabled) {
             if (LOGBACK_ENABLED) {
-                org.slf4j.LoggerFactory.getLogger(INTERNAL_LOGGER_NAME).error(msg, throwable);
+                org.slf4j.LoggerFactory.getLogger(getLoggerName()).error(msg, throwable);
             } else if (LOG4J_ENABLED) {
-                final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(INTERNAL_LOGGER_NAME);
+                final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(getLoggerName());
                 logger.error(msg, throwable);
             } else {
-                final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(INTERNAL_LOGGER_NAME);
+                final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(getLoggerName());
                 logger.log(Level.SEVERE, msg, throwable);
             }
         }
@@ -133,5 +131,23 @@ public final class JTestMeLogger {
         } catch (final ClassNotFoundException e) {
             return false;
         }
+    }
+
+    private static final String INTERNAL_LOGGER_NAME = JTestMeLogger.class.getName();
+
+    private static String getLoggerName() {
+        String className = INTERNAL_LOGGER_NAME;
+        final StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        if (stackTrace != null && stackTrace.length > 0) {
+            int index = 0;
+            while (index < stackTrace.length) {
+                if (stackTrace[index].getClassName().equals(JTestMeLogger.class.getName())) {
+                    break;
+                }
+                index++;
+            }
+            className = index < stackTrace.length + 2 ? stackTrace[index + 2].getClassName() : className;
+        }
+        return className;
     }
 }
