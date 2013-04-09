@@ -17,7 +17,7 @@ public final class JTestMeScheduler {
 
     private static final JTestMeScheduler INSTANCE = new JTestMeScheduler();
 
-    private static final long DEFAULT_PERIOD = 60l;
+    private static final long DEFAULT_PERIOD = 10l;
     private static final ViewerType DEFAULT_VIEWER_TYPE = ViewerType.TXT;
 
     private final ScheduledExecutorService service;
@@ -61,7 +61,7 @@ public final class JTestMeScheduler {
         if (running) {
             stop();
         }
-        service.scheduleAtFixedRate(new CollectorTask(), period * 5l, period * 5l, TimeUnit.SECONDS);
+        service.scheduleAtFixedRate(new CollectorTask(), period * 60l, period * 60l, TimeUnit.SECONDS);
         running = true;
     }
 
