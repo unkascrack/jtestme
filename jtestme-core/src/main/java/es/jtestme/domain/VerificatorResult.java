@@ -124,12 +124,11 @@ public class VerificatorResult implements Serializable {
         sb.append("description: ").append(getDescription()).append(", ");
         sb.append("optional: ").append(getOptionalString()).append(", ");
         sb.append("success: ").append(isSuccess()).append(", ");
-        sb.append("message: ").append(getMessage()).append(", ");
-        if (getCause() != null) {
-            sb.append("cause: ").append(getCause()).append(", ");
+        if (!isSuccess()) {
+            sb.append("message: ").append(getMessage()).append(", ");
+            sb.append("resolution: ").append(getResolution()).append(", ");
+            sb.append("cause: ").append(getCauseString()).append(", ");
         }
-        sb.append("resolution: ").append(resolution).append(", ");
-        sb.append("parameters: ").append(parameters);
         return sb.toString();
     }
 }
