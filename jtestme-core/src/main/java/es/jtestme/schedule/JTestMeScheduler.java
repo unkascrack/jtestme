@@ -13,14 +13,18 @@ import es.jtestme.viewers.Viewer;
 import es.jtestme.viewers.ViewerFactory;
 import es.jtestme.viewers.ViewerType;
 
-public class JTestMeScheduler {
+public final class JTestMeScheduler {
 
     private static final JTestMeScheduler INSTANCE = new JTestMeScheduler();
 
-    public static final Long DEFAULT_PERIOD = 60l;
+    private static final long DEFAULT_PERIOD = 60l;
+    private static final ViewerType DEFAULT_VIEWER_TYPE = ViewerType.TXT;
+
+    private final ScheduledExecutorService service;
 
     private boolean running = false;
-    private final ScheduledExecutorService service;
+    private long period = DEFAULT_PERIOD;
+    private ViewerType viewer = DEFAULT_VIEWER_TYPE;
 
     public static final JTestMeScheduler getInstance() {
         return INSTANCE;
@@ -34,18 +38,36 @@ public class JTestMeScheduler {
         return running;
     }
 
-    public void start() {
-        start(DEFAULT_PERIOD);
+    public void setPeriod(final long periodInMinutes) {
+        period = periodInMinutes > 0 ? periodInMinutes : DEFAULT_PERIOD;
     }
 
-    public void start(final long periodInMinutes) {
+    public void setPeriod(final String periodInMinutes) {
+        try {
+            setPeriod(Long.parseLong(periodInMinutes));
+        } catch (final Throwable e) {
+            period = DEFAULT_PERIOD;
+        }
+    }
+
+    public void setViewer(final String viewerType) {
+        viewer = ViewerType.toType(viewerType, DEFAULT_VIEWER_TYPE);
+    }
+
+    /**
+     * Running schedule
+     */
+    public void start() {
         if (running) {
             stop();
         }
-        service.scheduleAtFixedRate(new CollectorTask(), periodInMinutes, periodInMinutes, TimeUnit.SECONDS);
+        service.scheduleAtFixedRate(new CollectorTask(), period * 5l, period * 5l, TimeUnit.SECONDS);
         running = true;
     }
 
+    /**
+     * Stop schedule
+     */
     public void stop() {
         if (running) {
             service.shutdown();
@@ -53,19 +75,17 @@ public class JTestMeScheduler {
         }
     }
 
-    private static final ViewerType DEFAULT_VIEWER_TYPE = ViewerType.TXT;
-
     class CollectorTask implements Runnable {
 
         final Viewer viewer;
-        private boolean lasTaskWasError = false;
+        private boolean lastTaskWasError = false;
 
         CollectorTask() {
-            viewer = ViewerFactory.loadViewer(DEFAULT_VIEWER_TYPE);
+            viewer = ViewerFactory.loadViewer(JTestMeScheduler.this.viewer);
         }
 
         public void run() {
-            JTestMeLogger.info("Running scheduler...");
+            JTestMeLogger.debug("Running scheduler...");
             boolean error = false;
             final List<VerificatorResult> errors = new ArrayList<VerificatorResult>();
             for (final VerificatorResult result : JTestMeBuilder.getInstance().executeVerificators()) {
@@ -75,12 +95,10 @@ public class JTestMeScheduler {
                 }
             }
 
-            if (error && !lasTaskWasError) {
-                final Viewer viewer = ViewerFactory.loadViewer(DEFAULT_VIEWER_TYPE);
+            if (error && !lastTaskWasError) {
                 JTestMeLogger.error(viewer.getContentViewer(errors));
-                lasTaskWasError = true;
             }
+            lastTaskWasError = error;
         }
     }
-
 }
