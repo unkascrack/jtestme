@@ -3,22 +3,23 @@ package es.jtestme.filter;
 public enum ParameterType {
 
     /**
-     * Param to indicate the path to configuration file.
+     * Param to indicate the path to configuration file, by default is classpath:jtestme.properties.
      */
     CONFIG_LOCATION("config-location"),
+
     /**
-     * Param to define the encoding of the response.
+     * Param to define the encoding of the response, by default is UTF-8.
      */
     ENCODING("encoding"),
 
     /**
-     * Param to define is active logger
+     * Param to define is active logger, by default is true
      */
     LOG("log"),
 
     /**
      * Param to define de name of the request parameter that
-     * represents the type format of the response.
+     * represents the type format of the response, by default is "format".
      */
     PARAMETER_FORMAT("param-type-format"),
 
@@ -55,7 +56,22 @@ public enum ParameterType {
      * Param to define the class that implements the CUSTOM viewer, by default is the class
      * es.jtestme.viewers.impl.CustomViewer
      */
-    CUSTOM_VIEWER_CLASS("custom-viewer-class");
+    CUSTOM_VIEWER_CLASS("custom-viewer-class"),
+
+    /**
+     * Param to define is active schedule, by default is false
+     */
+    SCHEDULE("schedule"),
+
+    /**
+     * Param to define the time in minutes of the period to execute of the scheduler, by default is 10'
+     */
+    SCHEDULE_PERIOD("schedule-period"),
+
+    /**
+     * Param to define the viewer to register the log in case of error, by default is TXT
+     */
+    SCHEDULE_VIEWER("schedule-viewer");
 
     private final String parameter;
 
