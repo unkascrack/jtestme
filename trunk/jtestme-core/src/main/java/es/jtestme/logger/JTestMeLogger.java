@@ -6,10 +6,10 @@ import org.slf4j.LoggerFactory;
 
 public final class JTestMeLogger {
 
-    static final boolean LOG4J_ENABLED = isLog4jEnabled();
-    static final boolean LOGBACK_ENABLED = isLogbackEnabled();
+    private static final boolean LOG4J_ENABLED = isLog4jEnabled();
+    private static final boolean LOGBACK_ENABLED = isLogbackEnabled();
 
-    private static boolean loggerEnabled = false;
+    private static boolean loggerEnabled = true;
 
     private JTestMeLogger() {
         super();
@@ -25,7 +25,7 @@ public final class JTestMeLogger {
     /**
      * @param enabled
      */
-    public static void loggerEnabled(final boolean enabled) {
+    public static void setLoggerEnabled(final boolean enabled) {
         loggerEnabled = enabled;
     }
 
@@ -138,15 +138,13 @@ public final class JTestMeLogger {
     private static String getLoggerName() {
         String className = INTERNAL_LOGGER_NAME;
         final StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        if (stackTrace != null && stackTrace.length > 0) {
-            int index = 0;
-            while (index < stackTrace.length) {
-                if (stackTrace[index].getClassName().equals(JTestMeLogger.class.getName())) {
-                    break;
-                }
+        if (stackTrace != null && stackTrace.length > 1) {
+            int index = 1;
+            while (stackTrace[index].getClassName().equals(JTestMeLogger.class.getName())
+                    && index < stackTrace.length - 1) {
                 index++;
             }
-            className = index < stackTrace.length + 2 ? stackTrace[index + 2].getClassName() : className;
+            className = index < stackTrace.length - 1 ? stackTrace[index].getClassName() : className;
         }
         return className;
     }
