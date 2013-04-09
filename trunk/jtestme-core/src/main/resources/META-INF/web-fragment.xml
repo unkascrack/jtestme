@@ -25,16 +25,11 @@
 			<param-name>param-type-format</param-name>
 			<param-value>format</param-value>
 		</init-param>		
-		<init-param>
-			<param-name>filename</param-name>
-			<param-value>jtestme</param-value>
-		</init-param>
 		
 		<init-param>
 			<param-name>default-viewer</param-name>
 			<param-value>html</param-value>
 		</init-param>
-		
 		<init-param>
 			<param-name>html-viewer-class</param-name>
 			<param-value>es.jtestme.viewers.impl.HTMLViewer</param-value>
@@ -54,6 +49,19 @@
 		<init-param>
 			<param-name>custom-viewer-class</param-name>
 			<param-value>class implements es.jtestme.viewers.Viewer</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>schedule</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>schedule-period</param-name>
+			<param-value>10</param-value>
+		</init-param>
+		<init-param>
+			<param-name>schedule-viewer</param-name>
+			<param-value>txt</param-value>
 		</init-param>
 	-->		
 	</filter>

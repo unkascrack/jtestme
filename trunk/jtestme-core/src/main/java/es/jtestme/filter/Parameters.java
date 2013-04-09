@@ -80,7 +80,7 @@ public final class Parameters {
 
     private static void initializeLogger() {
         JTestMeLogger.info("JTestMe initializate logger...");
-        JTestMeLogger.loggerEnabled(Boolean.parseBoolean(getInitParameter(ParameterType.LOG, "true")));
+        JTestMeLogger.setLoggerEnabled(Boolean.parseBoolean(getInitParameter(ParameterType.LOG, "true")));
     }
 
     private static void initializeVerificators() {
@@ -99,11 +99,14 @@ public final class Parameters {
     }
 
     private static void initializeScheduler() {
-        JTestMeLogger.info("JTestMe starting scheduler...");
-        final JTestMeScheduler scheduler = JTestMeScheduler.getInstance();
-        final String period = getInitParameter(ParameterType.CONFIG_LOCATION);
-        final String viewer = getInitParameter(ParameterType.CONFIG_LOCATION);
-        scheduler.start();
+        final boolean scheduleEnabled = Boolean.parseBoolean(getInitParameter(ParameterType.SCHEDULE, "false"));
+        if (scheduleEnabled) {
+            JTestMeLogger.info("JTestMe starting scheduler...");
+            final JTestMeScheduler scheduler = JTestMeScheduler.getInstance();
+            scheduler.setPeriod(getInitParameter(ParameterType.SCHEDULE_PERIOD));
+            scheduler.setViewer(getInitParameter(ParameterType.SCHEDULE_VIEWER));
+            scheduler.start();
+        }
     }
 
     private static void destroyVerificators() {
