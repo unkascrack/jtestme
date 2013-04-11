@@ -53,6 +53,7 @@ public class DatasourceVerificator extends AbstractVerificator {
         } finally {
             JTestMeUtils.closeQuietly(resultSet);
             JTestMeUtils.closeQuietly(statement);
+            JTestMeUtils.closeQuietly(connection);
             JTestMeUtils.closeQuietly(context);
         }
         return result;
