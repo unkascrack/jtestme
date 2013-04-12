@@ -4,7 +4,7 @@
 = JTestMe: Relases =
 == 1.4 ==
  * Issue 8: Permitir configurar los test para que se ejecuten de forma programada.
- * Issue 7:  Problem with DatasourceVerificator doesn't close the connection.
+ * Issue 7:  Problem with {{{DatasourceVerificator}}} doesn't close the connection.
  * Revisada la documentación. 
 
 == 1.3 ==
