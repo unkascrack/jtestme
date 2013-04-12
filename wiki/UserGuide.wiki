@@ -643,11 +643,12 @@ _NOTA: los viewers, al igual que los verificators, sólo se instancian una únic
 === 3.5. Verificators Programados ===
 JTestMe permite ejecutar de programada los verificators para comprobar el estado de los recursos configurados de la aplicación, mostrando el resultado de esta ejecución mediante una traza LOG.
 
-Se puede configurar la ejecución programación de los verificators tanto para aplicaciones Web, como Standalone. Esta configuración permite: 
+La configuración del programador de JTestMe permite configurar los siguientes parámetros: 
  * activar/desactivar el programador.
  * definir que viewer se utilizará para mostrar los resultados de la ejecución de los verificators.
  * establecer el periodo de tiempo entre las ejecuciones de los verificators (en minutos).
 
+Esta configuración se puede definir tanto para aplicaciones Web, como Standalone:
  * Web, sólo será necesario definir correctamente los parámetros de configuración del {{{javax.servlet.Filter}}} de JTestMe:
 {{{
 ...
