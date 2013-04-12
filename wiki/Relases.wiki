@@ -16,7 +16,7 @@
  
 == 1.2 ==
  * Issue 1: Error en los tests webservice, cuando se introduce en el endpoint la terminación ?wsdl.
- * Issue 2: ConnectorVerificator, modificar el comportamiento de los componentes HttpUrlConnection y HttpsUrlConnection.
+ * Issue 2: {{{ConnectorVerificator}}}, modificar el comportamiento de los componentes {{{HttpUrlConnection}}} y {{{HttpsUrlConnection}}}.
  * Refactoring de todas los packages y clases.
  * Revisión viewer HTML.
  * Verificación conexiones FTP.
