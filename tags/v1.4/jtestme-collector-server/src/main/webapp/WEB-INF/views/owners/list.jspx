@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_es_jtestme_collector_domain_Owner" items="${owners}" z="gu5ohoQmgUDn33ImLBHKGMBEONA=">
+        <table:table data="${owners}" id="l_es_jtestme_collector_domain_Owner" path="/owners" z="ltqaHgNgo+rZ0yAegUmzok+vXGs=" delete="false">
+            <table:column id="c_es_jtestme_collector_domain_Owner_firstName" property="firstName" z="s9ms33kZInpWWpDum/1a341HCL4="/>
+            <table:column id="c_es_jtestme_collector_domain_Owner_lastName" property="lastName" z="ohnBaeHwHwiiUkXFI9hUzoL26w0="/>
+            <table:column id="c_es_jtestme_collector_domain_Owner_email" property="email" z="aj4/KLrGmuNksOLZjl390qnj1A0="/>
+            <table:column id="c_es_jtestme_collector_domain_Owner_phone" property="phone" render="false" z="user-managed"/>
+            <table:column id="c_es_jtestme_collector_domain_Owner_applications" property="applications" z="Ew+q1+S4d/AI0/pFP8UXxrHKssM="/>
+        </table:table>
+    </page:list>
+</div>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_es_jtestme_collector_domain_Environment" modelAttribute="environment" path="/environments" versionField="Version" z="RcJO7ShUZSWT7oDsw9ok3UjFn28=">
+    	<field:select field="application" id="c_es_jtestme_collector_domain_Environment_application" itemValue="id" items="${applications}" path="/applications" z="user-managed" disabled="true"/>
+    	<field:select field="environmentType" id="c_es_jtestme_collector_domain_Environment_environmentType" items="${environmenttypes}" path="environmenttypes" required="true" z="4kSg0uRVd2164VEdgICsmE2eNEw="/>
+        <field:input field="name" id="c_es_jtestme_collector_domain_Environment_name" required="true" z="user-managed"/>
+        <field:textarea field="description" id="c_es_jtestme_collector_domain_Environment_description" z="uZY9/78PuRAARkwYVaaFmN3z/ts="/>
+        <field:checkbox field="startWatching" id="c_es_jtestme_collector_domain_Environment_startWatching" z="h6A5ZOcMcGDqb5v6jwTde5czP1Y="/>
+        <field:checkbox field="mailingError" id="c_es_jtestme_collector_domain_Environment_mailingError" z="nG2JxGdewwehQqKN0KjPvwaVEEk="/>
+        <field:checkbox field="mailingNoConnect" id="c_es_jtestme_collector_domain_Environment_mailingNoConnect" z="ng8yjGCFeQ7G2eZLrbO1UN3ZP+U="/>
+        <field:select field="servers" id="c_es_jtestme_collector_domain_Environment_servers" multiple="true" itemValue="id" items="${servers}" path="/servers" z="user-managed"/>
+    </form:update>
+</div>

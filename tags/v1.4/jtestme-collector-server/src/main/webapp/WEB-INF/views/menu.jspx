@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
+        <menu:category id="c_application" z="4v4FPlUyinuLgFejxhQ/SjlcitQ=">
+            <menu:item id="i_application_new" messageCode="global_menu_new" url="/applications?form" z="W6dSe8TyFw8+ywm9LhgQ1DA8abs="/>
+            <menu:item id="i_application_list" messageCode="global_menu_list" url="/applications?page=1&amp;size=${empty param.size ? 10 : param.size}" z="MylNK+kA8g14QbZ9BJYvRIJxnyc="/>
+        </menu:category>
+        <menu:category id="c_owner" z="Zth5UxnSe51JiEP87JF7+ETwetY=">
+            <menu:item id="i_owner_new" messageCode="global_menu_new" url="/owners?form" z="/hKA4qUEs5O+bA2Hcejn43+TrE0="/>
+            <menu:item id="i_owner_list" messageCode="global_menu_list" url="/owners?page=1&amp;size=${empty param.size ? 10 : param.size}" z="G3vxhcyuViA2OtRCffsEWTpUSwY="/>
+        </menu:category>
+        <menu:category id="c_environment" z="13uYcdwEHBEUUX08m/XANnOEflI=">
+            <menu:item id="i_environment_new" messageCode="global_menu_new" url="/environments?form" z="F1NCiqgBiY3pGte0mPG/qWl+71k="/>
+            <menu:item id="i_environment_list" messageCode="global_menu_list" url="/environments?page=1&amp;size=${empty param.size ? 10 : param.size}" z="hdeajQgUFuFAltNnATOEl+q99AU="/>
+        </menu:category>
+        <menu:category id="c_server" z="Hm0GrFXfueKwxPqAQou++DaYysQ=">
+            <menu:item id="i_server_new" messageCode="global_menu_new" url="/servers?form" z="yhR9MlzzLx68UV2kipD8FrmcRwY="/>
+            <menu:item id="i_server_list" messageCode="global_menu_list" url="/servers?page=1&amp;size=${empty param.size ? 10 : param.size}" z="qJbOjtfF1BszGNn3L9fGGwQWd54="/>
+        </menu:category>
+        <menu:category id="c_seleniumtests" z="PPLMd2yNB6/LSbjIWogAacRPU+Q=">
+            <menu:item id="si_seleniumtests_test" messageCode="selenium_menu_test_suite" url="/resources/selenium/test-suite.xhtml" z="wwunW/IPDcunN97u41MvMJZQ2to="/>
+        </menu:category>
+    </menu:menu>
+</div>
