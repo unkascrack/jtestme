@@ -21,7 +21,8 @@
   <li>[#3.2._Par%C3%A1metros_JTestMeFilter Parámetros JTestMeFilter]
   <li>[#3.3._Verificators_Personalizados Verificators Personalizados]
   <li>[#3.4._Viewers_Personalizadas Viewers Personalizados]
-  <li>[#3.5._Seguridad Seguridad]
+  <li>[#3.5._Seguridad Verificators Programados]
+  <li>[#3.6._Seguridad Seguridad]
 
  <li>[#4._Desarrollo Desarrollo]
 
@@ -47,7 +48,7 @@ Lo primero que hemos de conocer son los tipos de verificadores que dispone de ma
  * *openoffice*, permite verificar conexiones con el servicio !OpenOffice o !LibreOffice.
  * *smtp*, permite verificar la conexión con el servidor SMTP.
  * *webservice*, permite verificar las conexiones con servicios web.
- * *custom*, permite implementar una solución propia para poder verificar un recurso de la aplicación. En el punto [#4.2._Verificators_Personalizados 4.2.] Más adelante se mostrará como implementar este tipo de verificación.
+ * *custom*, permite implementar una solución propia para poder verificar un recurso de la aplicación. Más adelante se mostrará como implementar este tipo de verificación en el punto [#3.3._Verificators_Personalizados 3.3. Verificators Personalizados].
 
 === 2.2. Properties ===
 Para cada uno de los tipos de test será necesario definir una serie de parámetros para que JTestMe ejecuta de forma correcta la verificación.
@@ -318,22 +319,16 @@ En este caso se muestra como efectuar la configuración de forma automática, la
 	<filter-name>jtestmefilter</filter-name>
 	<filter-class>es.jtestme.filter.JTestMeFilter</filter-class>
 	<!--
+	...
 	<init-param>
 		<param-name>config-location</param-name>
 		<param-value>classpath:jtestme.properties</param-value>
 	</init-param>
 	<init-param>
-		<param-name>encoding</param-name>
-		<param-value>UTF-8</param-value>
-	</init-param>
-	<init-param>
 		<param-name>log</param-name>
 		<param-value>true</param-value>
 	</init-param>
-	<init-param>
-		<param-name>param-type-format</param-name>
-		<param-value>format</param-value>
-	</init-param>		
+	...
 	-->
 </filter>
 <filter-mapping>
@@ -342,7 +337,7 @@ En este caso se muestra como efectuar la configuración de forma automática, la
 </filter-mapping>
 }}}
 
-  Todos los parámetros configurables del {{{javax.servlet.Filter}}} de JTestMe son opcionales.
+  Existen diferentes parámetros configuraciones para el {{{javax.servlet.Filter}}} de JTestMe, todos ellos son opcionales. Se puede ver todos los parámetros diponibles para la configuración de la librería en el punto [#3.2._Par%C3%A1metros_JTestMeFilter Parámetros JTestMeFilter]. 
 
 <br> 
 2. Configurar el archivo properties, *jtestme.properties*, en la ruta indicada en los parámetros del filtro:
@@ -405,7 +400,7 @@ La clase se encarga de detectar cual de las librerías está disponible para mos
 La clase de Logger de JTestMe, permite también desactivar todos las trazas de forma programática:
 {{{
 // método para activar/desactivar todas las trazas log de JTestMe
-es.jtestme.logger.JTestMeLogger.loggerEnabled(false);
+es.jtestme.logger.JTestMeLogger.setLoggerEnabled(false);
 
 // comprobamos si están activadas/desactivadas las trazas log
 boolean jtestmeLoggerEnabled = es.jtestme.logger.JTestMeLogger.isLoggerEnabled();
@@ -454,6 +449,10 @@ Los parámetros de configuración de {{{es.jtestme.filter.JTestMeFilter}}} son:
 ||  *txt-viewer-class*  ||  {{{es.jtestme.viewers.impl.PlainTextViewer}}}  ||Implementación por defecto del viewer TXT. ||
 ||  *xml-viewer-class*  ||  {{{es.jtestme.viewers.impl.XMLViewer}}}  ||Implementación por defecto del viewer XML. ||
 ||  *custom-viewer-class*  ||  {{{es.jtestme.viewers.impl.CustomViewer}}}  ||Implementación por defecto del viewer CUSTOM. ||
+||  *schedule*  ||  {{{false}}}  ||Activa/Desactiva la ejecución programada de los verificators. ||
+||  *schedule-period*  ||  {{{10}}}  ||Periodo en minutos para la ejecución de todos los verificators configurados. ||
+||  *schedule-viewer*  ||  {{{TXT}}}  ||Tipo de Viewer utilizado por defecto para mostrar en el Log el resultado de la ejecución de los verificators programados, Los tipos de viewers disponibles son: HTML, JSON, XML, TXT y CUSTOM. ||
+
 
 El parámetro *param-type-format*, permite definir el nombre de la variable request que permitirá cambiar el tipo de respuesta que se devuelve: HTML, TXT, JSON y XML. El valor del tipo de respuesta es "case insensitive" y debe coincidir con uno de los tipos definidos en la clase {{{es.jtestme.viewers.ViewerType}}}.
 Ejemplo:
@@ -641,7 +640,72 @@ es.jtestme.viewers.Viewer xmlViewer = es.jtestme.viewers.ViewerFactory.loadViewe
 
 _NOTA: los viewers, al igual que los verificators, sólo se instancian una única vez por lo que sus métodos deben ser thread-safe: evitar atributos compartidos._
 
-=== 3.5. Seguridad ===
+=== 3.5. Verificators Programados ===
+JTestMe permite ejecutar de programada los verificators para comprobar el estado de los recursos configurados de la aplicación, mostrando el resultado de esta ejecución mediante una traza LOG.
+
+Se puede configurar la ejecución programación de los verificators tanto para aplicaciones Web, como Standalone. Esta configuración permite: 
+ * activar/desactivar el programador.
+ * definir que viewer se utilizará para mostrar los resultados de la ejecución de los verificators.
+ * establecer el periodo de tiempo entre las ejecuciones de los verificators (en minutos).
+
+ * Web, sólo será necesario definir correctamente los parámetros de configuración del {{{javax.servlet.Filter}}} de JTestMe:
+{{{
+...
+<init-param>
+	<param-name>schedule</param-name>
+	<param-value>true</param-value>
+</init-param>
+<init-param>
+	<param-name>schedule-period</param-name>
+	<param-value>60</param-value>
+</init-param>
+<init-param>
+	<param-name>schedule-viewer</param-name>
+	<param-value>XML</param-value>
+</init-param>
+...
+}}}
+ 
+ * Standalone, será necesario activar de forma programada su ejecución: 
+{{{
+// Primero será necesaria la configuración de JTestMeBuilder
+...
+
+// Configuración y Activación de JTestMeScheduler
+es.jtestme.schedule.JTestMeScheduler scheduler = es.jtestme.schedule.JTestMeScheduler.getInstance();  
+scheduler.setPeriod(60l);
+scheduler.setViewer("XML");
+scheduler.start();
+...
+
+// Para detener la ejecución programada
+scheduler.stop();
+}}}
+
+_NOTA: la ejecución de los verificators de forma programada está desactivado por defecto, será necesario su configuración para activarlo._
+
+La ejecución de los verificators de se ejecutará de forma programada cada X periodo de tiempo definido, si se produce un error en alguno de los verificators se mostrará un mensaje en el Logger con nivel de ERROR, por lo que será necesario que esté activado para poder ver los resultados de la ejecución. En el punto [#3.1._Log Log] se puede ver como configurarlo.
+
+Gracias a este ejecución programada y a la librería logger, se puede configurar nuestra aplicación para cuando se produzca un error en cualquiera de los verificators definidos nos avise, por ejemplo mediante un correo electrónico. Ejemplo de configuración de Log4j:
+{{{
+log4j.rootCategory=INFO
+log4j.logger.es.jtestme.schedule=ERROR, mail
+
+# mail es configurado para utilizar SMTPAppender
+log4j.appender.mail=org.apache.log4j.net.SMTPAppender
+log4j.appender.mail.Threshold=ERROR
+log4j.appender.mail.BufferSize=512
+log4j.appender.mail.To=
+log4j.appender.mail.From=jtestme@noreply.com
+log4j.appender.mail.SMTPHost=
+log4j.appender.mail.Subject=[JTestMe] Error Verificators
+log4j.appender.mail.layout=org.apache.log4j.PatternLayout
+log4j.appender.mail.layout.ConversionPattern=%m
+}}} 
+
+_NOTA: al producirse fallo en la ejecución de alguno de los verificator sólo se mostrará una única traza de log hasta que solucione el problema._
+
+=== 3.6. Seguridad ===
 The monitoring page does not contain data such as passwords, but before using it in production, you may probably want that this page is in restricted access. You may secure it by using your own means. Otherwise, it is possible to restrict its access by a regular expression on ip address of client with the parameter allowed-addr-pattern (regular expression with a range of internal ip addresses or fixed ip addresses of administrators). For example, "192\.168\..*|123\.123\.123\.123" to allow the ip addresses in the "192.168.*.*" range plus any pc hiding behind the gateway 123.123.123.123. 
 
 Note that if you use a http proxy server like Apache in front of the server, the ip address of the client will be the one of Apache. So you may not use allowed-addr-pattern in this case, or do not use Apache to access this page, or you may enable mod_proxy_ajp in order that the monitored server knows the ip address of the clients. Example of httpd conf with ajp: 

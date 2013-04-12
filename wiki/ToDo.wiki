@@ -20,3 +20,5 @@ JTestMe is opensource: Priorities and todos may change any time. There is no pro
  <li>Construcción de la aplicación jtestme-collector-server, para poder monitorizar el estado de N aplicaciones configuradas con jtestme-core.
  <li>~~Utilizar multiple threads para realizar simultáneamente varios test y ganar en rendimiento de respuesta.~~
  <li>Eliminar dependencias con la librería "jodconverter" del verificator !OpenOffice. Construir una conexión con {{{Sockets}}}.
+ <li>~~Permitir la ejecución de los verificators de forma programada, cada N minutos.~~
+ <li>Revisar la ejecución del WebServiceVerificator para los tipos de Web Service rest

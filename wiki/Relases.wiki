@@ -3,8 +3,9 @@
 
 = JTestMe: Relases =
 == 1.4 ==
- * Issue 5: Eliminar dependencias con la librería "jodconverter".
- * Issue 6: Interfaz Web mostrar desplegable con los tipos de viewers HTML, JSON, TXT, XML y CUSTOM para poder cambiar el formato. 
+ * Issue 8: Permitir configurar los test para que se ejecuten de forma programada.
+ * Issue 7:  Problem with DatasourceVerificator doesn't close the connection.
+ * Revisada la documentación. 
 
 == 1.3 ==
  * Issue 3: Interfaz Web no se debe mostrar el botón desplegable + si no hay exception.
