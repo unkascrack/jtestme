@@ -2,7 +2,7 @@
 [ScreenShots Screenshots]
 ----
 [UserGuide User's Guide]<br>
-[Relases Relases]
+[Releases Releases]
 ----
-[RelasesMaven Maven]<br>
+[ReleaseMaven Maven]<br>
 [ToDo To Do]
