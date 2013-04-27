@@ -7,12 +7,13 @@
         <field:display field="serverType" id="s_es_jtestme_collector_domain_Server_serverType" object="${server}" z="AjgPq34LFNx5T09LbA3ba10oA+0="/>
         <field:display field="name" id="s_es_jtestme_collector_domain_Server_name" object="${server}" z="qFRZvYcA8RiMJryWFEN6vj7U5Zc="/>
         <field:display field="url" id="s_es_jtestme_collector_domain_Server_url" object="${server}" z="Az7hj/cmhPzTwDDeV8hRcMNWyrg="/>
+        <field:display field="username" id="s_es_jtestme_collector_domain_Server_username" object="${server}" z="nhK4UHB1gDBtbeGrVshgixttMrk="/>
+        <field:display field="password" id="s_es_jtestme_collector_domain_Server_password" object="${server}" z="+RyUnUyFYcif3tbBhPKKwqTB7g8="/>
         <field:display field="proxyHost" id="s_es_jtestme_collector_domain_Server_proxyHost" object="${server}" z="d5FSsj7frgxsBjrj7f45EaPgoh0="/>
         <field:display field="proxyPort" id="s_es_jtestme_collector_domain_Server_proxyPort" object="${server}" z="bVkF+17eStLQTyVklsGmeEyTsFk="/>
         <field:display field="proxyUser" id="s_es_jtestme_collector_domain_Server_proxyUser" object="${server}" z="Ovai4eO3Va59QlQWh82CQvh1MSc="/>
-        <field:display field="proxyPassword" id="s_es_jtestme_collector_domain_Server_proxyPassword" object="${server}" z="user-managed" render="false"/>
-		<field:display field="username" id="s_es_jtestme_collector_domain_Server_username" object="${server}" z="user-managed" render="false"/>
-        <field:display field="password" id="s_es_jtestme_collector_domain_Server_password" object="${server}" z="user-managed" render="false"/>
-        <field:display field="trustStorePassword" id="s_es_jtestme_collector_domain_Server_trustStorePassword" object="${server}" z="user-managed" render="false"/>
+        <field:display field="proxyPassword" id="s_es_jtestme_collector_domain_Server_proxyPassword" object="${server}" z="t89HJID+hx6GaA05dniWVUuw5bk="/>
+        <field:display field="trustStore" id="s_es_jtestme_collector_domain_Server_trustStore" object="${server}" z="QVOXOVvaFOy3IoXwtZQCpEdrz1w="/>
+        <field:display field="trustStorePassword" id="s_es_jtestme_collector_domain_Server_trustStorePassword" object="${server}" z="Fm4XqPLswZPQIeX2IcP6jYVguqY="/>
     </page:show>
 </div>

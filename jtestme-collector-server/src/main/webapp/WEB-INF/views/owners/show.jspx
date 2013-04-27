@@ -3,10 +3,10 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <page:show id="ps_es_jtestme_collector_domain_Owner" object="${owner}" path="/owners" z="PLq0hGol2KvAqsuAWms8YcDxesY=">
+    	<field:display field="application" id="s_es_jtestme_collector_domain_Owner_application" object="${owner}" z="QTwwPEjqCJxvnYa/M4JkVPsAsXk="/>
         <field:display field="firstName" id="s_es_jtestme_collector_domain_Owner_firstName" object="${owner}" z="RZqojWekCKA4FUN7L+WyIRbW/2Y="/>
         <field:display field="lastName" id="s_es_jtestme_collector_domain_Owner_lastName" object="${owner}" z="JGh4NqVUcJfRhdbGrA1fnFEJb+E="/>
         <field:display field="email" id="s_es_jtestme_collector_domain_Owner_email" object="${owner}" z="rEZNo93/HmReI5lPCbOBgRJEGjE="/>
         <field:display field="phone" id="s_es_jtestme_collector_domain_Owner_phone" object="${owner}" z="uxDRWzh5zeo2c/gqXpfaB8Wfh/4="/>
-        <field:display field="applications" id="s_es_jtestme_collector_domain_Owner_applications" object="${owner}" z="AL52N1GXf2RkmqPVl2GpHmyT0m8="/>
     </page:show>
 </div>

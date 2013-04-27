@@ -3,7 +3,6 @@
 
 package es.jtestme.collector.domain;
 
-import es.jtestme.collector.domain.Environment;
 import es.jtestme.collector.domain.EnvironmentDataOnDemand;
 import es.jtestme.collector.domain.Server;
 import es.jtestme.collector.domain.ServerDataOnDemand;
@@ -31,7 +30,6 @@ privileged aspect ServerDataOnDemand_Roo_DataOnDemand {
     
     public Server ServerDataOnDemand.getNewTransientServer(int index) {
         Server obj = new Server();
-        setEnvironment(obj, index);
         setName(obj, index);
         setPassword(obj, index);
         setProxyHost(obj, index);
@@ -39,15 +37,11 @@ privileged aspect ServerDataOnDemand_Roo_DataOnDemand {
         setProxyPort(obj, index);
         setProxyUser(obj, index);
         setServerType(obj, index);
+        setTrustStore(obj, index);
         setTrustStorePassword(obj, index);
         setUrl(obj, index);
         setUsername(obj, index);
         return obj;
-    }
-    
-    public void ServerDataOnDemand.setEnvironment(Server obj, int index) {
-        Environment environment = environmentDataOnDemand.getRandomEnvironment();
-        obj.setEnvironment(environment);
     }
     
     public void ServerDataOnDemand.setName(Server obj, int index) {
@@ -91,6 +85,11 @@ privileged aspect ServerDataOnDemand_Roo_DataOnDemand {
         obj.setServerType(serverType);
     }
     
+    public void ServerDataOnDemand.setTrustStore(Server obj, int index) {
+        String trustStore = "trustStore_" + index;
+        obj.setTrustStore(trustStore);
+    }
+    
     public void ServerDataOnDemand.setTrustStorePassword(Server obj, int index) {
         String trustStorePassword = "trustStorePassword_" + index;
         obj.setTrustStorePassword(trustStorePassword);
@@ -98,8 +97,8 @@ privileged aspect ServerDataOnDemand_Roo_DataOnDemand {
     
     public void ServerDataOnDemand.setUrl(Server obj, int index) {
         String url = "url_" + index;
-        if (url.length() > 255) {
-            url = url.substring(0, 255);
+        if (url.length() > 250) {
+            url = url.substring(0, 250);
         }
         obj.setUrl(url);
     }

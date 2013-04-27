@@ -17,11 +17,11 @@ privileged aspect Owner_Roo_Equals {
             return true;
         }
         Owner rhs = (Owner) obj;
-        return new EqualsBuilder().append(email, rhs.email).append(firstName, rhs.firstName).append(id, rhs.id).append(lastName, rhs.lastName).append(phone, rhs.phone).isEquals();
+        return new EqualsBuilder().append(application, rhs.application).append(email, rhs.email).append(firstName, rhs.firstName).append(id, rhs.id).append(lastName, rhs.lastName).append(phone, rhs.phone).isEquals();
     }
     
     public int Owner.hashCode() {
-        return new HashCodeBuilder().append(email).append(firstName).append(id).append(lastName).append(phone).toHashCode();
+        return new HashCodeBuilder().append(application).append(email).append(firstName).append(id).append(lastName).append(phone).toHashCode();
     }
     
 }

@@ -83,6 +83,14 @@ privileged aspect Server_Roo_JavaBean {
         this.proxyPassword = proxyPassword;
     }
     
+    public String Server.getTrustStore() {
+        return this.trustStore;
+    }
+    
+    public void Server.setTrustStore(String trustStore) {
+        this.trustStore = trustStore;
+    }
+    
     public String Server.getTrustStorePassword() {
         return this.trustStorePassword;
     }
@@ -91,20 +99,20 @@ privileged aspect Server_Roo_JavaBean {
         this.trustStorePassword = trustStorePassword;
     }
     
-    public Environment Server.getEnvironment() {
-        return this.environment;
-    }
-    
-    public void Server.setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
-    
     public Set<ServerState> Server.getStates() {
         return this.states;
     }
     
     public void Server.setStates(Set<ServerState> states) {
         this.states = states;
+    }
+    
+    public Environment Server.getEnvironment() {
+        return this.environment;
+    }
+    
+    public void Server.setEnvironment(Environment environment) {
+        this.environment = environment;
     }
     
 }

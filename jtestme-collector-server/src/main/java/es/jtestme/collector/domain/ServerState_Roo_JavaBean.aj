@@ -28,20 +28,20 @@ privileged aspect ServerState_Roo_JavaBean {
         this.stateDate = stateDate;
     }
     
-    public Server ServerState.getServer() {
-        return this.server;
-    }
-    
-    public void ServerState.setServer(Server server) {
-        this.server = server;
-    }
-    
     public Set<Verificator> ServerState.getVerificators() {
         return this.verificators;
     }
     
     public void ServerState.setVerificators(Set<Verificator> verificators) {
         this.verificators = verificators;
+    }
+    
+    public Server ServerState.getServer() {
+        return this.server;
+    }
+    
+    public void ServerState.setServer(Server server) {
+        this.server = server;
     }
     
 }

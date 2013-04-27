@@ -5,7 +5,6 @@ package es.jtestme.collector.domain;
 
 import es.jtestme.collector.domain.Application;
 import es.jtestme.collector.domain.Owner;
-import java.util.Set;
 
 privileged aspect Owner_Roo_JavaBean {
     
@@ -41,12 +40,12 @@ privileged aspect Owner_Roo_JavaBean {
         this.phone = phone;
     }
     
-    public Set<Application> Owner.getApplications() {
-        return this.applications;
+    public Application Owner.getApplication() {
+        return this.application;
     }
     
-    public void Owner.setApplications(Set<Application> applications) {
-        this.applications = applications;
+    public void Owner.setApplication(Application application) {
+        this.application = application;
     }
     
 }
