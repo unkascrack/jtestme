@@ -3,17 +3,18 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <form:update id="fu_es_jtestme_collector_domain_Server" modelAttribute="server" path="/servers" versionField="Version" z="JC6buRCzonhd2fEkrK982Ahwdhc=">
-    	<field:select field="environment" id="c_es_jtestme_collector_domain_Server_environment" itemValue="id" items="${environments}" path="/environments" z="user-managed" disabled="true"/>
+        <field:select field="environment" id="c_es_jtestme_collector_domain_Server_environment" itemValue="id" items="${environments}" path="/environments" z="j/DBtbsRBlxI9N3b2uWZ1Cvpj7E="/>
         <field:select field="serverType" id="c_es_jtestme_collector_domain_Server_serverType" items="${servertypes}" path="servertypes" required="true" z="Q06gqkJYKmlT2L1PH1IK8ZyxQQw="/>
         <field:input field="name" id="c_es_jtestme_collector_domain_Server_name" required="true" z="user-managed"/>
-        <field:input field="url" id="c_es_jtestme_collector_domain_Server_url" required="true" z="user-managed"/>
+        <field:textarea field="url" id="c_es_jtestme_collector_domain_Server_url" z="AK+kckE4apLXACzO14sn2LoQO1A="/>
+        <field:input field="username" id="c_es_jtestme_collector_domain_Server_username" z="user-managed"/>
+        <field:input field="password" id="c_es_jtestme_collector_domain_Server_password" z="user-managed"/>
         <field:input field="proxyHost" id="c_es_jtestme_collector_domain_Server_proxyHost" z="ANcyz7hTZzqfxnLwad0LXlnO47k="/>
         <field:input field="proxyPort" id="c_es_jtestme_collector_domain_Server_proxyPort" z="7l/mlYiC9pp0ZqQMk/50mgUqldM="/>
         <field:input field="proxyUser" id="c_es_jtestme_collector_domain_Server_proxyUser" z="e48R041ftgJZX53f3wzU3iMXPtM="/>
         <field:input field="proxyPassword" id="c_es_jtestme_collector_domain_Server_proxyPassword" z="RXH+4Mwj/hlRR3xKrDhaTySK0Ok="/>
-        <field:input field="username" id="c_es_jtestme_collector_domain_Server_username" z="user-managed"/>
-        <field:input field="password" id="c_es_jtestme_collector_domain_Server_password" z="user-managed"/>
-        <field:input field="trustStorePassword" id="c_es_jtestme_collector_domain_Server_trustStorePassword" z="user-managed" render="false"/>
-        <field:simple field="states" id="c_es_jtestme_collector_domain_Server_states" messageCode="entity_reference_not_managed" messageCodeAttribute="Server State" z="user-managed" render="false"/>
+        <field:input field="trustStore" id="c_es_jtestme_collector_domain_Server_trustStore" z="XUsFNQFJjEq8N0yZPziGYTDyytQ="/>
+        <field:input field="trustStorePassword" id="c_es_jtestme_collector_domain_Server_trustStorePassword" z="+5YdTssn/MyjoUEAkNrfRC33gO4="/>
+        <field:simple field="states" id="c_es_jtestme_collector_domain_Server_states" messageCode="entity_reference_not_managed" messageCodeAttribute="Server State" render="false" z="user-managed"/>
     </form:update>
 </div>

@@ -3,11 +3,11 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_es_jtestme_collector_domain_Owner" modelAttribute="owner" path="/owners" render="${empty dependencies}" z="QLub/Hq2QywQWTFgYf4W84EVD5c=">
+        <field:select field="application" id="c_es_jtestme_collector_domain_Owner_application" itemValue="id" items="${applications}" path="/applications" z="xv3mnEfw3i73DpNLzhfep0aFbaM="/>
         <field:input field="firstName" id="c_es_jtestme_collector_domain_Owner_firstName" required="true" z="user-managed"/>
         <field:input field="lastName" id="c_es_jtestme_collector_domain_Owner_lastName" z="user-managed"/>
         <field:input field="email" id="c_es_jtestme_collector_domain_Owner_email" required="true" validationMessageCode="field_invalid_email" validationRegex="[a-zA-Z0-9\\.\\-]+@[a-zA-Z0-9\\.]+" z="user-managed"/>
         <field:input field="phone" id="c_es_jtestme_collector_domain_Owner_phone" max="10" z="eTNgRGsgFjLC55i1RIXd71Q3W+c="/>
-        <field:select field="applications" id="c_es_jtestme_collector_domain_Owner_applications" itemValue="id" items="${applications}" multiple="true" path="/applications" render="false" z="user-managed"/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_es_jtestme_collector_domain_Owner" render="${not empty dependencies}" z="bWDU2tp9ljSquEYr6jh0iQSpqsc="/>
 </div>

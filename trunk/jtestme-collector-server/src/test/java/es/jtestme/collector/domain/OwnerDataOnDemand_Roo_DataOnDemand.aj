@@ -3,6 +3,7 @@
 
 package es.jtestme.collector.domain;
 
+import es.jtestme.collector.domain.ApplicationDataOnDemand;
 import es.jtestme.collector.domain.Owner;
 import es.jtestme.collector.domain.OwnerDataOnDemand;
 import java.security.SecureRandom;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Random;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 privileged aspect OwnerDataOnDemand_Roo_DataOnDemand {
@@ -21,6 +23,9 @@ privileged aspect OwnerDataOnDemand_Roo_DataOnDemand {
     private Random OwnerDataOnDemand.rnd = new SecureRandom();
     
     private List<Owner> OwnerDataOnDemand.data;
+    
+    @Autowired
+    ApplicationDataOnDemand OwnerDataOnDemand.applicationDataOnDemand;
     
     public Owner OwnerDataOnDemand.getNewTransientOwner(int index) {
         Owner obj = new Owner();

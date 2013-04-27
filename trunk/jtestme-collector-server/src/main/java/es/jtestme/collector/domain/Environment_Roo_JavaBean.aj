@@ -59,20 +59,20 @@ privileged aspect Environment_Roo_JavaBean {
         this.mailingNoConnect = mailingNoConnect;
     }
     
-    public Application Environment.getApplication() {
-        return this.application;
-    }
-    
-    public void Environment.setApplication(Application application) {
-        this.application = application;
-    }
-    
     public Set<Server> Environment.getServers() {
         return this.servers;
     }
     
     public void Environment.setServers(Set<Server> servers) {
         this.servers = servers;
+    }
+    
+    public Application Environment.getApplication() {
+        return this.application;
+    }
+    
+    public void Environment.setApplication(Application application) {
+        this.application = application;
     }
     
 }

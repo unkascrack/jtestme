@@ -5,7 +5,5 @@
     <page:show id="ps_es_jtestme_collector_domain_Application" object="${application}" path="/applications" z="s7XenM+ta2uSSfhSM1WceguBMmQ=">
         <field:display field="name" id="s_es_jtestme_collector_domain_Application_name" object="${application}" z="V/zaani+i5kT0Zxo4G4HFTmq5h8="/>
         <field:display field="description" id="s_es_jtestme_collector_domain_Application_description" object="${application}" z="gfG7zIWfwy5Z1CORH9+QgfyO7cI="/>
-        <field:display field="environments" id="s_es_jtestme_collector_domain_Application_environments" object="${application}" z="user-managed"/>
-        <field:display field="owners" id="s_es_jtestme_collector_domain_Application_owners" object="${application}" z="user-managed"/>
     </page:show>
 </div>

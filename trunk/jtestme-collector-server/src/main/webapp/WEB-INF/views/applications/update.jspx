@@ -5,7 +5,7 @@
     <form:update id="fu_es_jtestme_collector_domain_Application" modelAttribute="application" path="/applications" versionField="Version" z="hSBBgo9HJujfHI0Z0coBF8InkAs=">
         <field:input field="name" id="c_es_jtestme_collector_domain_Application_name" max="30" required="true" z="dOjloUrojSOFBlouO7Xc3NVYzJk="/>
         <field:textarea field="description" id="c_es_jtestme_collector_domain_Application_description" z="WezhTuGYMfBBD5vX/PFDA5vkDDQ="/>
-        <field:select field="environments" id="c_es_jtestme_collector_domain_Application_environments" itemValue="id" items="${environments}" multiple="true" path="/environments" z="user-managed"/>
-        <field:select field="owners" id="c_es_jtestme_collector_domain_Application_owners" itemValue="id" items="${owners}" multiple="true" path="/owners" z="user-managed"/>
+        <field:simple field="environments" id="c_es_jtestme_collector_domain_Application_environments" messageCode="entity_reference_not_managed" messageCodeAttribute="Environment" render="false" z="user-managed"/>
+        <field:simple field="owners" id="c_es_jtestme_collector_domain_Application_owners" messageCode="entity_reference_not_managed" messageCodeAttribute="Owner" render="false" z="user-managed"/>
     </form:update>
 </div>

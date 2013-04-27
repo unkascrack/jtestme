@@ -21,6 +21,14 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     @Autowired
     JTestMeCollectorService ApplicationConversionServiceFactoryBean.jTestMeCollectorService;
     
+    public Converter<Application, String> ApplicationConversionServiceFactoryBean.getApplicationToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<es.jtestme.collector.domain.Application, java.lang.String>() {
+            public String convert(Application application) {
+                return new StringBuilder().append(application.getName()).append(' ').append(application.getDescription()).toString();
+            }
+        };
+    }
+    
     public Converter<Long, Application> ApplicationConversionServiceFactoryBean.getIdToApplicationConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Long, es.jtestme.collector.domain.Application>() {
             public es.jtestme.collector.domain.Application convert(java.lang.Long id) {
@@ -33,6 +41,14 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
         return new org.springframework.core.convert.converter.Converter<java.lang.String, es.jtestme.collector.domain.Application>() {
             public es.jtestme.collector.domain.Application convert(String id) {
                 return getObject().convert(getObject().convert(id, Long.class), Application.class);
+            }
+        };
+    }
+    
+    public Converter<Environment, String> ApplicationConversionServiceFactoryBean.getEnvironmentToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<es.jtestme.collector.domain.Environment, java.lang.String>() {
+            public String convert(Environment environment) {
+                return new StringBuilder().append(environment.getName()).append(' ').append(environment.getDescription()).toString();
             }
         };
     }
@@ -53,6 +69,14 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
         };
     }
     
+    public Converter<Owner, String> ApplicationConversionServiceFactoryBean.getOwnerToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<es.jtestme.collector.domain.Owner, java.lang.String>() {
+            public String convert(Owner owner) {
+                return new StringBuilder().append(owner.getFirstName()).append(' ').append(owner.getLastName()).append(' ').append(owner.getEmail()).append(' ').append(owner.getPhone()).toString();
+            }
+        };
+    }
+    
     public Converter<Long, Owner> ApplicationConversionServiceFactoryBean.getIdToOwnerConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Long, es.jtestme.collector.domain.Owner>() {
             public es.jtestme.collector.domain.Owner convert(java.lang.Long id) {
@@ -65,6 +89,14 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
         return new org.springframework.core.convert.converter.Converter<java.lang.String, es.jtestme.collector.domain.Owner>() {
             public es.jtestme.collector.domain.Owner convert(String id) {
                 return getObject().convert(getObject().convert(id, Long.class), Owner.class);
+            }
+        };
+    }
+    
+    public Converter<Server, String> ApplicationConversionServiceFactoryBean.getServerToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<es.jtestme.collector.domain.Server, java.lang.String>() {
+            public String convert(Server server) {
+                return new StringBuilder().append(server.getName()).append(' ').append(server.getUrl()).append(' ').append(server.getUsername()).append(' ').append(server.getPassword()).toString();
             }
         };
     }

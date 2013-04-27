@@ -3,7 +3,6 @@
 
 package es.jtestme.collector.domain;
 
-import es.jtestme.collector.domain.Application;
 import es.jtestme.collector.domain.ApplicationDataOnDemand;
 import es.jtestme.collector.domain.Environment;
 import es.jtestme.collector.domain.EnvironmentDataOnDemand;
@@ -35,7 +34,6 @@ privileged aspect EnvironmentDataOnDemand_Roo_DataOnDemand {
     
     public Environment EnvironmentDataOnDemand.getNewTransientEnvironment(int index) {
         Environment obj = new Environment();
-        setApplication(obj, index);
         setDescription(obj, index);
         setEnvironmentType(obj, index);
         setMailingError(obj, index);
@@ -43,11 +41,6 @@ privileged aspect EnvironmentDataOnDemand_Roo_DataOnDemand {
         setName(obj, index);
         setStartWatching(obj, index);
         return obj;
-    }
-    
-    public void EnvironmentDataOnDemand.setApplication(Environment obj, int index) {
-        Application application = applicationDataOnDemand.getRandomApplication();
-        obj.setApplication(application);
     }
     
     public void EnvironmentDataOnDemand.setDescription(Environment obj, int index) {

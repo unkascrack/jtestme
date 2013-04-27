@@ -3,14 +3,14 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_es_jtestme_collector_domain_Environment" modelAttribute="environment" path="/environments" render="${empty dependencies}" z="aN+xY8jNeZFmk7OYGbqojUnl5H8=">
-        <field:select field="application" id="c_es_jtestme_collector_domain_Environment_application" itemValue="id" items="${applications}" path="/applications" required="true" z="7g92E+LA3wjNlxvnQpIbRpCe8nY="/>
-        <field:select field="environmentType" id="c_es_jtestme_collector_domain_Environment_environmentType" items="${environmenttypes}" path="environmenttypes" required="true" z="4kSg0uRVd2164VEdgICsmE2eNEw="/>
+        <field:select field="application" id="c_es_jtestme_collector_domain_Environment_application" itemValue="id" items="${applications}" path="/applications" z="1nbWGdxW5EEj/S8tMQefgjxAZGc="/>
         <field:input field="name" id="c_es_jtestme_collector_domain_Environment_name" required="true" z="user-managed"/>
-        <field:textarea field="description" id="c_es_jtestme_collector_domain_Environment_description" z="user-managed"/>
+        <field:select field="environmentType" id="c_es_jtestme_collector_domain_Environment_environmentType" items="${environmenttypes}" path="environmenttypes" required="true" z="4kSg0uRVd2164VEdgICsmE2eNEw="/>
+        <field:textarea field="description" id="c_es_jtestme_collector_domain_Environment_description" z="uZY9/78PuRAARkwYVaaFmN3z/ts="/>
         <field:checkbox field="startWatching" id="c_es_jtestme_collector_domain_Environment_startWatching" z="h6A5ZOcMcGDqb5v6jwTde5czP1Y="/>
         <field:checkbox field="mailingError" id="c_es_jtestme_collector_domain_Environment_mailingError" z="nG2JxGdewwehQqKN0KjPvwaVEEk="/>
         <field:checkbox field="mailingNoConnect" id="c_es_jtestme_collector_domain_Environment_mailingNoConnect" z="ng8yjGCFeQ7G2eZLrbO1UN3ZP+U="/>
-        <field:select field="servers" id="c_es_jtestme_collector_domain_Environment_servers" itemValue="id" items="${servers}" multiple="true" path="/servers" render="false" z="user-managed"/>
+        <field:simple field="servers" id="c_es_jtestme_collector_domain_Environment_servers" messageCode="entity_reference_not_managed" messageCodeAttribute="Server" render="false" z="user-managed"/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_es_jtestme_collector_domain_Environment" render="${not empty dependencies}" z="oV/qWfh0Sh0/tuGrZRbNMmlEDNE="/>
 </div>
