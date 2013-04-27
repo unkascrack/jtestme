@@ -73,12 +73,6 @@
 			<version>2.5</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.1</version>
-			<scope>provided</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -94,20 +88,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
+			<artifactId>spring-beans</artifactId>
 			<version>3.2.0.RELEASE</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<version>3.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb-j5</artifactId>
-			<version>2.2.4</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -164,6 +146,11 @@
 	<build>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.shared</groupId>
+					<artifactId>maven-dependency-analyzer</artifactId>
+					<version>1.4</version>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -241,6 +228,10 @@
 			</extension>
 		</extensions>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.shared</groupId>
+				<artifactId>maven-dependency-analyzer</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>

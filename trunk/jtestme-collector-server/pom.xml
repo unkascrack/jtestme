@@ -6,7 +6,7 @@
 	<artifactId>jtestme-collector</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
-	<name>JTtestMe - Collector</name>
+	<name>JTestMe - Collector</name>
 	<properties>
 		<aspectj.version>1.7.0</aspectj.version>
 		<java.version>6</java.version>
@@ -148,6 +148,21 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
