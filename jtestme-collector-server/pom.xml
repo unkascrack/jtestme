@@ -6,7 +6,7 @@
 	<artifactId>jtestme-collector</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
-	<name>jtestme-collector</name>
+	<name>JTtestMe - Collector</name>
 	<properties>
 		<aspectj.version>1.7.0</aspectj.version>
 		<java.version>6</java.version>
@@ -51,6 +51,12 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
+		<dependency>
+			<groupId>es.jtestme</groupId>
+			<artifactId>jtestme-core</artifactId>
+			<version>1.4</version>
+		</dependency>
+	
 		<!-- General dependencies for standard applications -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -439,6 +445,9 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
 				<version>2.7</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
 			</plugin>
 			<!-- IDE -->
 			<plugin>
