@@ -23,7 +23,7 @@ public class Verificator {
     private String type;
 
     @NotNull
-    private String success;
+    private boolean success;
 
     private String message;
 

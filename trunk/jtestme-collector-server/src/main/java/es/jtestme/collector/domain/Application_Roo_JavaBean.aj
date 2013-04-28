@@ -4,6 +4,7 @@
 package es.jtestme.collector.domain;
 
 import es.jtestme.collector.domain.Application;
+import es.jtestme.collector.domain.ApplicationState;
 import es.jtestme.collector.domain.Owner;
 import es.jtestme.collector.domain.reference.EnvironmentType;
 import java.util.Set;
@@ -66,6 +67,14 @@ privileged aspect Application_Roo_JavaBean {
         this.startWatching = startWatching;
     }
     
+    public boolean Application.isMailingOk() {
+        return this.mailingOk;
+    }
+    
+    public void Application.setMailingOk(boolean mailingOk) {
+        this.mailingOk = mailingOk;
+    }
+    
     public boolean Application.isMailingError() {
         return this.mailingError;
     }
@@ -80,6 +89,14 @@ privileged aspect Application_Roo_JavaBean {
     
     public void Application.setMailingNoConnect(boolean mailingNoConnect) {
         this.mailingNoConnect = mailingNoConnect;
+    }
+    
+    public Set<ApplicationState> Application.getStates() {
+        return this.states;
+    }
+    
+    public void Application.setStates(Set<ApplicationState> states) {
+        this.states = states;
     }
     
     public Set<Owner> Application.getOwners() {

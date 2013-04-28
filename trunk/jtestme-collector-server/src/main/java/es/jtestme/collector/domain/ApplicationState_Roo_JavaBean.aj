@@ -28,6 +28,30 @@ privileged aspect ApplicationState_Roo_JavaBean {
         this.stateDate = stateDate;
     }
     
+    public Integer ApplicationState.getCode() {
+        return this.code;
+    }
+    
+    public void ApplicationState.setCode(Integer code) {
+        this.code = code;
+    }
+    
+    public String ApplicationState.getMessage() {
+        return this.message;
+    }
+    
+    public void ApplicationState.setMessage(String message) {
+        this.message = message;
+    }
+    
+    public String ApplicationState.getContent() {
+        return this.content;
+    }
+    
+    public void ApplicationState.setContent(String content) {
+        this.content = content;
+    }
+    
     public Set<Verificator> ApplicationState.getVerificators() {
         return this.verificators;
     }
@@ -42,14 +66,6 @@ privileged aspect ApplicationState_Roo_JavaBean {
     
     public void ApplicationState.setApplication(Application application) {
         this.application = application;
-    }
-    
-    public Set<ApplicationState> ApplicationState.getStates() {
-        return this.states;
-    }
-    
-    public void ApplicationState.setStates(Set<ApplicationState> states) {
-        this.states = states;
     }
     
 }

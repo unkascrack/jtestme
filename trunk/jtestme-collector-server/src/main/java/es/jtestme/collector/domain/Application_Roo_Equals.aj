@@ -17,11 +17,11 @@ privileged aspect Application_Roo_Equals {
             return true;
         }
         Application rhs = (Application) obj;
-        return new EqualsBuilder().append(description, rhs.description).append(environmentType, rhs.environmentType).append(id, rhs.id).append(mailingError, rhs.mailingError).append(mailingNoConnect, rhs.mailingNoConnect).append(name, rhs.name).append(password, rhs.password).append(startWatching, rhs.startWatching).append(url, rhs.url).append(username, rhs.username).isEquals();
+        return new EqualsBuilder().append(description, rhs.description).append(environmentType, rhs.environmentType).append(id, rhs.id).append(mailingError, rhs.mailingError).append(mailingNoConnect, rhs.mailingNoConnect).append(mailingOk, rhs.mailingOk).append(name, rhs.name).append(password, rhs.password).append(startWatching, rhs.startWatching).append(url, rhs.url).append(username, rhs.username).isEquals();
     }
     
     public int Application.hashCode() {
-        return new HashCodeBuilder().append(description).append(environmentType).append(id).append(mailingError).append(mailingNoConnect).append(name).append(password).append(startWatching).append(url).append(username).toHashCode();
+        return new HashCodeBuilder().append(description).append(environmentType).append(id).append(mailingError).append(mailingNoConnect).append(mailingOk).append(name).append(password).append(startWatching).append(url).append(username).toHashCode();
     }
     
 }

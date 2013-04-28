@@ -29,6 +29,7 @@ privileged aspect ApplicationDataOnDemand_Roo_DataOnDemand {
         setEnvironmentType(obj, index);
         setMailingError(obj, index);
         setMailingNoConnect(obj, index);
+        setMailingOk(obj, index);
         setName(obj, index);
         setPassword(obj, index);
         setStartWatching(obj, index);
@@ -58,6 +59,11 @@ privileged aspect ApplicationDataOnDemand_Roo_DataOnDemand {
     public void ApplicationDataOnDemand.setMailingNoConnect(Application obj, int index) {
         Boolean mailingNoConnect = true;
         obj.setMailingNoConnect(mailingNoConnect);
+    }
+    
+    public void ApplicationDataOnDemand.setMailingOk(Application obj, int index) {
+        Boolean mailingOk = true;
+        obj.setMailingOk(mailingOk);
     }
     
     public void ApplicationDataOnDemand.setName(Application obj, int index) {

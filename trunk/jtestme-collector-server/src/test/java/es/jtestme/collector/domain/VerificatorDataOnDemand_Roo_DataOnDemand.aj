@@ -60,7 +60,7 @@ privileged aspect VerificatorDataOnDemand_Roo_DataOnDemand {
     }
     
     public void VerificatorDataOnDemand.setSuccess(Verificator obj, int index) {
-        String success = "success_" + index;
+        Boolean success = true;
         obj.setSuccess(success);
     }
     

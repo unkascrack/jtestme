@@ -35,6 +35,8 @@ privileged aspect ApplicationStateDataOnDemand_Roo_DataOnDemand {
     public ApplicationState ApplicationStateDataOnDemand.getNewTransientApplicationState(int index) {
         ApplicationState obj = new ApplicationState();
         setApplication(obj, index);
+        setCode(obj, index);
+        setMessage(obj, index);
         setStateDate(obj, index);
         setStateType(obj, index);
         return obj;
@@ -43,6 +45,16 @@ privileged aspect ApplicationStateDataOnDemand_Roo_DataOnDemand {
     public void ApplicationStateDataOnDemand.setApplication(ApplicationState obj, int index) {
         Application application = applicationDataOnDemand.getRandomApplication();
         obj.setApplication(application);
+    }
+    
+    public void ApplicationStateDataOnDemand.setCode(ApplicationState obj, int index) {
+        Integer code = new Integer(index);
+        obj.setCode(code);
+    }
+    
+    public void ApplicationStateDataOnDemand.setMessage(ApplicationState obj, int index) {
+        String message = "message_" + index;
+        obj.setMessage(message);
     }
     
     public void ApplicationStateDataOnDemand.setStateDate(ApplicationState obj, int index) {
