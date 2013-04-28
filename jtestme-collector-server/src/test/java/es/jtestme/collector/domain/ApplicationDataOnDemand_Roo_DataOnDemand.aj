@@ -6,7 +6,6 @@ package es.jtestme.collector.domain;
 import es.jtestme.collector.domain.Application;
 import es.jtestme.collector.domain.ApplicationDataOnDemand;
 import es.jtestme.collector.domain.reference.EnvironmentType;
-import es.jtestme.collector.service.JTestMeCollectorService;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.Random;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 privileged aspect ApplicationDataOnDemand_Roo_DataOnDemand {
@@ -24,9 +22,6 @@ privileged aspect ApplicationDataOnDemand_Roo_DataOnDemand {
     private Random ApplicationDataOnDemand.rnd = new SecureRandom();
     
     private List<Application> ApplicationDataOnDemand.data;
-    
-    @Autowired
-    JTestMeCollectorService ApplicationDataOnDemand.jTestMeCollectorService;
     
     public Application ApplicationDataOnDemand.getNewTransientApplication(int index) {
         Application obj = new Application();
@@ -112,14 +107,14 @@ privileged aspect ApplicationDataOnDemand_Roo_DataOnDemand {
         }
         Application obj = data.get(index);
         Long id = obj.getId();
-        return jTestMeCollectorService.findApplication(id);
+        return Application.findApplication(id);
     }
     
     public Application ApplicationDataOnDemand.getRandomApplication() {
         init();
         Application obj = data.get(rnd.nextInt(data.size()));
         Long id = obj.getId();
-        return jTestMeCollectorService.findApplication(id);
+        return Application.findApplication(id);
     }
     
     public boolean ApplicationDataOnDemand.modifyApplication(Application obj) {
@@ -129,7 +124,7 @@ privileged aspect ApplicationDataOnDemand_Roo_DataOnDemand {
     public void ApplicationDataOnDemand.init() {
         int from = 0;
         int to = 10;
-        data = jTestMeCollectorService.findApplicationEntries(from, to);
+        data = Application.findApplicationEntries(from, to);
         if (data == null) {
             throw new IllegalStateException("Find entries implementation for 'Application' illegally returned null");
         }
@@ -141,7 +136,7 @@ privileged aspect ApplicationDataOnDemand_Roo_DataOnDemand {
         for (int i = 0; i < 10; i++) {
             Application obj = getNewTransientApplication(i);
             try {
-                jTestMeCollectorService.saveApplication(obj);
+                obj.persist();
             } catch (ConstraintViolationException e) {
                 StringBuilder msg = new StringBuilder();
                 for (Iterator<ConstraintViolation<?>> iter = e.getConstraintViolations().iterator(); iter.hasNext();) {

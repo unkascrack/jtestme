@@ -3,13 +3,12 @@
 
 package es.jtestme.collector.web;
 
+import es.jtestme.collector.domain.Application;
 import es.jtestme.collector.domain.Owner;
-import es.jtestme.collector.service.JTestMeCollectorService;
 import es.jtestme.collector.web.OwnerController;
 import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,9 +19,6 @@ import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 
 privileged aspect OwnerController_Roo_Controller {
-    
-    @Autowired
-    JTestMeCollectorService OwnerController.jTestMeCollectorService;
     
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String OwnerController.create(@Valid Owner owner, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
@@ -91,7 +87,7 @@ privileged aspect OwnerController_Roo_Controller {
     
     void OwnerController.populateEditForm(Model uiModel, Owner owner) {
         uiModel.addAttribute("owner", owner);
-        uiModel.addAttribute("applications", jTestMeCollectorService.findAllApplications());
+        uiModel.addAttribute("applications", Application.findAllApplications());
     }
     
     String OwnerController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
