@@ -9,9 +9,17 @@
 	</parent>
 	<artifactId>jtestme-core</artifactId>
 	<name>jTestMe - Core</name>
-	<version>1.4</version>
+	<version>1.5</version>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.4</version>
+			<scope>provided</scope>
+			<optional>true</optional>
+		</dependency>
+	
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
