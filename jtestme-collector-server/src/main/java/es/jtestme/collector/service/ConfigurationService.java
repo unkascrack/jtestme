@@ -9,37 +9,37 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class JTestMeCollectorConfiguration {
+public class ConfigurationService {
 
-	private static Logger logger = LoggerFactory
-			.getLogger(JTestMeCollectorConfiguration.class);
+	private transient static Logger logger = LoggerFactory
+			.getLogger(ConfigurationService.class);
 
 	@Value("${http.proxyHost}")
-	private String httpProxyHost;
+	private transient String httpProxyHost;
 
 	@Value("${http.proxyPort}")
-	private String httpProxyPort;
+	private transient String httpProxyPort;
 
 	@Value("${https.proxyHost}")
-	private String httpsProxyHost;
+	private transient String httpsProxyHost;
 
 	@Value("${https.proxyPort}")
-	private String httpsProxyPort;
+	private transient String httpsProxyPort;
 
 	@Value("${http.nonProxyHosts}")
-	private String nonProxyHosts;
+	private transient String nonProxyHosts;
 
 	@Value("${javax.net.ssl.keyStore}")
-	private String keyStore;
+	private transient String keyStore;
 
 	@Value("${javax.net.ssl.keyStorePassword}")
-	private String keyStorePassword;
+	private transient String keyStorePassword;
 
 	@Value("${javax.net.ssl.trustStore}")
-	private String trustStore;
+	private transient String trustStore;
 
 	@Value("${javax.net.ssl.trustStorePassword}")
-	private String trustStorePassword;
+	private transient String trustStorePassword;
 
 	@PostConstruct
 	public void initConfiguration() {
