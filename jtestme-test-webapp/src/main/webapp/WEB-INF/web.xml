@@ -29,10 +29,12 @@
 			<param-name>default-viewer</param-name>
 			<param-value>html</param-value>
 		</init-param>
+		<!-- 
 		<init-param>
 			<param-name>xml-viewer-class</param-name>
 			<param-value>es.jtestme.test.viewers.MyXMLViewer</param-value>
 		</init-param>
+		 -->
 		<init-param>
 			<param-name>custom-viewer-class</param-name>
 			<param-value>es.jtestme.test.viewers.MyCustomViewer</param-value>
