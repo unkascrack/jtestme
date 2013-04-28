@@ -89,6 +89,7 @@
 					<systemProperties>
 						<JAVA_OPTS>-server -Xmx256m -Xms128m</JAVA_OPTS>
 					</systemProperties>
+					<port>9999</port>
 				</configuration>
 			</plugin>
 		</plugins>
