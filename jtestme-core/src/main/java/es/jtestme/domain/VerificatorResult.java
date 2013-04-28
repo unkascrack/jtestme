@@ -4,21 +4,46 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import com.thoughtworks.xstream.converters.basic.BooleanConverter;
+
 import es.jtestme.viewers.Viewer;
 
+@XStreamAlias("verificator")
 public class VerificatorResult implements Serializable {
 
     private static final long serialVersionUID = -2134315643510887806L;
 
+    @XStreamAlias("type")
     private String type;
+    
+    @XStreamAlias("name")
     private String name;
+    
+    @XStreamAlias("description")
     private String description;
-    private String resolution;
-    private boolean optional = false;
-    private Map<String, String> parameters = new HashMap<String, String>();
+    
+    @XStreamAlias("success")
+	@XStreamConverter(value=BooleanConverter.class, booleans={false}, strings={"OK", "ERROR"})
     private boolean success = false;
+    
+    @XStreamAlias("message")
     private String message;
+    
+    @XStreamAlias("cause")
     private Throwable cause;
+    
+    @XStreamAlias("resolution")
+    private String resolution;
+
+    @XStreamOmitField
+    private boolean optional = false;
+    
+    @XStreamOmitField
+    private Map<String, String> parameters = new HashMap<String, String>();
+
 
     public String getType() {
         return type;
@@ -43,39 +68,7 @@ public class VerificatorResult implements Serializable {
     public void setDescription(final String description) {
         this.description = description;
     }
-
-    public String getResolution() {
-        return resolution != null ? resolution : "";
-    }
-
-    public void setResolution(final String resolution) {
-        this.resolution = resolution;
-    }
-
-    public boolean isOptional() {
-        return optional;
-    }
-
-    public String getOptionalString() {
-        return Boolean.toString(optional);
-    }
-
-    public void setOptional(final boolean optional) {
-        this.optional = optional;
-    }
-
-    public Map<String, String> getParameters() {
-        return parameters;
-    }
-
-    public void addParameter(final String key, final String value) {
-        parameters.put(key, value);
-    }
-
-    public void setParameters(final Map<String, String> parameters) {
-        this.parameters = parameters;
-    }
-
+    
     public boolean isSuccess() {
         return success;
     }
@@ -114,6 +107,38 @@ public class VerificatorResult implements Serializable {
     public void setCause(final Throwable cause) {
         this.cause = cause;
         message = cause == null ? message : cause.getMessage() != null ? cause.getMessage() : cause.toString();
+    }
+
+    public String getResolution() {
+        return resolution != null ? resolution : "";
+    }
+
+    public void setResolution(final String resolution) {
+        this.resolution = resolution;
+    }
+
+    public boolean isOptional() {
+        return optional;
+    }
+
+    public String getOptionalString() {
+        return Boolean.toString(optional);
+    }
+
+    public void setOptional(final boolean optional) {
+        this.optional = optional;
+    }
+
+    public Map<String, String> getParameters() {
+        return parameters;
+    }
+
+    public void addParameter(final String key, final String value) {
+        parameters.put(key, value);
+    }
+
+    public void setParameters(final Map<String, String> parameters) {
+        this.parameters = parameters;
     }
 
     @Override
