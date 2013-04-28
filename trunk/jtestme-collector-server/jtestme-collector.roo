@@ -76,9 +76,9 @@ field set --fieldName owners --type ~.domain.Owner --cardinality ONE_TO_MANY --f
 finder add --finderName findApplicationByStartWatching --class ~.domain.Application
 
 // Define a service/facade layer
-service --interface ~.service.JTestMeCollectorService --class ~.service.JTestMeCollectorServiceImpl --entity ~.domain.Application
+//service --interface ~.service.JTestMeCollectorService --class ~.service.JTestMeCollectorServiceImpl --entity ~.domain.Application
 email sender setup --hostServer 127.0.0.1 --port 21 --protocol SMTP --username anonymous --password anonymous
-field email template --class ~.service.JTestMeCollectorServiceImpl
+//field email template --class ~.service.JTestMeCollectorServiceImpl
 
 //web
 web mvc setup

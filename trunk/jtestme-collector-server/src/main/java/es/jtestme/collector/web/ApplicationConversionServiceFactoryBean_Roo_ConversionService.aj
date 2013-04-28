@@ -5,9 +5,7 @@ package es.jtestme.collector.web;
 
 import es.jtestme.collector.domain.Application;
 import es.jtestme.collector.domain.Owner;
-import es.jtestme.collector.service.JTestMeCollectorService;
 import es.jtestme.collector.web.ApplicationConversionServiceFactoryBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
@@ -16,13 +14,10 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     
     declare @type: ApplicationConversionServiceFactoryBean: @Configurable;
     
-    @Autowired
-    JTestMeCollectorService ApplicationConversionServiceFactoryBean.jTestMeCollectorService;
-    
     public Converter<Long, Application> ApplicationConversionServiceFactoryBean.getIdToApplicationConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Long, es.jtestme.collector.domain.Application>() {
             public es.jtestme.collector.domain.Application convert(java.lang.Long id) {
-                return jTestMeCollectorService.findApplication(id);
+                return Application.findApplication(id);
             }
         };
     }

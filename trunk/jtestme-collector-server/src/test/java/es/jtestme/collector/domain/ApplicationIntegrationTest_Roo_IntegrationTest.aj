@@ -3,9 +3,9 @@
 
 package es.jtestme.collector.domain;
 
+import es.jtestme.collector.domain.Application;
 import es.jtestme.collector.domain.ApplicationDataOnDemand;
 import es.jtestme.collector.domain.ApplicationIntegrationTest;
-import es.jtestme.collector.service.JTestMeCollectorService;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,13 +26,10 @@ privileged aspect ApplicationIntegrationTest_Roo_IntegrationTest {
     @Autowired
     ApplicationDataOnDemand ApplicationIntegrationTest.dod;
     
-    @Autowired
-    JTestMeCollectorService ApplicationIntegrationTest.jTestMeCollectorService;
-    
     @Test
-    public void ApplicationIntegrationTest.testCountAllApplications() {
+    public void ApplicationIntegrationTest.testCountApplications() {
         Assert.assertNotNull("Data on demand for 'Application' failed to initialize correctly", dod.getRandomApplication());
-        long count = jTestMeCollectorService.countAllApplications();
+        long count = Application.countApplications();
         Assert.assertTrue("Counter for 'Application' incorrectly reported there were no entries", count > 0);
     }
     
@@ -42,7 +39,7 @@ privileged aspect ApplicationIntegrationTest_Roo_IntegrationTest {
         Assert.assertNotNull("Data on demand for 'Application' failed to initialize correctly", obj);
         Long id = obj.getId();
         Assert.assertNotNull("Data on demand for 'Application' failed to provide an identifier", id);
-        obj = jTestMeCollectorService.findApplication(id);
+        obj = Application.findApplication(id);
         Assert.assertNotNull("Find method for 'Application' illegally returned null for id '" + id + "'", obj);
         Assert.assertEquals("Find method for 'Application' returned the incorrect identifier", id, obj.getId());
     }
@@ -50,9 +47,9 @@ privileged aspect ApplicationIntegrationTest_Roo_IntegrationTest {
     @Test
     public void ApplicationIntegrationTest.testFindAllApplications() {
         Assert.assertNotNull("Data on demand for 'Application' failed to initialize correctly", dod.getRandomApplication());
-        long count = jTestMeCollectorService.countAllApplications();
+        long count = Application.countApplications();
         Assert.assertTrue("Too expensive to perform a find all test for 'Application', as there are " + count + " entries; set the findAllMaximum to exceed this value or set findAll=false on the integration test annotation to disable the test", count < 250);
-        List<Application> result = jTestMeCollectorService.findAllApplications();
+        List<Application> result = Application.findAllApplications();
         Assert.assertNotNull("Find all method for 'Application' illegally returned null", result);
         Assert.assertTrue("Find all method for 'Application' failed to return any data", result.size() > 0);
     }
@@ -60,11 +57,11 @@ privileged aspect ApplicationIntegrationTest_Roo_IntegrationTest {
     @Test
     public void ApplicationIntegrationTest.testFindApplicationEntries() {
         Assert.assertNotNull("Data on demand for 'Application' failed to initialize correctly", dod.getRandomApplication());
-        long count = jTestMeCollectorService.countAllApplications();
+        long count = Application.countApplications();
         if (count > 20) count = 20;
         int firstResult = 0;
         int maxResults = (int) count;
-        List<Application> result = jTestMeCollectorService.findApplicationEntries(firstResult, maxResults);
+        List<Application> result = Application.findApplicationEntries(firstResult, maxResults);
         Assert.assertNotNull("Find entries method for 'Application' illegally returned null", result);
         Assert.assertEquals("Find entries method for 'Application' returned an incorrect number of entries", count, result.size());
     }
@@ -75,7 +72,7 @@ privileged aspect ApplicationIntegrationTest_Roo_IntegrationTest {
         Assert.assertNotNull("Data on demand for 'Application' failed to initialize correctly", obj);
         Long id = obj.getId();
         Assert.assertNotNull("Data on demand for 'Application' failed to provide an identifier", id);
-        obj = jTestMeCollectorService.findApplication(id);
+        obj = Application.findApplication(id);
         Assert.assertNotNull("Find method for 'Application' illegally returned null for id '" + id + "'", obj);
         boolean modified =  dod.modifyApplication(obj);
         Integer currentVersion = obj.getVersion();
@@ -84,41 +81,41 @@ privileged aspect ApplicationIntegrationTest_Roo_IntegrationTest {
     }
     
     @Test
-    public void ApplicationIntegrationTest.testUpdateApplicationUpdate() {
+    public void ApplicationIntegrationTest.testMergeUpdate() {
         Application obj = dod.getRandomApplication();
         Assert.assertNotNull("Data on demand for 'Application' failed to initialize correctly", obj);
         Long id = obj.getId();
         Assert.assertNotNull("Data on demand for 'Application' failed to provide an identifier", id);
-        obj = jTestMeCollectorService.findApplication(id);
+        obj = Application.findApplication(id);
         boolean modified =  dod.modifyApplication(obj);
         Integer currentVersion = obj.getVersion();
-        Application merged = jTestMeCollectorService.updateApplication(obj);
+        Application merged = obj.merge();
         obj.flush();
         Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getId(), id);
         Assert.assertTrue("Version for 'Application' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
     @Test
-    public void ApplicationIntegrationTest.testSaveApplication() {
+    public void ApplicationIntegrationTest.testPersist() {
         Assert.assertNotNull("Data on demand for 'Application' failed to initialize correctly", dod.getRandomApplication());
         Application obj = dod.getNewTransientApplication(Integer.MAX_VALUE);
         Assert.assertNotNull("Data on demand for 'Application' failed to provide a new transient entity", obj);
         Assert.assertNull("Expected 'Application' identifier to be null", obj.getId());
-        jTestMeCollectorService.saveApplication(obj);
+        obj.persist();
         obj.flush();
         Assert.assertNotNull("Expected 'Application' identifier to no longer be null", obj.getId());
     }
     
     @Test
-    public void ApplicationIntegrationTest.testDeleteApplication() {
+    public void ApplicationIntegrationTest.testRemove() {
         Application obj = dod.getRandomApplication();
         Assert.assertNotNull("Data on demand for 'Application' failed to initialize correctly", obj);
         Long id = obj.getId();
         Assert.assertNotNull("Data on demand for 'Application' failed to provide an identifier", id);
-        obj = jTestMeCollectorService.findApplication(id);
-        jTestMeCollectorService.deleteApplication(obj);
+        obj = Application.findApplication(id);
+        obj.remove();
         obj.flush();
-        Assert.assertNull("Failed to remove 'Application' with identifier '" + id + "'", jTestMeCollectorService.findApplication(id));
+        Assert.assertNull("Failed to remove 'Application' with identifier '" + id + "'", Application.findApplication(id));
     }
     
 }

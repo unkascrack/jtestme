@@ -6,13 +6,11 @@ package es.jtestme.collector.web;
 import es.jtestme.collector.domain.Application;
 import es.jtestme.collector.domain.Owner;
 import es.jtestme.collector.domain.reference.EnvironmentType;
-import es.jtestme.collector.service.JTestMeCollectorService;
 import es.jtestme.collector.web.ApplicationController;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,9 +22,6 @@ import org.springframework.web.util.WebUtils;
 
 privileged aspect ApplicationController_Roo_Controller {
     
-    @Autowired
-    JTestMeCollectorService ApplicationController.jTestMeCollectorService;
-    
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String ApplicationController.create(@Valid Application application, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
@@ -34,7 +29,7 @@ privileged aspect ApplicationController_Roo_Controller {
             return "applications/create";
         }
         uiModel.asMap().clear();
-        jTestMeCollectorService.saveApplication(application);
+        application.persist();
         return "redirect:/applications/" + encodeUrlPathSegment(application.getId().toString(), httpServletRequest);
     }
     
@@ -46,7 +41,7 @@ privileged aspect ApplicationController_Roo_Controller {
     
     @RequestMapping(value = "/{id}", produces = "text/html")
     public String ApplicationController.show(@PathVariable("id") Long id, Model uiModel) {
-        uiModel.addAttribute("application", jTestMeCollectorService.findApplication(id));
+        uiModel.addAttribute("application", Application.findApplication(id));
         uiModel.addAttribute("itemId", id);
         return "applications/show";
     }
@@ -56,11 +51,11 @@ privileged aspect ApplicationController_Roo_Controller {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
             final int firstResult = page == null ? 0 : (page.intValue() - 1) * sizeNo;
-            uiModel.addAttribute("applications", jTestMeCollectorService.findApplicationEntries(firstResult, sizeNo));
-            float nrOfPages = (float) jTestMeCollectorService.countAllApplications() / sizeNo;
+            uiModel.addAttribute("applications", Application.findApplicationEntries(firstResult, sizeNo));
+            float nrOfPages = (float) Application.countApplications() / sizeNo;
             uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
         } else {
-            uiModel.addAttribute("applications", jTestMeCollectorService.findAllApplications());
+            uiModel.addAttribute("applications", Application.findAllApplications());
         }
         return "applications/list";
     }
@@ -72,20 +67,20 @@ privileged aspect ApplicationController_Roo_Controller {
             return "applications/update";
         }
         uiModel.asMap().clear();
-        jTestMeCollectorService.updateApplication(application);
+        application.merge();
         return "redirect:/applications/" + encodeUrlPathSegment(application.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(value = "/{id}", params = "form", produces = "text/html")
     public String ApplicationController.updateForm(@PathVariable("id") Long id, Model uiModel) {
-        populateEditForm(uiModel, jTestMeCollectorService.findApplication(id));
+        populateEditForm(uiModel, Application.findApplication(id));
         return "applications/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
     public String ApplicationController.delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-        Application application = jTestMeCollectorService.findApplication(id);
-        jTestMeCollectorService.deleteApplication(application);
+        Application application = Application.findApplication(id);
+        application.remove();
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
