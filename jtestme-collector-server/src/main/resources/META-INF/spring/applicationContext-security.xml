@@ -11,7 +11,8 @@
         <!-- Configure these elements to secure URIs in your application -->
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
-		<intercept-url pattern="/**" access="isAuthenticated()" />
+		<intercept-url pattern="/**" access="permitAll" />
+		<!-- <intercept-url pattern="/**" access="isAuthenticated()" /> -->
 	</http>
 	<!-- Configure Authentication mechanism -->
 	<authentication-manager alias="authenticationManager">

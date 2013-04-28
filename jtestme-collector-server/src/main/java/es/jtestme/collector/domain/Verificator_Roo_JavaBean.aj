@@ -24,11 +24,11 @@ privileged aspect Verificator_Roo_JavaBean {
         this.type = type;
     }
     
-    public String Verificator.getSuccess() {
+    public boolean Verificator.isSuccess() {
         return this.success;
     }
     
-    public void Verificator.setSuccess(String success) {
+    public void Verificator.setSuccess(boolean success) {
         this.success = success;
     }
     

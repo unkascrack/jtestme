@@ -2,6 +2,7 @@ package es.jtestme.collector.domain;
 
 import es.jtestme.collector.domain.reference.EnvironmentType;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Enumerated;
@@ -49,6 +50,10 @@ public class Application {
     private boolean startWatching;
 
     @NotNull
+    @Value("false")
+    private boolean mailingOk;
+    
+    @NotNull
     @Value("true")
     private boolean mailingError;
 
@@ -57,5 +62,12 @@ public class Application {
     private boolean mailingNoConnect;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "application")
+    private Set<es.jtestme.collector.domain.ApplicationState> states = new HashSet<es.jtestme.collector.domain.ApplicationState>();
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "application")
     private Set<Owner> owners = new HashSet<Owner>();
+    
+    public static List<Application> findAllApplicationsByStartWatching() {
+        return entityManager().createQuery("SELECT o FROM Application o where o.startWatching = true", Application.class).getResultList();
+    }
 }

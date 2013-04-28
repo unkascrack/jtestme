@@ -17,11 +17,11 @@ privileged aspect ApplicationState_Roo_Equals {
             return true;
         }
         ApplicationState rhs = (ApplicationState) obj;
-        return new EqualsBuilder().append(application, rhs.application).append(id, rhs.id).append(stateDate, rhs.stateDate).append(stateType, rhs.stateType).isEquals();
+        return new EqualsBuilder().append(application, rhs.application).append(code, rhs.code).append(content, rhs.content).append(id, rhs.id).append(message, rhs.message).append(stateDate, rhs.stateDate).append(stateType, rhs.stateType).isEquals();
     }
     
     public int ApplicationState.hashCode() {
-        return new HashCodeBuilder().append(application).append(id).append(stateDate).append(stateType).toHashCode();
+        return new HashCodeBuilder().append(application).append(code).append(content).append(id).append(message).append(stateDate).append(stateType).toHashCode();
     }
     
 }

@@ -10,6 +10,7 @@
         <field:display field="username" id="s_es_jtestme_collector_domain_Application_username" object="${application}" z="iW2C0pjK2s+O4SY9E3gc8HdtDi4="/>
         <field:display field="password" id="s_es_jtestme_collector_domain_Application_password" object="${application}" z="5RiCAqmdQPDBAXSiDZdBxaxBsB0="/>
         <field:display field="startWatching" id="s_es_jtestme_collector_domain_Application_startWatching" object="${application}" z="LhdCC7uMTRJP536BBPtcDX/6MRo="/>
+        <field:display field="mailingOk" id="s_es_jtestme_collector_domain_Application_mailingOk" object="${application}" z="wZrySOQikjgdXaOXkDYzRd/QMV0="/>
         <field:display field="mailingError" id="s_es_jtestme_collector_domain_Application_mailingError" object="${application}" z="BXJOR/uu1cku87BAmiHOJBIM9R0="/>
         <field:display field="mailingNoConnect" id="s_es_jtestme_collector_domain_Application_mailingNoConnect" object="${application}" z="Ta42sEAk7cwr2ZLleVfwxgQ9API="/>
     </page:show>

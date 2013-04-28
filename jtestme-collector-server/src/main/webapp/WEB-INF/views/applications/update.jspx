@@ -10,8 +10,10 @@
         <field:input field="username" id="c_es_jtestme_collector_domain_Application_username" z="user-managed"/>
         <field:input field="password" id="c_es_jtestme_collector_domain_Application_password" z="user-managed"/>
         <field:checkbox field="startWatching" id="c_es_jtestme_collector_domain_Application_startWatching" z="xubO+lz9eC3puYieoaKWrGrLDVk="/>
+        <field:checkbox field="mailingOk" id="c_es_jtestme_collector_domain_Application_mailingOk" z="ndEroIxXN2KyV0LxNvLpvmMDMTo="/>
         <field:checkbox field="mailingError" id="c_es_jtestme_collector_domain_Application_mailingError" z="ruNdps/q1w5MMXdENN9zuItSkIc="/>
         <field:checkbox field="mailingNoConnect" id="c_es_jtestme_collector_domain_Application_mailingNoConnect" z="2kiq/qJXhhZ2ToboNmRzxZBh12A="/>
         <field:simple field="owners" id="c_es_jtestme_collector_domain_Application_owners" messageCode="entity_reference_not_managed" messageCodeAttribute="Owner" render="false" z="user-managed"/>
+        <field:simple field="states" id="c_es_jtestme_collector_domain_Application_states" messageCode="entity_reference_not_managed" messageCodeAttribute="Application State" render="false" z="user-managed"/>
     </form:update>
 </div>

@@ -4,6 +4,7 @@
 package es.jtestme.collector.web;
 
 import es.jtestme.collector.domain.Application;
+import es.jtestme.collector.domain.ApplicationState;
 import es.jtestme.collector.domain.Owner;
 import es.jtestme.collector.domain.reference.EnvironmentType;
 import es.jtestme.collector.web.ApplicationController;
@@ -89,6 +90,7 @@ privileged aspect ApplicationController_Roo_Controller {
     
     void ApplicationController.populateEditForm(Model uiModel, Application application) {
         uiModel.addAttribute("application", application);
+        uiModel.addAttribute("applicationstates", ApplicationState.findAllApplicationStates());
         uiModel.addAttribute("owners", Owner.findAllOwners());
         uiModel.addAttribute("environmenttypes", Arrays.asList(EnvironmentType.values()));
     }

@@ -4,7 +4,6 @@
 package es.jtestme.collector.web;
 
 import es.jtestme.collector.domain.Application;
-import es.jtestme.collector.domain.Owner;
 import es.jtestme.collector.web.ApplicationConversionServiceFactoryBean;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.core.convert.converter.Converter;
@@ -30,29 +29,10 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
         };
     }
     
-    public Converter<Long, Owner> ApplicationConversionServiceFactoryBean.getIdToOwnerConverter() {
-        return new org.springframework.core.convert.converter.Converter<java.lang.Long, es.jtestme.collector.domain.Owner>() {
-            public es.jtestme.collector.domain.Owner convert(java.lang.Long id) {
-                return Owner.findOwner(id);
-            }
-        };
-    }
-    
-    public Converter<String, Owner> ApplicationConversionServiceFactoryBean.getStringToOwnerConverter() {
-        return new org.springframework.core.convert.converter.Converter<java.lang.String, es.jtestme.collector.domain.Owner>() {
-            public es.jtestme.collector.domain.Owner convert(String id) {
-                return getObject().convert(getObject().convert(id, Long.class), Owner.class);
-            }
-        };
-    }
-    
     public void ApplicationConversionServiceFactoryBean.installLabelConverters(FormatterRegistry registry) {
         registry.addConverter(getApplicationToStringConverter());
         registry.addConverter(getIdToApplicationConverter());
         registry.addConverter(getStringToApplicationConverter());
-        registry.addConverter(getOwnerToStringConverter());
-        registry.addConverter(getIdToOwnerConverter());
-        registry.addConverter(getStringToOwnerConverter());
     }
     
     public void ApplicationConversionServiceFactoryBean.afterPropertiesSet() {
