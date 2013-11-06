@@ -91,7 +91,9 @@ public class WebServiceVerificator extends AbstractVerificator {
         final SOAPHeader header = message.getSOAPHeader();
         header.detachNode();
         final SOAPBody body = message.getSOAPBody();
-        body.addBodyElement(new QName(namespaceURI, localPart));
+        if (namespaceURI != null && localPart != null) {
+            body.addBodyElement(new QName(namespaceURI, localPart));
+        }
 
         final SOAPMessage response = connection.call(message, endPoint);
         connection.close();
