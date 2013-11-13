@@ -4,6 +4,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"
 	version="3.0">
+	<distributable />
 	<filter>
 		<filter-name>jtestmefilter</filter-name>
 		<filter-class>es.jtestme.filter.JTestMeFilter</filter-class>
@@ -67,6 +68,6 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>jtestmefilter</filter-name>
-		<url-pattern>/jtestme</url-pattern>
+		<url-pattern>/jtestme/*</url-pattern>
 	</filter-mapping>
 </web-fragment>
