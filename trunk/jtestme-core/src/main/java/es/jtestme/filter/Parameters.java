@@ -1,10 +1,16 @@
 package es.jtestme.filter;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import javax.servlet.FilterConfig;
 
 import es.jtestme.JTestMeBuilder;
 import es.jtestme.logger.JTestMeLogger;
 import es.jtestme.schedule.JTestMeScheduler;
+import es.jtestme.utils.JTestMeUtils;
 import es.jtestme.viewers.ViewerFactory;
 import es.jtestme.viewers.ViewerType;
 
@@ -17,6 +23,18 @@ public final class Parameters {
      * 
      */
     private static FilterConfig filterConfig;
+
+    /**
+     * 
+     */
+    private static String jTestMeVersion;
+
+    /**
+     * @return
+     */
+    public static String getjTestMeVersion() {
+        return jTestMeVersion;
+    }
 
     /**
      * @return
@@ -66,8 +84,8 @@ public final class Parameters {
      */
     static final void initialize(final FilterConfig config) {
         filterConfig = config;
-
         initializeLogger();
+        initializeVersion();
         initializeVerificators();
         initializeViewers();
         initializeScheduler();
@@ -81,6 +99,23 @@ public final class Parameters {
     private static void initializeLogger() {
         JTestMeLogger.info("JTestMe initializate logger...");
         JTestMeLogger.setLoggerEnabled(Boolean.parseBoolean(getInitParameter(ParameterType.LOG, "true")));
+    }
+
+    private static void initializeVersion() {
+        InputStream input = null;
+        try {
+            input = new BufferedInputStream(Parameters.class.getResourceAsStream("/version.properties"));
+            if (input != null) {
+                final Properties properties = new Properties();
+                properties.load(input);
+                jTestMeVersion = properties.getProperty("version");
+                JTestMeLogger.info("JTestMe version: " + jTestMeVersion);
+            }
+        } catch (final IOException e) {
+            JTestMeLogger.warn("JTestMe error loading version: " + e.getMessage());
+        } finally {
+            JTestMeUtils.closeQuietly(input);
+        }
     }
 
     private static void initializeVerificators() {
