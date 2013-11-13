@@ -5,11 +5,10 @@
 	<parent>
 		<groupId>es.jtestme</groupId>
 		<artifactId>jtestme-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.5-SNAPSHOT</version>
 	</parent>
 	<artifactId>jtestme-core</artifactId>
 	<name>jTestMe - Core</name>
-	<version>1.5</version>
 
 	<dependencies>
 		<dependency>
@@ -19,7 +18,7 @@
 			<scope>provided</scope>
 			<optional>true</optional>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
@@ -50,6 +49,13 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
+			<scope>provided</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>javax.xml.soap</groupId>
+			<artifactId>saaj-api</artifactId>
+			<version>1.3.5</version>
 			<scope>provided</scope>
 			<optional>true</optional>
 		</dependency>
