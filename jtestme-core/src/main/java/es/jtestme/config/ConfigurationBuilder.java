@@ -52,9 +52,9 @@ public final class ConfigurationBuilder {
             } else {
                 properties.load(inputStream);
             }
-            JTestMeLogger.info("JavaTestMe loading configuration: " + configLocation);
+            JTestMeLogger.info("JTestMe loading configuration: " + configLocation);
         } catch (final Throwable e) {
-            JTestMeLogger.warn("JavaTestMe error loading configuration: " + e.getMessage(), e);
+            JTestMeLogger.warn("JTestMe error loading configuration: " + e.getMessage(), e);
         } finally {
             if (inputStream != null) {
                 try {
@@ -121,7 +121,7 @@ public final class ConfigurationBuilder {
         if (configLocation != null && configLocation.trim().length() > 0) {
             exists = convertConfigLocationToFilePath(configLocation) != null;
             if (!exists) {
-                JTestMeLogger.warn("JavaTestMe could not load configuration from: " + configLocation);
+                JTestMeLogger.warn("JTestMe could not load configuration from: " + configLocation);
             }
         }
         return exists;
