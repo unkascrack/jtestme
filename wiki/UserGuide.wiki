@@ -333,7 +333,7 @@ En este caso se muestra como efectuar la configuración de forma automática, la
 </filter>
 <filter-mapping>
 	<filter-name>jtestmefilter</filter-name>
-	<url-pattern>/jtestme</url-pattern>
+	<url-pattern>/jtestme/*</url-pattern>
 </filter-mapping>
 }}}
 
@@ -731,7 +731,7 @@ Example of content of the web.xml file for authentication by login and password:
 <security-constraint>
 	<web-resource-collection>
 		<web-resource-name>JTestMe</web-resource-name>
-		<url-pattern>/jtestme</url-pattern>
+		<url-pattern>/jtestme/*</url-pattern>
 	</web-resource-collection>
 	<auth-constraint>
 		<role-name>jtestme</role-name>
