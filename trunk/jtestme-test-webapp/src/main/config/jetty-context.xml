@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+
+	<New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg>jdbc/dbtest</Arg>
+		<Arg>
+			<New class="org.apache.commons.dbcp.BasicDataSource">
+				<Set name="driverClassName">org.hsqldb.jdbcDriver</Set>
+				<Set name="url">jdbc:hsqldb:mem:dbtest</Set>
+				<Set name="username">SA</Set>
+				<Set name="password"></Set>
+			</New>
+		</Arg>
+	</New>
+	
+</Configure>

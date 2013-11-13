@@ -2,10 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>es.jtestme</groupId>
+	<parent>
+		<groupId>es.jtestme</groupId>
+		<artifactId>jtestme-parent</artifactId>
+		<version>1.5-SNAPSHOT</version>
+	</parent>
 	<artifactId>jtestme-collector</artifactId>
 	<packaging>war</packaging>
-	<version>1.0</version>
 	<name>JTestMe - Collector</name>
 	<properties>
 		<aspectj.version>1.7.0</aspectj.version>
@@ -56,7 +59,7 @@
 			<artifactId>jtestme-core</artifactId>
 			<version>1.5</version>
 		</dependency>
-	
+
 		<!-- General dependencies for standard applications -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -360,7 +363,7 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${spring-security.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
