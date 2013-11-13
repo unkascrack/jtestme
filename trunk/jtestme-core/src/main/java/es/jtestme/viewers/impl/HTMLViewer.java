@@ -3,6 +3,7 @@ package es.jtestme.viewers.impl;
 import java.util.List;
 
 import es.jtestme.domain.VerificatorResult;
+import es.jtestme.filter.Parameters;
 
 public class HTMLViewer extends AbstractViewer {
 
@@ -80,12 +81,17 @@ public class HTMLViewer extends AbstractViewer {
                 .append(NEW_LINE);
         builder.append("<html>").append(NEW_LINE);
         builder.append("<head>").append(NEW_LINE);
-        builder.append("<title>").append("JTestMe Monitor").append("</title>").append(NEW_LINE);
+        builder.append("<title>").append("JTestMe Monitor ").append(Parameters.getjTestMeVersion()).append("</title>")
+                .append(NEW_LINE);
+        builder.append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>").append(NEW_LINE);
+        builder.append("<meta name='product' content='JTestMe'/>").append(NEW_LINE);
+        builder.append("<meta name='version' content='").append(Parameters.getjTestMeVersion()).append("'/>")
+                .append(NEW_LINE);
         builder.append("<link rel='stylesheet' href='?resource=css/jtestme.css' type='text/css'/>").append(NEW_LINE);
         builder.append("</head>").append(NEW_LINE);
         builder.append("<body>").append(NEW_LINE);
-        builder.append("<h2>").append("<a href='http://jtestme.googlecode.com/' target='_blank'>JTestMe</a> Monitor:")
-                .append("</h2>").append(NEW_LINE);
+        builder.append("<h2>").append("<a href='http://jtestme.googlecode.com/' target='_blank'>JTestMe</a> Monitor ")
+                .append(Parameters.getjTestMeVersion()).append(":</h2>").append(NEW_LINE);
         builder.append("<hr/>");
         builder.append("<p><a href='?' title='Refresh'><img src='?resource=img/refresh.png' alt='Refresh'/></a>");
         builder.append("&nbsp;Monitoring taken at ").append(currentDateAndTime).append(" on ").append(hostName)

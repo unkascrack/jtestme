@@ -54,7 +54,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>jtestmefilter</filter-name>
-		<url-pattern>/jtestme/*</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
 	<listener>
