@@ -3,6 +3,7 @@ package es.jtestme.viewers.impl;
 import java.util.List;
 
 import es.jtestme.domain.VerificatorResult;
+import es.jtestme.filter.Parameters;
 
 public class PlainTextViewer extends AbstractViewer {
 
@@ -24,10 +25,13 @@ public class PlainTextViewer extends AbstractViewer {
         return builder.toString();
     }
 
+    private static final String MSJ_HEADER = "JTestMe Monitoring %s on host %s at %s.";
+
     private String header() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("JTestMe Monitoring on host ").append(getHostName()).append(" at ")
-                .append(getCurrentDateAndTime()).append(".").append(NEW_LINE);
+        builder.append(
+                String.format(MSJ_HEADER, Parameters.getjTestMeVersion(), getHostName(), getCurrentDateAndTime()))
+                .append(NEW_LINE);
         return builder.toString();
     }
 
