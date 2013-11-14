@@ -97,7 +97,7 @@ public final class Parameters {
     }
 
     private static void initializeLogger() {
-        JTestMeLogger.info("JTestMe initializate logger...");
+        JTestMeLogger.debug("JTestMe initializate logger...");
         JTestMeLogger.setLoggerEnabled(Boolean.parseBoolean(getInitParameter(ParameterType.LOG, "true")));
     }
 
@@ -109,7 +109,7 @@ public final class Parameters {
                 final Properties properties = new Properties();
                 properties.load(input);
                 jTestMeVersion = properties.getProperty("version");
-                JTestMeLogger.info("JTestMe version: " + jTestMeVersion);
+                JTestMeLogger.debug("JTestMe version: " + jTestMeVersion);
             }
         } catch (final IOException e) {
             JTestMeLogger.warn("JTestMe error loading version: " + e.getMessage());
@@ -119,13 +119,13 @@ public final class Parameters {
     }
 
     private static void initializeVerificators() {
-        JTestMeLogger.info("JTestMe initializate verificators...");
+        JTestMeLogger.debug("JTestMe initializate verificators...");
         final String configLocation = getInitParameter(ParameterType.CONFIG_LOCATION);
         JTestMeBuilder.getInstance().loadVerificators(configLocation);
     }
 
     private static void initializeViewers() {
-        JTestMeLogger.info("JTestMe initializate viewers...");
+        JTestMeLogger.debug("JTestMe initializate viewers...");
         ViewerFactory.registerViewer(ViewerType.HTML, getInitParameter(ParameterType.HTML_VIEWER_CLASS));
         ViewerFactory.registerViewer(ViewerType.JSON, getInitParameter(ParameterType.JSON_VIEWER_CLASS));
         ViewerFactory.registerViewer(ViewerType.TXT, getInitParameter(ParameterType.TXT_VIEWER_CLASS));
@@ -136,7 +136,7 @@ public final class Parameters {
     private static void initializeScheduler() {
         final boolean scheduleEnabled = Boolean.parseBoolean(getInitParameter(ParameterType.SCHEDULE, "false"));
         if (scheduleEnabled) {
-            JTestMeLogger.info("JTestMe starting scheduler...");
+            JTestMeLogger.debug("JTestMe starting scheduler...");
             final JTestMeScheduler scheduler = JTestMeScheduler.getInstance();
             scheduler.setPeriod(getInitParameter(ParameterType.SCHEDULE_PERIOD));
             scheduler.setViewer(getInitParameter(ParameterType.SCHEDULE_VIEWER));
@@ -145,13 +145,13 @@ public final class Parameters {
     }
 
     private static void destroyVerificators() {
-        JTestMeLogger.info("JTestMe destroy verificators...");
+        JTestMeLogger.debug("JTestMe destroy verificators...");
         JTestMeBuilder.getInstance().destroy();
     }
 
     private static void destroyScheduler() {
         if (JTestMeScheduler.getInstance().isRunning()) {
-            JTestMeLogger.info("JTestMe stopping scheduler...");
+            JTestMeLogger.debug("JTestMe stopping scheduler...");
             JTestMeScheduler.getInstance().stop();
         }
     }
