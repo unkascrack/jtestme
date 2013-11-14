@@ -22,6 +22,11 @@ public final class Parameters {
     /**
      * 
      */
+    private static boolean initialized;
+
+    /**
+     * 
+     */
     private static FilterConfig filterConfig;
 
     /**
@@ -83,12 +88,21 @@ public final class Parameters {
      * @param config
      */
     static final void initialize(final FilterConfig config) {
-        filterConfig = config;
-        initializeLogger();
-        initializeVersion();
-        initializeVerificators();
-        initializeViewers();
-        initializeScheduler();
+        if (initialized) {
+            JTestMeLogger.warn("JTestMe was initialized before...");
+        } else if (!initialized) {
+            synchronized (Parameters.class) {
+                if (!initialized) {
+                    filterConfig = config;
+                    initializeLogger();
+                    initializeVersion();
+                    initializeVerificators();
+                    initializeViewers();
+                    initializeScheduler();
+                    initialized = true;
+                }
+            }
+        }
     }
 
     static final void destroy() {
