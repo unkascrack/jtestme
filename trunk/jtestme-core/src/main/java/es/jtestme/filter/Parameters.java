@@ -104,11 +104,11 @@ public final class Parameters {
     private static void initializeVersion() {
         InputStream input = null;
         try {
-            input = new BufferedInputStream(Parameters.class.getResourceAsStream("/version.properties"));
+            input = new BufferedInputStream(Parameters.class.getResourceAsStream("/META-INF/version.properties"));
             if (input != null) {
                 final Properties properties = new Properties();
                 properties.load(input);
-                jTestMeVersion = properties.getProperty("version");
+                jTestMeVersion = properties.getProperty("jtestme.version");
                 JTestMeLogger.debug("JTestMe version: " + jTestMeVersion);
             }
         } catch (final IOException e) {
