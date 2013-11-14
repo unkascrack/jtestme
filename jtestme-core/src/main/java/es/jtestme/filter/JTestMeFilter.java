@@ -28,22 +28,24 @@ public final class JTestMeFilter implements Filter {
      * (non-Javadoc)
      * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
      */
+    @Override
     public void init(final FilterConfig config) throws ServletException {
         final long start = System.currentTimeMillis();
         Parameters.initialize(config);
         final long duration = System.currentTimeMillis() - start;
-        JTestMeLogger.info("JTestMe filter init done in " + duration + " ms");
+        JTestMeLogger.info("JTestMeFilter " + Parameters.getjTestMeVersion() + ": init done in " + duration + " ms");
     }
 
     /*
      * (non-Javadoc)
      * @see javax.servlet.Filter#destroy()
      */
+    @Override
     public void destroy() {
         final long start = System.currentTimeMillis();
         Parameters.destroy();
         final long duration = System.currentTimeMillis() - start;
-        JTestMeLogger.info("JTestMe filter destroy done in " + duration + " ms");
+        JTestMeLogger.info("JTestMeFilter " + Parameters.getjTestMeVersion() + ": destroy done in " + duration + " ms");
     }
 
     /*
@@ -51,6 +53,7 @@ public final class JTestMeFilter implements Filter {
      * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest,
      * javax.servlet.ServletResponse, javax.servlet.FilterChain)
      */
+    @Override
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
             throws IOException, ServletException {
         try {
@@ -87,7 +90,8 @@ public final class JTestMeFilter implements Filter {
             }
         }
         final long duration = System.currentTimeMillis() - start;
-        JTestMeLogger.info("JTestMe filter doFilter done in " + duration + " ms");
+        JTestMeLogger
+                .info("JTestMeFilter " + Parameters.getjTestMeVersion() + ": doFilter done in " + duration + " ms");
     }
 
     private static final String RESOURCE_PARAMETER = "resource";

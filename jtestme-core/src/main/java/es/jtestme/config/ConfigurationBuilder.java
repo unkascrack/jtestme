@@ -52,7 +52,7 @@ public final class ConfigurationBuilder {
             } else {
                 properties.load(inputStream);
             }
-            JTestMeLogger.info("JTestMe loading configuration: " + configLocation);
+            JTestMeLogger.debug("JTestMe loading configuration: " + configLocation);
         } catch (final Throwable e) {
             JTestMeLogger.warn("JTestMe error loading configuration: " + e.getMessage(), e);
         } finally {
