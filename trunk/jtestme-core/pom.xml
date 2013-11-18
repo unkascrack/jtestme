@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>es.jtestme</groupId>
 		<artifactId>jtestme-parent</artifactId>
-		<version>1.5-SNAPSHOT</version>
+		<version>1.5</version>
 	</parent>
 	<artifactId>jtestme-core</artifactId>
 	<name>jTestMe - Core</name>
