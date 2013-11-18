@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>es.jtestme</groupId>
 		<artifactId>jtestme-parent</artifactId>
-		<version>1.5</version>
+		<version>1.6-SNAPSHOT</version>
 	</parent>
 	<artifactId>jtestme-collector</artifactId>
 	<packaging>war</packaging>
@@ -323,7 +323,7 @@
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.5</version>
+			<version>1.6-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
