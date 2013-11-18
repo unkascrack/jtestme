@@ -1,0 +1,106 @@
+// Create a new project
+project --topLevelPackage es.jtestme.collector ---projectName jtestme-collector --packaging WAR --java 6 
+
+// Setup JPA persistence using Hibernate and HSQL
+jpa setup --provider HIBERNATE --database HYPERSONIC_PERSISTENT --databaseName database/jtestme-collector
+
+// Create domain entities
+entity jpa --class ~.domain.Verificator --serializable --equals --activeRecord true --testAutomatically
+field string --fieldName name --notNull
+field string --fieldName type --notNull
+field boolean --fieldName success --notNull
+field string --fieldName message
+field string --fieldName cause
+
+enum type --class ~.domain.reference.StateType
+enum constant --name OK
+enum constant --name ERROR
+enum constant --name NO_CONNECT
+enum constant --name NO_PERMISSION
+enum constant --name NO_VERIFICATOR
+
+entity jpa --class ~.domain.ApplicationState --serializable --equals --activeRecord true --testAutomatically
+field enum --fieldName stateType --type ~.domain.reference.StateType --notNull
+field date --fieldName stateDate --type java.util.Date --persistenceType JPA_TIMESTAMP --notNull
+field number --fieldName code --type java.lang.Integer --notNull
+field string --fieldName message --notNull
+field string --fieldName content
+
+//enum type --class ~.domain.reference.ServerType
+//enum constant --name HTTP
+//enum constant --name HTTPS
+//enum constant --name CUSTOM
+
+enum type --class ~.domain.reference.EnvironmentType
+enum constant --name DEVELOPMENT
+enum constant --name PREPRODUCTION
+enum constant --name PRODUCTION
+enum constant --name OTHER
+
+entity jpa --class ~.domain.Application --serializable --equals --activeRecord true --testAutomatically
+field string --fieldName name --sizeMax 30 --notNull
+field string --fieldName description --sizeMax 250
+field enum --fieldName environmentType --type ~.domain.reference.EnvironmentType --notNull
+//field enum --fieldName serverType --type ~.domain.reference.ServerType --notNull
+field string --fieldName url --sizeMax 250 --notNull
+field string --fieldName username --sizeMax 50
+field string --fieldName password --sizeMax 50
+//field string --fieldName class
+field boolean --fieldName startWatching --notNull --primitive --value true
+field boolean --fieldName mailingOk --notNull --primitive --value false
+field boolean --fieldName mailingError --notNull --primitive --value true
+field boolean --fieldName mailingNoConnect --notNull --primitive --value true
+//field number --type int --fieldName watchEveryMinutes --min 1 --max 1440
+
+entity jpa --class ~.domain.Owner --serializable --equals --activeRecord true --testAutomatically
+field string --fieldName firstName --notNull --sizeMax 100
+field string --fieldName lastName --sizeMax 100
+field string --fieldName email --regexp "[a-zA-Z0-9\.\-]+@[a-zA-Z0-9\.]+" --notNull --sizeMax 100
+field string --fieldName phone --sizeMax 10
+
+field reference --fieldName applicationState --type ~.domain.ApplicationState --cardinality MANY_TO_ONE --notNull --fetch LAZY --class ~.domain.Verificator
+field set --fieldName verificators --type ~.domain.Verificator --cardinality ONE_TO_MANY --fetch EAGER --class ~.domain.ApplicationState --mappedBy applicationState
+
+field reference --fieldName application --type ~.domain.Application --cardinality MANY_TO_ONE --notNull --fetch LAZY --class ~.domain.ApplicationState
+field set --fieldName states --type ~.domain.ApplicationState --cardinality ONE_TO_MANY --fetch LAZY --class ~.domain.Application --mappedBy application
+
+field reference --fieldName application --type ~.domain.Application --cardinality MANY_TO_ONE --fetch LAZY --class ~.domain.Owner 
+field set --fieldName owners --type ~.domain.Owner --cardinality ONE_TO_MANY --fetch LAZY --class ~.domain.Application --mappedBy application
+
+
+// Define a repository layer for persistence
+//repository jpa --interface ~.repository.VerificatorRepository --entity ~.domain.Verificator
+//repository jpa --interface ~.repository.ApplicationStateRepository --entity ~.domain.ApplicationState
+//repository jpa --interface ~.repository.ApplicationRepository --entity ~.domain.Application
+//repository jpa --interface ~.repository.OwnerRepository --entity ~.domain.Owner
+
+
+//finders
+//NOTE: with repository don't work only with activeRecord
+finder add --finderName findApplicationByStartWatching --class ~.domain.Application
+
+// Define a service/facade layer
+//service --interface ~.service.JTestMeCollectorService --class ~.service.JTestMeCollectorServiceImpl --entity ~.domain.Application
+email sender setup --hostServer 127.0.0.1 --port 21 --protocol SMTP --username anonymous --password anonymous
+//field email template --class ~.service.JTestMeCollectorServiceImpl
+
+//web
+web mvc setup
+web mvc scaffold --class ~.web.ApplicationController --backingType ~.domain.Application
+web mvc scaffold --class ~.web.OwnerController --backingType ~.domain.Owner
+web mvc language --code es
+
+//security
+security setup
+
+//logging
+logging setup --level INFO
+
+//testing
+test integration --entity ~.domain.Application
+test integration --entity ~.domain.Owner
+test integration --entity ~.domain.ApplicationState
+test integration --entity ~.domain.Verificator
+
+selenium test --controller ~.web.ApplicationController
+selenium test --controller ~.web.OwnerController
