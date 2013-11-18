@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>es.jtestme</groupId>
 		<artifactId>jtestme-parent</artifactId>
-		<version>1.5</version>
+		<version>1.6-SNAPSHOT</version>
 	</parent>
 	<artifactId>jtestme-test-webapp</artifactId>
 	<packaging>war</packaging>
