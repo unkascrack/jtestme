@@ -94,6 +94,10 @@ jtestme.ldap.resolution=Qué hacer si falla el test
 jtestme.ldap.param.url=
 jtestme.ldap.param.principal=
 jtestme.ldap.param.credentials=
+jtestme.ldap.param.authentication=#simple
+jtestme.ldap.param.protocol=
+jtestme.ldap.param.truststore=
+jtestme.ldap.param.truststorepassword=
 
 # Test OpenOffice
 jtestme.openoffice.type=openoffice
