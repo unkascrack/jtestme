@@ -28,16 +28,16 @@ public enum VerificatorType {
 
     private Class<? extends Verificator> verificatorClass;
 
-    private VerificatorType(final Class<? extends Verificator> verificatorClass) {
+    VerificatorType(final Class<? extends Verificator> verificatorClass) {
         this.verificatorClass = verificatorClass;
     }
 
     public Class<? extends Verificator> getVerificatorClass() {
-        return verificatorClass;
+        return this.verificatorClass;
     }
 
     public String getVerificatorClassName() {
-        return verificatorClass.getName();
+        return this.verificatorClass.getName();
     }
 
     public static VerificatorType toType(final String str) {

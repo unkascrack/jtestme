@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 import es.jtestme.domain.VerificatorResult;
 import es.jtestme.utils.JTestMeUtils;
 
-public class DatasourceVerificator extends AbstractVerificator {
+public final class DatasourceVerificator extends AbstractVerificator {
 
     private static final String PARAM_DATASOURCE = "datasource";
     private static final String PARAM_TEST_QUERY = "testquery";
@@ -24,8 +24,8 @@ public class DatasourceVerificator extends AbstractVerificator {
 
     public DatasourceVerificator(final Map<String, String> params) {
         super(params);
-        datasourceName = getParamString(PARAM_DATASOURCE);
-        testQuery = getParamString(PARAM_TEST_QUERY);
+        this.datasourceName = getParamString(PARAM_DATASOURCE);
+        this.testQuery = getParamString(PARAM_TEST_QUERY);
     }
 
     public VerificatorResult execute() {
@@ -37,11 +37,11 @@ public class DatasourceVerificator extends AbstractVerificator {
         Context context = null;
         try {
             context = new InitialContext();
-            final DataSource datasource = (DataSource) context.lookup(datasourceName);
+            final DataSource datasource = (DataSource) context.lookup(this.datasourceName);
             connection = datasource.getConnection();
-            if (testQuery != null && testQuery.trim().length() > 0) {
+            if (this.testQuery != null && this.testQuery.trim().length() > 0) {
                 statement = connection.createStatement();
-                resultSet = statement.executeQuery(testQuery);
+                resultSet = statement.executeQuery(this.testQuery);
             }
             result.setSuccess(true);
         } catch (final NamingException e) {

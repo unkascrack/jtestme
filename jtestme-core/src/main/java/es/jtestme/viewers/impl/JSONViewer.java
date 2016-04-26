@@ -5,7 +5,7 @@ import java.util.List;
 import es.jtestme.domain.VerificatorResult;
 import es.jtestme.filter.Parameters;
 
-public class JSONViewer extends AbstractViewer {
+public final class JSONViewer extends AbstractViewer {
 
     public String getContentType() {
         return "application/json";

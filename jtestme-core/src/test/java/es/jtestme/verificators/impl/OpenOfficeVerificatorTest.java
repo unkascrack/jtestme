@@ -19,7 +19,7 @@ public class OpenOfficeVerificatorTest {
 
     @BeforeClass
     public static void setUp() throws IOException, InterruptedException {
-        final String[] commands = new String[] { "soffice", "-headless", "-accept=socket,host=localhost,port=8100;urp;" };
+        final String[] commands = new String[] {"soffice", "-headless", "-accept=socket,host=localhost,port=8100;urp;"};
         sOffice = Runtime.getRuntime().exec(commands);
         final int code = sOffice.waitFor();
         if (code != 0) {

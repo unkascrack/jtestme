@@ -1,8 +1,8 @@
 package es.jtestme.domain;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
+
+import junit.framework.Assert;
 
 public class VerificatorResultTest {
 

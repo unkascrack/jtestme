@@ -11,7 +11,9 @@ import java.util.Map;
 import es.jtestme.domain.VerificatorResult;
 import es.jtestme.utils.JTestMeUtils;
 
-public class FTPVerificator extends AbstractVerificator {
+public final class FTPVerificator extends AbstractVerificator {
+
+    private static final int DEFAULT_FTP_PORT = 21;
 
     private static final String PARAM_HOST = "host";
     private static final String PARAM_PORT = "port";
@@ -25,10 +27,10 @@ public class FTPVerificator extends AbstractVerificator {
 
     public FTPVerificator(final Map<String, String> params) {
         super(params);
-        host = getParamString(PARAM_HOST);
-        port = getParamInteger(PARAM_PORT, 21);
-        username = getParamString(PARAM_USERNAME, "anonymous");
-        password = getParamString(PARAM_PASSWORD, "anonymous");
+        this.host = getParamString(PARAM_HOST);
+        this.port = getParamInteger(PARAM_PORT, DEFAULT_FTP_PORT);
+        this.username = getParamString(PARAM_USERNAME, "anonymous");
+        this.password = getParamString(PARAM_PASSWORD, "anonymous");
     }
 
     public VerificatorResult execute() {
@@ -39,7 +41,7 @@ public class FTPVerificator extends AbstractVerificator {
         BufferedWriter writer = null;
 
         try {
-            socket = new Socket(host, port);
+            socket = new Socket(this.host, this.port);
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
@@ -48,13 +50,13 @@ public class FTPVerificator extends AbstractVerificator {
                 throw new IOException("FTP received an unknown response when connecting: " + response);
             }
 
-            sendLine(writer, "USER " + username);
+            sendLine(writer, "USER " + this.username);
             response = readLine(reader);
             if (!response.startsWith("331 ")) {
                 throw new IOException("FTP received an unknown response after sending the user: " + response);
             }
 
-            sendLine(writer, "PASS " + password);
+            sendLine(writer, "PASS " + this.password);
             response = readLine(reader);
             if (!response.startsWith("230 ")) {
                 throw new IOException("FTP was unable to log in with the supplied password: " + response);

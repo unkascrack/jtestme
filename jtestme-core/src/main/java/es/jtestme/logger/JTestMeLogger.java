@@ -126,8 +126,8 @@ public final class JTestMeLogger {
     private static boolean isLogbackEnabled() {
         try {
             Class.forName("ch.qos.logback.classic.Logger");
-            return Class.forName("ch.qos.logback.classic.LoggerContext").isAssignableFrom(
-                    LoggerFactory.getILoggerFactory().getClass());
+            return Class.forName("ch.qos.logback.classic.LoggerContext")
+                    .isAssignableFrom(LoggerFactory.getILoggerFactory().getClass());
         } catch (final ClassNotFoundException e) {
             return false;
         }

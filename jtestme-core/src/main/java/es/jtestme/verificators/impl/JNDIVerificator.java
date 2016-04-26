@@ -10,7 +10,7 @@ import javax.naming.NamingException;
 import es.jtestme.domain.VerificatorResult;
 import es.jtestme.utils.JTestMeUtils;
 
-public class JNDIVerificator extends AbstractVerificator {
+public final class JNDIVerificator extends AbstractVerificator {
 
     private static final String PARAM_FACTORY = "factory";
     private static final String PARAM_URL = "url";
@@ -24,10 +24,10 @@ public class JNDIVerificator extends AbstractVerificator {
 
     public JNDIVerificator(final Map<String, String> params) {
         super(params);
-        factory = getParamString(PARAM_FACTORY);
-        url = getParamString(PARAM_URL);
-        pkgs = getParamString(PARAM_PKGS);
-        lookup = getParamString(PARAM_LOOKUP);
+        this.factory = getParamString(PARAM_FACTORY);
+        this.url = getParamString(PARAM_URL);
+        this.pkgs = getParamString(PARAM_PKGS);
+        this.lookup = getParamString(PARAM_LOOKUP);
     }
 
     public VerificatorResult execute() {
@@ -36,17 +36,17 @@ public class JNDIVerificator extends AbstractVerificator {
         Context context = null;
         try {
             final Properties env = new Properties();
-            if (factory != null && factory.trim().length() > 0) {
-                env.put(Context.INITIAL_CONTEXT_FACTORY, factory);
+            if (this.factory != null && this.factory.trim().length() > 0) {
+                env.put(Context.INITIAL_CONTEXT_FACTORY, this.factory);
             }
-            if (url != null && url.trim().length() > 0) {
-                env.put(Context.PROVIDER_URL, url);
+            if (this.url != null && this.url.trim().length() > 0) {
+                env.put(Context.PROVIDER_URL, this.url);
             }
-            if (pkgs != null && pkgs.trim().length() > 0) {
-                env.put(Context.URL_PKG_PREFIXES, pkgs);
+            if (this.pkgs != null && this.pkgs.trim().length() > 0) {
+                env.put(Context.URL_PKG_PREFIXES, this.pkgs);
             }
             context = new InitialContext(env);
-            final Object jndiRef = context.lookup(lookup);
+            final Object jndiRef = context.lookup(this.lookup);
             if (jndiRef != null) {
                 result.setSuccess(true);
             } else {

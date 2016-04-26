@@ -17,7 +17,8 @@ public final class JTestMeScheduler {
 
     private static final JTestMeScheduler INSTANCE = new JTestMeScheduler();
 
-    private static final long DEFAULT_PERIOD = 10l;
+    private static final long DEFAULT_PERIOD = 10L;
+    private static final long ONE_MINUTE_SECONDS = 60L;
     private static final ViewerType DEFAULT_VIEWER_TYPE = ViewerType.TXT;
 
     private final ScheduledExecutorService service;
@@ -26,62 +27,63 @@ public final class JTestMeScheduler {
     private long period = DEFAULT_PERIOD;
     private ViewerType viewer = DEFAULT_VIEWER_TYPE;
 
-    public static final JTestMeScheduler getInstance() {
+    public static JTestMeScheduler getInstance() {
         return INSTANCE;
     }
 
     private JTestMeScheduler() {
-        service = Executors.newSingleThreadScheduledExecutor();
+        this.service = Executors.newSingleThreadScheduledExecutor();
     }
 
     public boolean isRunning() {
-        return running;
+        return this.running;
     }
 
     public void setPeriod(final long periodInMinutes) {
-        period = periodInMinutes > 0 ? periodInMinutes : DEFAULT_PERIOD;
+        this.period = periodInMinutes > 0 ? periodInMinutes : DEFAULT_PERIOD;
     }
 
     public void setPeriod(final String periodInMinutes) {
         try {
             setPeriod(Long.parseLong(periodInMinutes));
         } catch (final Throwable e) {
-            period = DEFAULT_PERIOD;
+            this.period = DEFAULT_PERIOD;
         }
     }
 
     public void setViewer(final String viewerType) {
-        viewer = ViewerType.toType(viewerType, DEFAULT_VIEWER_TYPE);
+        this.viewer = ViewerType.toType(viewerType, DEFAULT_VIEWER_TYPE);
     }
 
     /**
      * Running schedule
      */
     public void start() {
-        if (running) {
+        if (this.running) {
             stop();
         }
-        service.scheduleAtFixedRate(new CollectorTask(), period * 60l, period * 60l, TimeUnit.SECONDS);
-        running = true;
+        this.service.scheduleAtFixedRate(new CollectorTask(), this.period * ONE_MINUTE_SECONDS,
+                this.period * ONE_MINUTE_SECONDS, TimeUnit.SECONDS);
+        this.running = true;
     }
 
     /**
      * Stop schedule
      */
     public void stop() {
-        if (running) {
-            service.shutdown();
-            running = false;
+        if (this.running) {
+            this.service.shutdown();
+            this.running = false;
         }
     }
 
     class CollectorTask implements Runnable {
 
-        final Viewer viewer;
+        private final Viewer viewer;
         private boolean lastTaskWasError = false;
 
         CollectorTask() {
-            viewer = ViewerFactory.loadViewer(JTestMeScheduler.this.viewer);
+            this.viewer = ViewerFactory.loadViewer(JTestMeScheduler.this.viewer);
         }
 
         public void run() {
@@ -95,10 +97,10 @@ public final class JTestMeScheduler {
                 }
             }
 
-            if (error && !lastTaskWasError) {
-                JTestMeLogger.error(viewer.getContentViewer(errors));
+            if (error && !this.lastTaskWasError) {
+                JTestMeLogger.error(this.viewer.getContentViewer(errors));
             }
-            lastTaskWasError = error;
+            this.lastTaskWasError = error;
         }
     }
 }

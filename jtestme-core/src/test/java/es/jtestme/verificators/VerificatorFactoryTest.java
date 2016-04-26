@@ -3,9 +3,9 @@ package es.jtestme.verificators;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
+
+import junit.framework.Assert;
 
 public class VerificatorFactoryTest {
 

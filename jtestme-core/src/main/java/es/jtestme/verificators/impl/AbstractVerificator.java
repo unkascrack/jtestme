@@ -36,26 +36,26 @@ public abstract class AbstractVerificator implements Verificator {
         this.uid = uid;
     }
 
-    public String getUid() {
-        return uid;
+    public final String getUid() {
+        return this.uid;
     }
 
-    public Map<String, String> getParams() {
-        return params;
+    public final Map<String, String> getParams() {
+        return this.params;
     }
 
     /**
      * @return
      */
-    protected VerificatorResult getResult() {
+    protected final VerificatorResult getResult() {
         final VerificatorResult result = new VerificatorResult();
-        if (params != null) {
-            result.setType(params.get(PARAM_TYPE));
-            result.setName(params.get(PARAM_NAME));
-            result.setDescription(params.get(PARAM_DESCRIPTION));
-            result.setResolution(params.get(PARAM_RESOLUTION));
+        if (this.params != null) {
+            result.setType(this.params.get(PARAM_TYPE));
+            result.setName(this.params.get(PARAM_NAME));
+            result.setDescription(this.params.get(PARAM_DESCRIPTION));
+            result.setResolution(this.params.get(PARAM_RESOLUTION));
             result.setOptional(getParamBoolean(PARAM_OPTIONAL, false));
-            result.setParameters(params);
+            result.setParameters(this.params);
         }
         return result;
     }
@@ -64,14 +64,14 @@ public abstract class AbstractVerificator implements Verificator {
      * @param trustStore
      * @param trustStorePassword
      */
-    protected void loadTrustStore(final String trustStore, final String trustStorePassword) {
+    protected final void loadTrustStore(final String trustStore, final String trustStorePassword) {
         if (trustStore != null && trustStore.length() > 0) {
-            defaultTrustStore = System.getProperty("javax.net.ssl.trustStore");
+            this.defaultTrustStore = System.getProperty("javax.net.ssl.trustStore");
             System.setProperty("javax.net.ssl.trustStore", trustStore);
         }
 
         if (trustStorePassword != null && trustStorePassword.length() > 0) {
-            defaultTrustStorePassword = System.getProperty("javax.net.ssl.trustStorePassword");
+            this.defaultTrustStorePassword = System.getProperty("javax.net.ssl.trustStorePassword");
             System.setProperty("javax.net.ssl.trustStorePassword", trustStorePassword);
         }
     }
@@ -80,18 +80,18 @@ public abstract class AbstractVerificator implements Verificator {
      * @param trustStore
      * @param trustStorePassword
      */
-    protected void relaseTrustStore(final String trustStore, final String trustStorePassword) {
+    protected final void relaseTrustStore(final String trustStore, final String trustStorePassword) {
         if (trustStore != null && trustStore.length() > 0) {
-            if (defaultTrustStore != null && defaultTrustStore.length() > 0) {
-                System.setProperty("javax.net.ssl.trustStore", defaultTrustStore);
+            if (this.defaultTrustStore != null && this.defaultTrustStore.length() > 0) {
+                System.setProperty("javax.net.ssl.trustStore", this.defaultTrustStore);
             } else {
                 System.clearProperty("javax.net.ssl.trustStore");
             }
         }
 
         if (trustStorePassword != null && trustStorePassword.length() > 0) {
-            if (defaultTrustStorePassword != null && defaultTrustStorePassword.length() > 0) {
-                System.setProperty("javax.net.ssl.trustStorePassword", defaultTrustStorePassword);
+            if (this.defaultTrustStorePassword != null && this.defaultTrustStorePassword.length() > 0) {
+                System.setProperty("javax.net.ssl.trustStorePassword", this.defaultTrustStorePassword);
             } else {
                 System.clearProperty("javax.net.ssl.trustStorePassword");
             }
@@ -101,9 +101,9 @@ public abstract class AbstractVerificator implements Verificator {
     /**
      * @param param
      */
-    protected void removeParam(final String param) {
-        if (params != null && params.containsKey(param)) {
-            params.remove(param);
+    protected final void removeParam(final String param) {
+        if (this.params != null && this.params.containsKey(param)) {
+            this.params.remove(param);
         }
     }
 
@@ -111,7 +111,7 @@ public abstract class AbstractVerificator implements Verificator {
      * @param param
      * @return
      */
-    protected String getParamString(final String param) {
+    protected final String getParamString(final String param) {
         return getParamString(param, null);
     }
 
@@ -120,7 +120,7 @@ public abstract class AbstractVerificator implements Verificator {
      * @param defaultValue
      * @return
      */
-    protected boolean getParamBoolean(final String param, final boolean defaultValue) {
+    protected final boolean getParamBoolean(final String param, final boolean defaultValue) {
         final String value = getParamString(param);
         return value != null ? Boolean.parseBoolean(value) : defaultValue;
     }
@@ -130,7 +130,7 @@ public abstract class AbstractVerificator implements Verificator {
      * @param defaultValue
      * @return
      */
-    protected Integer getParamInteger(final String param, final Integer defaultValue) {
+    protected final Integer getParamInteger(final String param, final Integer defaultValue) {
         Integer val = null;
         try {
             final String value = getParamString(param);
@@ -146,8 +146,9 @@ public abstract class AbstractVerificator implements Verificator {
      * @param defaultValue
      * @return
      */
-    protected String getParamString(final String param, final String defaultValue) {
-        String value = param != null && param.trim().length() > 0 && params != null ? params.get(param) : null;
+    protected final String getParamString(final String param, final String defaultValue) {
+        String value =
+                param != null && param.trim().length() > 0 && this.params != null ? this.params.get(param) : null;
         while (containsSystemProperty(value)) {
             value = getSystemPropertyValue(value);
         }

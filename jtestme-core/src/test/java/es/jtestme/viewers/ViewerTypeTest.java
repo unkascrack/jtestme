@@ -1,10 +1,8 @@
 package es.jtestme.viewers;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 
-import es.jtestme.viewers.ViewerType;
+import junit.framework.Assert;
 
 public class ViewerTypeTest {
 

@@ -8,7 +8,7 @@ import es.jtestme.verificators.impl.AbstractVerificator;
 
 public final class VerificatorFactory {
 
-    private final static VerificatorFactory INSTANCE = new VerificatorFactory();
+    private static final VerificatorFactory INSTANCE = new VerificatorFactory();
 
     private VerificatorFactory() {
     }
@@ -16,7 +16,7 @@ public final class VerificatorFactory {
     /**
      * @return
      */
-    public static final VerificatorFactory getInstance() {
+    public static VerificatorFactory getInstance() {
         return INSTANCE;
     }
 

@@ -24,8 +24,11 @@ import es.jtestme.viewers.ViewerType;
 
 public final class JTestMeFilter implements Filter {
 
+    private static final int BUFFER_SIZE = 4 * 1024;
+
     /*
      * (non-Javadoc)
+     *
      * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
      */
     public void init(final FilterConfig config) throws ServletException {
@@ -37,6 +40,7 @@ public final class JTestMeFilter implements Filter {
 
     /*
      * (non-Javadoc)
+     *
      * @see javax.servlet.Filter#destroy()
      */
     public void destroy() {
@@ -48,6 +52,7 @@ public final class JTestMeFilter implements Filter {
 
     /*
      * (non-Javadoc)
+     *
      * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest,
      * javax.servlet.ServletResponse, javax.servlet.FilterChain)
      */
@@ -112,7 +117,7 @@ public final class JTestMeFilter implements Filter {
                 input = new BufferedInputStream(getClass().getResourceAsStream(localResource));
                 output = response.getOutputStream();
 
-                final byte[] bytes = new byte[4 * 1024];
+                final byte[] bytes = new byte[BUFFER_SIZE];
                 int length = input.read(bytes);
                 while (length != -1) {
                     output.write(bytes, 0, length);

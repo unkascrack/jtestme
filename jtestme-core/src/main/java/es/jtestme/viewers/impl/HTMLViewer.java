@@ -5,7 +5,7 @@ import java.util.List;
 import es.jtestme.domain.VerificatorResult;
 import es.jtestme.filter.Parameters;
 
-public class HTMLViewer extends AbstractViewer {
+public final class HTMLViewer extends AbstractViewer {
 
     public String getContentType() {
         return "text/html";
@@ -76,9 +76,7 @@ public class HTMLViewer extends AbstractViewer {
         final String currentDateAndTime = getCurrentDateAndTime();
 
         final StringBuilder builder = new StringBuilder();
-        builder.append(
-                "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">")
-                .append(NEW_LINE);
+        builder.append("<!DOCTYPE html>").append(NEW_LINE);
         builder.append("<html>").append(NEW_LINE);
         builder.append("<head>").append(NEW_LINE);
         builder.append("<title>").append("JTestMe Monitor ").append(Parameters.getjTestMeVersion()).append("</title>")

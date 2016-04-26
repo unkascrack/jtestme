@@ -7,7 +7,7 @@ import es.jtestme.logger.JTestMeLogger;
 import es.jtestme.utils.JTestMeUtils;
 import es.jtestme.verificators.Verificator;
 
-public class CustomVerificator extends AbstractVerificator {
+public final class CustomVerificator extends AbstractVerificator {
 
     private static final String PARAM_CLASS = "class";
 
@@ -17,16 +17,16 @@ public class CustomVerificator extends AbstractVerificator {
         super(params);
         final String className = getParamString(PARAM_CLASS);
         removeParam(PARAM_CLASS);
-        customVerificator = loadCustomVerificator(className);
+        this.customVerificator = loadCustomVerificator(className);
     }
 
     public VerificatorResult execute() {
         final VerificatorResult result = super.getResult();
-        if (customVerificator == null) {
+        if (this.customVerificator == null) {
             result.setMessage("No se ha cargado correctamente el custom verificator: " + getUid());
         } else {
             try {
-                final VerificatorResult resultCustomVerificator = customVerificator.execute();
+                final VerificatorResult resultCustomVerificator = this.customVerificator.execute();
                 result.setSuccess(resultCustomVerificator.isSuccess());
                 result.setMessage(resultCustomVerificator.getMessage());
                 result.setCause(resultCustomVerificator.getCause());

@@ -4,7 +4,7 @@ import java.util.List;
 
 import es.jtestme.domain.VerificatorResult;
 
-public class CustomViewer extends AbstractViewer {
+public final class CustomViewer extends AbstractViewer {
 
     public String getContentType() {
         return "text/plain";

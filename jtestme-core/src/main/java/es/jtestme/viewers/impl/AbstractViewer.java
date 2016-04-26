@@ -13,7 +13,7 @@ public abstract class AbstractViewer implements Viewer {
     /**
      * @return
      */
-    protected String getHostName() {
+    protected final String getHostName() {
         String hostName = "unknown";
         try {
             hostName = InetAddress.getLocalHost().getHostName();
@@ -26,8 +26,8 @@ public abstract class AbstractViewer implements Viewer {
     /**
      * @return
      */
-    protected String getCurrentDateAndTime() {
-        return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.getDefault()).format(
-                new Date());
+    protected final String getCurrentDateAndTime() {
+        return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.getDefault())
+                .format(new Date());
     }
 }

@@ -3,9 +3,9 @@ package es.jtestme.config;
 import java.util.Map;
 import java.util.Properties;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
+
+import junit.framework.Assert;
 
 public class ConfigurationBuilderTest {
 
@@ -30,8 +30,8 @@ public class ConfigurationBuilderTest {
 
     @Test
     public void testGetConfigLocationPathFound() {
-        final String configLocation = configuration.getConfigLocation(getClass().getClassLoader()
-                .getResource("jtestme.properties").getFile());
+        final String configLocation = configuration
+                .getConfigLocation(getClass().getClassLoader().getResource("jtestme.properties").getFile());
         Assert.assertTrue(configLocation.endsWith("jtestme.properties"));
     }
 
@@ -62,15 +62,15 @@ public class ConfigurationBuilderTest {
 
     @Test
     public void testExistsConfigLocationPathFound() {
-        final boolean existsConfigLocation = configuration.existsConfigLocation(getClass().getClassLoader()
-                .getResource("jtestme.properties").getFile());
+        final boolean existsConfigLocation = configuration
+                .existsConfigLocation(getClass().getClassLoader().getResource("jtestme.properties").getFile());
         Assert.assertTrue(existsConfigLocation);
     }
 
     @Test
     public void testExistsConfigLocationClasspathNotFound() {
-        final boolean existsConfigLocation = configuration
-                .existsConfigLocation("classpath:jtestme-noexiste.properties");
+        final boolean existsConfigLocation =
+                configuration.existsConfigLocation("classpath:jtestme-noexiste.properties");
         Assert.assertFalse(existsConfigLocation);
     }
 

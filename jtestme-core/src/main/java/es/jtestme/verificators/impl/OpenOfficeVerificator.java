@@ -8,7 +8,9 @@ import com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConne
 
 import es.jtestme.domain.VerificatorResult;
 
-public class OpenOfficeVerificator extends AbstractVerificator {
+public final class OpenOfficeVerificator extends AbstractVerificator {
+
+    private static final int DEFAULT_PORT = 8700;
 
     private static final String PARAM_HOST = "host";
     private static final String PARAM_PORT = "port";
@@ -18,15 +20,15 @@ public class OpenOfficeVerificator extends AbstractVerificator {
 
     public OpenOfficeVerificator(final Map<String, String> params) {
         super(params);
-        host = getParamString(PARAM_HOST, "localhost");
-        port = getParamInteger(PARAM_PORT, 8700);
+        this.host = getParamString(PARAM_HOST, "localhost");
+        this.port = getParamInteger(PARAM_PORT, DEFAULT_PORT);
     }
 
     public VerificatorResult execute() {
         final VerificatorResult result = super.getResult();
         OpenOfficeConnection connection = null;
         try {
-            connection = new SocketOpenOfficeConnection(host, port);
+            connection = new SocketOpenOfficeConnection(this.host, this.port);
             connection.connect();
             result.setSuccess(true);
         } catch (final ConnectException e) {

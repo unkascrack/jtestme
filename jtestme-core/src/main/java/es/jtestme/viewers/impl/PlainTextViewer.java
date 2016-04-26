@@ -5,7 +5,7 @@ import java.util.List;
 import es.jtestme.domain.VerificatorResult;
 import es.jtestme.filter.Parameters;
 
-public class PlainTextViewer extends AbstractViewer {
+public final class PlainTextViewer extends AbstractViewer {
 
     public String getContentType() {
         return "text/plain";

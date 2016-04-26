@@ -1,10 +1,8 @@
 package es.jtestme.verificators;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 
-import es.jtestme.verificators.VerificatorType;
+import junit.framework.Assert;
 
 public class VerificatorTypeTest {
 

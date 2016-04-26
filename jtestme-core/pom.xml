@@ -5,11 +5,10 @@
 	<parent>
 		<groupId>es.jtestme</groupId>
 		<artifactId>jtestme-parent</artifactId>
-		<version>1.6-SNAPSHOT</version>
+		<version>1.7</version>
 	</parent>
 	<artifactId>jtestme-core</artifactId>
 	<name>jTestMe - Core</name>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
@@ -18,7 +17,6 @@
 			<scope>provided</scope>
 			<optional>true</optional>
 		</dependency>
-
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
@@ -59,7 +57,6 @@
 			<scope>provided</scope>
 			<optional>true</optional>
 		</dependency>
-
 		<dependency>
 			<groupId>dumbster</groupId>
 			<artifactId>dumbster</artifactId>
@@ -78,9 +75,7 @@
 			<version>2.4</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
-
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName>
 		<resources>
@@ -123,6 +118,14 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>

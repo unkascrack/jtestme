@@ -20,17 +20,17 @@ public final class Parameters {
     }
 
     /**
-     * 
+     *
      */
-    private static boolean initialized;
+    private static volatile boolean initialized;
 
     /**
-     * 
+     *
      */
     private static FilterConfig filterConfig;
 
     /**
-     * 
+     *
      */
     private static String jTestMeVersion;
 
@@ -44,35 +44,35 @@ public final class Parameters {
     /**
      * @return
      */
-    public static final String getContext() {
+    public static String getContext() {
         return filterConfig.getServletContext().getContextPath();
     }
 
     /**
      * @return
      */
-    public static final String getServerInfo() {
+    public static String getServerInfo() {
         return filterConfig.getServletContext().getServerInfo();
     }
 
     /**
      * @return
      */
-    public static final String getEncoding() {
+    public static String getEncoding() {
         return getInitParameter(ParameterType.ENCODING, "UTF-8");
     }
 
     /**
      * @return
      */
-    public static final String getRequestParamFormat() {
+    public static String getRequestParamFormat() {
         return getInitParameter(ParameterType.PARAMETER_FORMAT, "format");
     }
 
     /**
      * @return
      */
-    public static final ViewerType getDefaultViewer() {
+    public static ViewerType getDefaultViewer() {
         return ViewerType.toType(getInitParameter(ParameterType.DEFAULT_VIEWER, "html"));
     }
 
@@ -80,14 +80,14 @@ public final class Parameters {
      * @param resource
      * @return
      */
-    public static final String getMimeType(final String resource) {
+    public static String getMimeType(final String resource) {
         return filterConfig.getServletContext().getMimeType(resource);
     }
 
     /**
      * @param config
      */
-    static final void initialize(final FilterConfig config) {
+    static void initialize(final FilterConfig config) {
         if (initialized) {
             JTestMeLogger.warn("JTestMe was initialized before...");
         } else if (!initialized) {
@@ -105,7 +105,7 @@ public final class Parameters {
         }
     }
 
-    static final void destroy() {
+    static void destroy() {
         destroyVerificators();
         destroyScheduler();
     }
@@ -170,11 +170,11 @@ public final class Parameters {
         }
     }
 
-    private static final String getInitParameter(final ParameterType parameter) {
+    private static String getInitParameter(final ParameterType parameter) {
         return getInitParameter(parameter, null);
     }
 
-    private static final String getInitParameter(final ParameterType parameter, final String defaultValue) {
+    private static String getInitParameter(final ParameterType parameter, final String defaultValue) {
         if (filterConfig == null) {
             throw new IllegalAccessError("Parameters must be initializate before request parametes.");
         }

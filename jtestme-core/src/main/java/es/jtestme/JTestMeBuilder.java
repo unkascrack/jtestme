@@ -23,20 +23,20 @@ public final class JTestMeBuilder {
     private static final int MAX_THREADS = 8;
 
     private static final JTestMeBuilder INSTANCE = new JTestMeBuilder();
-    private static final List<Verificator> verificators = new ArrayList<Verificator>();
+    private static final List<Verificator> VERIFICATORS = new ArrayList<Verificator>();
 
     private JTestMeBuilder() {
     }
 
-    public static final JTestMeBuilder getInstance() {
+    public static JTestMeBuilder getInstance() {
         return INSTANCE;
     }
 
     /**
-     * 
+     *
      */
     public void destroy() {
-        verificators.clear();
+        VERIFICATORS.clear();
     }
 
     /**
@@ -53,7 +53,7 @@ public final class JTestMeBuilder {
                 final Map<String, String> properties = entry.getValue();
                 final Verificator verificator = verificatorFactory.loadVerificator(name, properties);
                 if (verificator != null) {
-                    verificators.add(verificator);
+                    VERIFICATORS.add(verificator);
                 }
             }
         }
@@ -66,7 +66,7 @@ public final class JTestMeBuilder {
         if (verificator == null) {
             throw new IllegalArgumentException("Verificator must not be null.");
         }
-        verificators.add(verificator);
+        VERIFICATORS.add(verificator);
     }
 
     /**
@@ -78,7 +78,7 @@ public final class JTestMeBuilder {
         try {
             executorService = Executors.newFixedThreadPool(MAX_THREADS);
             final Set<Callable<VerificatorResult>> callables = new HashSet<Callable<VerificatorResult>>();
-            for (final Verificator verificator : verificators) {
+            for (final Verificator verificator : VERIFICATORS) {
                 callables.add(new Callable<VerificatorResult>() {
                     public VerificatorResult call() throws Exception {
                         return executeVerificator(verificator);
@@ -97,7 +97,9 @@ public final class JTestMeBuilder {
         } catch (final Throwable e) {
             JTestMeLogger.warn("JTestMeBuilder executing verificators: " + e.getMessage(), e);
         } finally {
-            executorService.shutdown();
+            if (executorService != null) {
+                executorService.shutdown();
+            }
         }
         return results;
     }
@@ -120,8 +122,8 @@ public final class JTestMeBuilder {
         try {
             result = verificator.execute();
         } catch (final Throwable e) {
-            JTestMeLogger.warn(
-                    "JTestMeBuilder executing verificator '" + verificator.getUid() + "': " + e.getMessage(), e);
+            JTestMeLogger.warn("JTestMeBuilder executing verificator '" + verificator.getUid() + "': " + e.getMessage(),
+                    e);
         }
         return result;
     }
@@ -133,7 +135,7 @@ public final class JTestMeBuilder {
     private Verificator searchVerificator(final String verificatorUid) {
         Verificator verificatorSearch = null;
         if (verificatorUid != null) {
-            for (final Verificator verificator : verificators) {
+            for (final Verificator verificator : VERIFICATORS) {
                 if (verificatorUid.equalsIgnoreCase(verificator.getUid())) {
                     verificatorSearch = verificator;
                     break;

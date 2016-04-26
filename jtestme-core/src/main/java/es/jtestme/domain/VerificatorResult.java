@@ -12,41 +12,40 @@ import com.thoughtworks.xstream.converters.basic.BooleanConverter;
 import es.jtestme.viewers.Viewer;
 
 @XStreamAlias("verificator")
-public class VerificatorResult implements Serializable {
+public final class VerificatorResult implements Serializable {
 
     private static final long serialVersionUID = -2134315643510887806L;
 
     @XStreamAlias("type")
     private String type;
-    
+
     @XStreamAlias("name")
     private String name;
-    
+
     @XStreamAlias("description")
     private String description;
-    
+
     @XStreamAlias("success")
-	@XStreamConverter(value=BooleanConverter.class, booleans={false}, strings={"OK", "ERROR"})
+    @XStreamConverter(value = BooleanConverter.class, booleans = {false}, strings = {"OK", "ERROR"})
     private boolean success = false;
-    
+
     @XStreamAlias("message")
     private String message;
-    
+
     @XStreamAlias("cause")
     private Throwable cause;
-    
+
     @XStreamAlias("resolution")
     private String resolution;
 
     @XStreamOmitField
     private boolean optional = false;
-    
+
     @XStreamOmitField
     private Map<String, String> parameters = new HashMap<String, String>();
 
-
     public String getType() {
-        return type;
+        return this.type;
     }
 
     public void setType(final String type) {
@@ -54,7 +53,7 @@ public class VerificatorResult implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(final String name) {
@@ -62,19 +61,19 @@ public class VerificatorResult implements Serializable {
     }
 
     public String getDescription() {
-        return description != null ? description : "";
+        return this.description != null ? this.description : "";
     }
 
     public void setDescription(final String description) {
         this.description = description;
     }
-    
+
     public boolean isSuccess() {
-        return success;
+        return this.success;
     }
 
     public String getSuccessString() {
-        return success ? "OK" : "ERROR";
+        return this.success ? "OK" : "ERROR";
     }
 
     public void setSuccess(final boolean success) {
@@ -82,7 +81,7 @@ public class VerificatorResult implements Serializable {
     }
 
     public String getMessage() {
-        return message != null ? message : "";
+        return this.message != null ? this.message : "";
     }
 
     public void setMessage(final String message) {
@@ -90,13 +89,13 @@ public class VerificatorResult implements Serializable {
     }
 
     public Throwable getCause() {
-        return cause;
+        return this.cause;
     }
 
     public String getCauseString() {
         final StringBuilder builder = new StringBuilder();
-        if (cause != null) {
-            final StackTraceElement elements[] = cause.getStackTrace();
+        if (this.cause != null) {
+            final StackTraceElement[] elements = this.cause.getStackTrace();
             for (final StackTraceElement element : elements) {
                 builder.append(element).append(Viewer.NEW_LINE);
             }
@@ -106,11 +105,12 @@ public class VerificatorResult implements Serializable {
 
     public void setCause(final Throwable cause) {
         this.cause = cause;
-        message = cause == null ? message : cause.getMessage() != null ? cause.getMessage() : cause.toString();
+        this.message =
+                cause == null ? this.message : cause.getMessage() != null ? cause.getMessage() : cause.toString();
     }
 
     public String getResolution() {
-        return resolution != null ? resolution : "";
+        return this.resolution != null ? this.resolution : "";
     }
 
     public void setResolution(final String resolution) {
@@ -118,11 +118,11 @@ public class VerificatorResult implements Serializable {
     }
 
     public boolean isOptional() {
-        return optional;
+        return this.optional;
     }
 
     public String getOptionalString() {
-        return Boolean.toString(optional);
+        return Boolean.toString(this.optional);
     }
 
     public void setOptional(final boolean optional) {
@@ -130,11 +130,11 @@ public class VerificatorResult implements Serializable {
     }
 
     public Map<String, String> getParameters() {
-        return parameters;
+        return this.parameters;
     }
 
     public void addParameter(final String key, final String value) {
-        parameters.put(key, value);
+        this.parameters.put(key, value);
     }
 
     public void setParameters(final Map<String, String> parameters) {

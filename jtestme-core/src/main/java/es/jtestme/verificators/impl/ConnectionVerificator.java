@@ -10,7 +10,9 @@ import java.util.Map;
 
 import es.jtestme.domain.VerificatorResult;
 
-public class ConnectionVerificator extends AbstractVerificator {
+public final class ConnectionVerificator extends AbstractVerificator {
+
+    private static final int DEFAULT_TIMEOUT = 5000;
 
     private static final String PARAM_URL = "url";
     private static final String PARAM_TIMEOUT = "timeout";
@@ -27,30 +29,30 @@ public class ConnectionVerificator extends AbstractVerificator {
 
     public ConnectionVerificator(final Map<String, String> params) {
         super(params);
-        url = getParamString(PARAM_URL);
-        timeout = getParamInteger(PARAM_TIMEOUT, 5000);
-        trustStore = getParamString(PARAM_TRUSTSTORE);
-        trustStorePassword = getParamString(PARAM_TRUSTSTOREPASSWORD);
+        this.url = getParamString(PARAM_URL);
+        this.timeout = getParamInteger(PARAM_TIMEOUT, DEFAULT_TIMEOUT);
+        this.trustStore = getParamString(PARAM_TRUSTSTORE);
+        this.trustStorePassword = getParamString(PARAM_TRUSTSTOREPASSWORD);
         final String proxyHost = getParamString(PARAM_PROXY_HOST);
         final Integer proxyPort = getParamInteger(PARAM_PROXY_PORT, null);
         if (proxyHost != null && proxyPort != null) {
-            proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
+            this.proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
         } else {
-            proxy = Proxy.NO_PROXY;
+            this.proxy = Proxy.NO_PROXY;
         }
     }
 
     public VerificatorResult execute() {
         final VerificatorResult result = super.getResult();
 
-        loadTrustStore(trustStore, trustStorePassword);
+        loadTrustStore(this.trustStore, this.trustStorePassword);
 
         HttpURLConnection connection = null;
         try {
-            connection = (HttpURLConnection) new URL(url).openConnection(proxy);
-            connection.setConnectTimeout(timeout);
+            connection = (HttpURLConnection) new URL(this.url).openConnection(this.proxy);
+            connection.setConnectTimeout(this.timeout);
             final int responseCode = connection.getResponseCode();
-            if (responseCode >= 200 && responseCode <= 399) {
+            if (responseCode >= HttpURLConnection.HTTP_OK && responseCode <= HttpURLConnection.HTTP_PARTIAL) {
                 result.setSuccess(true);
             } else {
                 result.setMessage(connection.getResponseMessage());
@@ -65,7 +67,7 @@ public class ConnectionVerificator extends AbstractVerificator {
             if (connection != null) {
                 connection.disconnect();
             }
-            relaseTrustStore(trustStore, trustStorePassword);
+            relaseTrustStore(this.trustStore, this.trustStorePassword);
         }
         return result;
     }

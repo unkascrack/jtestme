@@ -32,10 +32,9 @@ public final class JTestMeUtils {
      * @throws InvocationTargetException
      */
     @SuppressWarnings("unchecked")
-    public static final <T> T loadClass(final String className, final Object... arguments)
-            throws ClassNotFoundException, IllegalArgumentException, InstantiationException, IllegalAccessException,
-            InvocationTargetException {
-        T _class = null;
+    public static <T> T loadClass(final String className, final Object... arguments) throws ClassNotFoundException,
+            IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        T classType = null;
         if (className != null && className.trim().length() > 0) {
             final Class<?> clase = Class.forName(className);
             final Constructor<?>[] constructors = clase.getConstructors();
@@ -50,13 +49,13 @@ public final class JTestMeUtils {
                         }
                     }
                     if (exact) {
-                        _class = (T) constructor.newInstance(arguments);
+                        classType = (T) constructor.newInstance(arguments);
                         break;
                     }
                 }
             }
         }
-        return _class;
+        return classType;
     }
 
     /**
@@ -70,7 +69,7 @@ public final class JTestMeUtils {
      * @throws IllegalArgumentException
      * @throws InvocationTargetException
      */
-    public static final Verificator loadVerificatorClass(final String verificatorClassName, final String name,
+    public static Verificator loadVerificatorClass(final String verificatorClassName, final String name,
             final Map<String, String> params) throws ClassNotFoundException, InstantiationException,
             IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         Verificator verificator = null;

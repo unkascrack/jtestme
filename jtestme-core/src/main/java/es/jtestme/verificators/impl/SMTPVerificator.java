@@ -10,7 +10,9 @@ import javax.mail.Transport;
 
 import es.jtestme.domain.VerificatorResult;
 
-public class SMTPVerificator extends AbstractVerificator {
+public final class SMTPVerificator extends AbstractVerificator {
+
+    private static final int DEFAULT_SMTP_PORT = 25;
 
     private static final String PARAM_HOST = "host";
     private static final String PARAM_PORT = "port";
@@ -30,13 +32,13 @@ public class SMTPVerificator extends AbstractVerificator {
 
     public SMTPVerificator(final Map<String, String> params) {
         super(params);
-        host = getParamString(PARAM_HOST);
-        port = getParamInteger(PARAM_PORT, 25);
-        username = getParamString(PARAM_USERNAME);
-        password = getParamString(PARAM_PASSWORD);
-        auth = getParamBoolean(PARAM_AUTH, false);
-        starttls = getParamBoolean(PARAM_STARTTLS, false);
-        startssl = getParamBoolean(PARAM_STARTSSL, false);
+        this.host = getParamString(PARAM_HOST);
+        this.port = getParamInteger(PARAM_PORT, DEFAULT_SMTP_PORT);
+        this.username = getParamString(PARAM_USERNAME);
+        this.password = getParamString(PARAM_PASSWORD);
+        this.auth = getParamBoolean(PARAM_AUTH, false);
+        this.starttls = getParamBoolean(PARAM_STARTTLS, false);
+        this.startssl = getParamBoolean(PARAM_STARTSSL, false);
     }
 
     public VerificatorResult execute() {
@@ -46,13 +48,13 @@ public class SMTPVerificator extends AbstractVerificator {
         Transport transport = null;
         try {
             final Properties props = new Properties();
-            props.put("mail.smtp.auth", auth);
-            props.put("mail.smtp.starttls.enable", starttls);
-            props.put("mail.smtp.startssl.enable", startssl);
+            props.put("mail.smtp.auth", this.auth);
+            props.put("mail.smtp.starttls.enable", this.starttls);
+            props.put("mail.smtp.startssl.enable", this.startssl);
 
             session = Session.getDefaultInstance(props);
             transport = session.getTransport("smtp");
-            transport.connect(host, port, username, password);
+            transport.connect(this.host, this.port, this.username, this.password);
             result.setSuccess(true);
         } catch (final AuthenticationFailedException e) {
             result.setCause(e);

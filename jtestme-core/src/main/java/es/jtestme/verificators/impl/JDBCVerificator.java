@@ -10,7 +10,7 @@ import java.util.Map;
 import es.jtestme.domain.VerificatorResult;
 import es.jtestme.utils.JTestMeUtils;
 
-public class JDBCVerificator extends AbstractVerificator {
+public final class JDBCVerificator extends AbstractVerificator {
 
     private static final String PARAM_DRIVER = "driver";
     private static final String PARAM_URL = "url";
@@ -26,11 +26,11 @@ public class JDBCVerificator extends AbstractVerificator {
 
     public JDBCVerificator(final Map<String, String> params) {
         super(params);
-        driver = getParamString(PARAM_DRIVER);
-        url = getParamString(PARAM_URL);
-        username = getParamString(PARAM_USERNAME);
-        password = getParamString(PARAM_PASSWORD);
-        testQuery = getParamString(PARAM_TEST_QUERY);
+        this.driver = getParamString(PARAM_DRIVER);
+        this.url = getParamString(PARAM_URL);
+        this.username = getParamString(PARAM_USERNAME);
+        this.password = getParamString(PARAM_PASSWORD);
+        this.testQuery = getParamString(PARAM_TEST_QUERY);
     }
 
     public VerificatorResult execute() {
@@ -40,11 +40,11 @@ public class JDBCVerificator extends AbstractVerificator {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            Class.forName(driver);
-            connection = DriverManager.getConnection(url, username, password);
-            if (testQuery != null && testQuery.trim().length() > 0) {
+            Class.forName(this.driver);
+            connection = DriverManager.getConnection(this.url, this.username, this.password);
+            if (this.testQuery != null && this.testQuery.trim().length() > 0) {
                 statement = connection.createStatement();
-                resultSet = statement.executeQuery(testQuery);
+                resultSet = statement.executeQuery(this.testQuery);
             }
             result.setSuccess(true);
         } catch (final ClassNotFoundException e) {

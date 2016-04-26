@@ -19,6 +19,9 @@ import es.jtestme.viewers.impl.XMLViewer;
 
 public final class ViewerFactory {
 
+    private ViewerFactory() {
+    }
+
     private static final Map<ViewerType, Viewer> VIEWERS = new HashMap<ViewerType, Viewer>();
     static {
         VIEWERS.put(HTML, new HTMLViewer());
@@ -34,8 +37,8 @@ public final class ViewerFactory {
      */
     public static void registerViewer(final ViewerType viewerType, final Viewer viewer) {
         if (viewerType != null && viewer != null) {
-            JTestMeLogger.debug("JTestMe register viewer type " + viewerType + " for class: "
-                    + viewer.getClass().getName());
+            JTestMeLogger
+                    .debug("JTestMe register viewer type " + viewerType + " for class: " + viewer.getClass().getName());
             VIEWERS.put(viewerType, viewer);
         }
     }

@@ -6,14 +6,13 @@ import java.util.Map;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import junit.framework.Assert;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.mock.jndi.SimpleNamingContextBuilder;
 
 import es.jtestme.domain.VerificatorResult;
+import junit.framework.Assert;
 
 public class JNDIVerificatorTest {
 

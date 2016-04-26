@@ -21,7 +21,7 @@ public final class ConfigurationBuilder {
     private ConfigurationBuilder() {
     }
 
-    public static final ConfigurationBuilder getInstance() {
+    public static ConfigurationBuilder getInstance() {
         return INSTANCE;
     }
 
@@ -41,7 +41,7 @@ public final class ConfigurationBuilder {
      * @param configLocation
      * @return
      */
-    final Properties loadProperties(final String configLocation) {
+    Properties loadProperties(final String configLocation) {
         Properties properties = null;
         InputStream inputStream = null;
         try {
@@ -66,7 +66,7 @@ public final class ConfigurationBuilder {
         return properties;
     }
 
-    final Map<String, Map<String, String>> readProperties(final Properties properties) {
+    Map<String, Map<String, String>> readProperties(final Properties properties) {
         final Map<String, Map<String, String>> params = new HashMap<String, Map<String, String>>();
         for (final Entry<Object, Object> entry : properties.entrySet()) {
             JTestMeLogger.debug("JTestMe configuration property: " + entry.getKey() + "=" + entry.getValue());
@@ -84,7 +84,7 @@ public final class ConfigurationBuilder {
         return params;
     }
 
-    final String getNameKeyProperty(final String key) {
+    String getNameKeyProperty(final String key) {
         String name;
         if (key.toLowerCase().contains(".param.")) {
             name = key.substring(0, key.toLowerCase().lastIndexOf(".param."));
@@ -94,7 +94,7 @@ public final class ConfigurationBuilder {
         return name.toLowerCase();
     }
 
-    final String getParamKeyProperty(final String key) {
+    String getParamKeyProperty(final String key) {
         return key.toLowerCase().substring(key.lastIndexOf(".") + 1);
     }
 
@@ -102,7 +102,7 @@ public final class ConfigurationBuilder {
      * @param configLocation
      * @return
      */
-    final String getConfigLocation(final String configLocation) {
+    String getConfigLocation(final String configLocation) {
         String path = null;
         if (existsConfigLocation(configLocation)) {
             path = convertConfigLocationToFilePath(configLocation);
@@ -116,7 +116,7 @@ public final class ConfigurationBuilder {
      * @param configLocation
      * @return
      */
-    final boolean existsConfigLocation(final String configLocation) {
+    boolean existsConfigLocation(final String configLocation) {
         boolean exists = false;
         if (configLocation != null && configLocation.trim().length() > 0) {
             exists = convertConfigLocationToFilePath(configLocation) != null;
@@ -131,7 +131,7 @@ public final class ConfigurationBuilder {
      * @param configLocation
      * @return
      */
-    final String convertConfigLocationToFilePath(final String configLocation) {
+    String convertConfigLocationToFilePath(final String configLocation) {
         String filePath = null;
         if (configLocation != null && configLocation.trim().length() > 0) {
             if (configLocation.toLowerCase().startsWith("classpath:")) {
