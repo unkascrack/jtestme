@@ -9,7 +9,7 @@ import es.jtestme.viewers.impl.HTMLViewer;
 import es.jtestme.viewers.impl.JSONViewer;
 import es.jtestme.viewers.impl.PlainTextViewer;
 import es.jtestme.viewers.impl.XMLViewer;
-import junit.framework.Assert;
+import org.junit.Assert;
 
 public class ViewerFactoryTest {
 

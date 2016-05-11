@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.springframework.mock.jndi.SimpleNamingContextBuilder;
 
 import es.jtestme.domain.VerificatorResult;
-import junit.framework.Assert;
+import org.junit.Assert;
 
 public class JNDIVerificatorTest {
 
