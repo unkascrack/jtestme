@@ -50,31 +50,7 @@ Lo primero que hemos de conocer son los tipos de verificadores que dispone de ma
  * **webservice**, verifica las conexiones con servicios web.
  * **custom**, permite implementar una solución propia para poder verificar un recurso de la aplicación. Más adelante se mostrará como implementar este tipo de verificación en el punto [3.3. Verificators Personalizados] (#verificators-personalizados).
 
-
 -------------
-
-<h2>1. Introducción</h2>
-El objetivo de JTestMe es facilitar la comprobación de los servicios y/o recursos necesarios de una aplicación para su correcta ejecución, de esta forma será posible tener monitorizado en todo momento las dependencias externas de una aplicación.<br>
-<br>
-JTestMe es una librería Java, que es compatible tanto con aplicaciones Java SE, como aplicaciones Java EE, disponiendo incluso de un <code>javax.servlet.Filter</code> para poder visualizar de forma sencilla el estado de los recursos de una aplicación.<br>
-<br>
-<h2>2. Configuración Básica</h2>
-JTestMe se puede configurar tanto de forma programática, como mediante archivo properties de configuración externo.<br>
-<br>
-<h3>2.1. Tipos Verificators</h3>
-Lo primero que hemos de conocer son los tipos de verificadores que dispone de manera interna JTestMe para poder utilizarlos:<br>
-<br>
-<ul><li><b>connection</b>, permite verificar conexiones HTTP y HTTPS.<br>
-</li><li><b>datasource</b>, permite verificar conexiones JNDI de <code>java.sql.DataSource</code>.<br>
-</li><li><b>ftp</b>, permite verificar conexión FTP.<br>
-</li><li><b>graphics</b>, permite comprobar si el sistema dispone de librerías X para imprimir reportes y otras librerías que hacen uso de este servicio.<br>
-</li><li><b>jndi</b>, permite verificar conexiones con recursos JNDI (EJB, Resources,...).<br>
-</li><li><b>jdbc</b>, permite verificar conexiones JDBC.<br>
-</li><li><b>ldap</b>, permite verificar conexiones LDAP.<br>
-</li><li><b>openoffice</b>, permite verificar conexiones con el servicio OpenOffice o LibreOffice.<br>
-</li><li><b>smtp</b>, permite verificar la conexión con el servidor SMTP.<br>
-</li><li><b>webservice</b>, permite verificar las conexiones con servicios web.<br>
-</li><li><b>custom</b>, permite implementar una solución propia para poder verificar un recurso de la aplicación. Más adelante se mostrará como implementar este tipo de verificación en el punto <a href='#3.3._Verificators_Personalizados.md'>3.3. Verificators Personalizados</a>.</li></ul>
 
 <h3>2.2. Properties</h3>
 Para cada uno de los tipos de test será necesario definir una serie de parámetros para que JTestMe ejecuta de forma correcta la verificación.<br>

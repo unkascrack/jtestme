@@ -34,6 +34,26 @@ public class VerificatorTypeTest {
     }
 
     @Test
+    public void toType_whenTypeIsFile_shouldReturnVerificatorTypeFile() {
+        Assert.assertEquals(VerificatorType.toType("file"), VerificatorType.FILE);
+    }
+
+    @Test
+    public void toType_whenTypeIsJce_shouldReturnVerificatorTypeJce() {
+        Assert.assertEquals(VerificatorType.toType("JCE"), VerificatorType.JCE);
+    }
+
+    @Test
+    public void toType_whenTypeIsMemory_shouldReturnVerificatorTypeMemory() {
+        Assert.assertEquals(VerificatorType.toType("MemoRy"), VerificatorType.MEMORY);
+    }
+
+    @Test
+    public void toType_whenTypeIsProperty_shouldReturnVerificatorTypeProperty() {
+        Assert.assertEquals(VerificatorType.toType("PROPERTY"), VerificatorType.PROPERTY);
+    }
+
+    @Test
     public void testTypeNull() {
         Assert.assertNull(VerificatorType.toType(null));
     }
