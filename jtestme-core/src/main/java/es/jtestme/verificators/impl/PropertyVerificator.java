@@ -9,24 +9,24 @@ import es.jtestme.viewers.Viewer;
 
 public final class PropertyVerificator extends AbstractVerificator {
 
-    private static final String PARAM_VARIABLES = "variables";
+    private static final String PARAM_PROPERTIES = "properties";
 
-    private final String[] variables;
+    private final String[] properties;
 
     public PropertyVerificator(final Map<String, String> params) {
         super(params);
-        this.variables = convertVariables(getParamString(PARAM_VARIABLES));
+        this.properties = convertProperties(getParamString(PARAM_PROPERTIES));
     }
 
     public VerificatorResult execute() {
         final VerificatorResult result = new VerificatorResult();
-        if (this.variables.length == 0) {
-            result.setMessage(getClass().getSimpleName() + ": no se ha definido las variables para verificar.");
+        if (this.properties.length == 0) {
+            result.setMessage(getClass().getSimpleName() + ": no se ha definido las propiedades para verificar.");
         }
 
-        if (this.variables.length > 0) {
+        if (this.properties.length > 0) {
             final StringBuilder builder = new StringBuilder();
-            for (final String variable : this.variables) {
+            for (final String variable : this.properties) {
                 if (System.getProperty(variable) == null) {
                     builder.append(String.format(" * Variable '%s' no está definida", variable));
                     builder.append(Viewer.NEW_LINE);
@@ -41,15 +41,15 @@ public final class PropertyVerificator extends AbstractVerificator {
         return result;
     }
 
-    private String[] convertVariables(final String variablesValue) {
-        final List<String> listVariables = new ArrayList<String>();
-        if (variablesValue != null) {
-            for (final String variable : variablesValue.split(",")) {
+    private String[] convertProperties(final String properties) {
+        final List<String> listProperties = new ArrayList<String>();
+        if (properties != null) {
+            for (final String variable : properties.split(",")) {
                 if (variable != null && variable.trim().length() > 0) {
-                    listVariables.add(variable.trim());
+                    listProperties.add(variable.trim());
                 }
             }
         }
-        return listVariables.toArray(new String[listVariables.size()]);
+        return listProperties.toArray(new String[listProperties.size()]);
     }
 }
