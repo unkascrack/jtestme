@@ -45,7 +45,7 @@ public final class ViewerFactory {
 
     /**
      * @param viewerType
-     * @param viewer
+     * @param viewerClass
      */
     public static void registerViewer(final ViewerType viewerType, final String viewerClass) {
         if (viewerType != null && viewerClass != null && viewerClass.trim().length() > 0) {
