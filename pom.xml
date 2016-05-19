@@ -8,7 +8,7 @@
 	<packaging>pom</packaging>
 	<name>jTestMe</name>
 	<description>jTestMe</description>
-	<url>http://jtestme.googlecode.com/</url>
+	<url>https://github.com/unkascrack/jtestme/wiki</url>
 	<inceptionYear>2013</inceptionYear>
 	<modules>
 		<module>jtestme-core</module>
@@ -29,13 +29,14 @@
 		<url>http://www.minhap.gob.es</url>
 	</organization>
 	<issueManagement>
-		<system>google</system>
-		<url>http://code.google.com/p/jtestme/issues/list</url>
+		<system>github</system>
+		<url>https://github.com/unkascrack/jtestme/issues</url>
 	</issueManagement>
 	<scm>
-		<connection>scm:svn:http://jtestme.googlecode.com/svn/trunk/</connection>
-		<developerConnection>scm:svn:https://jtestme.googlecode.com/svn/trunk/</developerConnection>
-		<url>http://jtestme.googlecode.com/svn/trunk/</url>
+		<connection>scm:git:git@github.com:unkascrack/jtestme.git</connection>
+		<developerConnection>scm:git:git@github.com:unkascrack/jtestme.git</developerConnection>
+		<url>https://github.com/unkascrack/jtestme</url>
+		<tag>HEAD</tag>
 	</scm>
 	<developers>
 		<developer>
@@ -50,7 +51,7 @@
 	<distributionManagement>
 		<repository>
 			<id>maven.jenkins-ci.org</id>
-			<url>http://maven.jenkins-ci.org:8081/content/repositories/releases/</url>
+			<url>https://repo.jenkins-ci.org/releases/</url>
 			<uniqueVersion>false</uniqueVersion>
 		</repository>
 		<snapshotRepository>
@@ -266,11 +267,9 @@
 						</dependency>
 					</dependencies>
 					<configuration>
-						<!-- checkstyle.xml, google_checks.xml y sun_checks.xml -->
 						<skip>${skipChecks}</skip>
 						<propertyExpansion>samedir=${project.parent.basedir}/src/main/checkstyle</propertyExpansion>
 						<configLocation>${project.parent.basedir}/src/main/checkstyle/checkstyle.xml</configLocation>
-						<!-- <suppressionsLocation>${project.parent.basedir}/src/main/checkstyle/suppressions.xml</suppressionsLocation> -->
 						<failOnViolation>${failOnError}</failOnViolation>
 						<includeResources>false</includeResources>
 						<includeTestResources>false</includeTestResources>
@@ -304,13 +303,6 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<extensions>
-			<extension>
-				<groupId>org.jvnet.wagon-svn</groupId>
-				<artifactId>wagon-svn</artifactId>
-				<version>1.9</version>
-			</extension>
-		</extensions>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
