@@ -19,7 +19,7 @@ public final class PropertyVerificator extends AbstractVerificator {
     }
 
     public VerificatorResult execute() {
-        final VerificatorResult result = new VerificatorResult();
+        final VerificatorResult result = super.getResult();
         if (this.properties.length == 0) {
             result.setMessage(getClass().getSimpleName() + ": no se ha definido las propiedades para verificar.");
         }

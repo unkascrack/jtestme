@@ -18,22 +18,22 @@ public final class JSONViewer extends AbstractViewer {
             for (int i = 0; i < results.size(); i++) {
                 final VerificatorResult result = results.get(i);
                 builder.append(TAB).append("\"verificator\":{").append(NEW_LINE);
-                builder.append(TAB).append(TAB).append("\"type\":\"").append(result.getType()).append("\",")
+                builder.append(TAB).append(TAB).append(printProperty("type", result.getType())).append(",")
                         .append(NEW_LINE);
-                builder.append(TAB).append(TAB).append("\"name\":\"").append(result.getName()).append("\",")
+                builder.append(TAB).append(TAB).append(printProperty("name", result.getName())).append(",")
                         .append(NEW_LINE);
-                builder.append(TAB).append(TAB).append("\"description\":\"").append(result.getDescription())
-                        .append("\",").append(NEW_LINE);
-                builder.append(TAB).append(TAB).append("\"success\":\"").append(result.getSuccessString()).append("\"");
+                builder.append(TAB).append(TAB).append(printProperty("description", result.getDescription()))
+                        .append(",").append(NEW_LINE);
+                builder.append(TAB).append(TAB).append(printProperty("success", result.getSuccessString()));
                 if (result.isSuccess()) {
                     builder.append(NEW_LINE);
                 } else {
                     builder.append(",").append(NEW_LINE);
-                    builder.append(TAB).append(TAB).append("\"message\":\"").append(result.getMessage()).append("\",")
+                    builder.append(TAB).append(TAB).append(printProperty("message", result.getMessage())).append(",")
                             .append(NEW_LINE);
-                    builder.append(TAB).append(TAB).append("\"resolution\":\"").append(result.getResolution())
-                            .append("\",").append(NEW_LINE);
-                    builder.append(TAB).append(TAB).append("\"cause\":\"").append(result.getCauseString()).append("\"")
+                    builder.append(TAB).append(TAB).append(printProperty("resolution", result.getResolution()))
+                            .append(",").append(NEW_LINE);
+                    builder.append(TAB).append(TAB).append(printProperty("cause", result.getCauseString()))
                             .append(NEW_LINE);
                 }
                 if (i == results.size() - 1) {
@@ -50,8 +50,8 @@ public final class JSONViewer extends AbstractViewer {
     private String header() {
         final StringBuilder builder = new StringBuilder();
         builder.append("{").append(NEW_LINE);
-        builder.append("\"version\":\"").append(Parameters.getjTestMeVersion()).append("\",").append(NEW_LINE);
-        builder.append("\"hostname\":\"").append(getHostName()).append("\",").append(NEW_LINE);
+        builder.append(printProperty("version", Parameters.getjTestMeVersion())).append(",").append(NEW_LINE);
+        builder.append(printProperty("hostname", getHostName())).append(",").append(NEW_LINE);
         builder.append("\"verificators\":{").append(NEW_LINE);
         return builder.toString();
     }
@@ -59,6 +59,13 @@ public final class JSONViewer extends AbstractViewer {
     private String footer() {
         final StringBuilder builder = new StringBuilder();
         builder.append("}").append(NEW_LINE);
+        return builder.toString();
+    }
+
+    private String printProperty(final String name, final String value) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("\"").append(name).append("\":");
+        builder.append("\"").append(value != null ? value.trim() : "").append("\"");
         return builder.toString();
     }
 }

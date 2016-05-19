@@ -17,7 +17,7 @@ public final class JavaCryptographyExtensionVerificator extends AbstractVerifica
     }
 
     public VerificatorResult execute() {
-        final VerificatorResult result = new VerificatorResult();
+        final VerificatorResult result = super.getResult();
         result.setSuccess(false);
         try {
             final int maxAllowedKeyLength = Cipher.getMaxAllowedKeyLength(ALGORITMO_AES);

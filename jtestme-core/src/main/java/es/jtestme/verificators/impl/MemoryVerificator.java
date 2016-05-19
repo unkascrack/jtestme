@@ -26,7 +26,7 @@ public final class MemoryVerificator extends AbstractVerificator {
     }
 
     public VerificatorResult execute() {
-        final VerificatorResult result = new VerificatorResult();
+        final VerificatorResult result = super.getResult();
         if (this.type == null || this.minSize == null) {
             result.setMessage(getClass().getSimpleName()
                     + ": no se ha definido el tipo y/o tamaño mínimo de la memoria para verificar.");
