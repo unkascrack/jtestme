@@ -61,7 +61,7 @@ public final class VerificatorResult implements Serializable {
     }
 
     public String getDescription() {
-        return this.description != null ? this.description : "";
+        return this.description;
     }
 
     public void setDescription(final String description) {
@@ -81,7 +81,7 @@ public final class VerificatorResult implements Serializable {
     }
 
     public String getMessage() {
-        return this.message != null ? this.message : "";
+        return this.message;
     }
 
     public void setMessage(final String message) {
@@ -110,7 +110,7 @@ public final class VerificatorResult implements Serializable {
     }
 
     public String getResolution() {
-        return this.resolution != null ? this.resolution : "";
+        return this.resolution;
     }
 
     public void setResolution(final String resolution) {
@@ -144,15 +144,15 @@ public final class VerificatorResult implements Serializable {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("type: ").append(getType()).append(", ");
-        sb.append("name: ").append(getName()).append(", ");
-        sb.append("description: ").append(getDescription()).append(", ");
-        sb.append("optional: ").append(getOptionalString()).append(", ");
-        sb.append("success: ").append(isSuccess()).append(", ");
-        if (!isSuccess()) {
-            sb.append("message: ").append(getMessage()).append(", ");
-            sb.append("resolution: ").append(getResolution()).append(", ");
-            sb.append("cause: ").append(getCauseString()).append(", ");
+        sb.append("type: ").append(this.type).append(", ");
+        sb.append("name: ").append(this.name).append(", ");
+        sb.append("description: ").append(this.description).append(", ");
+        sb.append("optional: ").append(this.optional).append(", ");
+        sb.append("success: ").append(this.success).append(", ");
+        if (!this.success) {
+            sb.append("message: ").append(this.message).append(", ");
+            sb.append("resolution: ").append(this.resolution).append(", ");
+            sb.append("cause: ").append(this.cause).append(", ");
         }
         return sb.toString();
     }
