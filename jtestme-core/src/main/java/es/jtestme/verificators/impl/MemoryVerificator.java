@@ -9,7 +9,6 @@ import java.util.Map;
 
 import es.jtestme.domain.VerificatorResult;
 import es.jtestme.logger.JTestMeLogger;
-import es.jtestme.viewers.Viewer;
 
 public final class MemoryVerificator extends AbstractVerificator {
 
@@ -30,20 +29,20 @@ public final class MemoryVerificator extends AbstractVerificator {
         final VerificatorResult result = new VerificatorResult();
         if (this.type == null || this.minSize == null) {
             result.setMessage(getClass().getSimpleName()
-                    + ": no se ha definido el tipo y/o tamaño mínimo de la memoria para verificar."
-                    + getMemoryStatistics());
+                    + ": no se ha definido el tipo y/o tamaño mínimo de la memoria para verificar.");
             return result;
         }
 
         final MemoryUsage memoryUsage = findMemoryUsageByType(this.type);
         if (memoryUsage == null) {
-            result.setMessage(getClass().getSimpleName() + ": memory type no encontrada." + getMemoryStatistics());
+            result.setMessage(getClass().getSimpleName() + ": memory type no encontrada: "
+                    + Arrays.toString(TypeMemory.values()));
             return result;
         }
 
         final int maxMemory = (int) (memoryUsage.getMax() / MB);
         if (this.minSize > maxMemory) {
-            result.setMessage(getClass().getSimpleName() + ": memory size menor requerido." + getMemoryStatistics());
+            result.setMessage(getClass().getSimpleName() + ": memory size menor requerido.");
             return result;
         }
 
@@ -66,20 +65,6 @@ public final class MemoryVerificator extends AbstractVerificator {
             }
         }
         return null;
-    }
-
-    private String getMemoryStatistics() {
-        final StringBuilder builder = new StringBuilder();
-        final Iterator<MemoryPoolMXBean> iter = ManagementFactory.getMemoryPoolMXBeans().iterator();
-        while (iter.hasNext()) {
-            builder.append(" * ");
-            final MemoryPoolMXBean item = iter.next();
-            builder.append(item.getName());
-            builder.append(" (" + item.getType() + "): ");
-            builder.append(item.getUsage().getMax() / MB + "MB");
-            builder.append(Viewer.NEW_LINE);
-        }
-        return builder.toString();
     }
 
     private enum TypeMemory {
