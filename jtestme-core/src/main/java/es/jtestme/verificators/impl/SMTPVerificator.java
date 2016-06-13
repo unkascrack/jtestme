@@ -21,14 +21,20 @@ public final class SMTPVerificator extends AbstractVerificator {
     private static final String PARAM_AUTH = "auth";
     private static final String PARAM_STARTTLS = "starttls";
     private static final String PARAM_STARTSSL = "startssl";
+    private static final String PARAM_TRUST = "trust";
+    private static final String PARAM_TRUSTSTORE = "truststore";
+    private static final String PARAM_TRUSTSTOREPASSWORD = "truststorepassword";
 
     private final String host;
     private final Integer port;
     private final String username;
     private final String password;
-    private boolean auth = false;
-    private boolean starttls = false;
-    private boolean startssl = false;
+    private final boolean auth;
+    private final boolean starttls;
+    private final boolean startssl;
+    private final String trust;
+    private final String trustStore;
+    private final String trustStorePassword;
 
     public SMTPVerificator(final Map<String, String> params) {
         super(params);
@@ -39,6 +45,9 @@ public final class SMTPVerificator extends AbstractVerificator {
         this.auth = getParamBoolean(PARAM_AUTH, false);
         this.starttls = getParamBoolean(PARAM_STARTTLS, false);
         this.startssl = getParamBoolean(PARAM_STARTSSL, false);
+        this.trust = getParamString(PARAM_TRUST);
+        this.trustStore = getParamString(PARAM_TRUSTSTORE);
+        this.trustStorePassword = getParamString(PARAM_TRUSTSTOREPASSWORD);
     }
 
     public VerificatorResult execute() {
@@ -47,10 +56,13 @@ public final class SMTPVerificator extends AbstractVerificator {
         Session session = null;
         Transport transport = null;
         try {
+            loadTrustStore(this.trustStore, this.trustStorePassword);
+
             final Properties props = new Properties();
             props.put("mail.smtp.auth", this.auth);
             props.put("mail.smtp.starttls.enable", this.starttls);
             props.put("mail.smtp.startssl.enable", this.startssl);
+            props.put("mail.smtp.ssl.trust", this.trust);
 
             session = Session.getDefaultInstance(props);
             transport = session.getTransport("smtp");
@@ -63,6 +75,7 @@ public final class SMTPVerificator extends AbstractVerificator {
         } catch (final Throwable e) {
             result.setCause(e);
         } finally {
+            relaseTrustStore(this.trustStore, this.trustStorePassword);
             closeQuietly(transport);
         }
 
