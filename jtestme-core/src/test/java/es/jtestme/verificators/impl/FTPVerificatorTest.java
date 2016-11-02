@@ -50,8 +50,8 @@ public class FTPVerificatorTest {
 
     @Test
     public void testExecuteParamsNull() {
-        verificator = new FTPVerificator(null);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new FTPVerificator(null);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -59,8 +59,8 @@ public class FTPVerificatorTest {
     @Test
     public void testExecuteParamsEmpty() {
         final Map<String, String> params = new HashMap<String, String>();
-        verificator = new FTPVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new FTPVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -69,8 +69,8 @@ public class FTPVerificatorTest {
     public void testExecuteParamsHostNotFound() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("host", "notfound");
-        verificator = new FTPVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new FTPVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -82,8 +82,8 @@ public class FTPVerificatorTest {
         params.put("port", "2121");
         params.put("username", "notfound");
         params.put("password", "notfound");
-        verificator = new FTPVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new FTPVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -95,8 +95,8 @@ public class FTPVerificatorTest {
         params.put("port", "2121");
         params.put("username", "anonymous");
         params.put("password", "anonymous");
-        verificator = new FTPVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new FTPVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }
@@ -108,8 +108,8 @@ public class FTPVerificatorTest {
         params.put("port", "2121");
         params.put("username", "user");
         params.put("password", "password");
-        verificator = new FTPVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new FTPVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }
@@ -118,8 +118,8 @@ public class FTPVerificatorTest {
     public void testExecuteParamsExternalFtp() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("host", "ftp.kernel.org");
-        verificator = new FTPVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new FTPVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }

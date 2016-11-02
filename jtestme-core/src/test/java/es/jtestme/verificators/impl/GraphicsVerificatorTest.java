@@ -14,8 +14,8 @@ public class GraphicsVerificatorTest {
 
     @Test
     public void testExecuteParamsNull() {
-        verificator = new GraphicsVerificator(null);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new GraphicsVerificator(null);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }
@@ -23,8 +23,8 @@ public class GraphicsVerificatorTest {
     @Test
     public void testExecuteParamsEmpty() {
         final Map<String, String> params = new HashMap<String, String>();
-        verificator = new GraphicsVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new GraphicsVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }

@@ -26,16 +26,16 @@ public class AbstractVerificatorTest {
 
     @Test
     public void testGetParamStringParamsNullValueNull() {
-        verificator = new FakeVerificator(null);
-        final String value = verificator.getParamString("name");
+        this.verificator = new FakeVerificator(null);
+        final String value = this.verificator.getParamString("name");
         Assert.assertNull(value);
     }
 
     @Test
     public void testGetParamStringParamsEmptyValueNull() {
         final Map<String, String> params = new HashMap<String, String>();
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name");
         Assert.assertNull(value);
     }
 
@@ -43,8 +43,8 @@ public class AbstractVerificatorTest {
     public void testGetParamStringWithParamNotFoundValueNull() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "name");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("notfound");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("notfound");
         Assert.assertNull(value);
     }
 
@@ -52,8 +52,8 @@ public class AbstractVerificatorTest {
     public void testGetParamStringParamsFoundValueNotNull() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "name");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "name");
     }
@@ -62,8 +62,8 @@ public class AbstractVerificatorTest {
     public void testGetParamStringParamsSystemPropertyNotFoundValueNull1() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "${my-system-property-notfound}");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name");
         Assert.assertNull(value);
     }
 
@@ -71,8 +71,8 @@ public class AbstractVerificatorTest {
     public void testGetParamStringParamsSystemPropertyNotFoundValueNull2() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "${my-system-property-notfound}/value/");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "null/value/");
     }
@@ -81,8 +81,8 @@ public class AbstractVerificatorTest {
     public void testGetParamStringParamsSystemPropertyNotFoundValueNull3() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "/value/${my-system-property-notfound}");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "/value/null");
     }
@@ -91,8 +91,8 @@ public class AbstractVerificatorTest {
     public void testGetParamStringParamsSystemPropertyNotFoundValueNull4() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "/value/${my-system-property-notfound}/value/");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "/value/null/value/");
     }
@@ -101,8 +101,8 @@ public class AbstractVerificatorTest {
     public void testGetParamStringParamsSystemPropertyFoundValueNotNull1() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "${my-system-property}");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "my-value-property");
     }
@@ -111,8 +111,8 @@ public class AbstractVerificatorTest {
     public void testGetParamStringParamsSystemPropertyFoundValueNotNull2() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "${my-system-property}/value/");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "my-value-property/value/");
     }
@@ -121,8 +121,8 @@ public class AbstractVerificatorTest {
     public void testGetParamStringParamsSystemPropertyFoundValueNotNull3() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "/value/${my-system-property}");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "/value/my-value-property");
     }
@@ -131,8 +131,8 @@ public class AbstractVerificatorTest {
     public void testGetParamStringParamsSystemPropertyFoundValueNotNull4() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "/value/${my-system-property}/value/");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "/value/my-value-property/value/");
     }
@@ -141,8 +141,8 @@ public class AbstractVerificatorTest {
     public void testGetParamStringParamsClasspathResourceNoFoundValueNull() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "classpath:notfound.properties");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name");
         Assert.assertNull(value);
     }
 
@@ -150,8 +150,8 @@ public class AbstractVerificatorTest {
     public void testGetParamStringParamsNotClasspathResourceValueNotNull() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "java:comp/env/jdbc/datasource");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name");
         Assert.assertNotNull(value);
         Assert.assertEquals("java:comp/env/jdbc/datasource", value);
     }
@@ -160,16 +160,16 @@ public class AbstractVerificatorTest {
     public void testGetParamStringParamsClasspathResourceFoundValueNotNull() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "classpath:jtestme.properties");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name");
         Assert.assertNotNull(value);
         Assert.assertTrue(value.endsWith("jtestme.properties"));
     }
 
     @Test
     public void testGetParamStringParamsNullValueIsDefault() {
-        verificator = new FakeVerificator(null);
-        final String value = verificator.getParamString("name", "default");
+        this.verificator = new FakeVerificator(null);
+        final String value = this.verificator.getParamString("name", "default");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "default");
     }
@@ -177,8 +177,8 @@ public class AbstractVerificatorTest {
     @Test
     public void testGetParamStringParamsEmptyValueIsDefault() {
         final Map<String, String> params = new HashMap<String, String>();
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name", "default");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name", "default");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "default");
     }
@@ -187,8 +187,8 @@ public class AbstractVerificatorTest {
     public void testGetParamStringWithParamNotFoundValueIsDefault() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "name");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("notfound", "default");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("notfound", "default");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "default");
     }
@@ -197,8 +197,8 @@ public class AbstractVerificatorTest {
     public void testGetParamStringParamsFoundValueIsNotDefault() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "name");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name", "default");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name", "default");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "name");
     }
@@ -207,8 +207,8 @@ public class AbstractVerificatorTest {
     public void testGetParamStringParamsSystemPropertyNotFoundValueIsDefault() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "${my-system-property-notfound}");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name", "default");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name", "default");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "default");
     }
@@ -217,16 +217,16 @@ public class AbstractVerificatorTest {
     public void testGetParamStringParamsSystemPropertyFoundValueNotIsDefault() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "${my-system-property}");
-        verificator = new FakeVerificator(params);
-        final String value = verificator.getParamString("name", "default");
+        this.verificator = new FakeVerificator(params);
+        final String value = this.verificator.getParamString("name", "default");
         Assert.assertNotNull(value);
         Assert.assertEquals(value, "my-value-property");
     }
 
     @Test
     public void testGetParamIntegerParamsNullValueIsDefault() {
-        verificator = new FakeVerificator(null);
-        final Integer value = verificator.getParamInteger("name", 0);
+        this.verificator = new FakeVerificator(null);
+        final Integer value = this.verificator.getParamInteger("name", 0);
         Assert.assertNotNull(value);
         Assert.assertTrue(value.equals(0));
     }
@@ -234,8 +234,8 @@ public class AbstractVerificatorTest {
     @Test
     public void testGetParamIntegerParamsEmptyValueIsDefault() {
         final Map<String, String> params = new HashMap<String, String>();
-        verificator = new FakeVerificator(params);
-        final Integer value = verificator.getParamInteger("name", 0);
+        this.verificator = new FakeVerificator(params);
+        final Integer value = this.verificator.getParamInteger("name", 0);
         Assert.assertNotNull(value);
         Assert.assertTrue(value.equals(0));
     }
@@ -244,8 +244,8 @@ public class AbstractVerificatorTest {
     public void testGetParamIntegerWithParamNotFoundValueIsDefault() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "10");
-        verificator = new FakeVerificator(params);
-        final Integer value = verificator.getParamInteger("notfound", 0);
+        this.verificator = new FakeVerificator(params);
+        final Integer value = this.verificator.getParamInteger("notfound", 0);
         Assert.assertNotNull(value);
         Assert.assertTrue(value.equals(0));
     }
@@ -254,16 +254,16 @@ public class AbstractVerificatorTest {
     public void testGetParamIntegerParamsFoundValueIsNotDefault() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "10");
-        verificator = new FakeVerificator(params);
-        final Integer value = verificator.getParamInteger("name", 0);
+        this.verificator = new FakeVerificator(params);
+        final Integer value = this.verificator.getParamInteger("name", 0);
         Assert.assertNotNull(value);
         Assert.assertTrue(value.equals(10));
     }
 
     @Test
     public void testGetParamBooleanParamsNullValueIsDefault() {
-        verificator = new FakeVerificator(null);
-        final boolean value = verificator.getParamBoolean("name", false);
+        this.verificator = new FakeVerificator(null);
+        final boolean value = this.verificator.getParamBoolean("name", false);
         Assert.assertNotNull(value);
         Assert.assertEquals(value, false);
     }
@@ -271,8 +271,8 @@ public class AbstractVerificatorTest {
     @Test
     public void testGetParamBooleanParamsEmptyValueIsDefault() {
         final Map<String, String> params = new HashMap<String, String>();
-        verificator = new FakeVerificator(params);
-        final boolean value = verificator.getParamBoolean("name", false);
+        this.verificator = new FakeVerificator(params);
+        final boolean value = this.verificator.getParamBoolean("name", false);
         Assert.assertNotNull(value);
         Assert.assertEquals(value, false);
     }
@@ -281,8 +281,8 @@ public class AbstractVerificatorTest {
     public void testGetParamBooleanWithParamNotFoundValueIsDefault() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "true");
-        verificator = new FakeVerificator(params);
-        final boolean value = verificator.getParamBoolean("notfound", false);
+        this.verificator = new FakeVerificator(params);
+        final boolean value = this.verificator.getParamBoolean("notfound", false);
         Assert.assertNotNull(value);
         Assert.assertEquals(value, false);
     }
@@ -291,8 +291,8 @@ public class AbstractVerificatorTest {
     public void testGetParamBooleanParamsFoundValueIsNotDefault() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "true");
-        verificator = new FakeVerificator(params);
-        final boolean value = verificator.getParamBoolean("name", false);
+        this.verificator = new FakeVerificator(params);
+        final boolean value = this.verificator.getParamBoolean("name", false);
         Assert.assertNotNull(value);
         Assert.assertEquals(value, true);
     }
@@ -301,16 +301,16 @@ public class AbstractVerificatorTest {
     public void testGetParamBooleanParamsBooleanIncorrectValueIsDefault() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "yes");
-        verificator = new FakeVerificator(params);
-        final boolean value = verificator.getParamBoolean("name", false);
+        this.verificator = new FakeVerificator(params);
+        final boolean value = this.verificator.getParamBoolean("name", false);
         Assert.assertNotNull(value);
         Assert.assertEquals(value, false);
     }
 
     @Test
     public void testGetResultParamsNull() {
-        verificator = new FakeVerificator(null);
-        final VerificatorResult result = verificator.getResult();
+        this.verificator = new FakeVerificator(null);
+        final VerificatorResult result = this.verificator.getResult();
         Assert.assertNotNull(result);
         Assert.assertNull(result.getName());
     }
@@ -318,8 +318,8 @@ public class AbstractVerificatorTest {
     @Test
     public void testGetResultParamsEmpty() {
         final Map<String, String> params = new HashMap<String, String>();
-        verificator = new FakeVerificator(params);
-        final VerificatorResult result = verificator.getResult();
+        this.verificator = new FakeVerificator(params);
+        final VerificatorResult result = this.verificator.getResult();
         Assert.assertNotNull(result);
         Assert.assertNull(result.getName());
     }
@@ -328,8 +328,8 @@ public class AbstractVerificatorTest {
     public void testGetResultParamsNameNotSet() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("notfound", "notfound");
-        verificator = new FakeVerificator(params);
-        final VerificatorResult result = verificator.getResult();
+        this.verificator = new FakeVerificator(params);
+        final VerificatorResult result = this.verificator.getResult();
         Assert.assertNotNull(result);
         Assert.assertNull(result.getName());
     }
@@ -338,8 +338,8 @@ public class AbstractVerificatorTest {
     public void testGetResultParamsNameSet() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("name", "name");
-        verificator = new FakeVerificator(params);
-        final VerificatorResult result = verificator.getResult();
+        this.verificator = new FakeVerificator(params);
+        final VerificatorResult result = this.verificator.getResult();
         Assert.assertNotNull(result);
         Assert.assertNotNull(result.getName());
     }

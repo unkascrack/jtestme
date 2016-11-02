@@ -7,7 +7,7 @@ public class PlainTextViewerTest extends AbstractViewerTest {
     @Override
     @Before
     public void setUp() {
-        viewer = new PlainTextViewer();
+        this.viewer = new PlainTextViewer();
     }
 
 }

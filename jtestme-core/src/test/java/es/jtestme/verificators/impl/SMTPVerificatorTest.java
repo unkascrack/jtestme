@@ -36,8 +36,8 @@ public class SMTPVerificatorTest {
 
     @Test
     public void testExecuteParamsNull() {
-        verificator = new SMTPVerificator(null);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new SMTPVerificator(null);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -45,8 +45,8 @@ public class SMTPVerificatorTest {
     @Test
     public void testExecuteParamsEmpty() {
         final Map<String, String> params = new HashMap<String, String>();
-        verificator = new SMTPVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new SMTPVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -55,8 +55,8 @@ public class SMTPVerificatorTest {
     public void testExecuteParamsHostNotFound() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("host", "notfound");
-        verificator = new SMTPVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new SMTPVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -66,8 +66,8 @@ public class SMTPVerificatorTest {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("host", "localhost");
         params.put("port", "2525");
-        verificator = new SMTPVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new SMTPVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }

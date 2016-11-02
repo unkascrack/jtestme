@@ -17,8 +17,8 @@ public class ConnectionVerificatorTest {
 
     @Test
     public void testExecuteParamsEmpty() {
-        verificator = new ConnectionVerificator(null);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new ConnectionVerificator(null);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -27,8 +27,8 @@ public class ConnectionVerificatorTest {
     public void testExecuteParamURLHttpNotFound() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("url", "http://noexiste.es");
-        verificator = new ConnectionVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new ConnectionVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -39,8 +39,8 @@ public class ConnectionVerificatorTest {
         params.put("url", "http://www.google.com");
         params.put("proxyhost", PROXY_HOST);
         params.put("proxyport", PROXY_PORT);
-        verificator = new ConnectionVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new ConnectionVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }
@@ -51,8 +51,8 @@ public class ConnectionVerificatorTest {
         params.put("url", "https://www.google.com");
         params.put("proxyhost", PROXY_HOST);
         params.put("proxyport", PROXY_PORT);
-        verificator = new ConnectionVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new ConnectionVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }
@@ -65,8 +65,8 @@ public class ConnectionVerificatorTest {
         params.put("proxyport", PROXY_PORT);
         params.put("truststore", "/path/certificado");
         params.put("truststorepassword", "/path/certificado");
-        verificator = new ConnectionVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new ConnectionVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }

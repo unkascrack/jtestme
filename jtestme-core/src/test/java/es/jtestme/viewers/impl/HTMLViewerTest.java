@@ -7,6 +7,6 @@ public class HTMLViewerTest extends AbstractViewerTest {
     @Override
     @Before
     public void setUp() {
-        viewer = new HTMLViewer();
+        this.viewer = new HTMLViewer();
     }
 }

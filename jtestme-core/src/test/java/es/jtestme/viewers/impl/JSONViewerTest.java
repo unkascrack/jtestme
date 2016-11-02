@@ -7,7 +7,7 @@ public class JSONViewerTest extends AbstractViewerTest {
     @Override
     @Before
     public void setUp() {
-        viewer = new JSONViewer();
+        this.viewer = new JSONViewer();
     }
 
 }

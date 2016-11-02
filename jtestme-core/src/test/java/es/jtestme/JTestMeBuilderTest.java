@@ -16,60 +16,60 @@ public class JTestMeBuilderTest {
 
     @Before
     public void setUp() {
-        builder = JTestMeBuilder.getInstance();
-        builder.addVerificator(new FakeVerificator("uid1"));
-        builder.addVerificator(new FakeVerificator("uid2"));
-        builder.addVerificator(new FakeVerificator("uid3"));
+        this.builder = JTestMeBuilder.getInstance();
+        this.builder.addVerificator(new FakeVerificator("uid1"));
+        this.builder.addVerificator(new FakeVerificator("uid2"));
+        this.builder.addVerificator(new FakeVerificator("uid3"));
     }
 
     @After
     public void tearDown() {
-        builder.destroy();
+        this.builder.destroy();
     }
 
     @Test
     public void testBuilderNotNull() {
-        Assert.assertNotNull(builder);
+        Assert.assertNotNull(this.builder);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAddVerificatorNull() {
-        builder.addVerificator(null);
+        this.builder.addVerificator(null);
     }
 
     @Test
     public void testAddVerificatorNotNull() {
-        builder.addVerificator(new FakeVerificator("uid4"));
+        this.builder.addVerificator(new FakeVerificator("uid4"));
     }
 
     @Test
     public void testExecuteVerificatorNull() {
-        final VerificatorResult result = builder.executeVerificator(null);
+        final VerificatorResult result = this.builder.executeVerificator(null);
         Assert.assertNull(result);
     }
 
     @Test
     public void testExecuteVerificatorNotFound() {
-        final VerificatorResult result = builder.executeVerificator("verificatornotfound");
+        final VerificatorResult result = this.builder.executeVerificator("verificatornotfound");
         Assert.assertNull(result);
     }
 
     @Test
     public void testExecuteVerificatorFound() {
-        final VerificatorResult result = builder.executeVerificator("uid1");
+        final VerificatorResult result = this.builder.executeVerificator("uid1");
         Assert.assertNotNull(result);
     }
 
     @Test
     public void testExecuteVerificatorsNotEmpty() {
-        final List<VerificatorResult> results = builder.executeVerificators();
+        final List<VerificatorResult> results = this.builder.executeVerificators();
         Assert.assertTrue(results.size() == 3);
     }
 
     @Test
     public void testExecuteVerificatorsEmpty() {
-        builder.destroy();
-        final List<VerificatorResult> results = builder.executeVerificators();
+        this.builder.destroy();
+        final List<VerificatorResult> results = this.builder.executeVerificators();
         Assert.assertTrue(results.isEmpty());
     }
 }

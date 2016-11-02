@@ -27,11 +27,11 @@ public class FakeVerificator implements Verificator {
     }
 
     public String getUid() {
-        return uid;
+        return this.uid;
     }
 
     public Map<String, String> getParams() {
-        return params;
+        return this.params;
     }
 
     public VerificatorResult execute() {

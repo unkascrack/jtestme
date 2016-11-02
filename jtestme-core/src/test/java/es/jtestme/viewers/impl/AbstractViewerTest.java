@@ -18,40 +18,40 @@ public abstract class AbstractViewerTest {
 
     @Test
     public void testViewerNotNull() {
-        Assert.assertNotNull(viewer);
+        Assert.assertNotNull(this.viewer);
     }
 
     @Test
     public void testGetHostNameNotNull() {
-        Assert.assertNotNull(viewer.getHostName());
+        Assert.assertNotNull(this.viewer.getHostName());
     }
 
     @Test
     public void testGetCurrentDateAndTimeNull() {
-        Assert.assertNotNull(viewer.getCurrentDateAndTime());
+        Assert.assertNotNull(this.viewer.getCurrentDateAndTime());
     }
 
     @Test
     public void testGetContentTypeNotNull() {
-        Assert.assertNotNull(viewer.getContentType());
+        Assert.assertNotNull(this.viewer.getContentType());
     }
 
     @Test
     public void testGetContentViewerResultsNull() {
         final List<VerificatorResult> results = null;
-        Assert.assertNotNull(viewer.getContentViewer(results));
+        Assert.assertNotNull(this.viewer.getContentViewer(results));
     }
 
     @Test
     public void testGetContentViewerResultsEmpty() {
         final List<VerificatorResult> results = new ArrayList<VerificatorResult>();
-        Assert.assertNotNull(viewer.getContentViewer(results));
+        Assert.assertNotNull(this.viewer.getContentViewer(results));
     }
 
     @Test
     public void testGetContentViewerResultsNotEmpty() {
         final List<VerificatorResult> results = new ArrayList<VerificatorResult>();
         results.add(new VerificatorResult());
-        Assert.assertNotNull(viewer.getContentViewer(results));
+        Assert.assertNotNull(this.viewer.getContentViewer(results));
     }
 }

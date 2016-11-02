@@ -7,7 +7,7 @@ public class XMLViewerTest extends AbstractViewerTest {
     @Override
     @Before
     public void setUp() {
-        viewer = new XMLViewer();
+        this.viewer = new XMLViewer();
     }
 
 }

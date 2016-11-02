@@ -3,6 +3,7 @@ package es.jtestme.verificators.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -10,7 +11,6 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import es.jtestme.domain.VerificatorResult;
-import org.junit.Assert;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-config-database-test.xml"})
@@ -20,8 +20,8 @@ public class JDBCVerificatorTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testExecuteParamsNull() {
-        verificator = new JDBCVerificator(null);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new JDBCVerificator(null);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -29,8 +29,8 @@ public class JDBCVerificatorTest extends AbstractJUnit4SpringContextTests {
     @Test
     public void testExecuteParamsEmpty() {
         final Map<String, String> params = new HashMap<String, String>();
-        verificator = new JDBCVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new JDBCVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -43,8 +43,8 @@ public class JDBCVerificatorTest extends AbstractJUnit4SpringContextTests {
         params.put("username", "");
         params.put("password", "");
         params.put("testquery", "");
-        verificator = new JDBCVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new JDBCVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -57,8 +57,8 @@ public class JDBCVerificatorTest extends AbstractJUnit4SpringContextTests {
         params.put("username", "sa");
         params.put("password", "");
         params.put("testquery", "select 1 from dual");
-        verificator = new JDBCVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new JDBCVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -71,8 +71,8 @@ public class JDBCVerificatorTest extends AbstractJUnit4SpringContextTests {
         params.put("username", "sa");
         params.put("password", "");
         params.put("testquery", "select 1 from dual");
-        verificator = new JDBCVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new JDBCVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }
@@ -85,8 +85,8 @@ public class JDBCVerificatorTest extends AbstractJUnit4SpringContextTests {
         params.put("username", "sa");
         params.put("password", "");
         params.put("testquery", "");
-        verificator = new JDBCVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new JDBCVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }

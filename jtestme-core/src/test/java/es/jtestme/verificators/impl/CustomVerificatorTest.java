@@ -15,8 +15,8 @@ public class CustomVerificatorTest {
 
     @Test
     public void testExecuteParamsNull() {
-        verificator = new CustomVerificator(null);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new CustomVerificator(null);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -24,8 +24,8 @@ public class CustomVerificatorTest {
     @Test
     public void testExecuteParamsEmpty() {
         final Map<String, String> params = new HashMap<String, String>();
-        verificator = new CustomVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new CustomVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -34,8 +34,8 @@ public class CustomVerificatorTest {
     public void testExecuteParamsClassNotFound() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("class", "notfound");
-        verificator = new CustomVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new CustomVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -44,8 +44,8 @@ public class CustomVerificatorTest {
     public void testExecuteParamsClassFound() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("class", FakeVerificator.class.getName());
-        verificator = new CustomVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new CustomVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }
@@ -55,8 +55,8 @@ public class CustomVerificatorTest {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("class", FakeVerificator.class.getName());
         params.put("url", "http://www.google.com");
-        verificator = new CustomVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new CustomVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }

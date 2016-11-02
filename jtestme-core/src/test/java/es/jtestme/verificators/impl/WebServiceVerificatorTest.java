@@ -14,8 +14,8 @@ public class WebServiceVerificatorTest {
 
     @Test
     public void testExecuteParamsNull() {
-        verificator = new WebServiceVerificator(null);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new WebServiceVerificator(null);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -23,8 +23,8 @@ public class WebServiceVerificatorTest {
     @Test
     public void testExecuteParamsEmpty() {
         final Map<String, String> params = new HashMap<String, String>();
-        verificator = new WebServiceVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new WebServiceVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -33,8 +33,8 @@ public class WebServiceVerificatorTest {
     public void testExecuteParamsEmptyRPCWebService() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("protocol", "rpc");
-        verificator = new WebServiceVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new WebServiceVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -46,8 +46,8 @@ public class WebServiceVerificatorTest {
         params.put("endpoint", "http://notfound.com?wsdl");
         params.put("namespaceuri", "http://notfound.com/");
         params.put("localpart", "notfound");
-        verificator = new WebServiceVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new WebServiceVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -59,8 +59,8 @@ public class WebServiceVerificatorTest {
         params.put("endpoint", "http://graphical.weather.gov/xml/SOAP_server/ndfdXMLserver.php?wsdl");
         params.put("namespaceuri", "http://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl");
         params.put("localpart", "ndfdXML");
-        verificator = new WebServiceVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new WebServiceVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }
@@ -69,8 +69,8 @@ public class WebServiceVerificatorTest {
     public void testExecuteParamsEmptySOAPWebService() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("protocol", "soap");
-        verificator = new WebServiceVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new WebServiceVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -82,8 +82,8 @@ public class WebServiceVerificatorTest {
         params.put("endpoint", "http://notfound.com?wsdl");
         params.put("namespaceuri", "http://notfound.com/");
         params.put("localpart", "notfound");
-        verificator = new WebServiceVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new WebServiceVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -95,8 +95,8 @@ public class WebServiceVerificatorTest {
         params.put("endpoint", "http://www.webservicex.net/whois.asmx?WSDL");
         params.put("namespaceuri", "http://www.webservicex.net");
         params.put("localpart", "GetWhoIS");
-        verificator = new WebServiceVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new WebServiceVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }
@@ -105,8 +105,8 @@ public class WebServiceVerificatorTest {
     public void testExecuteParamsEmptyWebServiceREST() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("protocol", "rest");
-        verificator = new WebServiceVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new WebServiceVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -116,8 +116,8 @@ public class WebServiceVerificatorTest {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("protocol", "rest");
         params.put("endpoint", "http://incorrrectrestservice.com");
-        verificator = new WebServiceVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new WebServiceVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -127,8 +127,8 @@ public class WebServiceVerificatorTest {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("protocol", "rest");
         params.put("endpoint", "http://www.dtcenter.org/met/metviewer/servlet");
-        verificator = new WebServiceVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new WebServiceVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }

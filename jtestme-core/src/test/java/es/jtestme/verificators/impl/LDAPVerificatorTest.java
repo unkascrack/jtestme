@@ -44,8 +44,8 @@ public class LDAPVerificatorTest {
     public void testExecuteParamsURLNotFound() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("url", "ldap://ldapnoexiste:33390");
-        verificator = new LDAPVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new LDAPVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -54,8 +54,8 @@ public class LDAPVerificatorTest {
     public void testExecuteParamsURLFoundPrincipalNull() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("url", "ldap://localhost:33390");
-        verificator = new LDAPVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new LDAPVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }
@@ -66,8 +66,8 @@ public class LDAPVerificatorTest {
         params.put("url", "ldap://localhost:33390");
         params.put("principal", "notfound");
         params.put("credentials", "notfound");
-        verificator = new LDAPVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new LDAPVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -77,8 +77,8 @@ public class LDAPVerificatorTest {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("url", "ldap://localhost:33390");
         params.put("principal", "cn=admin,dc=es");
-        verificator = new LDAPVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new LDAPVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -89,8 +89,8 @@ public class LDAPVerificatorTest {
         params.put("url", "ldap://localhost:33390");
         params.put("principal", "cn=admin,dc=es");
         params.put("credentials", "cambiame");
-        verificator = new LDAPVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new LDAPVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }

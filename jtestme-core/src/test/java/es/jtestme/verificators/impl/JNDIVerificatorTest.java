@@ -7,12 +7,12 @@ import javax.naming.Context;
 import javax.naming.NamingException;
 
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.mock.jndi.SimpleNamingContextBuilder;
 
 import es.jtestme.domain.VerificatorResult;
-import org.junit.Assert;
 
 public class JNDIVerificatorTest {
 
@@ -38,8 +38,8 @@ public class JNDIVerificatorTest {
 
     @Test
     public void testExecuteParamsEmpty() {
-        verificator = new JNDIVerificator(null);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new JNDIVerificator(null);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -48,8 +48,8 @@ public class JNDIVerificatorTest {
     public void testExecuteParamsLookupNoExists() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("lookup", "java:comp/env/noexiste");
-        verificator = new JNDIVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new JNDIVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -58,8 +58,8 @@ public class JNDIVerificatorTest {
     public void testExecuteParamsLookupNoEnv() {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("lookup", "jdbc/myresource");
-        verificator = new JNDIVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new JNDIVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -71,8 +71,8 @@ public class JNDIVerificatorTest {
         params.put("url", "jnp://localhost:1099");
         params.put("pkgs", "org.jboss.naming:org.jnp.interfaces");
         params.put("lookup", "myresource");
-        verificator = new JNDIVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new JNDIVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }

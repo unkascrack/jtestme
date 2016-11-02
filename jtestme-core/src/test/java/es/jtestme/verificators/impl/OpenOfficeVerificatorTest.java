@@ -39,8 +39,8 @@ public class OpenOfficeVerificatorTest {
 
     @Test
     public void testExecuteParamsNull() {
-        verificator = new OpenOfficeVerificator(null);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new OpenOfficeVerificator(null);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -48,8 +48,8 @@ public class OpenOfficeVerificatorTest {
     @Test
     public void testExecuteParamsEmpty() {
         final Map<String, String> params = new HashMap<String, String>();
-        verificator = new OpenOfficeVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new OpenOfficeVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -59,8 +59,8 @@ public class OpenOfficeVerificatorTest {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("host", "notfound");
         params.put("port", "21");
-        verificator = new OpenOfficeVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new OpenOfficeVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
     }
@@ -70,8 +70,8 @@ public class OpenOfficeVerificatorTest {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("host", "localhost");
         params.put("port", "8100");
-        verificator = new OpenOfficeVerificator(params);
-        final VerificatorResult result = verificator.execute();
+        this.verificator = new OpenOfficeVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isSuccess());
     }

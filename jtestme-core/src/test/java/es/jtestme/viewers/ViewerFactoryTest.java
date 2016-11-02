@@ -1,5 +1,6 @@
 package es.jtestme.viewers;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import es.jtestme.verificators.custom.FakeVerificator;
@@ -9,7 +10,6 @@ import es.jtestme.viewers.impl.HTMLViewer;
 import es.jtestme.viewers.impl.JSONViewer;
 import es.jtestme.viewers.impl.PlainTextViewer;
 import es.jtestme.viewers.impl.XMLViewer;
-import org.junit.Assert;
 
 public class ViewerFactoryTest {
 
