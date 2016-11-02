@@ -3,41 +3,15 @@
 <!DOCTYPE suppressions PUBLIC
     "-//Puppy Crawl//DTD Suppressions 1.1//EN"
     "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
-    
 <suppressions>
-
 	<!-- JavaDocs -->
 	<suppress checks="JavadocPackage" files="."/>
 	<suppress checks="JavadocType" files="."/>
 	<suppress checks="JavadocMethod" files="."/>
 	<suppress checks="JavadocVariable" files="."/>
 	<suppress checks="JavadocStyle" files="."/>
-
 	<!-- Inline Conditionals -->
 	<suppress checks="AvoidInlineConditionals" files="."/>
-	
 	<!-- HiddenField -->
 	<suppress checks="HiddenField" files="."/>
-	
-	<!-- Customs -->
-	<suppress checks="DesignForExtension" files="SpringSecurityConfiguration.java"/>  
-	<suppress checks="DesignForExtension" files="SpringCacheConfiguration.java"/>
-	<suppress checks="DesignForExtension" files="SpringORMConfiguration.java"/>
-	<suppress checks="DesignForExtension" files="SpringWebConfiguration.java"/>
-	<suppress checks="DesignForExtension" files="SpringDatabaseConfiguration.java"/>
-	<suppress checks="DesignForExtension" files="SpringConfigWebInitializer.java"/>
-	<suppress checks="DesignForExtension" files="SpringCoreConfiguration.java"/>
-	<suppress checks="DesignForExtension" files="SpringCifradoConfiguration.java"/>
-	
-	<!-- HideUtilityClassConstructor -->
-	<suppress checks="HideUtilityClassConstructor" files="SpringCifradoConfiguration.java"/>
-	
-	<suppress checks="ParameterName" files="Actividad.java"/>
-	<suppress checks="MethodName" files="Actividad.java"/>
-	<suppress checks="MemberName" files="Actividad.java"/>
-	
-	<suppress checks="ParameterName" files="Bien.java"/>
-	<suppress checks="MethodName" files="Bien.java"/>
-	<suppress checks="MemberName" files="Bien.java"/>
-	
 </suppressions>
