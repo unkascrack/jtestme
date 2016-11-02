@@ -14,6 +14,7 @@ import es.jtestme.verificators.impl.MemoryVerificator;
 import es.jtestme.verificators.impl.OpenOfficeVerificator;
 import es.jtestme.verificators.impl.PropertyVerificator;
 import es.jtestme.verificators.impl.SMTPVerificator;
+import es.jtestme.verificators.impl.UriEncodingVerificator;
 import es.jtestme.verificators.impl.WebServiceVerificator;
 
 public enum VerificatorType {
@@ -32,6 +33,7 @@ public enum VerificatorType {
     OPENOFFICE(OpenOfficeVerificator.class),
     PROPERTY(PropertyVerificator.class),
     SMTP(SMTPVerificator.class),
+    URIENCODING(UriEncodingVerificator.class),
     WEBSERVICE(WebServiceVerificator.class);
 
     private Class<? extends Verificator> verificatorClass;

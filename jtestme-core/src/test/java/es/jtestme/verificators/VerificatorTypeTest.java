@@ -54,6 +54,11 @@ public class VerificatorTypeTest {
     }
 
     @Test
+    public void toType_whenTypeIsUriEncoding_shouldReturnVerificatorTypeUriEncoding() {
+        Assert.assertEquals(VerificatorType.toType("URIEncoding"), VerificatorType.URIENCODING);
+    }
+
+    @Test
     public void testTypeNull() {
         Assert.assertNull(VerificatorType.toType(null));
     }
