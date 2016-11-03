@@ -42,11 +42,33 @@ public class MemoryVerificatorTest {
     @Test
     public void execute_whenParamsMinSizeIsEmpty_shouldReturnNoSuccess() {
         final Map<String, String> params = new HashMap<String, String>();
-        params.put("memorytype", "pergem");
+        params.put("memorytype", "permgen");
         params.put("minsize", "");
         this.verificator = new MemoryVerificator(params);
         final VerificatorResult result = this.verificator.execute();
         Assert.assertNotNull(result);
         Assert.assertFalse(result.isSuccess());
+    }
+
+    @Test
+    public void execute_whenTypeMemoryIsIncorrect_shouldReturnNoSuccess() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("memorytype", "incorrect");
+        params.put("minsize", "100");
+        this.verificator = new MemoryVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
+        Assert.assertNotNull(result);
+        Assert.assertFalse(result.isSuccess());
+    }
+
+    @Test
+    public void execute_whenTypeMemoryAndMinSizeIsOk_shouldReturnSuccess() {
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("memorytype", "permgen");
+        params.put("minsize", "10");
+        this.verificator = new MemoryVerificator(params);
+        final VerificatorResult result = this.verificator.execute();
+        Assert.assertNotNull(result);
+        Assert.assertTrue(result.isSuccess());
     }
 }

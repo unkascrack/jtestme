@@ -25,6 +25,7 @@ public final class MemoryVerificator extends AbstractVerificator {
         this.minSize = getParamInteger(PARAM_MIN_SIZE, null);
     }
 
+    @Override
     public VerificatorResult execute() {
         final VerificatorResult result = super.getResult();
         if (this.type == null || this.minSize == null) {
@@ -60,8 +61,10 @@ public final class MemoryVerificator extends AbstractVerificator {
         final Iterator<MemoryPoolMXBean> iter = ManagementFactory.getMemoryPoolMXBeans().iterator();
         while (iter.hasNext()) {
             final MemoryPoolMXBean item = iter.next();
-            if (item.getName().contains(type.getType())) {
-                return item.getUsage();
+            for (final String memoryType : type.getType()) {
+                if (item.getName().contains(memoryType)) {
+                    return item.getUsage();
+                }
             }
         }
         return null;
@@ -71,17 +74,17 @@ public final class MemoryVerificator extends AbstractVerificator {
 
         HEAP("Heap"),
         NONHEAP("Non-Heap"),
-        PERMGEN("Perm Gen"),
+        PERMGEN("Perm Gen", "Metaspace"),
         EDEN("Eden Space"),
         OLDGEM("Old Gen");
 
-        private final String type;
+        private final String[] type;
 
-        TypeMemory(final String type) {
+        TypeMemory(final String... type) {
             this.type = type;
         }
 
-        String getType() {
+        String[] getType() {
             return this.type;
         }
 
