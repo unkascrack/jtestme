@@ -285,7 +285,7 @@
 					<executions>
 						<execution>
 							<id>analyze-compile</id>
-							<phase>compile</phase>
+							<phase>verify</phase>
 							<goals>
 								<goal>check</goal>
 							</goals>
@@ -293,7 +293,7 @@
 					</executions>
 					<configuration>
 						<skip>${skipChecks}</skip>
-						<failOnError>${failOnError}</failOnError>
+						<failOnError>false</failOnError>
 						<!-- Enables analysis which takes more memory but finds more bugs.
 							If you run out of memory, changes the value of the effort element to 'Low'. -->
 						<effort>Max</effort>
