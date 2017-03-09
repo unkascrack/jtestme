@@ -181,6 +181,11 @@ jtestme.datasource.param.datasource=
 jtestme.datasource.param.testquery=#optional
 jtestme.datasource.optional=true
 
+# Test File
+jtestme.file.type=file
+jtestme.file.name=File Test
+jtestme.file.param.path=
+
 # Test FTP
 jtestme.ftp.type=ftp
 jtestme.ftp.name=FTP Test
@@ -196,6 +201,12 @@ jtestme.graphics.type=graphics
 jtestme.graphics.name=Graphics Test
 jtestme.graphics.description=Graphics Test
 jtestme.graphics.resolution=Qué hacer si falla el test
+
+# Test JCE
+jtestme.jce.type=jce
+jtestme.jce.name=Java Cryptography Extension (JCE) Test
+jtestme.jce.description=Java Cryptography Extension (JCE) Test
+jtestme.jce.resolution=Qué hacer si falla el test
 
 # Test JDBC
 jtestme.jdbc.type=jdbc
@@ -228,6 +239,14 @@ jtestme.ldap.param.url=
 jtestme.ldap.param.principal=
 jtestme.ldap.param.credentials=
 
+# Test Memory : heap / nonheap / permgen / eden / oldgem
+jtestme.memory.type=memory
+jtestme.memory.name=Memory Test
+jtestme.memory.description=Memory Test
+jtestme.memory.resolution=Qué hacer si falla el test
+jtestme.memory.param.memorytype=heap|nonheap|permgen|eden|oldgem
+jtestme.memory.param.minsize= 
+
 # Test OpenOffice
 jtestme.openoffice.type=openoffice
 jtestme.openoffice.name=OpenOffice Test
@@ -235,6 +254,11 @@ jtestme.openoffice.description=OpenOffice Test
 jtestme.openoffice.resolution=Qué hacer si falla el test
 jtestme.openoffice.param.host=#default localhost
 jtestme.openoffice.param.port=#default 8700
+
+# Test Properties
+jtestme.property.type=property
+jtestme.property.name=Properties Test
+jtestme.property.param.properties=
 
 # Test SMTP
 jtestme.smtp.type=smtp
@@ -462,8 +486,11 @@ Para definir los parámetros de configuración del filtro sólo es necesario def
 ```
 
 Los parámetros de configuración de `es.jtestme.filter.JTestMeFilter` son:
+
+
+
 PROPIEDAD | VALOR POR DEFECTO | DESCRIPCIÓN
---------- | ----------------- | -----------
+------------ | ------------- | -------------
 **config-location** | `classpath:jtestme.properties` | Ubicación del archivo de configuración de JTestMe donde se definen los verificators
 **encoding** | `UTF-8` | Códificación por defecto de las respuestas HTTP a las peticiones el filtro de JTestMe
 **log** | `true` | Activa/Desactiva las trazas log de la librería JTestMe
