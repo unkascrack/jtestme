@@ -440,12 +440,6 @@ Para definir los parámetros de configuración del filtro sólo es necesario def
 ```
 
 Los parámetros de configuración de `es.jtestme.filter.JTestMeFilter` son:
-
-First Header | Second Header
------------- | -------------
-Content from cell 1 | Content from cell 2
-Content in the first column | Content in the second column
-
 PROPIEDAD | VALOR POR DEFECTO | DESCRIPCIÓN
 --------- | ----------------- | -----------
 **config-location** | `classpath:jtestme.properties` | Ubicación del archivo de configuración de JTestMe donde se definen los verificators
@@ -575,7 +569,7 @@ public class MyCustomVerificator extends es.jtestme.verificators.impl.AbstractVe
 
 > *NOTA: las clases verificators custom sólo son instanciadas una única vez, por lo que sus método, especialmente `execute()`, debe ser thread-safe, para ello es recomendable solo utilizar variables locales del método y no atributos de la clase, cuyos valores podrían ser accedidos por multiples hilos simultáneamente.*
 
-#### Viewers Personalizadas
+#### Viewers Personalizados
 Una vez visto los conceptos básicos de los [Viewers](#viewers), en el siguiente punto mostraremos como implementar viewers personalizados y añadirlos a la factoría de viewers.
 
 JTestMe permite redifinir todos los viewers por defecto: HTML, JSON, TXT y XML, así como un tipo propio CUSTOM. Además permite cambiar el viewer por defecto al mostrar las páginas en el navegador si no se recibe el parámetro de formato (`{{{http://.../jtestme?format=xml`}}}).
