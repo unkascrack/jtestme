@@ -18,20 +18,36 @@ JTestMe facilita testing de todos estos servicios en tiempo de ejecución de for
 
 JTestMe permite monitorizar tanto aplicaciones Java SE, como Java EE, disponiendo incluso un `javax.servlet.Filter` que construye de forma automática un interfaz HTML para la comprobación de los servicios en cualquier momento.
 
+-----
+
 ## Guía del Usuario
 
-### 1. Introducción
+### Índice
+* [Introducción](#introduccion)
+* [Configuración Básica](#configuracion-basica)
+ * [Tipos Verificators](#tipos-verificators)
+ * [Properties](#properties)
+ * [Viewers](#viewers)
+ * [Java SE](#java-se)
+ * [Java EE](#java-ee)
+ * [Dependencias](#dependencias)
+* [Configuración Avanzada](#configuracion-avanzada)
+ * [Log](#log)
+ * [Parámetros JTestMeFilter](#parametros-jtestmefilter)
+ * [Verificators Personalizados](#verificators-personalizados)
+ * [Viewers Personalizados](#viewers-personalizados)
+ * [Verificators Programados](#verificators-programados)
+ * [Seguridad](#seguridad)
 
+### Introducción
 El objetivo de JTestMe es facilitar la comprobación de los servicios y/o recursos necesarios de una aplicación para su correcta ejecución, de esta forma será posible tener monitorizado en todo momento las dependencias externas de una aplicación.
 
 JTestMe es una librería Java, que es compatible tanto con aplicaciones Java SE, como aplicaciones Java EE, disponiendo incluso de un `javax.servlet.Filter` para poder visualizar de forma sencilla el estado de los recursos de una aplicación.
 
-### 2. Configuración Básica
-
+### Configuración Básica
 JTestMe se puede configurar tanto de forma programática, como mediante archivo properties de configuración externo.
 
-#### 2.1. Tipos Verificators
-
+#### Tipos Verificators
 Lo primero que hemos de conocer son los tipos de verificadores que dispone de manera interna JTestMe para poder utilizarlos:
 * **connection**, verifica conexiones HTTP y HTTPS.
 * **datasource**, verifica conexiones JNDI de java.sql.DataSource.
@@ -47,11 +63,9 @@ Lo primero que hemos de conocer son los tipos de verificadores que dispone de ma
 * **property**, verifica existencia de una propiedad.
 * **smtp**, verifica la conexión con el servidor SMTP.
 * **webservice**, verifica las conexiones con servicios web.
-* **custom**, permite implementar una solución propia para poder verificar un recurso de la aplicación. Más adelante se mostrará como implementar este tipo de verificación en el punto [3.3. Verificators Personalizados] (#verificators-personalizados).
+* **custom**, permite implementar una solución propia para poder verificar un recurso de la aplicación. Más adelante se mostrará como implementar este tipo de verificación en el punto [Verificators Personalizados](#verificators-personalizados).
 
--------------
-
-#### 2.2. Properties
+#### Properties
 Para cada uno de los tipos de test será necesario definir una serie de parámetros para que JTestMe ejecuta de forma correcta la verificación.
 
 Los parámetros de configuración comunes para todos los tipos de test son:
@@ -73,6 +87,9 @@ Para cada tipo de test existen toda una serie de parámetros propios de configur
 * **datasource**:
   * **datasource**, nombre del contexto del DataSource, campo obligatorio.
   * testquery, consulta SQL para verificar el correcto funcionamiento de la conexión a la fuente de datos, campo opcional.
+
+* **file**:
+  * **path**, ruta de carpeta para verificar, campo obligatorio.
 
 * **ftp**:
   * **host**, host del servidor FTP para conectarse, campo obligatorio.
@@ -100,9 +117,16 @@ Para cada tipo de test existen toda una serie de parámetros propios de configur
   * principal, usuario de conexión al servidor LDAP, campo opcional.
   * credentials, password de conexión al servidor LDAP, campo opcional.
 
+* **memory**:
+  * **memorytype**, tipo de memoria, campo obligatorio. Los valores posibles son: `HEAP`, `NONHEAP`, `PERMGEN`, `EDEN` y `OLDGEM`.
+  * **minsize**, tamaño mínimo de memoría en megabytes que debe estar disponible, campo obligatorio.
+  
 * **openoffice**:
   * host, host del servidor donde se encuentra disponible el servicio OpenOffice, campo opcional su valor por defecto es localhost.
   * port, puerto del servicio OpenOffice, campo opcional por defecto es 8700.
+
+* **property**:
+  * **properties**, listado de propiedades, separadas por comas, que deberían estar definidas.
 
 * **smtp**:
   * **host**, host de conexión al servidor SMTP, campo obligatorio.
@@ -245,7 +269,7 @@ jtestme.custom.resolution=Qué hacer si falla el test
 jtestme.custom.param.class=#className implements es.jtestme.verificators.Verificator
 ```
 
-#### 2.3. Viewers
+#### Viewers
 JTestMe tiene definido una serie de visores, `es.jtestme.viewers.Viewer`, por defecto, lo que permite de forma sencilla formatear los resultados obtenidos de la ejecución de los verificators (`es.jtestme.domain.VerificatorResult`).
 
 Los tipos de visores predefinidos están definidos en el enum `es.jtestme.viewers.ViewerType` y son:
@@ -268,7 +292,7 @@ String contentType = jsonViewer.getContentType();
 String content = jsonViewer.getContentViewer(List<es.jtestme.domain.VerificatorResult> verificatorsResults);	
 ```
 
-#### 2.4. Java SE
+#### Java SE
 Para configurar JTestMe en una aplicación Java SE, es necesario invocar al constructor de JTestMe, `es.jtestme.JTestMeBuilder`, el cual permite tanto configurar los verifcators (añadiendolos directamente, o bien mediante archivo de propiedades), y ejecutar los verificators configurados.
 
 El constructor `es.jtestme.JTestMeBuilder`, sigue el patrón Singleton, por lo que se puede invocar desde distintos sitios de la aplicación y siempre se tratará de la misma referencia, solo hay una única instancia.
@@ -307,7 +331,7 @@ es.jtestme.viewers.Viewer viewer = es.jtestme.viewers.ViewerFactory.loadViewer(e
 String txt = viewer.getContentViewer(verificatorsResults);
 ```
 
-#### 2.5. Java EE
+#### Java EE
 Para configurar JTestMe en una aplicación Web, se puede hacer de distintas formas:
 * **automática**, definir en el web.xml el `javax.servlet.Filter` de JTestMe, `es.jtestme.filter.JTestMeFilter` y definir en un archivo properties los verificators.
 * **manual**, invocar al constructor de JTestMe, `es.jtestme.JTestMeBuilder`, al igual que se hace en una aplicación Java SE. Además será necesario configurar los filtros o servlet necesario para mapear la ruta donde se desea mostrar visualmente los resultados de los verificators.
@@ -352,7 +376,7 @@ jtestme.datasource.param.datasource=
 
 > *NOTA: también es posible cargar en tiempo de ejecución verificadores, al igual que se muestra para aplicaciones Java SE. Igualmente se podría arrancar JTestMe sin definir ningún archivo de configuración externo.*
 
-#### 2.6. Dependencias
+#### Dependencias
 La librería JTestMe esta implementado con la versión **1.5** de Java.
 
 Además existirá una serie de dependencias adiciones en función de los verificadores que se utilicen:
@@ -386,10 +410,10 @@ Además existirá una serie de dependencias adiciones en función de los verific
 </dependency>
 ```
 
-### 3. Configuración Avanzada
+### Configuración Avanzada
 A continuación se muestran conceptos avanzados de la librería JTestMe que se pueden aplicar.
 
-#### 3.1. Log
+#### Log
 JTestMe cuenta con un Logger propio, `es.jtestme.logger.JTestMeLogger`. Esta clase no instanciable dispone de las funciones más comunes para lanzar trazas de log utilizando las librerías Java de Logger más utilizadas:
 * **SLF4J**, `org.slf4j.Logger`.
 * **LOG4J**, `org.apache.log4j.Logger`.
@@ -420,7 +444,7 @@ Para una aplicación web, el filtro de JTestMe, dispone de un parámetro para de
 </filter>
 ```
 
-#### 3.2. Parámetros JTestMeFilter
+#### Parámetros JTestMeFilter
 El filtro web de JTestMe, `es.jtestme.filter.JTestMeFilter`, dispone de una serie de parámetros que permiten modificar su configuración por defecto.
 
 Para definir los parámetros de configuración del filtro sólo es necesario definirlos mediante un `<init-param>` en al configuración del `javax.servlet.Filter`.
@@ -467,7 +491,7 @@ Ejemplo:
 * `http://.../jtestme?format=json` ==> resultado JSON
 * `http://.../jtestme?format=XML` ==> resultado XML
 
-#### 3.3. Verificators Personalizados
+#### Verificators Personalizados
 Uno de los tipos de verificators de JTestMe es **custom**, el cual permite definir un tipo de verificator personalizado, siendo necesario programar su comportamiento.
 
 Para definir la configuración del verificator de un tipo **custom** es necesario definir la ruta de la clase que implementa el interface `es.jtestme.verificators.Verificator` en el parámetro `class`. Adicionalmente se pueden pasar parámetros a la clase personalizada que implementa el verificator.
@@ -573,7 +597,7 @@ public class MyCustomVerificator extends es.jtestme.verificators.impl.AbstractVe
 
 > *NOTA: las clases verificators custom sólo son instanciadas una única vez, por lo que sus método, especialmente `execute()`, debe ser thread-safe, para ello es recomendable solo utilizar variables locales del método y no atributos de la clase, cuyos valores podrían ser accedidos por multiples hilos simultáneamente.*
 
-#### 3.4. Viewers Personalizadas
+#### Viewers Personalizadas
 Una vez visto los conceptos básicos de los [Viewers](#viewers), en el siguiente punto mostraremos como implementar viewers personalizados y añadirlos a la factoría de viewers.
 
 JTestMe permite redifinir todos los viewers por defecto: HTML, JSON, TXT y XML, así como un tipo propio CUSTOM. Además permite cambiar el viewer por defecto al mostrar las páginas en el navegador si no se recibe el parámetro de formato (`{{{http://.../jtestme?format=xml`}}}).
@@ -645,7 +669,7 @@ es.jtestme.viewers.Viewer xmlViewer = es.jtestme.viewers.ViewerFactory.loadViewe
 
 *NOTA: los viewers, al igual que los verificators, sólo se instancian una única vez por lo que sus métodos deben ser thread-safe: evitar atributos compartidos.*
 
-#### 3.5. Verificators Programados
+#### Verificators Programados
 JTestMe permite ejecutar de programada los verificators para comprobar el estado de los recursos configurados de la aplicación, mostrando el resultado de esta ejecución mediante una traza LOG.
 
 La configuración del programador de JTestMe permite configurar los siguientes parámetros:
@@ -711,7 +735,7 @@ log4j.appender.mail.layout.ConversionPattern=%m
 
 > NOTA: al producirse fallo en la ejecución de alguno de los verificator sólo se mostrará una única traza de log hasta que solucione el problema.
 
-#### 3.6. Seguridad
+#### Seguridad
 The monitoring page does not contain data such as passwords, but before using it in production, you may probably want that this page is in restricted access. You may secure it by using your own means. Otherwise, it is possible to restrict its access by a regular expression on ip address of client with the parameter allowed-addr-pattern (regular expression with a range of internal ip addresses or fixed ip addresses of administrators). For example, "192\.168\..**|123\.123\.123\.123" to allow the ip addresses in the "192.168.**.**" range plus any pc hiding behind the gateway 123.123.123.123.**
 
 Note that if you use a http proxy server like Apache in front of the server, the ip address of the client will be the one of Apache. So you may not use allowed-addr-pattern in this case, or do not use Apache to access this page, or you may enable mod_proxy_ajp in order that the monitored server knows the ip address of the clients. Example of httpd conf with ajp:
