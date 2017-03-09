@@ -1,17 +1,17 @@
 # JTestMe: Guía del Usuario #
 
-## Índice
-* [Introducción](#introduccion)
-* [Configuración Básica](#configuracion-basica)
+### Índice
+* [Introducción](#introducción)
+* [Configuración Básica](#configuración-básica)
  * [Tipos Verificators](#tipos-verificators)
  * [Properties](#properties)
  * [Viewers](#viewers)
  * [Java SE](#java-se)
  * [Java EE](#java-ee)
  * [Dependencias](#dependencias)
-* [Configuración Avanzada](#configuracion-avanzada)
+* [Configuración Avanzada](#configuración-avanzada)
  * [Log](#log)
- * [Parámetros JTestMeFilter](#parametros-jtestmefilter)
+ * [Parámetros JTestMeFilter](#parámetros-jtestmefilter)
  * [Verificators Personalizados](#verificators-personalizados)
  * [Viewers Personalizados](#viewers-personalizados)
  * [Verificators Programados](#verificators-programados)
@@ -129,14 +129,14 @@ Para cada tipo de test existen toda una serie de parámetros propios de configur
 Para los parámetros es posible introducir claves de variables alojadas en las propiedades del sistema (`System.getProperty`) o recursos del classpath (`classpath:`).
 
 Ejemplo:
-```json
+```properties
 ....param.truststore=${pathTrustStore}/trustore
 ....param.truststore=${trustStorePassword}
 ....param.truststore=classpath:resource
 ```
 
 Ejemplo de archivo de configuración con verificadores JTestMe:
-```json
+```properties
 # Test Connection
 jtestme.connection.type=connection
 jtestme.connection.name=Connection Test
@@ -340,10 +340,10 @@ En este caso se muestra como efectuar la configuración de forma automática, la
 </filter-mapping>
 ```
 
-> Existen diferentes parámetros configuraciones para el `javax.servlet.Filter` de JTestMe, todos ellos son opcionales. Se puede ver todos los parámetros diponibles para la configuración de la librería en el punto [Parámetros JTestMeFilter](#parametros-jtestmefilter).
+> Existen diferentes parámetros configuraciones para el `javax.servlet.Filter` de JTestMe, todos ellos son opcionales. Se puede ver todos los parámetros diponibles para la configuración de la librería en el punto [Parámetros JTestMeFilter](#parámetros-jtestmefilter).
 
 2. Configurar el archivo properties, **jtestme.properties**, en la ruta indicada en los parámetros del filtro:
-```json
+```properties
 ...
 # Test Datasource
 jtestme.datasource.type=datasource
@@ -473,7 +473,7 @@ Ejemplo:
 Uno de los tipos de verificators de JTestMe es **custom**, el cual permite definir un tipo de verificator personalizado, siendo necesario programar su comportamiento.
 
 Para definir la configuración del verificator de un tipo **custom** es necesario definir la ruta de la clase que implementa el interface `es.jtestme.verificators.Verificator` en el parámetro `class`. Adicionalmente se pueden pasar parámetros a la clase personalizada que implementa el verificator.
-```json
+```properties
 ....
 jtestme.custom.type=custom
 jtestme.custom.name=Custom Test
@@ -695,7 +695,7 @@ scheduler.stop();
 La ejecución de los verificators de se ejecutará de forma programada cada X periodo de tiempo definido, si se produce un error en alguno de los verificators se mostrará un mensaje en el Logger con nivel de ERROR, por lo que será necesario que esté activado para poder ver los resultados de la ejecución. En el punto [Log](#log) se puede ver como configurarlo.
 
 Gracias a este ejecución programada y a la librería logger, se puede configurar nuestra aplicación para cuando se produzca un error en cualquiera de los verificators definidos nos avise, por ejemplo mediante un correo electrónico. Ejemplo de configuración de Log4j:
-```json
+```properties
 log4j.rootCategory=INFO
 log4j.logger.es.jtestme.schedule=ERROR, mail
 
