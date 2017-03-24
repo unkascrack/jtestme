@@ -25,7 +25,6 @@ public final class MemoryVerificator extends AbstractVerificator {
         this.minSize = getParamInteger(PARAM_MIN_SIZE, null);
     }
 
-    @Override
     public VerificatorResult execute() {
         final VerificatorResult result = super.getResult();
         if (this.type == null || this.minSize == null) {
